@@ -12,7 +12,6 @@ export class AudioEngine {
 	private readonly inputAudioStreamSource: MediaStreamAudioSourceNode;
 	private requestAnimationFrameId?: number;
 	private _currentFrequency = 0;
-	private _currentPitch = 0;
 	private _currentMusicNote?: MusicNote;
 
 	public readonly bufferLength: number;
@@ -38,10 +37,6 @@ export class AudioEngine {
 		return this._currentFrequency;
 	}
 
-	get currentPitch() {
-		return this._currentPitch;
-	}
-
 	get currentMusicNote() {
 		return this._currentMusicNote;
 	}
@@ -51,7 +46,6 @@ export class AudioEngine {
 		this.analyser.getByteTimeDomainData(this.frequencyData);
 
 		this.setCurrentFrequency();
-		this.setCurrentPitch();
 		this.setCurrentMusicNote();
 	}
 
@@ -76,40 +70,23 @@ export class AudioEngine {
 		}
 	}
 
-	private setCurrentPitch() {
-		const counts: { [key: string]: number } = {};
-
-		let pitch = 0;
-		let max = 0;
-
-		this.frequencyData.forEach((item) => {
-			const value = Math.round(item * 10) / 10;
-
-			counts[value] = (counts[value] || 0) + 1;
-
-			if (counts[value] > max) {
-				max = counts[value];
-				pitch = value;
-			}
-		});
-
-		this._currentPitch = pitch;
-	}
 
 	private setCurrentMusicNote() {
 		let closestLower: MusicNote = MUSIC_NOTES[0];
 		let closestHigher: MusicNote = MUSIC_NOTES[MUSIC_NOTES.length - 1];
 
+		const currentFrequency = this._currentFrequency;
+
 		for (const musicNote of MUSIC_NOTES) {
-			if (musicNote.hz < this._currentPitch) closestLower = musicNote;
-			if (musicNote.hz > this._currentPitch) {
+			if (musicNote.hz < currentFrequency) closestLower = musicNote;
+			if (musicNote.hz > currentFrequency) {
 				closestHigher = musicNote;
 				break; // going from low to high so we can stop here
 			}
 		}
 
-		const distanceToLower = Math.abs(this._currentPitch - closestLower.hz);
-		const distanceToHigher = Math.abs(this._currentPitch - closestHigher.hz);
+		const distanceToLower = Math.abs(currentFrequency - closestLower.hz);
+		const distanceToHigher = Math.abs(currentFrequency - closestHigher.hz);
 
 		this._currentMusicNote =
 			Math.min(distanceToLower, distanceToHigher) === distanceToLower
