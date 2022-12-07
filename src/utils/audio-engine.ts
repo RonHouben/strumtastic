@@ -6,17 +6,16 @@ export class AudioEngine {
 	private readonly audioContext: AudioContext;
 	private readonly analyser: AnalyserNode;
 	private readonly inputAudioStream: MediaStream;
-	private inputAudioStreamSource?: MediaStreamAudioSourceNode;
+	private readonly inputAudioStreamSource: MediaStreamAudioSourceNode;
 	private requestAnimationFrameId?: number;
-	private setIntervalId?: NodeJS.Timeout;
 	private _currentFrequency = 0;
 
 	public readonly bufferLength: number;
 	public readonly frequencyData: Uint8Array;
 
 	constructor({ inputAudioStream }: AudioEngineOptions) {
-		this.audioContext = new AudioContext();
 		this.inputAudioStream = inputAudioStream;
+		this.audioContext = new AudioContext();
 		this.analyser = this.audioContext.createAnalyser();
 
 		this.analyser.fftSize = 2048;
@@ -24,46 +23,21 @@ export class AudioEngine {
 		this.bufferLength = this.analyser.frequencyBinCount;
 		this.frequencyData = new Uint8Array(this.bufferLength);
 
-		this.connectInputAudioStream();
-	}
-
-	private connectInputAudioStream(): void {
+		// connect inputAudioStreamSouce
 		this.inputAudioStreamSource = this.audioContext.createMediaStreamSource(this.inputAudioStream);
 		this.inputAudioStreamSource.connect(this.analyser);
 		// this.analyser.connect(this.audioContext.destination);
-
 	}
 
-	public startInputAudioStream() {
-		console.log('startInputAudioStream');
-
-		this.streamInputAudio();
+	get currentFrequency() {
+		return this._currentFrequency;
 	}
 
 	private streamInputAudio() {
 		this.requestAnimationFrameId = requestAnimationFrame(() => this.streamInputAudio());
-		console.log(this._currentFrequency)
 		this.analyser.getByteTimeDomainData(this.frequencyData);
 
 		this.calculateCurrentFrequency();
-	}
-
-	public stopInputAudioStream() {
-		console.log('stopInputAudioStream');
-
-		if (!this.requestAnimationFrameId) {
-			console.warn('Unable to find requestAnimationFrameId');
-		} else {
-			cancelAnimationFrame(this.requestAnimationFrameId);
-			this.requestAnimationFrameId = undefined;
-		}
-
-		if (!this.setIntervalId) {
-			console.warn('Unable to find setIntervalId');
-		} else {
-			clearTimeout(this.setIntervalId);
-			this.setIntervalId = undefined;
-		}
 	}
 
 	private calculateCurrentFrequency() {
@@ -87,7 +61,20 @@ export class AudioEngine {
 		}
 	}
 
-	get currentFrequency() {
-		return this._currentFrequency;
+	public startInputAudioStream() {
+		console.log('startInputAudioStream');
+
+		this.streamInputAudio();
+	}
+
+	public stopInputAudioStream() {
+		console.log('stopInputAudioStream');
+
+		if (!this.requestAnimationFrameId) {
+			console.warn('Unable to find requestAnimationFrameId');
+		} else {
+			cancelAnimationFrame(this.requestAnimationFrameId);
+			this.requestAnimationFrameId = undefined;
+		}
 	}
 }
