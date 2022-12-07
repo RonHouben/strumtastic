@@ -7,7 +7,6 @@
 	let canvasCtx: CanvasRenderingContext2D | null;
 	let audioEngine: AudioEngine;
 	let frequency = 0;
-	let pitch = 0;
 	let musicNote: MusicNote | undefined;
 
 	onMount(() => {
@@ -38,7 +37,6 @@
 		const drawVisual = requestAnimationFrame(() => draw());
 
 		frequency = audioEngine.currentFrequency;
-		pitch = audioEngine.currentPitch;
 		musicNote = audioEngine.currentMusicNote;
 
 		const WIDTH = canvasRef!.width;
@@ -83,6 +81,5 @@
 	<button on:click={stop}>stop</button>
 
 	<span>hertz: {Math.floor(frequency * 100) / 100}</span>
-	<span>pitch: {pitch}</span>
 	<span>music note: {JSON.stringify(musicNote)}</span>
 </div>
