@@ -25,6 +25,7 @@ export class AudioEngine {
 		this.analyser.fftSize = 2048;
 		this.analyser.minDecibels = -50;
 		this.analyser.maxDecibels = -10;
+		this.analyser.smoothingTimeConstant = 0.85;
 
 
 
