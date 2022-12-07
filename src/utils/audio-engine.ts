@@ -1,47 +1,33 @@
+interface AudioEngineOptions {
+	inputAudioStream: MediaStream;	
+}
+
 export class AudioEngine {
-	private readonly window: Window;
 	private readonly audioContext: AudioContext;
 	private readonly analyser: AnalyserNode;
-	public frequencyData: Uint8Array;
-	private inputAudioStream?: MediaStream;
+	private readonly inputAudioStream: MediaStream;
 	private inputAudioStreamSource?: MediaStreamAudioSourceNode;
 	private requestAnimationFrameId?: number;
 	private setIntervalId?: NodeJS.Timeout;
 	private _currentFrequency = 0;
 
 	public readonly bufferLength: number;
+	public readonly frequencyData: Uint8Array;
 
-	constructor(window: Window) {
-		this.window = window;
+	constructor({ inputAudioStream }: AudioEngineOptions) {
 		this.audioContext = new AudioContext();
+		this.inputAudioStream = inputAudioStream;
 		this.analyser = this.audioContext.createAnalyser();
 
 		this.analyser.fftSize = 2048;
 
 		this.bufferLength = this.analyser.frequencyBinCount;
 		this.frequencyData = new Uint8Array(this.bufferLength);
-	}
 
-	public async requestUserMedia(): Promise<void> {
-		try {
-			this.inputAudioStream = await this.window.navigator.mediaDevices.getUserMedia({
-				audio: true,
-			});
-
-			this.connectInputAudioStream();
-		} catch (error) {
-			console.error('Unable to get microphone stream from user');
-			console.error(error);
-		}
+		this.connectInputAudioStream();
 	}
 
 	private connectInputAudioStream(): void {
-		if (!this.inputAudioStream) {
-			throw new Error(
-				'Missing audio input stream! Make sure to first call AudioEngine.requestAudioInputStream'
-			);
-		}
-
 		this.inputAudioStreamSource = this.audioContext.createMediaStreamSource(this.inputAudioStream);
 		this.inputAudioStreamSource.connect(this.analyser);
 		// this.analyser.connect(this.audioContext.destination);
@@ -52,11 +38,11 @@ export class AudioEngine {
 		console.log('startInputAudioStream');
 
 		this.streamInputAudio();
-
 	}
 
 	private streamInputAudio() {
 		this.requestAnimationFrameId = requestAnimationFrame(() => this.streamInputAudio());
+		console.log(this._currentFrequency)
 		this.analyser.getByteTimeDomainData(this.frequencyData);
 
 		this.calculateCurrentFrequency();

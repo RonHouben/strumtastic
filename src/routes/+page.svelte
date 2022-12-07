@@ -20,9 +20,12 @@
 	}
 
 	async function start() {
-		audioEngine = new AudioEngine(window);
+		const inputAudioStream = await window.navigator.mediaDevices.getUserMedia({
+			audio: true
+		});
 
-		await audioEngine.requestUserMedia();
+		audioEngine = new AudioEngine({ inputAudioStream });
+
 		audioEngine.startInputAudioStream();
 
 		draw();
@@ -74,5 +77,5 @@
 	<button on:click={start}>start</button>
 	<button on:click={stop}>stop</button>
 
-	<span>{Math.floor(frequency)}</span>
+	<span>{Math.floor(frequency * 100) / 100} hertz</span>
 </div>
