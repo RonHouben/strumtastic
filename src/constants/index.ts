@@ -1,5 +1,5 @@
-import { NOTES } from './notes.constant';
+import { MUSIC_NOTES } from './musicnotes.constant';
 
 export {
-	NOTES,
+	MUSIC_NOTES,
 }

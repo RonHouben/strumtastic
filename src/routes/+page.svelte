@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { AudioEngine } from '../utils/audio-engine';
 	import { onMount } from 'svelte';
+	import type { MusicNote } from 'src/constants/musicnotes.constant';
 
 	let canvasRef: HTMLCanvasElement | null;
 	let canvasCtx: CanvasRenderingContext2D | null;
 	let audioEngine: AudioEngine;
 	let frequency = 0;
+	let pitch = 0;
+	let musicNote: MusicNote | undefined;
 
 	onMount(() => {
 		init();
@@ -35,6 +38,8 @@
 		const drawVisual = requestAnimationFrame(() => draw());
 
 		frequency = audioEngine.currentFrequency;
+		pitch = audioEngine.currentPitch;
+		musicNote = audioEngine.currentMusicNote;
 
 		const WIDTH = canvasRef!.width;
 		const HEIGHT = canvasRef!.height;
@@ -77,5 +82,7 @@
 	<button on:click={start}>start</button>
 	<button on:click={stop}>stop</button>
 
-	<span>{Math.floor(frequency * 100) / 100} hertz</span>
+	<span>hertz: {Math.floor(frequency * 100) / 100}</span>
+	<span>pitch: {pitch}</span>
+	<span>music note: {JSON.stringify(musicNote)}</span>
 </div>
