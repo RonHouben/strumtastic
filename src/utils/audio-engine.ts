@@ -23,6 +23,10 @@ export class AudioEngine {
 		this.analyser = this.audioContext.createAnalyser();
 
 		this.analyser.fftSize = 2048;
+		this.analyser.minDecibels = -50;
+		this.analyser.maxDecibels = -10;
+
+
 
 		this.bufferLength = this.analyser.frequencyBinCount;
 		this.frequencyData = new Uint8Array(this.bufferLength);
