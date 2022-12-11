@@ -3,7 +3,16 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**"]
+    },
+    "web#build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "env": [
+        "SOME_OTHER_ENV_VAR"
+      ],
+      "outputs": [".next/**"]
     },
     "lint": {
       "outputs": []
