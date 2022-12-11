@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": {
+    "name": "Ron Houben",
+    "email": "ron.houben85@gmail.com",
+    "url": "https://github.com/RonHouben"
+  },
   "dependencies": {
     "eslint": "^7.23.0",
     "eslint-config-next": "13.0.0",

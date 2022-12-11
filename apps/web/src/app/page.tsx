@@ -1,23 +1,16 @@
 'use client';
 
-import {
-  Oscilator,
-  AudioEngineStartButton,
-  AudioEngineStopButton,
-  AudioEngineCurrentAudioData,
-} from 'ui/components/AudioEngine';
+import { GuitarFretboard } from 'ui/components/GuitarFretboard';
+import { AudioEngineDebugger } from 'ui/components/AudioEngine';
+import { useAudioEngine } from 'ui/hooks/useAudioEngine';
 
 export default function Page() {
+  const audioEngine = useAudioEngine();
+
   return (
-    <div className="container">
-      <div>
-        <Oscilator />
-        <AudioEngineCurrentAudioData />
-      </div>
-      <div>
-        <AudioEngineStartButton />
-        <AudioEngineStopButton />
-      </div>
+    <div>
+      <GuitarFretboard numberOfFrets={24} playedNote={audioEngine.currentMusicNote} />
+      <AudioEngineDebugger />
     </div>
   );
 }

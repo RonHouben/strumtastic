@@ -2,9 +2,15 @@
   "name": "musician",
   "version": "0.0.0",
   "private": true,
+  "author": {
+    "name": "Ron Houben",
+    "email": "ron.houben85@gmail.com",
+    "url": "https://github.com/RonHouben"
+  },
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "music-notes"
   ],
   "scripts": {
     "build": "turbo run build",
