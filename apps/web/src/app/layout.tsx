@@ -12,7 +12,7 @@ export default function RootLayout({ children }: Props) {
       <head>
         <title>Musician</title>
       </head>
-      <body className="">
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>
