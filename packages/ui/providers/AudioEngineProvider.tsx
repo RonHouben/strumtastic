@@ -27,6 +27,13 @@ export function AudioEngineProvider({ children }: Props) {
 
       initAudioEngine();
     }
+
+    // cleanup function
+    return () => {
+      if (audioEngine) {
+        audioEngine.stopInputAudioStream();
+      }
+    }
   }, [audioEngine]);
 
   return (

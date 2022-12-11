@@ -5,15 +5,22 @@ import { useAudioEngine } from '../../hooks/useAudioEngine';
 
 export const Oscilator = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { frequencyData, bufferLength } = useAudioEngine();
+  const { frequencyData, bufferLength, isStreamingAudio } = useAudioEngine();
 
+  // initialise canvas to draw when frequencyData changes
   useEffect(() => {
     if (canvasRef.current) {
       const canvasCtx = canvasRef.current.getContext('2d');
 
+      let requestAnimationFrameId = 0;
+
+      if (!isStreamingAudio) {
+        cancelAnimationFrame(requestAnimationFrameId);
+      }
+
       if (canvasCtx && frequencyData) {
         const draw = () => {
-          const drawVisual = requestAnimationFrame(() => draw());
+          requestAnimationFrameId = requestAnimationFrame(draw);
 
           const WIDTH = canvasCtx.canvas.width;
           const HEIGHT = canvasCtx.canvas.height;
@@ -47,8 +54,12 @@ export const Oscilator = () => {
 
         draw();
       }
+
+      return () => {
+        cancelAnimationFrame(requestAnimationFrameId);
+      };
     }
-  }, [canvasRef, bufferLength, frequencyData]);
+  }, [canvasRef, bufferLength, frequencyData, isStreamingAudio]);
 
   return <canvas ref={canvasRef} />;
 };

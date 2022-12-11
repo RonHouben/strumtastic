@@ -12,6 +12,7 @@ interface AudioEngineResult {
   frequencyData: Uint8Array | null;
   currentFrequency: number;
   currentMusicNote: IMusicNote | null;
+  isStreamingAudio: boolean;
 }
 
 export function useAudioEngine(): AudioEngineResult {
@@ -65,5 +66,6 @@ export function useAudioEngine(): AudioEngineResult {
     currentFrequency: audioEngine?.currentFrequency || 0,
     currentMusicNote: audioEngine?.currentMusicNote || null,
     frequencyData: audioEngine?.frequencyData || null,
+    isStreamingAudio: audioEngine?.isStreamingAudio || false,
   };
 }

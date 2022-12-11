@@ -13,6 +13,7 @@ export class AudioEngine {
 	private requestAnimationFrameId?: number;
 	private _currentFrequency = 0;
 	private _currentMusicNote: IMusicNote | null = null;
+	private _isStreamingAudio: boolean = false;
 
 	public readonly bufferLength: number;
 	public readonly frequencyData: Uint8Array;
@@ -38,12 +39,16 @@ export class AudioEngine {
 		// this.analyser.connect(this.audioContext.destination);
 	}
 
-	get currentFrequency() {
+	get currentFrequency(): number {
 		return this._currentFrequency;
 	}
 
-	get currentMusicNote() {
+	get currentMusicNote(): IMusicNote | null {
 		return this._currentMusicNote;
+	}
+
+	get isStreamingAudio(): boolean {
+		return this._isStreamingAudio;
 	}
 
 	private streamInputAudio() {
@@ -52,6 +57,7 @@ export class AudioEngine {
 
 		this.setCurrentFrequency();
 		this.setCurrentMusicNote();
+		this.setIsStreamingAudio(true);
 	}
 
 	private setCurrentFrequency() {
@@ -102,6 +108,10 @@ export class AudioEngine {
 				: closestHigher;
 	}
 
+	private setIsStreamingAudio(isStreamingAudio: boolean) {
+		this._isStreamingAudio = isStreamingAudio;	
+	}
+
 	public startInputAudioStream() {
 		console.log('startInputAudioStream');
 
@@ -117,5 +127,7 @@ export class AudioEngine {
 			cancelAnimationFrame(this.requestAnimationFrameId);
 			this.requestAnimationFrameId = undefined;
 		}
+
+		this.setIsStreamingAudio(false);
 	}
 }
