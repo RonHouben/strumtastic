@@ -1,13 +1,17 @@
+import { Row } from './Row';
+
 interface Props {
   numberOfFrets: number;
 }
 
 export const GuitarFretboardFretNumbers = ({ numberOfFrets }: Props) => {
   return (
-    <div id="fret-numbers" className="flex justify-between">
+    <Row>
       {new Array(numberOfFrets + 1).fill(1).map((_, i) => (
-        <div key={i}>{i}</div>
+        <div className="w-[2em]">
+          <span key={i}>{i}</span>
+        </div>
       ))}
-    </div>
+    </Row>
   );
 };

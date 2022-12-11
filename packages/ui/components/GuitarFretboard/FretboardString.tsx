@@ -1,5 +1,7 @@
 import { FlatsOrSharps, IMusicNote, MusicNotes, StringName } from 'music-notes';
+import { useMemo } from 'react';
 import { Fret } from './Fret';
+import { Row } from './Row';
 
 interface Props {
   stringName: StringName;
@@ -14,18 +16,22 @@ export const GuitarFretboardString = ({
   flatsOrSharps,
   playedNote
 }: Props) => {
-  const musicNotes = MusicNotes.getNotesForString(stringName, numberOfFrets);
+  const musicNotes = useMemo(
+    () => MusicNotes.getNotesForString(stringName, numberOfFrets),
+    [stringName, numberOfFrets]
+  );
 
   return (
-    <div id={`string-${stringName}`} className="flex justify-between">
+    <Row>
       {musicNotes.map((note, i) => (
         <Fret
-					key={i}
+          key={i}
           flatsOrSharps={flatsOrSharps}
           musicNote={note}
           isPlayed={note === playedNote}
+          isRoot={true}
         />
       ))}
-    </div>
+    </Row>
   );
 };

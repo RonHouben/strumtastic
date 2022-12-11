@@ -9,7 +9,7 @@ interface Props {
 
 export const GuitarFretboard = ({ numberOfFrets, playedNote }: Props) => {
   return (
-    <div id="guitar-fretboard">
+    <div id="guitar-fretboard-container" className="">
       <GuitarFretboardFretNumbers numberOfFrets={numberOfFrets} />
       <GuitarFretboardString
         stringName="E4"

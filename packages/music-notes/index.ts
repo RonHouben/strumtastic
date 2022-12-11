@@ -1,5 +1,5 @@
 import { MUSIC_NOTES } from './constants/musicnotes.constant';
-import { IMusicNote, StringName } from './types';
+import { FlatsOrSharps, IMusicNote, StringName } from './types';
 
 export * from './types';
 
@@ -52,6 +52,25 @@ export class MusicNotes {
       )
     );
 
-    return MUSIC_NOTES.slice(firstNoteIndex, lastNoteIndex);
+    return MUSIC_NOTES.slice(firstNoteIndex, lastNoteIndex + 1);
+  }
+
+  static getNoteName(
+    flatOrSharp: FlatsOrSharps,
+    musicNote: IMusicNote
+  ): string {
+    if (musicNote.names.natural) {
+      return musicNote.names.natural;
+    }
+
+    if (flatOrSharp === 'flats' && musicNote.names.flat) {
+      return musicNote.names.flat;
+    }
+
+    if (flatOrSharp === 'sharps' && musicNote.names.sharp) {
+      return musicNote.names.sharp;
+    }
+
+    throw new Error(`Couldn't find note name for: ${flatOrSharp} ${JSON.stringify(musicNote.names)}`)
   }
 }

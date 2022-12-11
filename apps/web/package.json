@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "npm run dev:tailwind",
-    "dev:tailwind": "concurrently \"next dev --turbo\" \"npm run tailwind -- --watch\"",
+    "dev:tailwind": "concurrently \"next dev \" \"npm run tailwind -- --watch\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

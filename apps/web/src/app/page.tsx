@@ -8,7 +8,7 @@ export default function Page() {
   const audioEngine = useAudioEngine();
 
   return (
-    <div className="container">
+    <div>
       <GuitarFretboard numberOfFrets={24} playedNote={audioEngine.currentMusicNote} />
       <AudioEngineDebugger />
     </div>

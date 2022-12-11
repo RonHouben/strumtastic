@@ -267,7 +267,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'A2', fret: 24 },
       { string: 'D3', fret: 19 },
       { string: 'G3', fret: 14 },
-      { string: 'B3', fret: 9 },
+      { string: 'B3', fret: 10 },
       { string: 'E4', fret: 5 }
     ],
     hz: 440,
@@ -277,7 +277,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
     positions: [
       { string: 'D3', fret: 20 },
       { string: 'G3', fret: 15 },
-      { string: 'B3', fret: 10 },
+      { string: 'B3', fret: 11 },
       { string: 'E4', fret: 6 }
     ],
     hz: 466.164,
@@ -287,7 +287,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
     positions: [
       { string: 'D3', fret: 21 },
       { string: 'G3', fret: 16 },
-      { string: 'B3', fret: 11 },
+      { string: 'B3', fret: 12 },
       { string: 'E4', fret: 7 }
     ],
     hz: 493.883,
@@ -297,7 +297,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
     positions: [
       { string: 'D3', fret: 22 },
       { string: 'G3', fret: 17 },
-      { string: 'B3', fret: 12 },
+      { string: 'B3', fret: 13 },
       { string: 'E4', fret: 8 }
     ],
     hz: 523.251,
@@ -307,7 +307,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
     positions: [
       { string: 'D3', fret: 23 },
       { string: 'G3', fret: 18 },
-      { string: 'B3', fret: 13 },
+      { string: 'B3', fret: 14 },
       { string: 'E4', fret: 9 }
     ],
     hz: 554.365,
@@ -317,7 +317,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
     positions: [
       { string: 'D3', fret: 24 },
       { string: 'G3', fret: 19 },
-      { string: 'B3', fret: 14 },
+      { string: 'B3', fret: 15 },
       { string: 'E4', fret: 10 }
     ],
     hz: 587.33,
@@ -326,7 +326,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [
       { string: 'G3', fret: 20 },
-      { string: 'B3', fret: 15 },
+      { string: 'B3', fret: 16 },
       { string: 'E4', fret: 11 }
     ],
     hz: 622.254,
@@ -335,7 +335,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [
       { string: 'G3', fret: 21 },
-      { string: 'B3', fret: 16 },
+      { string: 'B3', fret: 17 },
       { string: 'E4', fret: 12 }
     ],
     hz: 659.255,
@@ -344,7 +344,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [
       { string: 'G3', fret: 22 },
-      { string: 'B3', fret: 17 },
+      { string: 'B3', fret: 18 },
       { string: 'E4', fret: 13 }
     ],
     hz: 698.456,
@@ -353,7 +353,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [
       { string: 'G3', fret: 23 },
-      { string: 'B3', fret: 18 },
+      { string: 'B3', fret: 19 },
       { string: 'E4', fret: 14 }
     ],
     hz: 739.989,
@@ -362,7 +362,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [
       { string: 'G3', fret: 24 },
-      { string: 'B3', fret: 19 },
+      { string: 'B3', fret: 20 },
       { string: 'E4', fret: 15 }
     ],
     hz: 783.991,
@@ -370,7 +370,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   },
   {
     positions: [
-      { string: 'B3', fret: 20 },
+      { string: 'B3', fret: 21 },
       { string: 'E4', fret: 16 }
     ],
     hz: 830.609,
@@ -378,7 +378,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   },
   {
     positions: [
-      { string: 'B3', fret: 21 },
+      { string: 'B3', fret: 22 },
       { string: 'E4', fret: 17 }
     ],
     hz: 880,
@@ -386,7 +386,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   },
   {
     positions: [
-      { string: 'B3', fret: 22 },
+      { string: 'B3', fret: 23 },
       { string: 'E4', fret: 18 }
     ],
     hz: 932.328,
@@ -394,7 +394,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   },
   {
     positions: [
-      { string: 'B3', fret: 23 },
+      { string: 'B3', fret: 24 },
       { string: 'E4', fret: 19 }
     ],
     hz: 987.767,
@@ -402,7 +402,6 @@ export const MUSIC_NOTES: IMusicNote[] = [
   },
   {
     positions: [
-      { string: 'B3', fret: 24 },
       { string: 'E4', fret: 20 }
     ],
     hz: 1046.5,
