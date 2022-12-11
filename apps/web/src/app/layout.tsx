@@ -2,11 +2,11 @@ import '@styles/dist.css';
 import React from 'react';
 import { Providers } from './providers';
 
-export default function RootLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: Props) {
   return (
     <html>
       <head>
