@@ -4,6 +4,11 @@
   "main": "index.tsx",
   "types": "index.tsx",
   "license": "MIT",
+  "author": {
+    "name": "Ron Houben",
+    "email": "ron.houben85@gmail.com",
+    "url": "https://github.com/RonHouben"
+  },
   "scripts": {
     "lint": "TIMING=1 eslint \"**/*.ts*\""
   },

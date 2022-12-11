@@ -2,6 +2,11 @@
   "name": "tsconfig",
   "version": "0.0.0",
   "private": true,
+  "author": {
+    "name": "Ron Houben",
+    "email": "ron.houben85@gmail.com",
+    "url": "https://github.com/RonHouben"
+  },
   "files": [
     "base.json",
     "nextjs.json",

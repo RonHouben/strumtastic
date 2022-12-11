@@ -1,6 +1,11 @@
 {
   "name": "web",
   "private": true,
+  "author": {
+    "name": "Ron Houben",
+    "email": "ron.houben85@gmail.com",
+    "url": "https://github.com/RonHouben"
+  },
   "scripts": {
     "dev": "npm run dev:tailwind",
     "dev:tailwind": "concurrently \"next dev --turbo\" \"npm run tailwind -- --watch\"",
@@ -20,6 +25,7 @@
   "dependencies": {
     "ui": "*",
     "audio-engine": "*",
+    "music-notes": "*",
     "clsx": "1.2.1",
     "concurrently": "7.6.0",
     "next": "latest",

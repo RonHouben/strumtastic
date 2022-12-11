@@ -1,4 +1,4 @@
-import { IMusicNote } from 'audio-engine/constants/musicnotes.constant';
+import { IMusicNote } from "music-notes";
 
 interface Props {
   musicNote: IMusicNote | null;

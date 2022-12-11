@@ -1,6 +1,3 @@
-import type { IMusicNote } from './constants/musicnotes.constant';
-import { MUSIC_NOTES } from './constants';
-
 interface AudioEngineOptions {
 	inputAudioStream: MediaStream;
 }
@@ -12,7 +9,6 @@ export class AudioEngine {
 	private readonly inputAudioStreamSource: MediaStreamAudioSourceNode;
 	private requestAnimationFrameId?: number;
 	private _currentFrequency = 0;
-	private _currentMusicNote: IMusicNote | null = null;
 	private _isStreamingAudio: boolean = false;
 
 	public readonly bufferLength: number;
@@ -43,10 +39,6 @@ export class AudioEngine {
 		return this._currentFrequency;
 	}
 
-	get currentMusicNote(): IMusicNote | null {
-		return this._currentMusicNote;
-	}
-
 	get isStreamingAudio(): boolean {
 		return this._isStreamingAudio;
 	}
@@ -56,7 +48,6 @@ export class AudioEngine {
 		this.analyser.getByteTimeDomainData(this.frequencyData);
 
 		this.setCurrentFrequency();
-		this.setCurrentMusicNote();
 		this.setIsStreamingAudio(true);
 	}
 
@@ -79,33 +70,6 @@ export class AudioEngine {
 
 			lastItem = currentItem;
 		}
-	}
-
-
-	private setCurrentMusicNote() {
-		let closestLower: IMusicNote = MUSIC_NOTES[0];
-		let closestHigher: IMusicNote = MUSIC_NOTES[MUSIC_NOTES.length - 1];
-		
-		const currentFrequency = this._currentFrequency;
-
-		for (const musicNote of MUSIC_NOTES) {
-			if (musicNote.hz < currentFrequency) {
-				closestLower = musicNote;
-			}
-
-			if (musicNote.hz > currentFrequency) {
-				closestHigher = musicNote;
-				break; // going from low to high so we can stop here
-			}
-		}
-
-		const distanceToLower = Math.abs(currentFrequency - closestLower.hz);
-		const distanceToHigher = Math.abs(currentFrequency - closestHigher.hz);
-
-		this._currentMusicNote =
-			Math.min(distanceToLower, distanceToHigher) === distanceToLower
-				? closestLower
-				: closestHigher;
 	}
 
 	private setIsStreamingAudio(isStreamingAudio: boolean) {

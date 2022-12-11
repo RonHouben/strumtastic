@@ -8,11 +8,11 @@ export const AudioEngineDebugger = () => {
   return (
     <>
       <Oscilator />
-      <AudioEngineCurrentAudioData />
       <ButtonGroup>
         <AudioEngineStartButton />
         <AudioEngineStopButton />
       </ButtonGroup>
+      <AudioEngineCurrentAudioData />
     </>
   );
 };
