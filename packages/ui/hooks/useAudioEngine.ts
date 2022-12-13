@@ -9,10 +9,11 @@ interface AudioEngineResult {
   startInputAudioStream: Function;
   stopInputAudioStream: Function;
   bufferLength: number;
-  frequencyData: Uint8Array | null;
+  frequencyData: Float32Array | null;
   currentFrequency: number;
   currentMusicNote: IMusicNote;
   isStreamingAudio: boolean;
+  test: string;
 }
 
 export function useAudioEngine(): AudioEngineResult {
@@ -67,5 +68,6 @@ export function useAudioEngine(): AudioEngineResult {
     currentMusicNote: MusicNotes.getNoteFromFrequency(audioEngine?.currentFrequency || 0),
     frequencyData: audioEngine?.frequencyData || null,
     isStreamingAudio: audioEngine?.isStreamingAudio || false,
+    test: MusicNotes.noteFromPitch(audioEngine?.currentFrequency || -1),
   };
 }

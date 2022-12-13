@@ -16,10 +16,12 @@ export function AudioEngineProvider({ children }: Props) {
     if (!audioEngine) {
       const initAudioEngine = async () => {
         const inputAudioStream =
-          await window.navigator.mediaDevices.getUserMedia({ audio: true });
+          await window.navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
 
         const audioEngine = new AudioEngine({
-          inputAudioStream,
+          inputAudioStream
         });
 
         setAudioEngine(audioEngine);
@@ -33,7 +35,7 @@ export function AudioEngineProvider({ children }: Props) {
       if (audioEngine) {
         audioEngine.stopInputAudioStream();
       }
-    }
+    };
   }, [audioEngine]);
 
   return (

@@ -31,21 +31,10 @@ export const Oscilator = () => {
           canvasCtx.lineWidth = 2;
           canvasCtx.strokeStyle = 'rgb(255, 0, 0)';
           canvasCtx.beginPath();
+          canvasCtx.moveTo(0, HEIGHT / 2)
 
-          const sliceWidth = WIDTH / bufferLength;
-          let x = 0;
-
-          for (let i = 0; i < bufferLength; i++) {
-            const v = frequencyData[i] / 128.0;
-            const y = v * (HEIGHT / 2);
-
-            if (i === 0) {
-              canvasCtx.moveTo(x, y);
-            } else {
-              canvasCtx.lineTo(x, y);
-            }
-
-            x += sliceWidth;
+          for (let i = 1; i < WIDTH ; i++) {
+            canvasCtx.lineTo(i, (HEIGHT / 2 )+(frequencyData[i]*128))
           }
 
           canvasCtx.lineTo(WIDTH, HEIGHT / 2);
