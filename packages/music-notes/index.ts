@@ -1,4 +1,3 @@
-import { pi } from 'mathjs';
 import { MUSIC_NOTES } from './constants/musicnotes.constant';
 import { FlatsOrSharps, IMusicNote, StringName } from './types';
 
@@ -11,6 +10,10 @@ const A = 2 ** (1 / 12) // the twelth root of 2 = the number which when multipli
 const C0_PITCH = 16.35 // frequency of lowest note: C0
 
 export class MusicNotes {
+  static getAllMusicNotes(): IMusicNote[] {
+    return MUSIC_NOTES;
+  }
+
   static getNoteFromFrequency(frequency: number): IMusicNote {
     let closestLower: IMusicNote = MUSIC_NOTES[0];
     let closestHigher: IMusicNote = MUSIC_NOTES[MUSIC_NOTES.length - 1];

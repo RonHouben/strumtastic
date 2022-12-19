@@ -8,6 +8,7 @@ export const AudioEngineCurrentAudioData = () => {
 
   return (
     <div className='flex flex-col'>
+      <span>{test}</span>
       <Note noteName={test} />
       <Hertz hertz={currentFrequency} />
       <MusicNote musicNote={currentMusicNote} />

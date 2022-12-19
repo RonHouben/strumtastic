@@ -1,4 +1,4 @@
-export * from './Oscilator';
+export * from './WaveFormAnalyser';
 export * from './StartButton';
 export * from './StopButton';
 export * from './Hertz';

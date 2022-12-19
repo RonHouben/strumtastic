@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
 
-export const Oscilator = () => {
+export const WaveFormAnayliser = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { frequencyData, bufferLength, isStreamingAudio } = useAudioEngine();
 

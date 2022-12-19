@@ -21,7 +21,13 @@ export function AudioEngineProvider({ children }: Props) {
           });
 
         const audioEngine = new AudioEngine({
-          inputAudioStream
+          inputAudioStream,
+          debug: {
+            oscillator: {
+              hertz: 440,
+              type: 'sine',
+            }
+          }
         });
 
         setAudioEngine(audioEngine);
@@ -29,13 +35,6 @@ export function AudioEngineProvider({ children }: Props) {
 
       initAudioEngine();
     }
-
-    // cleanup function
-    return () => {
-      if (audioEngine) {
-        audioEngine.stopInputAudioStream();
-      }
-    };
   }, [audioEngine]);
 
   return (

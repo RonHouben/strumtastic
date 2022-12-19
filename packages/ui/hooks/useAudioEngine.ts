@@ -6,8 +6,9 @@ import { AudioEngineContext } from '../providers/AudioEngineProvider';
 import { IMusicNote, MusicNotes } from 'music-notes';
 
 interface AudioEngineResult {
-  startInputAudioStream: Function;
-  stopInputAudioStream: Function;
+  startInputAudioStream: () => void;
+  stopInputAudioStream: () => void;
+  setOscillatorFrequency: (frequency: number) => void;
   bufferLength: number;
   frequencyData: Float32Array | null;
   currentFrequency: number;
@@ -19,7 +20,7 @@ interface AudioEngineResult {
 export function useAudioEngine(): AudioEngineResult {
   const audioEngineCtx = useContext(AudioEngineContext);
   const [audioEngine, setAudioEngine] = useState<AudioEngine | null>(
-    audioEngineCtx,
+    audioEngineCtx
   );
 
   const [requestAnimationFrameId, setRequestAnimationFrameId] =
@@ -46,7 +47,7 @@ export function useAudioEngine(): AudioEngineResult {
 
       if (requestAnimationFrameId !== 0) {
         console.warn(
-          'AudioEngine audio stream is already running. Stop it first!',
+          'AudioEngine audio stream is already running. Stop it first!'
         );
       }
 
@@ -63,11 +64,15 @@ export function useAudioEngine(): AudioEngineResult {
 
       audioEngineCtx.stopInputAudioStream();
     },
+    setOscillatorFrequency: (frequency: number) =>
+      audioEngine?.setOscillatorFrequency(frequency) || undefined,
     bufferLength: audioEngine?.bufferLength || 0,
     currentFrequency: audioEngine?.currentFrequency || 0,
-    currentMusicNote: MusicNotes.getNoteFromFrequency(audioEngine?.currentFrequency || 0),
+    currentMusicNote: MusicNotes.getNoteFromFrequency(
+      audioEngine?.currentFrequency || 0
+    ),
     frequencyData: audioEngine?.frequencyData || null,
     isStreamingAudio: audioEngine?.isStreamingAudio || false,
-    test: MusicNotes.noteFromPitch(audioEngine?.currentFrequency || -1),
+    test: MusicNotes.noteFromPitch(audioEngine?.currentFrequency || -1)
   };
 }
