@@ -7,7 +7,7 @@ interface Props {
   stringName: StringName;
   numberOfFrets: number;
   flatsOrSharps: FlatsOrSharps;
-  playedNote?: IMusicNote;
+  currentlyPlayedNote?: IMusicNote;
   notesToPlay: IMusicNote[];
 }
 
@@ -15,7 +15,7 @@ export const GuitarFretboardString = ({
   numberOfFrets,
   stringName,
   flatsOrSharps,
-  playedNote,
+  currentlyPlayedNote,
   notesToPlay
 }: Props) => {
   const musicNotes = useMemo(
@@ -30,7 +30,8 @@ export const GuitarFretboardString = ({
           key={i}
           flatsOrSharps={flatsOrSharps}
           musicNote={note}
-          isPlayed={note === playedNote}
+          isCurrentlyPlaying={note === currentlyPlayedNote}
+          isPlayed={note === currentlyPlayedNote}
           isRoot={true}
           toBePlayed={notesToPlay.includes(note)}
         />

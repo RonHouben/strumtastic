@@ -13,9 +13,9 @@ export default function Page() {
     <div>
       <GuitarFretboard
         numberOfFrets={24}
-        playedNote={audioEngine.currentMusicNote}
+        currentlyPlayedNote={audioEngine.currentMusicNote}
         notesToPlay={musicNotes.filter((note) =>
-          note.positions.some((pos) => pos.string === 'E2'),
+          note.positions.some((pos) => pos.string === 'E2' && pos.fret === 12),
         )}
       />
       <AudioEngineDebugger />

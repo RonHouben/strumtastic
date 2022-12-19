@@ -19,7 +19,7 @@ export const Oscillator = () => {
       >
         {musicNotes.map((note, i) => (
           <option key={i} value={note.hz}>
-            {Object.values(note.names)}
+            {Object.values(note.names).join('/')}
           </option>
         ))}
       </select>
