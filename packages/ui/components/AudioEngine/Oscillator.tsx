@@ -1,14 +1,13 @@
-import { useMemo } from 'react';
+import { IMusicNote } from 'music-notes';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const Oscillator = () => {
-  const { getAllMusicNotes } = useMusicNotes();
+  const { allMusicNotes } = useMusicNotes();
   const { setOscillatorFrequency } = useAudioEngine();
-  const musicNotes = useMemo(getAllMusicNotes, [getAllMusicNotes]);
 
-  const handleSelect = (option: string) => {
-    setOscillatorFrequency(Number(option));
+  const handleSelect = (note: IMusicNote) => {
+    setOscillatorFrequency(Number(note.hz));
   };
 
   return (
@@ -16,12 +15,12 @@ export const Oscillator = () => {
       <label htmlFor='select-oscillator-note'>Set Oscillator Note:</label>
       <select
         id='select-oscillator-note'
-        onChange={(e) => handleSelect(e.currentTarget.value)}
+        onChange={(e) => handleSelect(JSON.parse(e.currentTarget.value))}
         className="rounded-sm bg-slate-500"
       >
-        {musicNotes.map((note, i) => (
-          <option key={i} value={note.hz}>
-            {Object.values(note.names)}
+        {allMusicNotes.map((note, i) => (
+          <option key={i} value={JSON.stringify(note)}>
+            {`${note.octave} - ${Object.values(note.names).join('/')}`}
           </option>
         ))}
       </select>

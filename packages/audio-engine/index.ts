@@ -42,7 +42,6 @@ export class AudioEngine {
     this.inputAudioStreamSource = this.audioContext.createMediaStreamSource(
       this.inputAudioStream
     );
-    this.inputAudioStreamSource.connect(this.analyser);
     // this.analyser.connect(this.audioContext.destination);
 
     if (debug?.oscillator) {
@@ -65,8 +64,6 @@ export class AudioEngine {
       options.hertz,
       this.audioContext.currentTime
     );
-
-    this.oscillator.connect(this.analyser);
   }
 
   private streamInputAudio() {
@@ -149,7 +146,10 @@ export class AudioEngine {
 
     // this is for debug purposes
     if (this.oscillator) {
+      this.oscillator.connect(this.analyser);
       this.oscillator.start();
+    } else {
+      this.inputAudioStreamSource.connect(this.analyser);
     }
 
     this.streamInputAudio();
@@ -158,7 +158,7 @@ export class AudioEngine {
   public stopInputAudioStream() {
     console.log('stopInputAudioStream');
 
-    if (this.oscillator && this.oscillator) {
+    if (this.oscillator) {
       this.oscillator.stop();
     }
 

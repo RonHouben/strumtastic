@@ -1,35 +1,32 @@
-import { FlatsOrSharps, IMusicNote, MusicNotes, StringName } from 'music-notes';
-import { useMemo } from 'react';
+import { FlatsOrSharps, IMusicNote, StringName } from 'music-notes';
+import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Fret } from './Fret';
 import { Row } from './Row';
 
 interface Props {
   stringName: StringName;
   numberOfFrets: number;
-  flatsOrSharps: FlatsOrSharps;
-  playedNote?: IMusicNote;
+  showFlatsOrSharps: FlatsOrSharps;
+  notesToPlay: IMusicNote[];
 }
 
 export const GuitarFretboardString = ({
   numberOfFrets,
   stringName,
-  flatsOrSharps,
-  playedNote
+  showFlatsOrSharps,
+  notesToPlay
 }: Props) => {
-  const musicNotes = useMemo(
-    () => MusicNotes.getNotesForString(stringName, numberOfFrets),
-    [stringName, numberOfFrets]
-  );
+  const { getMusicNotesForString } = useMusicNotes();
 
   return (
     <Row>
-      {musicNotes.map((note, i) => (
+      {getMusicNotesForString(stringName, numberOfFrets).map((note, i) => (
         <Fret
           key={i}
-          flatsOrSharps={flatsOrSharps}
+          showFlatsOrSharps={showFlatsOrSharps}
           musicNote={note}
-          isPlayed={note === playedNote}
           isRoot={true}
+          toBePlayed={notesToPlay.includes(note)}
         />
       ))}
     </Row>

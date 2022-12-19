@@ -2,6 +2,7 @@ export interface IMusicNote {
   names: MusicNoteName;
   hz: number;
   positions: GuitarNotePosition[];
+  octave: number;
 }
 
 interface MusicNoteName {
