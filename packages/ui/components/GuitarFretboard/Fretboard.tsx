@@ -15,42 +15,42 @@ export const GuitarFretboard = ({ numberOfFrets, currentlyPlayedNote, notesToPla
       <GuitarFretboardString
         stringName="E4"
         numberOfFrets={numberOfFrets}
-        flatsOrSharps="sharps"
+        showFlatsOrSharps="sharps"
         currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="B3"
         numberOfFrets={numberOfFrets}
-        flatsOrSharps="sharps"
+        showFlatsOrSharps="sharps"
         currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="G3"
         numberOfFrets={numberOfFrets}
-        flatsOrSharps="sharps"
+        showFlatsOrSharps="sharps"
         currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="D3"
         numberOfFrets={numberOfFrets}
-        flatsOrSharps="sharps"
+        showFlatsOrSharps="sharps"
         currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="A2"
         numberOfFrets={numberOfFrets}
-        flatsOrSharps="sharps"
+        showFlatsOrSharps="sharps"
         currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="E2"
         numberOfFrets={numberOfFrets}
-        flatsOrSharps="sharps"
+        showFlatsOrSharps="sharps"
         currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />

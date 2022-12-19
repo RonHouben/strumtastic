@@ -1,14 +1,22 @@
-import { IMusicNote, MusicNotes } from 'music-notes';
+import { FlatsOrSharps, IMusicNote, MusicNotes, StringName } from 'music-notes';
 import { useMemo } from 'react';
 
 interface UseMusicNotesResult {
-	musicNotes: IMusicNote[];
+	allMusicNotes: IMusicNote[];
+	getMusicNotesByNoteName: (noteNames: string[]) => IMusicNote[];
+	getMusicNoteByNoteName: (noteName: string) => IMusicNote | undefined;
+	getNoteName: (flatOrSharp: FlatsOrSharps, musicNote: IMusicNote) => string;
+	getMusicNotesForString: (stringName: StringName, numberOfFrets: number) => IMusicNote[];
 }
 
 export function useMusicNotes(): UseMusicNotesResult {
-	const musicNotes = useMemo(MusicNotes.getAllMusicNotes, []);
+	const allMusicNotes = useMemo(MusicNotes.getAllMusicNotes, []);
 
 	return {
-		musicNotes
+		allMusicNotes,
+		getMusicNotesByNoteName: MusicNotes.getMusicNotesByNames,
+		getMusicNoteByNoteName: MusicNotes.getMusicNoteByName,
+		getNoteName: MusicNotes.getNoteName,
+		getMusicNotesForString: MusicNotes.getNotesForString,
 	}
 }

@@ -3,11 +3,24 @@ import { FlatsOrSharps, IMusicNote, StringName } from './types';
 
 export * from './types';
 
-const NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"] as const;
-const CONCERT_PITCH = 440 //frequency of a fixed note, which is used as a standard for tuning. It is usually a standard (also called concert) pitch of 440 Hz, which is called A440 or note A in the one-line (or fourth) octave (A4)
-const MIDI = 69 // the MIDI note number of A4
-const A = 2 ** (1 / 12) // the twelth root of 2 = the number which when multiplied by itself 12 times equals 2 = 1.059463094359...
-const C0_PITCH = 16.35 // frequency of lowest note: C0
+const NOTES = [
+  'C',
+  'C#',
+  'D',
+  'D#',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'G#',
+  'A',
+  'A#',
+  'B'
+] as const;
+const CONCERT_PITCH = 440; //frequency of a fixed note, which is used as a standard for tuning. It is usually a standard (also called concert) pitch of 440 Hz, which is called A440 or note A in the one-line (or fourth) octave (A4)
+const MIDI = 69; // the MIDI note number of A4
+const A = 2 ** (1 / 12); // the twelth root of 2 = the number which when multiplied by itself 12 times equals 2 = 1.059463094359...
+const C0_PITCH = 16.35; // frequency of lowest note: C0
 
 export class MusicNotes {
   static getAllMusicNotes(): IMusicNote[] {
@@ -42,10 +55,10 @@ export class MusicNotes {
       return '-';
     }
 
-    const N = Math.round(12 * Math.log2(pitch/ CONCERT_PITCH)) // the number of half steps away from the fixed note you are. If you are at a higher note, n is positive. If you are on a lower note, n is negative.
-    const Fn = CONCERT_PITCH * A ** N // the frequency of the note n half steps away of concert pitch
-    const noteIndex = (N + MIDI) % 12 // index of note letter from NOTES array
-    const octave = Math.floor(Math.log2(Fn / C0_PITCH))
+    const N = Math.round(12 * Math.log2(pitch / CONCERT_PITCH)); // the number of half steps away from the fixed note you are. If you are at a higher note, n is positive. If you are on a lower note, n is negative.
+    const Fn = CONCERT_PITCH * A ** N; // the frequency of the note n half steps away of concert pitch
+    const noteIndex = (N + MIDI) % 12; // index of note letter from NOTES array
+    const octave = Math.floor(Math.log2(Fn / C0_PITCH));
 
     return NOTES[noteIndex] + octave;
   }
@@ -99,5 +112,27 @@ export class MusicNotes {
         musicNote.names
       )}`
     );
+  }
+
+  static getMusicNotesByNames(noteNames: string[]): IMusicNote[] {
+    return MUSIC_NOTES.filter((note) =>
+      noteNames.some((noteName) =>
+        Object.values(note.names).some((name: string) =>
+          name.includes(noteName)
+        )
+      )
+    );
+  }
+
+  static getMusicNoteByName(noteName: string): IMusicNote | undefined {
+    const result = MUSIC_NOTES.find((note) =>
+      Object.values(note.names).some((name: string) => name.includes(noteName))
+    );
+
+    if (!result) {
+      console.log('NO MUSIC NOTE FOUND BY NAME: ', noteName);
+    }
+
+    return result;
   }
 }
