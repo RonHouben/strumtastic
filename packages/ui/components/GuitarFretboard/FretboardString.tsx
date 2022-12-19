@@ -7,7 +7,6 @@ interface Props {
   stringName: StringName;
   numberOfFrets: number;
   showFlatsOrSharps: FlatsOrSharps;
-  currentlyPlayedNote?: IMusicNote;
   notesToPlay: IMusicNote[];
 }
 
@@ -15,7 +14,6 @@ export const GuitarFretboardString = ({
   numberOfFrets,
   stringName,
   showFlatsOrSharps,
-  currentlyPlayedNote,
   notesToPlay
 }: Props) => {
   const { getMusicNotesForString } = useMusicNotes();
@@ -27,8 +25,6 @@ export const GuitarFretboardString = ({
           key={i}
           showFlatsOrSharps={showFlatsOrSharps}
           musicNote={note}
-          isCurrentlyPlaying={note === currentlyPlayedNote}
-          isPlayed={note === currentlyPlayedNote}
           isRoot={true}
           toBePlayed={notesToPlay.includes(note)}
         />

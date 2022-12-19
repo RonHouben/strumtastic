@@ -7,20 +7,15 @@ import { useExercise } from 'ui/hooks/useExercise';
 import { useEffect } from 'react';
 
 export default function Page() {
-  const audioEngine = useAudioEngine();
   const { state } = useExercise();
 
   useEffect(() => {
     console.log(state);
-  }, [state])
+  }, [state]);
 
   return (
     <div>
-      <GuitarFretboard
-        numberOfFrets={24}
-        currentlyPlayedNote={audioEngine.currentMusicNote}
-        notesToPlay={state.notesToPlay}
-      />
+      <GuitarFretboard numberOfFrets={24} notesToPlay={state.notesToPlay} />
       <AudioEngineDebugger />
     </div>
   );

@@ -34,7 +34,7 @@ export function ExerciseProvider({ children }: Props) {
         payload: {
           key: 'C',
           name: 'C Major Scale',
-          notesToPlay: getMusicNotesByNoteNames(['C', 'D', 'E']),
+          notesToPlay: getMusicNotesByNoteNames(['C', 'D', 'E'], 3, 1),
           nextNoteToPlay: getMusicNoteByNoteName('C'),
         }
       });

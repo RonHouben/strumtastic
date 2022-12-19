@@ -26,7 +26,7 @@ export const Oscillator = () => {
       >
         {allMusicNotes.map((note, i) => (
           <option key={i} value={JSON.stringify(note)}>
-            {Object.values(note.names).join('/')}
+            {`${note.octave} - ${Object.values(note.names).join('/')}`}
           </option>
         ))}
       </select>

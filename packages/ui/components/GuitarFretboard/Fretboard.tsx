@@ -4,11 +4,10 @@ import { GuitarFretboardFretNumbers } from './FretNumbers';
 
 interface Props {
   numberOfFrets: number;
-  currentlyPlayedNote?: IMusicNote;
   notesToPlay: IMusicNote[];
 }
 
-export const GuitarFretboard = ({ numberOfFrets, currentlyPlayedNote, notesToPlay }: Props) => {
+export const GuitarFretboard = ({ numberOfFrets, notesToPlay }: Props) => {
   return (
     <div id="guitar-fretboard-container" className="">
       <GuitarFretboardFretNumbers numberOfFrets={numberOfFrets} />
@@ -16,42 +15,36 @@ export const GuitarFretboard = ({ numberOfFrets, currentlyPlayedNote, notesToPla
         stringName="E4"
         numberOfFrets={numberOfFrets}
         showFlatsOrSharps="sharps"
-        currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="B3"
         numberOfFrets={numberOfFrets}
         showFlatsOrSharps="sharps"
-        currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="G3"
         numberOfFrets={numberOfFrets}
         showFlatsOrSharps="sharps"
-        currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="D3"
         numberOfFrets={numberOfFrets}
         showFlatsOrSharps="sharps"
-        currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="A2"
         numberOfFrets={numberOfFrets}
         showFlatsOrSharps="sharps"
-        currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
       <GuitarFretboardString
         stringName="E2"
         numberOfFrets={numberOfFrets}
         showFlatsOrSharps="sharps"
-        currentlyPlayedNote={currentlyPlayedNote}
         notesToPlay={notesToPlay}
       />
     </div>

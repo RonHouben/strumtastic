@@ -40,15 +40,19 @@ export function exerciseReducer(
     case 'initialise-exercise':
       return { ...state, ...action.payload, isInitialised: true };
     case 'record-played-note':
+      if (!state.nextNoteToPlay) {
+        return { ...state, isDone: true };
+      }
+
       const hasPlayedCorrectNote =
-        action.payload.playedNote.hz === state.nextNoteToPlay!.hz;
+        action.payload.playedNote.hz === state.nextNoteToPlay.hz;
 
       if (hasPlayedCorrectNote) {
 				// calculate the nextNoteToPlay
         const currentNoteIndex = state.notesToPlay.findIndex(
           (note) => note.hz === action.payload.playedNote.hz
         );
-        const nextNoteToPlay = state.notesToPlay[currentNoteIndex + 1];
+        const nextNoteToPlay = state.notesToPlay.at(currentNoteIndex + 1);
 
         return {
           ...state,

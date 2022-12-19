@@ -1,12 +1,12 @@
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { classNames } from 'ui/utils';
+import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { useExercise } from '../../hooks/useExercise';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 interface Props {
   musicNote: IMusicNote;
-  isCurrentlyPlaying: boolean;
   isRoot?: boolean;
   toBePlayed?: boolean;
   showFlatsOrSharps: FlatsOrSharps;
@@ -14,29 +14,39 @@ interface Props {
 
 export const Note = ({
   musicNote,
-  isCurrentlyPlaying,
   isRoot,
   toBePlayed,
   showFlatsOrSharps
 }: Props) => {
   const { getNoteName } = useMusicNotes();
+  const { currentMusicNote } = useAudioEngine();
   const { state } = useExercise();
+
+  const isCurrentlyPlaying = useMemo(
+    () => musicNote.hz === currentMusicNote.hz,
+    [musicNote, currentMusicNote]
+  );
+
   const isCorrectlyPlayed = useMemo(
     () =>
       state.playedNotes.some((playedNote) => playedNote.hz === musicNote.hz),
     [state.playedNotes, musicNote]
   );
 
+  useEffect(() => {
+    console.log(JSON.stringify(currentMusicNote.names));
+  }, [currentMusicNote])
+
   return (
     <span
       className={classNames(
-        isCorrectlyPlayed ? 'bg-green-500' : '',
         isCurrentlyPlaying ? 'bg-blue-500' : '',
+        isCorrectlyPlayed ? 'bg-green-500' : '',
         toBePlayed && !isCurrentlyPlaying ? 'bg-orange-500' : '',
         isRoot && !isCurrentlyPlaying ? 'bg-gray-400' : ''
       )}
     >
-      {getNoteName(showFlatsOrSharps, musicNote).replace(/\d/g, '')}
+      {getNoteName(showFlatsOrSharps, musicNote)}
     </span>
   );
 };
