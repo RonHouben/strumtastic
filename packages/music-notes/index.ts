@@ -114,25 +114,29 @@ export class MusicNotes {
     );
   }
 
+  private static removeOctaveFromNoteName(noteNameWithOctave: string): string {
+    return noteNameWithOctave.replace(/\d/, '')
+  }
+
   static getMusicNotesByNames(noteNames: string[]): IMusicNote[] {
-    return MUSIC_NOTES.filter((note) =>
+    return MUSIC_NOTES.filter((musicNote) =>
       noteNames.some((noteName) =>
-        Object.values(note.names).some((name: string) =>
-          name.includes(noteName)
-        )
+        Object.values(musicNote.names).some((musicNoteName: string) => {
+          const noteNameWithOutOctave = MusicNotes.removeOctaveFromNoteName(musicNoteName);
+
+          return noteNameWithOutOctave === noteName;
+        })
       )
     );
   }
 
   static getMusicNoteByName(noteName: string): IMusicNote | undefined {
-    const result = MUSIC_NOTES.find((note) =>
-      Object.values(note.names).some((name: string) => name.includes(noteName))
+    return MUSIC_NOTES.find((musicNote) =>
+      Object.values(musicNote.names).some((musicNoteName: string) => {
+        const noteNameWithOutOctave = MusicNotes.removeOctaveFromNoteName(musicNoteName);
+
+        return noteNameWithOutOctave === noteName;
+      })
     );
-
-    if (!result) {
-      console.log('NO MUSIC NOTE FOUND BY NAME: ', noteName);
-    }
-
-    return result;
   }
 }

@@ -21,7 +21,7 @@ interface Props {
 }
 
 export function ExerciseProvider({ children }: Props) {
-  const { getMusicNotesByNoteName, getMusicNoteByNoteName } = useMusicNotes();
+  const { getMusicNotesByNoteNames, getMusicNoteByNoteName } = useMusicNotes();
   const [state, dispatch] = useReducer(
     exerciseReducer,
     exerciseReducerInitialState
@@ -34,12 +34,12 @@ export function ExerciseProvider({ children }: Props) {
         payload: {
           key: 'C',
           name: 'C Major Scale',
-          notesToPlay: getMusicNotesByNoteName(['C', 'D']),
+          notesToPlay: getMusicNotesByNoteNames(['C', 'D', 'E']),
           nextNoteToPlay: getMusicNoteByNoteName('C'),
         }
       });
     }
-  }, [state.isInitialised, dispatch, getMusicNotesByNoteName, getMusicNoteByNoteName]);
+  }, [state.isInitialised, dispatch, getMusicNotesByNoteNames, getMusicNoteByNoteName]);
 
   return (
     <ExerciseContext.Provider

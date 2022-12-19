@@ -14,7 +14,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [{ string: 'E2', fret: 2 }],
     hz: 92.4986,
-    names: { sharp: 'F♯2', flat: 'G♭2' }
+    names: { sharp: 'F#2', flat: 'Gb2' }
   },
   {
     positions: [{ string: 'E2', fret: 3 }],
@@ -24,7 +24,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [{ string: 'E2', fret: 4 }],
     hz: 103.826,
-    names: { sharp: 'G♯2', flat: 'A♭2' }
+    names: { sharp: 'G#2', flat: 'Ab2' }
   },
   {
     positions: [
@@ -40,7 +40,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'A2', fret: 1 }
     ],
     hz: 116.541,
-    names: { sharp: 'A♯2', flat: 'B♭2' }
+    names: { sharp: 'A#2', flat: 'Bb2' }
   },
   {
     positions: [
@@ -64,7 +64,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'A2', fret: 4 }
     ],
     hz: 138.591,
-    names: { sharp: 'C♯3', flat: 'D♭3' }
+    names: { sharp: 'C#3', flat: 'Db3' }
   },
   {
     positions: [
@@ -82,7 +82,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'D3', fret: 1 }
     ],
     hz: 155.563,
-    names: { sharp: 'D♯3', flat: 'E♭3' }
+    names: { sharp: 'D#3', flat: 'Eb3' }
   },
   {
     positions: [
@@ -109,7 +109,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'D3', fret: 4 }
     ],
     hz: 184.997,
-    names: { sharp: 'F♯3', flat: 'G♭3' }
+    names: { sharp: 'F#3', flat: 'Gb3' }
   },
   {
     positions: [
@@ -129,7 +129,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'G3', fret: 1 }
     ],
     hz: 207.652,
-    names: { sharp: 'G♯3', flat: 'A♭3' }
+    names: { sharp: 'G#3', flat: 'Ab3' }
   },
   {
     positions: [
@@ -149,7 +149,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'G3', fret: 3 }
     ],
     hz: 233.082,
-    names: { sharp: 'A♯3', flat: 'B♭3' }
+    names: { sharp: 'A#3', flat: 'Bb3' }
   },
   {
     positions: [
@@ -182,7 +182,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'B3', fret: 2 }
     ],
     hz: 277.183,
-    names: { sharp: 'C♯4', flat: 'D♭4' }
+    names: { sharp: 'C#4', flat: 'Db4' }
   },
   {
     positions: [
@@ -204,7 +204,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'B3', fret: 4 }
     ],
     hz: 311.127,
-    names: { sharp: 'D♯4', flat: 'E♭4' }
+    names: { sharp: 'D#4', flat: 'Eb4' }
   },
   {
     positions: [
@@ -238,7 +238,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 2 }
     ],
     hz: 369.994,
-    names: { sharp: 'F♯4', flat: 'G♭4' }
+    names: { sharp: 'F#4', flat: 'Gb4' }
   },
   {
     positions: [
@@ -260,7 +260,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 4 }
     ],
     hz: 415.305,
-    names: { sharp: 'G♯4', flat: 'A♭4' }
+    names: { sharp: 'G#4', flat: 'Ab4' }
   },
   {
     positions: [
@@ -281,7 +281,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 6 }
     ],
     hz: 466.164,
-    names: { sharp: 'A♯4', flat: 'B♭4' }
+    names: { sharp: 'A#4', flat: 'Bb4' }
   },
   {
     positions: [
@@ -311,7 +311,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 9 }
     ],
     hz: 554.365,
-    names: { sharp: 'C♯5', flat: 'D♭5' }
+    names: { sharp: 'C#5', flat: 'Db5' }
   },
   {
     positions: [
@@ -330,7 +330,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 11 }
     ],
     hz: 622.254,
-    names: { sharp: 'D♯5', flat: 'E♭5' }
+    names: { sharp: 'D#5', flat: 'Eb5' }
   },
   {
     positions: [
@@ -357,7 +357,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 14 }
     ],
     hz: 739.989,
-    names: { sharp: 'F♯5', flat: 'G♭5' }
+    names: { sharp: 'F#5', flat: 'Gb5' }
   },
   {
     positions: [
@@ -374,7 +374,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 16 }
     ],
     hz: 830.609,
-    names: { sharp: 'G♯5', flat: 'A♭5' }
+    names: { sharp: 'G#5', flat: 'Ab5' }
   },
   {
     positions: [
@@ -390,7 +390,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
       { string: 'E4', fret: 18 }
     ],
     hz: 932.328,
-    names: { sharp: 'A♯5', flat: 'B♭5' }
+    names: { sharp: 'A#5', flat: 'Bb5' }
   },
   {
     positions: [
@@ -410,7 +410,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [{ string: 'E4', fret: 21 }],
     hz: 1108.73,
-    names: { sharp: 'C♯6', flat: 'D♭6' }
+    names: { sharp: 'C#6', flat: 'Db6' }
   },
   {
     positions: [{ string: 'E4', fret: 22 }],
@@ -420,7 +420,7 @@ export const MUSIC_NOTES: IMusicNote[] = [
   {
     positions: [{ string: 'E4', fret: 23 }],
     hz: 1244.51,
-    names: { sharp: 'D♯6', flat: 'E♭6' }
+    names: { sharp: 'D#6', flat: 'Eb6' }
   },
   {
     positions: [{ string: 'E4', fret: 24 }],

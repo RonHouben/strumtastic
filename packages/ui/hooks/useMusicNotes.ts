@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 interface UseMusicNotesResult {
 	allMusicNotes: IMusicNote[];
-	getMusicNotesByNoteName: (noteNames: string[]) => IMusicNote[];
+	getMusicNotesByNoteNames: (noteNames: string[]) => IMusicNote[];
 	getMusicNoteByNoteName: (noteName: string) => IMusicNote | undefined;
 	getNoteName: (flatOrSharp: FlatsOrSharps, musicNote: IMusicNote) => string;
 	getMusicNotesForString: (stringName: StringName, numberOfFrets: number) => IMusicNote[];
@@ -12,9 +12,10 @@ interface UseMusicNotesResult {
 export function useMusicNotes(): UseMusicNotesResult {
 	const allMusicNotes = useMemo(MusicNotes.getAllMusicNotes, []);
 
+
 	return {
 		allMusicNotes,
-		getMusicNotesByNoteName: MusicNotes.getMusicNotesByNames,
+		getMusicNotesByNoteNames: MusicNotes.getMusicNotesByNames,
 		getMusicNoteByNoteName: MusicNotes.getMusicNoteByName,
 		getNoteName: MusicNotes.getNoteName,
 		getMusicNotesForString: MusicNotes.getNotesForString,
