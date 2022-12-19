@@ -1,11 +1,9 @@
-import { useMemo } from 'react';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const Oscillator = () => {
-  const { getAllMusicNotes } = useMusicNotes();
+  const { musicNotes } = useMusicNotes();
   const { setOscillatorFrequency } = useAudioEngine();
-  const musicNotes = useMemo(getAllMusicNotes, [getAllMusicNotes]);
 
   const handleSelect = (option: string) => {
     setOscillatorFrequency(Number(option));

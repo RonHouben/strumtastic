@@ -6,15 +6,17 @@ interface Props {
   flatsOrSharps: FlatsOrSharps;
   isPlayed: boolean;
   isRoot: boolean;
+  toBePlayed: boolean;
 }
 
-export const Fret = ({ musicNote, flatsOrSharps, isPlayed, isRoot }: Props) => {
+export const Fret = ({ musicNote, flatsOrSharps, isPlayed, isRoot, toBePlayed }: Props) => {
   return (
     <div className='w-[2em]'>
       <Note
         noteName={MusicNotes.getNoteName(flatsOrSharps, musicNote)}
         isPlayed={isPlayed}
         isRoot={isRoot}
+        toBePlayed={toBePlayed}
       />
     </div>
   );

@@ -1,8 +1,14 @@
-import { MusicNotes } from 'music-notes';
+import { IMusicNote, MusicNotes } from 'music-notes';
+import { useMemo } from 'react';
 
-export function useMusicNotes() {
+interface UseMusicNotesResult {
+	musicNotes: IMusicNote[];
+}
+
+export function useMusicNotes(): UseMusicNotesResult {
+	const musicNotes = useMemo(MusicNotes.getAllMusicNotes, []);
 
 	return {
-		getAllMusicNotes: MusicNotes.getAllMusicNotes
+		musicNotes
 	}
 }
