@@ -3,5 +3,5 @@ interface Props {
 }
 
 export const Hertz = ({ hertz }: Props) => {
-  return <span>hertz: {Math.floor(hertz * 100) / 100}</span>;
+  return <span>hertz: {hertz === -1 ? '--' : Math.round(hertz)}Hz</span>;
 };

@@ -16,23 +16,24 @@ export function AudioEngineProvider({ children }: Props) {
     if (!audioEngine) {
       const initAudioEngine = async () => {
         const inputAudioStream =
-          await window.navigator.mediaDevices.getUserMedia({ audio: true });
+          await window.navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
 
         const audioEngine = new AudioEngine({
           inputAudioStream,
+          debug: {
+            oscillator: {
+              hertz: 440,
+              type: 'sine',
+            }
+          }
         });
 
         setAudioEngine(audioEngine);
       };
 
       initAudioEngine();
-    }
-
-    // cleanup function
-    return () => {
-      if (audioEngine) {
-        audioEngine.stopInputAudioStream();
-      }
     }
   }, [audioEngine]);
 
