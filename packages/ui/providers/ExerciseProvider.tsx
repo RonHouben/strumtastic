@@ -34,12 +34,12 @@ export function ExerciseProvider({ children }: Props) {
         payload: {
           key: 'C',
           name: 'C Major Scale',
-          notesToPlay: getMusicNotesByNoteNames(['C', 'D', 'E'], 3, 1),
+          notesToPlay: getMusicNotesByNoteNames(['C', 'D', 'E', 'F', 'G', 'A', 'B'], 3, 2),
           nextNoteToPlay: getMusicNoteByNoteName('C'),
         }
       });
     }
-  }, [state.isInitialised, dispatch, getMusicNotesByNoteNames, getMusicNoteByNoteName]);
+  }, [state, dispatch, getMusicNotesByNoteNames, getMusicNoteByNoteName]);
 
   return (
     <ExerciseContext.Provider

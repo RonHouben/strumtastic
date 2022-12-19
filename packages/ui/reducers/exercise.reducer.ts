@@ -9,6 +9,7 @@ export type ExerciseReducerState = {
   isInitialised: boolean;
   isDone: boolean;
   mistakes: number;
+  lastPlayedNote: IMusicNote | null;
 };
 
 export type ExerciseReducerAction =
@@ -29,7 +30,8 @@ export const exerciseReducerInitialState: ExerciseReducerState = {
   nextNoteToPlay: undefined,
   notesToPlay: [],
   playedNotes: [],
-  mistakes: 0
+  mistakes: 0,
+  lastPlayedNote: null
 };
 
 export function exerciseReducer(
@@ -41,14 +43,18 @@ export function exerciseReducer(
       return { ...state, ...action.payload, isInitialised: true };
     case 'record-played-note':
       if (!state.nextNoteToPlay) {
-        return { ...state, isDone: true };
+        return {
+          ...state,
+          isDone: true,
+          lastPlayedNote: action.payload.playedNote
+        };
       }
 
       const hasPlayedCorrectNote =
         action.payload.playedNote.hz === state.nextNoteToPlay.hz;
 
       if (hasPlayedCorrectNote) {
-				// calculate the nextNoteToPlay
+        // calculate the nextNoteToPlay
         const currentNoteIndex = state.notesToPlay.findIndex(
           (note) => note.hz === action.payload.playedNote.hz
         );
@@ -57,13 +63,15 @@ export function exerciseReducer(
         return {
           ...state,
           playedNotes: [...state.playedNotes, action.payload.playedNote],
-          nextNoteToPlay
+          nextNoteToPlay,
+          lastPlayedNote: action.payload.playedNote
         };
       }
 
       return {
         ...state,
-        mistakes: !hasPlayedCorrectNote ? state.mistakes + 1 : state.mistakes
+        mistakes: !hasPlayedCorrectNote ? state.mistakes + 1 : state.mistakes,
+        lastPlayedNote: action.payload.playedNote
       };
 
     default:

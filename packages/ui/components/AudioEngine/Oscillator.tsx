@@ -1,19 +1,13 @@
 import { IMusicNote } from 'music-notes';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
-import { useExercise } from '../../hooks/useExercise';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const Oscillator = () => {
   const { allMusicNotes } = useMusicNotes();
-  const { dispatch } = useExercise();
   const { setOscillatorFrequency } = useAudioEngine();
 
   const handleSelect = (note: IMusicNote) => {
     setOscillatorFrequency(Number(note.hz));
-
-    dispatch({ type: 'record-played-note', payload: {
-      playedNote: note,
-    }})
   };
 
   return (

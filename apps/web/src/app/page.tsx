@@ -2,7 +2,6 @@
 
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { AudioEngineDebugger } from 'ui/components/AudioEngine';
-import { useAudioEngine } from 'ui/hooks/useAudioEngine';
 import { useExercise } from 'ui/hooks/useExercise';
 import { useEffect } from 'react';
 
