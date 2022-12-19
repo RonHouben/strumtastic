@@ -1,5 +1,5 @@
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { classNames } from 'ui/utils';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { useExercise } from '../../hooks/useExercise';
@@ -32,10 +32,6 @@ export const Note = ({
       state.playedNotes.some((playedNote) => playedNote.hz === musicNote.hz),
     [state.playedNotes, musicNote]
   );
-
-  useEffect(() => {
-    console.log(JSON.stringify(currentMusicNote.names));
-  }, [currentMusicNote])
 
   return (
     <span
