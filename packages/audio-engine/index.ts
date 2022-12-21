@@ -89,9 +89,9 @@ export class AudioEngine {
     const RMS = Math.sqrt(
       buffer.reduce((acc, el) => acc + el ** 2, 0) / buffer.length
     );
-    // if (RMS < 0.001) return NaN;
+    if (RMS < 0.001) return NaN;
     // console.log(RMS)
-    if (RMS < 0.2) return NaN;
+    // if (RMS < 0.2) return NaN;
 
     const THRES = 0.2;
     let r1 = 0;

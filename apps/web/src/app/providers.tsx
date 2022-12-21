@@ -1,7 +1,6 @@
 'use client';
 
-import { ReactNode, Suspense } from 'react';
-import Loading from './loading';
+import { ReactNode } from 'react';
 import { AudioEngineProvider } from 'ui/providers/AudioEngineProvider';
 import { ExerciseProvider } from 'ui/providers/ExerciseProvider';
 
@@ -11,10 +10,8 @@ interface Props {
 
 export function Providers({ children }: Props) {
   return (
-    <Suspense fallback={<Loading />}>
-      <AudioEngineProvider>
-        <ExerciseProvider>{children}</ExerciseProvider>
-      </AudioEngineProvider>
-    </Suspense>
+    <AudioEngineProvider>
+      <ExerciseProvider>{children}</ExerciseProvider>
+    </AudioEngineProvider>
   );
 }

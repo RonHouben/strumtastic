@@ -1,5 +1,10 @@
+import { classNames } from '../../utils';
+
 interface Props {
-	children: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
 }
 
-export const Article = ({ children }: Props) => <article className="prose">{children}</article>
+export const Article = ({ children, className }: Props) => (
+  <article className={classNames('prose', className || '')}>{children}</article>
+);
