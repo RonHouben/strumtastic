@@ -10,7 +10,7 @@ export default function TunerPage() {
   const [state, dispatch] = useAudioEngine();
 
   const handleStopTuner = useCallback(() => {
-    router.push('/excercises');
+    router.push('/');
   }, [router])
 
   // automatically route to the page to get
