@@ -12,7 +12,7 @@ export default function RootLayout({ children }: Props) {
       <head>
         <title>Musician</title>
       </head>
-      <body>
+      <body className='container min-h-screen h-full bg-slate-500'>
         <Providers>{children}</Providers>
       </body>
     </html>
