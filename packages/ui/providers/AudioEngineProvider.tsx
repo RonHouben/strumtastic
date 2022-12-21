@@ -23,10 +23,10 @@ export function AudioEngineProvider({ children }: Props) {
         const audioEngine = new AudioEngine({
           inputAudioStream,
           debug: {
-            // oscillator: {
-              // hertz: 440,
-              // type: 'sine',
-            // }
+            oscillator: {
+              hertz: 440,
+              type: 'sine',
+            }
           }
         });
 

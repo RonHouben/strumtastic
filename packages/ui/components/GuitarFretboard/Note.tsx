@@ -23,7 +23,7 @@ export const Note = ({
   const { state } = useExercise();
 
   const isCurrentlyPlaying = useMemo(
-    () => musicNote.hz === currentMusicNote.hz,
+    () => (currentMusicNote ? musicNote.hz === currentMusicNote.hz : false),
     [musicNote, currentMusicNote]
   );
 
@@ -37,9 +37,8 @@ export const Note = ({
     <span
       className={classNames(
         isCurrentlyPlaying ? 'bg-blue-500' : '',
+        toBePlayed && !isCurrentlyPlaying && !isCorrectlyPlayed ? 'bg-orange-500' : '',
         isCorrectlyPlayed ? 'bg-green-500' : '',
-        toBePlayed && !isCurrentlyPlaying ? 'bg-orange-500' : '',
-        isRoot && !isCurrentlyPlaying ? 'bg-gray-400' : ''
       )}
     >
       {getNoteName(showFlatsOrSharps, musicNote)}

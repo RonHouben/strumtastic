@@ -1,7 +1,7 @@
 'use client';
 
 import { AudioEngine } from 'audio-engine';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { AudioEngineContext } from '../providers/AudioEngineProvider';
 import { IMusicNote, MusicNotes } from 'music-notes';
 
@@ -12,9 +12,8 @@ interface AudioEngineResult {
   bufferLength: number;
   frequencyData: Float32Array | null;
   currentFrequency: number;
-  currentMusicNote: IMusicNote;
+  currentMusicNote: IMusicNote | undefined;
   isStreamingAudio: boolean;
-  test: string;
 }
 
 export function useAudioEngine(): AudioEngineResult {
@@ -72,7 +71,6 @@ export function useAudioEngine(): AudioEngineResult {
       audioEngine?.currentFrequency || 0
     ),
     frequencyData: audioEngine?.frequencyData || null,
-    isStreamingAudio: audioEngine?.isStreamingAudio || false,
-    test: MusicNotes.noteFromPitch(audioEngine?.currentFrequency || -1)
+    isStreamingAudio: audioEngine?.isStreamingAudio || false
   };
 }

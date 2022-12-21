@@ -11,7 +11,12 @@ export function useExercise(): IExerciseContext {
   const { currentMusicNote } = useAudioEngine();
 
   useEffect(() => {
-    if (state.isInitialised && !state.isDone && state.lastPlayedNote !== currentMusicNote) {
+    if (
+      state.isInitialised &&
+      !state.isDone &&
+      currentMusicNote &&
+      state.lastPlayedNote !== currentMusicNote
+    ) {
       dispatch({
         type: 'record-played-note',
         payload: { playedNote: currentMusicNote }

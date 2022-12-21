@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const Fret = ({ musicNote, showFlatsOrSharps, isRoot, toBePlayed }: Props) => {
-  
   return (
     <div className='w-[2em]'>
       <Note
