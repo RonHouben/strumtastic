@@ -1,17 +1,18 @@
 'use client';
 
 import { Button } from '../../components/Button';
-import { useAudioEngine } from '../../hooks/useAudioEngine.old';
+import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { useExercise } from '../../hooks/useExercise';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const AudioEngineStartButton = () => {
   const audioEngine = useAudioEngine();
-  const { dispatch } = useExercise();
+  const [_state, dispatch] = useExercise();
   const { getMusicNoteByNoteName, getMusicNotesByNoteNames } = useMusicNotes();
 
   const handleStart = () => {
-    audioEngine.startInputAudioStream();
+    // audioEngine.startInputAudioStream();
+    throw new Error('implement distpatch startInputAudioStream')
 
     dispatch({
       type: 'initialise-exercise',

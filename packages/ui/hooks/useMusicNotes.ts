@@ -7,6 +7,7 @@ interface UseMusicNotesResult {
 	getMusicNoteByNoteName: (noteName: string) => IMusicNote | undefined;
 	getNoteName: (flatOrSharp: FlatsOrSharps, musicNote: IMusicNote) => string;
 	getMusicNotesForString: (stringName: StringName, numberOfFrets: number) => IMusicNote[];
+	getMusicNoteFromFrequency: (frequency: number) => IMusicNote | undefined;
 }
 
 export function useMusicNotes(): UseMusicNotesResult {
@@ -19,5 +20,6 @@ export function useMusicNotes(): UseMusicNotesResult {
 		getMusicNoteByNoteName: MusicNotes.getMusicNoteByName,
 		getNoteName: MusicNotes.getNoteName,
 		getMusicNotesForString: MusicNotes.getNotesForString,
+		getMusicNoteFromFrequency: MusicNotes.getMusicNoteFromFrequency,
 	}
 }

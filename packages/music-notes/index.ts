@@ -50,7 +50,7 @@ export class MusicNotes {
   //     : closestHigher;
   // }
 
-  static getNoteFromFrequency(pitch: number): IMusicNote | undefined {
+  static getMusicNoteFromFrequency(pitch: number): IMusicNote | undefined {
     if (pitch === -1) {
       return undefined;
     }

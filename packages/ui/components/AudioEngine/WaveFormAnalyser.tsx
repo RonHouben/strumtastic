@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useAudioEngine } from '../../hooks/useAudioEngine.old';
+import { useAudioEngine } from '../../hooks/useAudioEngine';
 
 export const WaveFormAnayliser = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { frequencyData, bufferLength, isStreamingAudio } = useAudioEngine();
+  const [state] = useAudioEngine();
 
   // initialise canvas to draw when frequencyData changes
   useEffect(() => {
@@ -14,11 +14,11 @@ export const WaveFormAnayliser = () => {
 
       let requestAnimationFrameId = 0;
 
-      if (!isStreamingAudio) {
+      if (!state.audioEngine?.isStreamingAudio) {
         cancelAnimationFrame(requestAnimationFrameId);
       }
 
-      if (canvasCtx && frequencyData) {
+      if (canvasCtx && state.audioEngine?.frequencyData) {
         const draw = () => {
           requestAnimationFrameId = requestAnimationFrame(draw);
 
@@ -31,10 +31,13 @@ export const WaveFormAnayliser = () => {
           canvasCtx.lineWidth = 2;
           canvasCtx.strokeStyle = 'rgb(255, 0, 0)';
           canvasCtx.beginPath();
-          canvasCtx.moveTo(0, HEIGHT / 2)
+          canvasCtx.moveTo(0, HEIGHT / 2);
 
-          for (let i = 1; i < WIDTH ; i++) {
-            canvasCtx.lineTo(i, (HEIGHT / 2 )+(frequencyData[i]*128))
+          for (let i = 1; i < WIDTH; i++) {
+            canvasCtx.lineTo(
+              i,
+              HEIGHT / 2 + (state.audioEngine?.frequencyData[i] || 0) * 128
+            );
           }
 
           canvasCtx.lineTo(WIDTH, HEIGHT / 2);
@@ -48,7 +51,7 @@ export const WaveFormAnayliser = () => {
         cancelAnimationFrame(requestAnimationFrameId);
       };
     }
-  }, [canvasRef, bufferLength, frequencyData, isStreamingAudio]);
+  }, [canvasRef, state.audioEngine]);
 
   return <canvas ref={canvasRef} />;
 };
