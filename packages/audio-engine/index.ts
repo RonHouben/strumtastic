@@ -3,13 +3,13 @@ interface OscillatorOptions {
   hertz: number;
 }
 
-interface DebugOptions {
+export interface AudioEngineDebugOptions {
   oscillator?: OscillatorOptions;
 }
 
 interface AudioEngineOptions {
   inputAudioStream: MediaStream;
-  debug?: DebugOptions;
+  debug?: AudioEngineDebugOptions;
 }
 
 export class AudioEngine {

@@ -1,5 +1,7 @@
+'use client';
+
 import { Button } from '../../components/Button';
-import { useAudioEngine } from '../../hooks/useAudioEngine';
+import { useAudioEngine } from '../../hooks/useAudioEngine.old';
 import { useExercise } from '../../hooks/useExercise';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 

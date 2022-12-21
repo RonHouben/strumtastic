@@ -3,7 +3,7 @@ import {
   ExerciseContext,
   IExerciseContext
 } from '../providers/ExerciseProvider';
-import { useAudioEngine } from './useAudioEngine';
+import { useAudioEngine } from './useAudioEngine.old';
 
 export function useExercise(): IExerciseContext {
   const { dispatch, state } = useContext(ExerciseContext);

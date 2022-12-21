@@ -1,5 +1,5 @@
 import { IMusicNote } from 'music-notes';
-import { useAudioEngine } from '../../hooks/useAudioEngine';
+import { useAudioEngine } from '../../hooks/useAudioEngine.old';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const Oscillator = () => {
