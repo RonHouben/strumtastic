@@ -5,21 +5,26 @@ import { GuitarTuner } from 'ui/components/GuitarTuner';
 import { useAudioEngine } from 'ui/hooks/useAudioEngine';
 import { useRouter } from 'next/navigation';
 
-export default function TunerPage() {
+export default function GuitarTunerPage() {
   const router = useRouter();
   const [state, dispatch] = useAudioEngine();
 
   const handleStopTuner = useCallback(() => {
     router.push('/');
-  }, [router])
+  }, [router]);
 
   // automatically route to the page to get
   // permissions for the microphone
   useEffect(() => {
-    dispatch({ type: 'GET_MICROPHONE_PERMISSION_STATE' });
-
-    if (state.microphonePermissionState === 'denied') {
+    if (
+      state.state === 'UNINITIALIZED' ||
+      state.microphonePermissionState === 'denied'
+    ) {
       router.push('/connect-guitar');
+    }
+
+    if (state.state !== 'UNINITIALIZED') {
+      dispatch({ type: 'GET_MICROPHONE_PERMISSION_STATE' });
     }
   }, [router, state, dispatch]);
 
