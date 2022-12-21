@@ -1,48 +1,86 @@
+import { AsyncActionHandlers } from 'use-reducer-async';
 import { AudioEngine, AudioEngineDebugOptions } from 'audio-engine';
+import { Reducer } from 'react';
 
 type State =
-  | 'uninitialized'
-  | 'declined-microphone-access'
-  | 'recieved-microphone-access';
+  | 'UNINITIALIZED'
+  | 'DECLINED_MICROPHONE_ACCESS'
+  | 'RECEIVED_MICROPHONE_ACCESS';
 
 export type AudioEngineReducerState = {
   audioEngine: AudioEngine | null;
   state: State;
-	error?: DOMException;
+  error?: DOMException;
 };
 
 export type AudioEngineReducerAction =
+  | { type: 'REQUEST_MICROPHONE_ACCESS' }
   | {
-      type: 'initialize';
+      type: 'INITIALIZE_AUDIO_ENGINE';
       payload: {
         userMediaStream: MediaStream;
         debug?: AudioEngineDebugOptions;
       };
     }
-  | { type: 'declined-microphone-access', payload: { error: DOMException } };
+  | { type: 'DECLINED_MICROPHONE_ACCESS'; payload: { error: DOMException } };
+
+type AudioEngineAsyncAction = { type: 'REQUEST_MICROPHONE_ACCESS' };
 
 export const audioEngineReducerInitialState: AudioEngineReducerState = {
   audioEngine: null,
-  state: 'uninitialized'
+  state: 'UNINITIALIZED'
 };
 
 export function audioEngineReducer(
   state: AudioEngineReducerState,
   action: AudioEngineReducerAction
 ): AudioEngineReducerState {
-
-  if (state.state === 'uninitialized' && action.type === 'initialize') {
+  if (
+    state.state === 'UNINITIALIZED' &&
+    action.type === 'INITIALIZE_AUDIO_ENGINE'
+  ) {
     const audioEngine = new AudioEngine({
       inputAudioStream: action.payload.userMediaStream,
       debug: action.payload.debug
     });
 
-    return { ...state, audioEngine, state: 'recieved-microphone-access' };
+    return { ...state, audioEngine, state: 'RECEIVED_MICROPHONE_ACCESS' };
   }
 
-  if (state.state === 'uninitialized' && action.type === 'declined-microphone-access') {
-		return { ...state, state: 'declined-microphone-access', error: action.payload.error };
+  if (
+    state.state === 'UNINITIALIZED' &&
+    action.type === 'DECLINED_MICROPHONE_ACCESS'
+  ) {
+    return {
+      ...state,
+      state: 'DECLINED_MICROPHONE_ACCESS',
+      error: action.payload.error
+    };
   }
 
-	return state;
+  return state;
 }
+
+export const audioEngineAsyncActionHandlers: AsyncActionHandlers<
+  Reducer<AudioEngineReducerState, AudioEngineReducerAction>,
+  AudioEngineAsyncAction
+> = {
+  REQUEST_MICROPHONE_ACCESS:
+    ({ dispatch }) =>
+    async () => {
+      try {
+        dispatch({
+          type: 'INITIALIZE_AUDIO_ENGINE',
+          payload: {
+            userMediaStream: await navigator.mediaDevices.getUserMedia({
+              audio: true
+            })
+          }
+        });
+      } catch (err) {
+        const error = err as DOMException;
+
+        dispatch({ type: 'DECLINED_MICROPHONE_ACCESS', payload: { error } });
+      }
+    }
+};

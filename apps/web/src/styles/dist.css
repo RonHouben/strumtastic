@@ -1065,10 +1065,6 @@ video {
   position: sticky;
 }
 
-.isolate {
-  isolation: isolate;
-}
-
 .m-10 {
   margin: 2.5rem;
 }
@@ -1174,6 +1170,10 @@ video {
   resize: both;
 }
 
+.list-disc {
+  list-style-type: disc;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1196,6 +1196,10 @@ video {
 
 .gap-1 {
   gap: 0.25rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .truncate {

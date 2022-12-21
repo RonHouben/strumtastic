@@ -1,7 +1,14 @@
 'use client';
 
-import { createContext, ReactNode, useReducer } from 'react';
-import { audioEngineReducer, AudioEngineReducerAction, audioEngineReducerInitialState, AudioEngineReducerState } from '../reducers/audio-engine.reducer';
+import { createContext, ReactNode } from 'react';
+import {
+  audioEngineAsyncActionHandlers,
+  audioEngineReducer,
+  AudioEngineReducerAction,
+  audioEngineReducerInitialState,
+  AudioEngineReducerState
+} from '../reducers/audio-engine.reducer';
+import { useReducerAsync } from 'use-reducer-async';
 
 interface Props {
   children: ReactNode;
@@ -9,13 +16,19 @@ interface Props {
 
 export type IAudioEngineContext = [
   AudioEngineReducerState,
-  React.Dispatch<AudioEngineReducerAction>,
-]
+  React.Dispatch<AudioEngineReducerAction>
+];
 
-export const AudioEngineContext = createContext<IAudioEngineContext>(null as unknown as IAudioEngineContext);
+export const AudioEngineContext = createContext<IAudioEngineContext>(
+  null as unknown as IAudioEngineContext
+);
 
 export function AudioEngineProvider({ children }: Props) {
-  const reducer = useReducer(audioEngineReducer, audioEngineReducerInitialState);
+  const reducer = useReducerAsync(
+    audioEngineReducer,
+    audioEngineReducerInitialState,
+    audioEngineAsyncActionHandlers
+  );
 
   return (
     <AudioEngineContext.Provider value={reducer}>

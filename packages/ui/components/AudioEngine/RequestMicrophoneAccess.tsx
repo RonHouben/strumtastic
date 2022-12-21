@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
-import { AudioEngineReducerAction } from '../../reducers/audio-engine.reducer';
 import { classNames } from '../../utils';
 import { GuitarAmpSVG } from '../SVG';
 import { Article } from '../Typography';
@@ -13,40 +12,40 @@ export const RequestMicrophoneAccess = () => {
   const [state, dispatch] = useAudioEngine();
 
   useEffect(() => {
-    if (
-      state.state !== 'declined-microphone-access' &&
-      state.state === 'uninitialized'
-    ) {
-      requestMicrophoneAccessAsync(dispatch);
+    if (state.state === 'UNINITIALIZED') {
+      dispatch({ type: 'REQUEST_MICROPHONE_ACCESS' });
     }
-  }, [state.state, dispatch]);
+  }, [state, dispatch]);
 
   return (
     <div className="flex-col">
       <GuitarAmpSVG
         className={classNames(
-          state.state === 'uninitialized' ? 'fill-orange-500' : '',
-          state.state === 'declined-microphone-access' ? 'fill-red-700' : '',
-          state.state === 'recieved-microphone-access' ? 'fill-green-600' : '',
+          state.state === 'UNINITIALIZED' ? 'fill-orange-500' : '',
+          state.state === 'DECLINED_MICROPHONE_ACCESS' ? 'fill-red-700' : '',
+          state.state === 'RECEIVED_MICROPHONE_ACCESS' ? 'fill-green-600' : '',
           'h-28 pb-5'
         )}
       />
       <Article>
-        {state.state === 'uninitialized' && <h1>Lets Plug In Baby!</h1>}
-        {state.state === 'declined-microphone-access' && (
+        {state.state === 'UNINITIALIZED' && <h1>Lets Plug In Baby!</h1>}
+        {state.state === 'DECLINED_MICROPHONE_ACCESS' && (
           <>
             <h1 className="text-red-700">
               {state.error?.message || 'Unknown Error!'}
             </h1>
-            <Link
-              href="https://support.google.com/chrome/answer/2693767"
-              target="_blank"
-            >
-              Click here to learn how to reset the Microphone permissions
-            </Link>
+            <div className="flex flex-col gap-8">
+              <Link
+                href="https://support.google.com/chrome/answer/2693767"
+                target="_blank"
+              >
+                Click here to learn how to reset the Microphone permissions
+              </Link>
+              <ButtonLink label="Go Home" href='/'/>
+            </div>
           </>
         )}
-        {state.state === 'recieved-microphone-access' && (
+        {state.state === 'RECEIVED_MICROPHONE_ACCESS' && (
           <>
             <h1>Thanks for plugging in!</h1>
             <ButtonLink
@@ -70,22 +69,3 @@ const Disclaimer = () => (
     Your sound will not be recorded!
   </p>
 );
-
-const requestMicrophoneAccessAsync = async (
-  dispatch: React.Dispatch<AudioEngineReducerAction>
-) => {
-  try {
-    dispatch({
-      type: 'initialize',
-      payload: {
-        userMediaStream: await navigator.mediaDevices.getUserMedia({
-          audio: true
-        })
-      }
-    });
-  } catch (err) {
-    const error = err as DOMException;
-
-    dispatch({ type: 'declined-microphone-access', payload: { error } });
-  }
-};
