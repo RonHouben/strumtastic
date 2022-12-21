@@ -1,13 +1,22 @@
 'use client';
 
+import { classNames } from '../utils';
+
 interface Props {
   label: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  className?: string;
 }
 
-export const Button = ({ label, onClick }: Props) => {
+export const Button = ({ label, onClick, className }: Props) => {
   return (
-    <button className="inline-flex rounded-md shadow p-2 bg-slate-400" onClick={onClick}>
+    <button
+      className={classNames(
+        'inline-flex rounded-md bg-slate-400 p-2 shadow',
+        className || '',
+      )}
+      onClick={onClick}
+    >
       {label}
     </button>
   );

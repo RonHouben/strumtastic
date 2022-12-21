@@ -4,9 +4,10 @@ import { useEffect } from 'react';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { AudioEngineReducerAction } from '../../reducers/audio-engine.reducer';
 import { classNames } from '../../utils';
-import { Button } from '../Button';
 import { GuitarAmpSVG } from '../SVG';
 import { Article } from '../Typography';
+import Link from 'next/link';
+import { ButtonLink } from '../ButtonLink';
 
 export const RequestMicrophoneAccess = () => {
   const [state, dispatch] = useAudioEngine();
@@ -20,32 +21,40 @@ export const RequestMicrophoneAccess = () => {
     }
   }, [state.state, dispatch]);
 
-  const handleRetry = async () => {
-		await requestMicrophoneAccessAsync(dispatch);
-  };
-
   return (
     <div className="flex-col">
       <GuitarAmpSVG
         className={classNames(
           state.state === 'uninitialized' ? 'fill-orange-500' : '',
           state.state === 'declined-microphone-access' ? 'fill-red-700' : '',
-          state.state === 'recieved-microphone-access' ? 'fill-green-500' : '',
+          state.state === 'recieved-microphone-access' ? 'fill-green-600' : '',
           'h-28 pb-5'
         )}
       />
       <Article>
-        <h1>Time to connect your Axe!</h1>
+        {state.state === 'uninitialized' && <h1>Lets Plug In Baby!</h1>}
         {state.state === 'declined-microphone-access' && (
           <>
-            <p className="font-bold text-red-700">
+            <h1 className="text-red-700">
               {state.error?.message || 'Unknown Error!'}
-            </p>
-            <Button label="Retry!" onClick={handleRetry} />
+            </h1>
+            <Link
+              href="https://support.google.com/chrome/answer/2693767"
+              target="_blank"
+            >
+              Click here to learn how to reset the Microphone permissions
+            </Link>
           </>
         )}
         {state.state === 'recieved-microphone-access' && (
-          <p>Yay got Microphone Access!</p>
+          <>
+            <h1>Thanks for plugging in!</h1>
+            <ButtonLink
+              label="Continue"
+              href="/tuner"
+              className="!bg-green-500"
+            />
+          </>
         )}
         <Disclaimer />
       </Article>
@@ -55,8 +64,8 @@ export const RequestMicrophoneAccess = () => {
 
 const Disclaimer = () => (
   <p>
-    To analyse if you are hitting the right notes, I need to have access to your
-    microphone.
+    To analyse if you are hitting the right notes, We need to have access to
+    your microphone.
     <br />
     Your sound will not be recorded!
   </p>

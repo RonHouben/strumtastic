@@ -4,7 +4,7 @@ interface Props {
 
 export const ButtonGroup = ({ children }: Props) => {
   return (
-    <div className="flex rounded-md shadow-sm" role="group">
+    <div className="flex gap-2" role="group">
       {children}
     </div>
   );
