@@ -1,5 +1,4 @@
-import { createContext, ReactNode, useEffect, useReducer } from 'react';
-import { useMusicNotes } from '../hooks/useMusicNotes';
+import { createContext, ReactNode, useReducer } from 'react';
 import {
   exerciseReducer,
   ExerciseReducerAction,
@@ -7,10 +6,10 @@ import {
   ExerciseReducerState
 } from '../reducers/exercise.reducer';
 
-export interface IExerciseContext {
-  state: ExerciseReducerState;
-  dispatch: React.Dispatch<ExerciseReducerAction>;
-}
+export type IExerciseContext = [
+  ExerciseReducerState,
+  React.Dispatch<ExerciseReducerAction>
+];
 
 export const ExerciseContext = createContext<IExerciseContext>(
   {} as IExerciseContext
@@ -21,33 +20,10 @@ interface Props {
 }
 
 export function ExerciseProvider({ children }: Props) {
-  const { getMusicNotesByNoteNames, getMusicNoteByNoteName } = useMusicNotes();
-  const [state, dispatch] = useReducer(
-    exerciseReducer,
-    exerciseReducerInitialState
-  );
-
-  useEffect(() => {
-    if (state.isInitialised === false) {
-      dispatch({
-        type: 'initialise-exercise',
-        payload: {
-          key: 'C',
-          name: 'C Major Scale',
-          notesToPlay: getMusicNotesByNoteNames(['C', 'D', 'E', 'F', 'G', 'A', 'B'], 3, 2),
-          nextNoteToPlay: getMusicNoteByNoteName('C'),
-        }
-      });
-    }
-  }, [state, dispatch, getMusicNotesByNoteNames, getMusicNoteByNoteName]);
+  const reducer = useReducer(exerciseReducer, exerciseReducerInitialState);
 
   return (
-    <ExerciseContext.Provider
-      value={{
-        dispatch,
-        state
-      }}
-    >
+    <ExerciseContext.Provider value={reducer}>
       {children}
     </ExerciseContext.Provider>
   );

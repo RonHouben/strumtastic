@@ -4,10 +4,11 @@ import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const Oscillator = () => {
   const { allMusicNotes } = useMusicNotes();
-  const { setOscillatorFrequency } = useAudioEngine();
+  const [state, dispatch] = useAudioEngine();
 
   const handleSelect = (note: IMusicNote) => {
-    setOscillatorFrequency(Number(note.hz));
+    // setOscillatorFrequency(Number(note.hz));
+    throw new Error('IMPLEMENT handleSelect in Oscillator component. Need to add "setOscillatorFrequency" to AudioEngine dispatch');
   };
 
   return (

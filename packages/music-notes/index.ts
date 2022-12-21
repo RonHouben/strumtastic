@@ -27,32 +27,32 @@ export class MusicNotes {
     return MUSIC_NOTES;
   }
 
-  static getNoteFromFrequency(frequency: number): IMusicNote {
-    let closestLower: IMusicNote = MUSIC_NOTES[0];
-    let closestHigher: IMusicNote = MUSIC_NOTES[MUSIC_NOTES.length - 1];
+  // static getNoteFromFrequency(frequency: number): IMusicNote {
+  //   let closestLower: IMusicNote = MUSIC_NOTES[0];
+  //   let closestHigher: IMusicNote = MUSIC_NOTES[MUSIC_NOTES.length - 1];
 
-    for (const musicNote of MUSIC_NOTES) {
-      if (musicNote.hz < frequency) {
-        closestLower = musicNote;
-      }
+  //   for (const musicNote of MUSIC_NOTES) {
+  //     if (musicNote.hz < frequency) {
+  //       closestLower = musicNote;
+  //     }
 
-      if (musicNote.hz > frequency) {
-        closestHigher = musicNote;
-        break; // going from low to high so we can stop here
-      }
-    }
+  //     if (musicNote.hz > frequency) {
+  //       closestHigher = musicNote;
+  //       break; // going from low to high so we can stop here
+  //     }
+  //   }
 
-    const distanceToLower = Math.abs(frequency - closestLower.hz);
-    const distanceToHigher = Math.abs(frequency - closestHigher.hz);
+  //   const distanceToLower = Math.abs(frequency - closestLower.hz);
+  //   const distanceToHigher = Math.abs(frequency - closestHigher.hz);
 
-    return Math.min(distanceToLower, distanceToHigher) === distanceToLower
-      ? closestLower
-      : closestHigher;
-  }
+  //   return Math.min(distanceToLower, distanceToHigher) === distanceToLower
+  //     ? closestLower
+  //     : closestHigher;
+  // }
 
-  static noteFromPitch(pitch: number): string {
+  static getMusicNoteFromFrequency(pitch: number): IMusicNote | undefined {
     if (pitch === -1) {
-      return '-';
+      return undefined;
     }
 
     const N = Math.round(12 * Math.log2(pitch / CONCERT_PITCH)); // the number of half steps away from the fixed note you are. If you are at a higher note, n is positive. If you are on a lower note, n is negative.
@@ -60,7 +60,20 @@ export class MusicNotes {
     const noteIndex = (N + MIDI) % 12; // index of note letter from NOTES array
     const octave = Math.floor(Math.log2(Fn / C0_PITCH));
 
-    return NOTES[noteIndex] + octave;
+    const noteName = NOTES[noteIndex];
+
+    return this.getMusicNoteByNoteNameAndOctave(noteName, octave);
+  }
+
+  static getMusicNoteByNoteNameAndOctave(
+    noteName: string,
+    octave: number
+  ): IMusicNote | undefined {
+    return MUSIC_NOTES.find(
+      (musicNote) =>
+        Object.values(musicNote.names).includes(noteName) &&
+        musicNote.octave === octave
+    );
   }
 
   static getNoteByStringAndFret(

@@ -1,22 +1,23 @@
 'use client';
 
-import Link from 'next/link';
+import { classNames } from '../utils';
 
 interface Props {
   label: string;
-  href?: string;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  className?: string;
 }
 
-export const Button = ({ label, onClick, href }: Props) => {
+export const Button = ({ label, onClick, className }: Props) => {
   return (
-    <button className="inline-flex rounded-md shadow" onClick={onClick}>
-      <Link
-        href={href || '#'}
-        className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700"
-      >
-        {label}
-      </Link>
+    <button
+      className={classNames(
+        'inline-flex rounded-md bg-slate-400 p-2 shadow',
+        className || '',
+      )}
+      onClick={onClick}
+    >
+      {label}
     </button>
   );
 };

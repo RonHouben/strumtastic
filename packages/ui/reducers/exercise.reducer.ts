@@ -41,7 +41,13 @@ export function exerciseReducer(
   switch (action.type) {
     case 'initialise-exercise':
       return { ...state, ...action.payload, isInitialised: true };
+
     case 'record-played-note':
+      console.log('PING')
+      if (!state.isInitialised) { 
+        return state;
+      }
+
       if (!state.nextNoteToPlay) {
         return {
           ...state,
@@ -68,9 +74,10 @@ export function exerciseReducer(
         };
       }
 
+      // incorrect note has been played so + 1 to mistakes
       return {
         ...state,
-        mistakes: !hasPlayedCorrectNote ? state.mistakes + 1 : state.mistakes,
+        mistakes: state.mistakes + 1,
         lastPlayedNote: action.payload.playedNote
       };
 

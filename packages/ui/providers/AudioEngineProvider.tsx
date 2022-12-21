@@ -1,44 +1,24 @@
 'use client';
 
-import { AudioEngine } from 'audio-engine';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useReducer } from 'react';
+import { audioEngineReducer, AudioEngineReducerAction, audioEngineReducerInitialState, AudioEngineReducerState } from '../reducers/audio-engine.reducer';
 
 interface Props {
   children: ReactNode;
 }
 
-export const AudioEngineContext = createContext<AudioEngine | null>(null);
+export type IAudioEngineContext = [
+  AudioEngineReducerState,
+  React.Dispatch<AudioEngineReducerAction>,
+]
+
+export const AudioEngineContext = createContext<IAudioEngineContext>(null as unknown as IAudioEngineContext);
 
 export function AudioEngineProvider({ children }: Props) {
-  const [audioEngine, setAudioEngine] = useState<AudioEngine | null>(null);
-
-  useEffect(() => {
-    if (!audioEngine) {
-      const initAudioEngine = async () => {
-        const inputAudioStream =
-          await window.navigator.mediaDevices.getUserMedia({
-            audio: true,
-          });
-
-        const audioEngine = new AudioEngine({
-          inputAudioStream,
-          debug: {
-            // oscillator: {
-              // hertz: 440,
-              // type: 'sine',
-            // }
-          }
-        });
-
-        setAudioEngine(audioEngine);
-      };
-
-      initAudioEngine();
-    }
-  }, [audioEngine]);
+  const reducer = useReducer(audioEngineReducer, audioEngineReducerInitialState);
 
   return (
-    <AudioEngineContext.Provider value={audioEngine}>
+    <AudioEngineContext.Provider value={reducer}>
       {children}
     </AudioEngineContext.Provider>
   );
