@@ -65,6 +65,16 @@ export class MusicNotes {
     return this.getMusicNoteByNoteNameAndOctave(noteName, octave);
   }
 
+  static getNoteNameFromFrequency(flatOrSharp: FlatsOrSharps, frequency: number): string | undefined {
+    const musicNote = MusicNotes.getMusicNoteFromFrequency(frequency);
+
+    if (!musicNote) {
+      return undefined;
+    }
+
+    return MusicNotes.getNoteName(flatOrSharp, musicNote);
+  }
+
   static getMusicNoteByNoteNameAndOctave(
     noteName: string,
     octave: number

@@ -13,7 +13,7 @@ export const RequestMicrophoneAccess = () => {
 
   useEffect(() => {
     if (state.state === 'UNINITIALIZED') {
-      dispatch({ type: 'REQUEST_MICROPHONE_ACCESS' });
+      dispatch({ type: 'GET_MICROPHONE_ACCESS' });
     }
   }, [state, dispatch]);
 
@@ -21,9 +21,9 @@ export const RequestMicrophoneAccess = () => {
     <div className="flex-col">
       <GuitarAmpSVG
         className={classNames(
-          state.state === 'UNINITIALIZED' ? 'fill-orange-500' : '',
-          state.state === 'DECLINED_MICROPHONE_ACCESS' ? 'fill-red-700' : '',
-          state.state === 'RECEIVED_MICROPHONE_ACCESS' ? 'fill-green-600' : '',
+          state.microphonePermissionState === 'prompt' ? 'fill-orange-500' : '',
+          state.microphonePermissionState === 'denied' ? 'fill-red-700' : '',
+          state.microphonePermissionState === 'granted' ? 'fill-green-600' : '',
           'h-28 pb-5'
         )}
       />
@@ -41,11 +41,11 @@ export const RequestMicrophoneAccess = () => {
               >
                 Click here to learn how to reset the Microphone permissions
               </Link>
-              <ButtonLink label="Go Home" href='/'/>
+              <ButtonLink label="Go Home" href='/' />
             </div>
           </>
         )}
-        {state.state === 'RECEIVED_MICROPHONE_ACCESS' && (
+        {state.state === 'INITIALIZED' && (
           <>
             <h1>Thanks for plugging in!</h1>
             <ButtonLink
