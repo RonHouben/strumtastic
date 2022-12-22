@@ -24,18 +24,28 @@ export const GuitarTuner = ({ onStopTuner }: Props) => {
   }, [dispatch, onStopTuner]);
 
   return (
-    <div className="m-2 flex flex-col items-center justify-center rounded-md border p-2">
-      <Article className="text-center">
+    <div className="m-2 flex w-60 flex-col items-center justify-center rounded-md bg-slate-400 p-2 shadow-lg">
+      <Article className="w-full text-center">
         <Hertz hertz={state.currentFrequency} />
         <h1>
           {state.currentMusicNote
             ? getNoteName('sharps', state.currentMusicNote)
             : '-'}
         </h1>
-        <ButtonGroup>
-          <Button label="Start Tuning" onClick={handleStartTuner} />
-          <Button label="Done tuning!" onClick={handleStopTuner} />
-        </ButtonGroup>
+        {state.state === 'INITIALIZED' && (
+          <Button
+            label="Start Tuning"
+            className="bg-slate-600 text-slate-300"
+            onClick={handleStartTuner}
+          />
+        )}
+        {state.state === 'LISTENING_TO_MICROPHONE' && (
+          <Button
+            label="Done"
+            className="bg-slate-600 text-slate-300"
+            onClick={handleStopTuner}
+          />
+        )}
       </Article>
     </div>
   );

@@ -28,5 +28,9 @@ export default function GuitarTunerPage() {
     }
   }, [router, state, dispatch]);
 
-  return <GuitarTuner onStopTuner={handleStopTuner} />;
+  return (
+    <div className="m-2 flex flex-col min-h-screen items-center justify-center">
+      <GuitarTuner onStopTuner={handleStopTuner} />
+    </div>
+  );
 }
