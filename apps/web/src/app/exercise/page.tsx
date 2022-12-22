@@ -26,7 +26,6 @@ export default function ExercisePage() {
     audioEngineDispatch({ type: 'STOP_LISTENING_TO_MICROPHONE' });
   }, [audioEngineDispatch]);
 
-
   // automatically route to the page to get
   // permissions for the microphone
   useEffect(() => {
@@ -78,10 +77,14 @@ export default function ExercisePage() {
         numberOfFrets={24}
         notesToPlay={exerciseState.notesToPlay}
       />
-      <ButtonGroup>
-        <Button label="Start Exercise" onClick={handleStartExercise} />
-        <Button label="Stop Exercise" onClick={handleStopExercise} />
-      </ButtonGroup>
+      <div className="w-full">
+        {audioEngineState.state !== 'LISTENING_TO_MICROPHONE' && (
+          <Button label="Start Exercise" onClick={handleStartExercise} />
+        )}
+        {audioEngineState.state === 'LISTENING_TO_MICROPHONE' && (
+          <Button label="Stop Exercise" onClick={handleStopExercise} />
+        )}
+      </div>
       <div>This is for debugging:</div>
       <Oscillator />
     </div>
