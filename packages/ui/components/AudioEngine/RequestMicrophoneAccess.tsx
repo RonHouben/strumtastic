@@ -1,15 +1,32 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { classNames } from '../../utils';
 import { GuitarAmpSVG } from '../SVG';
 import { Article } from '../Typography';
 import Link from 'next/link';
 import { ButtonLink } from '../ButtonLink';
+import { Button } from '../Button';
+import { useRouter } from 'next/navigation';
 
-export const RequestMicrophoneAccess = () => {
+interface Props {
+  navigatedFrom?: '/tuner' | string;
+}
+
+export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
   const [state, dispatch] = useAudioEngine();
+  const router = useRouter();
+
+  const handleContinue = useCallback(() => {
+    dispatch({ type: 'STOP_LISTENING_TO_MICROPHONE' });
+
+    if (navigatedFrom) {
+      router.push(navigatedFrom);
+    } else {
+      router.back();
+    }
+  }, [dispatch, router, navigatedFrom])
 
   useEffect(() => {
     if (state.state === 'UNINITIALIZED') {
@@ -48,10 +65,10 @@ export const RequestMicrophoneAccess = () => {
         {state.state === 'INITIALIZED' && (
           <>
             <h1>Thanks for plugging in!</h1>
-            <ButtonLink
+            <Button
               label="Continue"
-              href="/tuner"
               className="!bg-green-500"
+              onClick={handleContinue}
             />
           </>
         )}

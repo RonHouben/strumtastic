@@ -6,23 +6,24 @@ import {
 import { useAudioEngine } from './useAudioEngine';
 
 export function useExercise(): IExerciseContext {
-  const [state, dispatch]= useContext(ExerciseContext);
+  const [state, dispatch] = useContext(ExerciseContext);
 
-  const [audioEngineState, audioEngineDispatch] = useAudioEngine();
+  const [audioEngineState, _audioEngineDispatch] = useAudioEngine();
+  const { currentMusicNote } = audioEngineState;
 
-  // useEffect(() => {
-  //   if (
-  //     state.isInitialised &&
-  //     !state.isDone &&
-  //     currentMusicNote &&
-  //     state.lastPlayedNote !== currentMusicNote
-  //   ) {
-  //     dispatch({
-  //       type: 'record-played-note',
-  //       payload: { playedNote: currentMusicNote }
-  //     });
-  //   }
-  // }, [currentMusicNote, state, dispatch]);
+  useEffect(() => {
+    if (
+      state.isInitialised &&
+      !state.isDone &&
+      currentMusicNote &&
+      state.lastPlayedNote !== currentMusicNote
+    ) {
+      dispatch({
+        type: 'record-played-note',
+        payload: { playedNote: currentMusicNote }
+      });
+    }
+  }, [currentMusicNote, state, dispatch]);
 
   return [state, dispatch];
 }

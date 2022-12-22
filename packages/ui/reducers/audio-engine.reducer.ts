@@ -1,5 +1,9 @@
 import { AsyncActionHandlers } from 'use-reducer-async';
-import { AudioEngine, AudioEngineDebugOptions } from 'audio-engine';
+import {
+  AudioEngine,
+  AudioEngineDebugOptions,
+  OscillatorOptions
+} from 'audio-engine';
 import { Reducer } from 'react';
 import { IMusicNote, MusicNotes } from 'music-notes';
 
@@ -13,16 +17,14 @@ type State =
 export type AudioEngineReducerState = {
   audioEngine: AudioEngine | null;
   state: State;
-  error?: DOMException;
+  readonly error?: DOMException;
   readonly currentFrequency: number;
   readonly currentMusicNote: IMusicNote | undefined;
   readonly requestAnimationFrameId: number;
   readonly microphonePermissionState: PermissionState;
+  readonly hasOscillator: boolean;
 };
 
-// Actions starting with # are meant to be private
-// and only used for the reducer internally. I.e.: to dispatch from a async action
-// to update the state
 type Action =
   | { type: 'GET_MICROPHONE_ACCESS' }
   | {
@@ -39,16 +41,25 @@ type Action =
       payload: { requestAnimationFrameId: number };
     }
   | { type: 'STOP_LISTENING_TO_MICROPHONE' }
+  | { type: 'CREATE_OSCILLATOR'; payload: OscillatorOptions }
+  // Actions starting with # are meant to be private
+  // and only used for the reducer internally. I.e.: to dispatch from a async action
+  // to update the state
   | {
       type: '#SET_MICROPHONE_PERMISSION_STATE';
       payload: { permissionState: PermissionState };
     };
 
+type DebugAction = {
+  type: 'SET_OSCILATOR_FREQUENCY';
+  payload: { frequency: number };
+};
+
 type AsyncAction =
   | { type: 'GET_MICROPHONE_ACCESS' }
   | { type: 'GET_MICROPHONE_PERMISSION_STATE' };
 
-export type AudioEngineReducerAction = Action | AsyncAction;
+export type AudioEngineReducerAction = Action | AsyncAction | DebugAction;
 
 export const audioEngineReducerInitialState: AudioEngineReducerState = {
   audioEngine: null,
@@ -57,7 +68,7 @@ export const audioEngineReducerInitialState: AudioEngineReducerState = {
   currentMusicNote: undefined,
   requestAnimationFrameId: -1,
   microphonePermissionState: 'prompt',
-
+  hasOscillator: false
 };
 
 export function audioEngineReducer(
@@ -69,8 +80,7 @@ export function audioEngineReducer(
     action.type === 'INITIALIZE_AUDIO_ENGINE'
   ) {
     const audioEngine = new AudioEngine({
-      inputAudioStream: action.payload.userMediaStream,
-      debug: action.payload.debug
+      inputAudioStream: action.payload.userMediaStream
     });
 
     return {
@@ -97,7 +107,9 @@ export function audioEngineReducer(
     state.state === 'INITIALIZED' &&
     action.type === 'START_LISTENING_TO_MICROPHONE'
   ) {
-    state.audioEngine!.startInputAudioStream();
+    if (state.audioEngine!.isStreamingAudio === false) {
+      state.audioEngine!.startInputAudioStream();
+    }
 
     return {
       ...state,
@@ -119,7 +131,9 @@ export function audioEngineReducer(
     return {
       ...state,
       currentFrequency: state.audioEngine!.currentFrequency,
-      currentMusicNote: MusicNotes.getMusicNoteFromFrequency(state.audioEngine!.currentFrequency),
+      currentMusicNote: MusicNotes.getMusicNoteFromFrequency(
+        state.audioEngine!.currentFrequency
+      ),
       requestAnimationFrameId: action.payload.requestAnimationFrameId
     };
   }
@@ -137,6 +151,22 @@ export function audioEngineReducer(
       requestAnimationFrameId: -1,
       currentFrequency: -1
     };
+  }
+
+  if (action.type === 'CREATE_OSCILLATOR' && state.hasOscillator === false) {
+    state.audioEngine?.createOscilator(action.payload);
+
+    return {
+      ...state,
+      hasOscillator: true
+    };
+  }
+
+
+  if (action.type === 'SET_OSCILATOR_FREQUENCY' && state.hasOscillator === true) {
+    state.audioEngine?.setOscillatorFrequency(action.payload.frequency);
+
+    return state;
   }
 
   console.warn(

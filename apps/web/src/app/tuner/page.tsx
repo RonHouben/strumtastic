@@ -10,7 +10,7 @@ export default function GuitarTunerPage() {
   const [state, dispatch] = useAudioEngine();
 
   const handleStopTuner = useCallback(() => {
-    router.push('/');
+    router.push('/exercise');
   }, [router]);
 
   // automatically route to the page to get
@@ -20,7 +20,7 @@ export default function GuitarTunerPage() {
       state.state === 'UNINITIALIZED' ||
       state.microphonePermissionState === 'denied'
     ) {
-      router.push('/connect-guitar');
+      router.push('/connect-guitar?navigatedFrom=/tuner');
     }
 
     if (state.state !== 'UNINITIALIZED') {

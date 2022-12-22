@@ -40,10 +40,13 @@ export function exerciseReducer(
 ): ExerciseReducerState {
   switch (action.type) {
     case 'initialise-exercise':
+      if (action.payload.notesToPlay.length === 0) {
+        throw new Error('"payload.notesToPlay" should not be empty!')
+      }
+
       return { ...state, ...action.payload, isInitialised: true };
 
     case 'record-played-note':
-      console.log('PING')
       if (!state.isInitialised) { 
         return state;
       }

@@ -1178,6 +1178,18 @@ video {
   width: 15rem;
 }
 
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
 .shrink {
   flex-shrink: 1;
 }
@@ -1234,6 +1246,10 @@ video {
 
 .gap-8 {
   gap: 2rem;
+}
+
+.gap-4 {
+  gap: 1rem;
 }
 
 .truncate {
@@ -1355,6 +1371,10 @@ video {
 .bg-slate-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(71 85 105 / var(--tw-bg-opacity));
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .fill-orange-500 {

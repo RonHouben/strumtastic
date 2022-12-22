@@ -32,6 +32,7 @@ This turborepo has some additional tools:
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
+- [TailwindCSS](https://tailwindcss.com) for styling
 
 ### Build
 
