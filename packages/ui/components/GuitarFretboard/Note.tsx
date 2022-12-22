@@ -18,29 +18,29 @@ export const Note = ({
   toBePlayed,
   showFlatsOrSharps
 }: Props) => {
-  const { getNoteName, getMusicNoteFromFrequency } = useMusicNotes();
-  const [state] = useAudioEngine();
+  const { getNoteName } = useMusicNotes();
+  const [exerciseState] = useExercise();
+  const [audioEngineState] = useAudioEngine();
 
-  const isCurrentlyPlaying = useMemo(() => {
-    const currentMusicNote = getMusicNoteFromFrequency(state.currentFrequency);
+  const isCurrentlyPlaying = useMemo(
+    () => musicNote === audioEngineState.currentMusicNote,
+    [musicNote, audioEngineState.currentMusicNote]
+  );
 
-    return currentMusicNote ? musicNote.hz === currentMusicNote.hz : false;
-  }, [musicNote, state.currentFrequency, getMusicNoteFromFrequency]);
-
-  // const isCorrectlyPlayed = useMemo(
-  //   () =>
-  //     state.playedNotes.some((playedNote) => playedNote.hz === musicNote.hz),
-  //   [state.playedNotes, musicNote]
-  // );
+  const isCorrectlyPlayed = useMemo(
+    () =>
+      exerciseState.playedNotes.some(
+        (playedNote) => playedNote.hz === musicNote.hz
+      ),
+    [exerciseState.playedNotes, musicNote]
+  );
 
   return (
     <span
       className={classNames(
         isCurrentlyPlaying ? 'bg-blue-500' : '',
-        // toBePlayed && !isCurrentlyPlaying && !isCorrectlyPlayed
-        //   ? 'bg-orange-500'
-        //   : '',
-        // isCorrectlyPlayed ? 'bg-green-500' : ''
+        isCorrectlyPlayed ? 'bg-green-500' : '',
+        toBePlayed ? 'bg-orange-500' : '',
       )}
     >
       {getNoteName(showFlatsOrSharps, musicNote)}

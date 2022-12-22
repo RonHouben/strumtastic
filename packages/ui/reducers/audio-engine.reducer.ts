@@ -44,11 +44,16 @@ type Action =
       payload: { permissionState: PermissionState };
     };
 
+type DebugAction = {
+  type: 'SET_OSCILATOR_FREQUENCY';
+  payload: { frequency: number };
+};
+
 type AsyncAction =
   | { type: 'GET_MICROPHONE_ACCESS' }
   | { type: 'GET_MICROPHONE_PERMISSION_STATE' };
 
-export type AudioEngineReducerAction = Action | AsyncAction;
+export type AudioEngineReducerAction = Action | AsyncAction | DebugAction;
 
 export const audioEngineReducerInitialState: AudioEngineReducerState = {
   audioEngine: null,
@@ -56,8 +61,7 @@ export const audioEngineReducerInitialState: AudioEngineReducerState = {
   currentFrequency: -1,
   currentMusicNote: undefined,
   requestAnimationFrameId: -1,
-  microphonePermissionState: 'prompt',
-
+  microphonePermissionState: 'prompt'
 };
 
 export function audioEngineReducer(
@@ -97,7 +101,9 @@ export function audioEngineReducer(
     state.state === 'INITIALIZED' &&
     action.type === 'START_LISTENING_TO_MICROPHONE'
   ) {
-    state.audioEngine!.startInputAudioStream();
+    if (!state.audioEngine!.isStreamingAudio) {
+      state.audioEngine!.startInputAudioStream();
+    }
 
     return {
       ...state,
@@ -119,7 +125,9 @@ export function audioEngineReducer(
     return {
       ...state,
       currentFrequency: state.audioEngine!.currentFrequency,
-      currentMusicNote: MusicNotes.getMusicNoteFromFrequency(state.audioEngine!.currentFrequency),
+      currentMusicNote: MusicNotes.getMusicNoteFromFrequency(
+        state.audioEngine!.currentFrequency
+      ),
       requestAnimationFrameId: action.payload.requestAnimationFrameId
     };
   }
@@ -137,6 +145,12 @@ export function audioEngineReducer(
       requestAnimationFrameId: -1,
       currentFrequency: -1
     };
+  }
+
+  if (action.type === 'SET_OSCILATOR_FREQUENCY') {
+    state.audioEngine?.setOscillatorFrequency(action.payload.frequency);
+
+    return state;
   }
 
   console.warn(

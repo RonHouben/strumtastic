@@ -51,7 +51,13 @@ export function AudioEngineProvider({ children }: Props) {
             payload: {
               userMediaStream: await navigator.mediaDevices.getUserMedia({
                 audio: true
-              })
+              }),
+              debug: {
+                oscillator: {
+                  hertz: 82,
+                  type: 'sine',
+                }
+              }
             }
           });
         }
