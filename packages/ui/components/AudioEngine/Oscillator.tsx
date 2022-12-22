@@ -1,5 +1,5 @@
 import { IMusicNote } from 'music-notes';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAudioEngine } from '../../hooks/useAudioEngine';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
@@ -7,16 +7,31 @@ export const Oscillator = () => {
   const { allMusicNotes } = useMusicNotes();
   const [_state, dispatch] = useAudioEngine();
 
-  const handleChangeFrequency = useCallback((note: IMusicNote) => {
-   dispatch({ type: 'SET_OSCILATOR_FREQUENCY', payload: { frequency: note.hz }}); 
+  useEffect(() => {
+    dispatch({
+      type: 'CREATE_OSCILLATOR',
+      payload: { hertz: 82, type: 'sine' }
+    });
   }, [dispatch]);
 
+  const handleChangeFrequency = useCallback(
+    (note: IMusicNote) => {
+      dispatch({
+        type: 'SET_OSCILATOR_FREQUENCY',
+        payload: { frequency: note.hz }
+      });
+    },
+    [dispatch]
+  );
+
   return (
-    <div className='flex gap-1'>
-      <label htmlFor='select-oscillator-note'>Set Oscillator Note:</label>
+    <div className="flex gap-1">
+      <label htmlFor="select-oscillator-note">Set Oscillator Note:</label>
       <select
-        id='select-oscillator-note'
-        onChange={(e) => handleChangeFrequency(JSON.parse(e.currentTarget.value))}
+        id="select-oscillator-note"
+        onChange={(e) =>
+          handleChangeFrequency(JSON.parse(e.currentTarget.value))
+        }
         className="rounded-sm bg-slate-500"
       >
         {allMusicNotes.map((note, i) => (

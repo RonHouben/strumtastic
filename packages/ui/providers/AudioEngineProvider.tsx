@@ -51,17 +51,7 @@ export function AudioEngineProvider({ children }: Props) {
             payload: {
               userMediaStream: await navigator.mediaDevices.getUserMedia({
                 audio: true
-              }),
-              // TODO: remove this debug and add logic to the AudioEngineReducer
-              // to initialise the oscillator from the Oscillator component.
-              // This so a debug panel can be made with which I can control
-              // what the sound source should be
-              debug: {
-                oscillator: {
-                  hertz: 82,
-                  type: 'sine',
-                }
-              }
+              })
             }
           });
         }

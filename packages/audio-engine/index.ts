@@ -1,4 +1,4 @@
-interface OscillatorOptions {
+export interface OscillatorOptions {
   type: OscillatorNode['type'];
   hertz: number;
 }
@@ -9,7 +9,6 @@ export interface AudioEngineDebugOptions {
 
 interface AudioEngineOptions {
   inputAudioStream: MediaStream;
-  debug?: AudioEngineDebugOptions;
 }
 
 export class AudioEngine {
@@ -25,7 +24,7 @@ export class AudioEngine {
   public readonly bufferLength: number;
   public readonly frequencyData: Float32Array;
 
-  constructor({ inputAudioStream, debug }: AudioEngineOptions) {
+  constructor({ inputAudioStream }: AudioEngineOptions) {
     this.inputAudioStream = inputAudioStream;
     this.audioContext = new AudioContext();
     this.analyser = this.audioContext.createAnalyser();
@@ -43,10 +42,6 @@ export class AudioEngine {
       this.inputAudioStream
     );
     // this.analyser.connect(this.audioContext.destination);
-
-    if (debug?.oscillator) {
-      this.createOscilator(debug.oscillator);
-    }
   }
 
   get currentFrequency(): number {
@@ -57,16 +52,7 @@ export class AudioEngine {
     return this._isStreamingAudio;
   }
 
-  private createOscilator(options: OscillatorOptions) {
-    this.oscillator = this.audioContext.createOscillator();
-    this.oscillator.type = options.type;
-    this.oscillator.frequency.setValueAtTime(
-      options.hertz,
-      this.audioContext.currentTime
-    );
-  }
-
-  private streamInputAudio() {
+  private streamInputAudio(): void {
     this.requestAnimationFrameId = requestAnimationFrame(() =>
       this.streamInputAudio()
     );
@@ -139,28 +125,24 @@ export class AudioEngine {
     return sampleRate / (a ? T0 - b / (2 * a) : T0);
   }
 
-  private setIsStreamingAudio(isStreamingAudio: boolean) {
+  private setIsStreamingAudio(isStreamingAudio: boolean): void {
     this._isStreamingAudio = isStreamingAudio;
   }
 
-  public startInputAudioStream() {
-    console.log('startInputAudioStream');
+  public startInputAudioStream(): void {
+    this.inputAudioStreamSource.connect(this.analyser);
 
     // this is for debug purposes
-    if (this.oscillator) {
+    if (this.oscillator && this.oscillator?.context.state !== 'running') {
       this.oscillator.connect(this.analyser);
       this.oscillator.start();
-    } else {
-      this.inputAudioStreamSource.connect(this.analyser);
     }
 
     this.streamInputAudio();
   }
 
   public stopInputAudioStream() {
-    console.log('stopInputAudioStream');
-
-    if (this.oscillator) {
+    if (this.oscillator && this.oscillator.context.state === 'running') {
       this.oscillator.stop();
     }
 
@@ -174,11 +156,22 @@ export class AudioEngine {
     this.setIsStreamingAudio(false);
   }
 
-  public setOscillatorFrequency(frequency: number) {
+  public createOscilator(options: OscillatorOptions): void {
+    this.oscillator = this.audioContext.createOscillator();
+    this.oscillator.type = options.type;
+    this.oscillator.frequency.setValueAtTime(
+      options.hertz,
+      this.audioContext.currentTime
+    );
+  }
+
+  public setOscillatorFrequency(frequency: number): void {
     if (this.oscillator) {
       this.oscillator.frequency.value = frequency;
     }
 
-    console.warn('No OscillatorNode has been initialised. Make sure to activate it in the debug options of the AudioEngine')
+    console.warn(
+      'No OscillatorNode has been initialised. Make sure to create an OscillatorNode first'
+    );
   }
 }

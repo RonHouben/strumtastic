@@ -3,7 +3,6 @@
 import { useCallback, useEffect } from 'react';
 import { Oscillator } from 'ui/components/AudioEngine/Oscillator';
 import { Button } from 'ui/components/Button';
-import { ButtonGroup } from 'ui/components/ButtonGroup';
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { Article } from 'ui/components/Typography';
 import { useAudioEngine } from 'ui/hooks/useAudioEngine';

@@ -20,7 +20,7 @@ export default function GuitarTunerPage() {
       state.state === 'UNINITIALIZED' ||
       state.microphonePermissionState === 'denied'
     ) {
-      router.push('/connect-guitar?navigatedFrom="/tuner"');
+      router.push('/connect-guitar?navigatedFrom=/tuner');
     }
 
     if (state.state !== 'UNINITIALIZED') {
