@@ -8,10 +8,13 @@ export default function Page() {
         <h1>Homepage</h1>
         <ul className="list-disc">
           <li>
-            <Link href="/connect-guitar">Connect guitar</Link>
+            <Link href="/connect-guitar" className='no-underline'>Connect guitar</Link>
           </li>
           <li>
-            <Link href="/tuner">Tuner</Link>
+            <Link href="/tuner" className='no-underline'>Tuner</Link>
+          </li>
+          <li>
+            <Link href="/exercise" className='no-underline'>Exercises</Link>
           </li>
         </ul>
       </Article>

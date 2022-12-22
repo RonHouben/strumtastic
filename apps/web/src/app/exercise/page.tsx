@@ -9,10 +9,12 @@ import { Article } from 'ui/components/Typography';
 import { useAudioEngine } from 'ui/hooks/useAudioEngine';
 import { useExercise } from 'ui/hooks/useExercise';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
+import { useRouter } from 'next/navigation';
 
 export default function ExercisePage() {
+  const router = useRouter();
   const [exerciseState, exerciseDispatch] = useExercise();
-  const [_audioEngineState, audioEngineDispatch] = useAudioEngine();
+  const [audioEngineState, audioEngineDispatch] = useAudioEngine();
   const { getMusicNoteByNoteName, getMusicNotesByNoteNames, getNoteName } =
     useMusicNotes();
 
@@ -23,6 +25,22 @@ export default function ExercisePage() {
   const handleStopExercise = useCallback(() => {
     audioEngineDispatch({ type: 'STOP_LISTENING_TO_MICROPHONE' });
   }, [audioEngineDispatch]);
+
+
+  // automatically route to the page to get
+  // permissions for the microphone
+  useEffect(() => {
+    if (
+      audioEngineState.state === 'UNINITIALIZED' ||
+      audioEngineState.microphonePermissionState === 'denied'
+    ) {
+      router.push('/connect-guitar');
+    }
+
+    if (audioEngineState.state !== 'UNINITIALIZED') {
+      audioEngineDispatch({ type: 'GET_MICROPHONE_PERMISSION_STATE' });
+    }
+  }, [router, audioEngineState, audioEngineDispatch]);
 
   useEffect(() => {
     if (!exerciseState.isInitialised) {

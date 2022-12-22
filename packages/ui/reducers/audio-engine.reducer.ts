@@ -101,7 +101,7 @@ export function audioEngineReducer(
     state.state === 'INITIALIZED' &&
     action.type === 'START_LISTENING_TO_MICROPHONE'
   ) {
-    if (!state.audioEngine!.isStreamingAudio) {
+    if (state.audioEngine!.isStreamingAudio === false) {
       state.audioEngine!.startInputAudioStream();
     }
 
