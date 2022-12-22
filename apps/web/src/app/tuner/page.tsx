@@ -10,7 +10,7 @@ export default function GuitarTunerPage() {
   const [state, dispatch] = useAudioEngine();
 
   const handleStopTuner = useCallback(() => {
-    router.push('/');
+    router.push('/exercise');
   }, [router]);
 
   // automatically route to the page to get
