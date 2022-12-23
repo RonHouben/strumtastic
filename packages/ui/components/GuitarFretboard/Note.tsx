@@ -38,12 +38,14 @@ export const Note = ({
   return (
     <div
       className={classNames(
+        'w-7 rounded-full bg-slate-500 text-slate-400',
         isCurrentlyPlaying ? 'bg-blue-500 text-slate-200' : '',
         isCorrectlyPlayed ? 'bg-green-500 text-slate-900' : '',
-        isRoot ? 'bg-slate-900 text-slate-200' : '',
-        toBePlayed ? 'bg-orange-500 text-slate-200' : '',
-        toBePlayed && isRoot ? 'bg-orange-700 text-slate-200' : '',
-        'w-7 rounded-full bg-slate-500 text-slate-400'
+        isRoot && !isCorrectlyPlayed ? 'bg-slate-900 text-slate-200' : '',
+        toBePlayed && !isCorrectlyPlayed ? 'bg-orange-500 text-slate-200' : '',
+        toBePlayed && isRoot && !isCorrectlyPlayed
+          ? 'bg-orange-700 text-slate-200'
+          : '',
       )}
     >
       <span>{getNoteName(showFlatsOrSharps, musicNote)}</span>
