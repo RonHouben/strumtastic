@@ -50,7 +50,11 @@ export function AudioEngineProvider({ children }: Props) {
             type: 'INITIALIZE_AUDIO_ENGINE',
             payload: {
               userMediaStream: await navigator.mediaDevices.getUserMedia({
-                audio: true
+                audio: {
+                  noiseSuppression: true,
+                  echoCancellation: true,
+                  autoGainControl: true,
+                },
               })
             }
           });
