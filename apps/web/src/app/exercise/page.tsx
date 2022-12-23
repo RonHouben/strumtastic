@@ -9,6 +9,7 @@ import { useAudioEngine } from 'ui/hooks/useAudioEngine';
 import { useExercise } from 'ui/hooks/useExercise';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
 import { useRouter } from 'next/navigation';
+import { AudioEngineDebugger, Hertz } from 'ui/components/AudioEngine';
 
 export default function ExercisePage() {
   const router = useRouter();
@@ -75,6 +76,7 @@ export default function ExercisePage() {
       <GuitarFretboard
         numberOfFrets={24}
         notesToPlay={exerciseState.notesToPlay}
+        musicKey={exerciseState.key}
       />
       <div className="w-full">
         {audioEngineState.state !== 'LISTENING_TO_MICROPHONE' && (
@@ -84,8 +86,7 @@ export default function ExercisePage() {
           <Button label="Stop Exercise" onClick={handleStopExercise} />
         )}
       </div>
-      <div>This is for debugging:</div>
-      <Oscillator />
+      <AudioEngineDebugger />
     </div>
   );
 }

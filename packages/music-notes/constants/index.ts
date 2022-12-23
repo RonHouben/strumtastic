@@ -1,5 +1,2 @@
-import { MUSIC_NOTES } from './musicnotes.constant';
-
-export {
-	MUSIC_NOTES,
-}
+export * from './musicnotes.constant';
+export * from './stringnames.constant';
