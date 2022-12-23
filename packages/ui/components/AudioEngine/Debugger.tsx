@@ -1,20 +1,15 @@
-import { ButtonGroup } from '../ButtonGroup';
 import { AudioEngineCurrentAudioData } from './CurrentAudioData';
 import { WaveFormAnayliser } from './WaveFormAnalyser';
-import { AudioEngineStartButton } from './StartButton';
-import { AudioEngineStopButton } from './StopButton';
 import { Oscillator } from './Oscillator';
+import { Article } from '../Typography';
 
 export const AudioEngineDebugger = () => {
   return (
-    <>
+    <Article>
+      <div>This is for debugging:</div>
       <WaveFormAnayliser />
-      <ButtonGroup>
-        <AudioEngineStartButton />
-        <AudioEngineStopButton />
-      </ButtonGroup>
       <Oscillator />
       <AudioEngineCurrentAudioData />
-    </>
+    </Article>
   );
 };

@@ -1,4 +1,5 @@
-import { FlatsOrSharps, IMusicNote, } from 'music-notes';
+import { FlatsOrSharps, IMusicNote } from 'music-notes';
+import { classNames } from '../../utils';
 import { Note } from './Note';
 
 interface Props {
@@ -6,11 +7,20 @@ interface Props {
   showFlatsOrSharps: FlatsOrSharps;
   isRoot: boolean;
   toBePlayed: boolean;
+  className?: string;
 }
 
-export const Fret = ({ musicNote, showFlatsOrSharps, isRoot, toBePlayed }: Props) => {
+export const Fret = ({
+  musicNote,
+  showFlatsOrSharps,
+  isRoot,
+  toBePlayed,
+  className
+}: Props) => {
   return (
-    <div className='w-[2em]'>
+    <div
+      className={classNames('my-1 flex w-12 justify-center', className || '')}
+    >
       <Note
         isRoot={isRoot}
         toBePlayed={toBePlayed}

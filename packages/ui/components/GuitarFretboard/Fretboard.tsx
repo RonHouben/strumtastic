@@ -1,52 +1,40 @@
 import { IMusicNote } from 'music-notes';
 import { GuitarFretboardString } from './FretboardString';
 import { GuitarFretboardFretNumbers } from './FretNumbers';
+import { STRING_NAMES } from 'music-notes/constants';
+import { GuitarFretboardMarkers } from './FretboardMarker';
 
 interface Props {
   numberOfFrets: number;
   notesToPlay: IMusicNote[];
+  musicKey: string;
 }
 
-export const GuitarFretboard = ({ numberOfFrets, notesToPlay }: Props) => {
+export const GuitarFretboard = ({
+  numberOfFrets,
+  notesToPlay,
+  musicKey
+}: Props) => {
   return (
-    <div id="guitar-fretboard-container" className="">
+    <div id="guitar-fretboard-container" className="prose min-w-full mb-5">
       <GuitarFretboardFretNumbers numberOfFrets={numberOfFrets} />
-      <GuitarFretboardString
-        stringName="E4"
-        numberOfFrets={numberOfFrets}
-        showFlatsOrSharps="sharps"
-        notesToPlay={notesToPlay}
-      />
-      <GuitarFretboardString
-        stringName="B3"
-        numberOfFrets={numberOfFrets}
-        showFlatsOrSharps="sharps"
-        notesToPlay={notesToPlay}
-      />
-      <GuitarFretboardString
-        stringName="G3"
-        numberOfFrets={numberOfFrets}
-        showFlatsOrSharps="sharps"
-        notesToPlay={notesToPlay}
-      />
-      <GuitarFretboardString
-        stringName="D3"
-        numberOfFrets={numberOfFrets}
-        showFlatsOrSharps="sharps"
-        notesToPlay={notesToPlay}
-      />
-      <GuitarFretboardString
-        stringName="A2"
-        numberOfFrets={numberOfFrets}
-        showFlatsOrSharps="sharps"
-        notesToPlay={notesToPlay}
-      />
-      <GuitarFretboardString
-        stringName="E2"
-        numberOfFrets={numberOfFrets}
-        showFlatsOrSharps="sharps"
-        notesToPlay={notesToPlay}
-      />
+      <div
+        id="guitar-fretboard-strings-container"
+        className="rounded-sm bg-slate-500 p-1 shadow-2xl"
+      >
+        {/* need to spread to reverse because STRING_NAMES is readonly */}
+        {[...STRING_NAMES].reverse().map((stringName) => (
+          <GuitarFretboardString
+            key={stringName}
+            stringName={stringName}
+            numberOfFrets={numberOfFrets}
+            showFlatsOrSharps="sharps"
+            notesToPlay={notesToPlay}
+            musicKey={musicKey}
+          />
+        ))}
+      </div>
+      <GuitarFretboardMarkers numberOfFrets={numberOfFrets}/>
     </div>
   );
 };

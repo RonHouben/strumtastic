@@ -32,7 +32,7 @@ export const Oscillator = () => {
         onChange={(e) =>
           handleChangeFrequency(JSON.parse(e.currentTarget.value))
         }
-        className="rounded-sm bg-slate-500"
+        className="rounded-sm border border-slate-300 bg-slate-500"
       >
         {allMusicNotes.map((note, i) => (
           <option key={i} value={JSON.stringify(note)}>

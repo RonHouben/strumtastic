@@ -1,7 +1,19 @@
+import { classNames } from '../../utils';
+
 interface Props {
-	children: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
 }
 
-export const Row = ({ children }: Props) => {
-    return <div className="flex justify-between text-center items-center">{children}</div>
-}
+export const Row = ({ children, className }: Props) => {
+  return (
+    <div
+      className={classNames(
+        'flex items-center justify-evenly text-center',
+        className || ''
+      )}
+    >
+      {children}
+    </div>
+  );
+};
