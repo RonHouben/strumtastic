@@ -6,7 +6,7 @@ interface Props {
 
 export const MusicNote = ({ musicNote }: Props) => {
   return (
-    <div className='flex flex-col pt-2'>
+    <div className='flex flex-col pt-2 min-h-[20rem]'>
       <strong>
         MusicNote
       </strong>
