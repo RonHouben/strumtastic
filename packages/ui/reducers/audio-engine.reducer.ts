@@ -80,7 +80,7 @@ export function audioEngineReducer(
     action.type === 'INITIALIZE_AUDIO_ENGINE'
   ) {
     const audioEngine = new AudioEngine({
-      inputAudioStream: action.payload.userMediaStream
+      mediaStream: action.payload.userMediaStream
     });
 
     return {
@@ -162,8 +162,10 @@ export function audioEngineReducer(
     };
   }
 
-
-  if (action.type === 'SET_OSCILATOR_FREQUENCY' && state.hasOscillator === true) {
+  if (
+    action.type === 'SET_OSCILATOR_FREQUENCY' &&
+    state.hasOscillator === true
+  ) {
     state.audioEngine?.setOscillatorFrequency(action.payload.frequency);
 
     return state;
