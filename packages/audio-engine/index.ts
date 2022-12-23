@@ -163,6 +163,7 @@ export class AudioEngine {
       options.hertz,
       this.audioContext.currentTime
     );
+    this.oscillator.start();
   }
 
   public setOscillatorFrequency(frequency: number): void {
