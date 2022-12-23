@@ -1,41 +1,37 @@
 import { IMusicNote } from 'music-notes';
+import { useMemo } from 'react';
 
 interface Props {
   musicNote: IMusicNote | null;
 }
 
 export const MusicNote = ({ musicNote }: Props) => {
+  const memoisedMusicNote = useMemo(() => musicNote, [musicNote]);
+
   return (
-    <div className='flex flex-col pt-2 min-h-[20rem]'>
-      <strong>
-        MusicNote
-      </strong>
-      <table className="table-auto mt-1">
+    <div className="flex min-h-[20rem] flex-col pt-2">
+      <strong>MusicNote</strong>
+      <table className="mt-1 table-fixed">
         <thead>
           <tr>
-            {Object.keys(musicNote || {}).map((key) => (
-              <th key={key}>{key}</th>
-            ))}
+            <th>Hertz</th>
+            <th>Octave</th>
+            <th>Name</th>
+            <th>Positions</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            {Object.entries(musicNote || {}).map(([key, values]) => (
-              <>
-                {Array.isArray(values) && (
-                  <td key={key}>
-                    <ul>
-                      {values.map((value, i) => (
-                        <li key={i}>{JSON.stringify(value)}</li>
-                      ))}
-                    </ul>
-                  </td>
-                )}
-                {!Array.isArray(values) && (
-                  <td key={key}>{JSON.stringify(values)}</td>
-                )}
-              </>
-            ))}
+            <td>{memoisedMusicNote?.hz}</td>
+            <td>{memoisedMusicNote?.octave}</td>
+            <td>{JSON.stringify(memoisedMusicNote?.names)}</td>
+            <td>
+              <ul>
+                {memoisedMusicNote?.positions.map((position, i) => (
+                  <li key={i}>{JSON.stringify(position)}</li>
+                ))}
+              </ul>
+            </td>
           </tr>
         </tbody>
       </table>
