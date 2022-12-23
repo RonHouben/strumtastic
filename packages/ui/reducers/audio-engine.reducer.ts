@@ -23,6 +23,7 @@ export type AudioEngineReducerState = {
   readonly requestAnimationFrameId: number;
   readonly microphonePermissionState: PermissionState;
   readonly hasOscillator: boolean;
+  readonly useAIPitchDetector: boolean;
 };
 
 type Action =
@@ -41,10 +42,12 @@ type Action =
       payload: { requestAnimationFrameId: number };
     }
   | { type: 'STOP_LISTENING_TO_MICROPHONE' }
+  | { type: 'SET_USE_AI_PITCH_DETECTION', payload: { useAI: boolean }}
   | { type: 'CREATE_OSCILLATOR'; payload: OscillatorOptions }
   // Actions starting with # are meant to be private
   // and only used for the reducer internally. I.e.: to dispatch from a async action
   // to update the state
+  | { type: '#INITIALIZE_AI_PITCH_DETECTION' }
   | {
       type: '#SET_MICROPHONE_PERMISSION_STATE';
       payload: { permissionState: PermissionState };
@@ -68,7 +71,8 @@ export const audioEngineReducerInitialState: AudioEngineReducerState = {
   currentMusicNote: undefined,
   requestAnimationFrameId: -1,
   microphonePermissionState: 'prompt',
-  hasOscillator: false
+  hasOscillator: false,
+  useAIPitchDetector: false,
 };
 
 export function audioEngineReducer(
@@ -169,6 +173,23 @@ export function audioEngineReducer(
     state.audioEngine?.setOscillatorFrequency(action.payload.frequency);
 
     return state;
+  }
+
+  if (action.type === 'SET_USE_AI_PITCH_DETECTION') {
+    if (action.payload.useAI === true && state.audioEngine?.isAIPitchDetectorInitialized) {
+      state.audioEngine.setUseAIPitchDetection(true);
+
+      return { ...state, useAIPitchDetector: true };
+    } else if (action.payload.useAI === true && !state.audioEngine?.isAIPitchDetectorInitialized) {
+      state.audioEngine?.initAIPitchDetection();
+      state.audioEngine?.setUseAIPitchDetection(true);
+
+      return { ...state, useAIPitchDetector: true };
+    } else  {
+      state.audioEngine?.setUseAIPitchDetection(false);
+
+      return { ...state, useAIPitchDetector: false };
+    }
   }
 
   console.warn(
