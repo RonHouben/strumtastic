@@ -1,4 +1,3 @@
-import { isArray } from 'mathjs';
 import { IMusicNote } from 'music-notes';
 
 interface Props {
@@ -23,7 +22,7 @@ export const MusicNote = ({ musicNote }: Props) => {
           <tr>
             {Object.entries(musicNote || {}).map(([key, values]) => (
               <>
-                {isArray(values) && (
+                {Array.isArray(values) && (
                   <td key={key}>
                     <ul>
                       {values.map((value, i) => (
@@ -32,7 +31,7 @@ export const MusicNote = ({ musicNote }: Props) => {
                     </ul>
                   </td>
                 )}
-                {!isArray(values) && (
+                {!Array.isArray(values) && (
                   <td key={key}>{JSON.stringify(values)}</td>
                 )}
               </>

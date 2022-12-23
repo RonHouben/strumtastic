@@ -27,29 +27,6 @@ export class MusicNotes {
     return MUSIC_NOTES;
   }
 
-  // static getNoteFromFrequency(frequency: number): IMusicNote {
-  //   let closestLower: IMusicNote = MUSIC_NOTES[0];
-  //   let closestHigher: IMusicNote = MUSIC_NOTES[MUSIC_NOTES.length - 1];
-
-  //   for (const musicNote of MUSIC_NOTES) {
-  //     if (musicNote.hz < frequency) {
-  //       closestLower = musicNote;
-  //     }
-
-  //     if (musicNote.hz > frequency) {
-  //       closestHigher = musicNote;
-  //       break; // going from low to high so we can stop here
-  //     }
-  //   }
-
-  //   const distanceToLower = Math.abs(frequency - closestLower.hz);
-  //   const distanceToHigher = Math.abs(frequency - closestHigher.hz);
-
-  //   return Math.min(distanceToLower, distanceToHigher) === distanceToLower
-  //     ? closestLower
-  //     : closestHigher;
-  // }
-
   static getMusicNoteFromFrequency(pitch: number): IMusicNote | undefined {
     if (pitch === -1) {
       return undefined;
