@@ -5,13 +5,13 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "audio-engine#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**"]
+    },
     "web#build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "env": [
-        "SOME_OTHER_ENV_VAR"
-      ],
+      "dependsOn": ["audio-engine#build"],
+      "env": ["SOME_OTHER_ENV_VAR"],
       "outputs": [".next/**"]
     },
     "lint": {

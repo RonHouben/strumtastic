@@ -23,6 +23,7 @@ export type AudioEngineReducerState = {
   readonly requestAnimationFrameId: number;
   readonly microphonePermissionState: PermissionState;
   readonly hasOscillator: boolean;
+  readonly useAIPitchDetector: boolean;
 };
 
 type Action =
@@ -48,7 +49,8 @@ type Action =
   | {
       type: '#SET_MICROPHONE_PERMISSION_STATE';
       payload: { permissionState: PermissionState };
-    };
+    }
+  | { type: '#SET_USE_AI_PITCH_DETECTION'; payload: { useAI: boolean } };
 
 type DebugAction = {
   type: 'SET_OSCILATOR_FREQUENCY';
@@ -57,7 +59,8 @@ type DebugAction = {
 
 type AsyncAction =
   | { type: 'GET_MICROPHONE_ACCESS' }
-  | { type: 'GET_MICROPHONE_PERMISSION_STATE' };
+  | { type: 'GET_MICROPHONE_PERMISSION_STATE' }
+  | { type: 'SET_USE_AI_PITCH_DETECTION'; payload: { useAI: boolean } };
 
 export type AudioEngineReducerAction = Action | AsyncAction | DebugAction;
 
@@ -68,7 +71,8 @@ export const audioEngineReducerInitialState: AudioEngineReducerState = {
   currentMusicNote: undefined,
   requestAnimationFrameId: -1,
   microphonePermissionState: 'prompt',
-  hasOscillator: false
+  hasOscillator: false,
+  useAIPitchDetector: false
 };
 
 export function audioEngineReducer(
@@ -80,7 +84,7 @@ export function audioEngineReducer(
     action.type === 'INITIALIZE_AUDIO_ENGINE'
   ) {
     const audioEngine = new AudioEngine({
-      inputAudioStream: action.payload.userMediaStream
+      mediaStream: action.payload.userMediaStream
     });
 
     return {
@@ -162,11 +166,19 @@ export function audioEngineReducer(
     };
   }
 
-
-  if (action.type === 'SET_OSCILATOR_FREQUENCY' && state.hasOscillator === true) {
+  if (
+    action.type === 'SET_OSCILATOR_FREQUENCY' &&
+    state.hasOscillator === true
+  ) {
     state.audioEngine?.setOscillatorFrequency(action.payload.frequency);
 
     return state;
+  }
+
+  if (action.type === '#SET_USE_AI_PITCH_DETECTION') {
+    state.audioEngine?.setUseAIPitchDetection(action.payload.useAI);
+
+    return { ...state, useAIPitchDetector: action.payload.useAI };
   }
 
   console.warn(
@@ -209,5 +221,32 @@ export const audioEngineAsyncActionHandlers: AsyncActionHandlers<
         type: '#SET_MICROPHONE_PERMISSION_STATE',
         payload: { permissionState: microphonePermissionStatus.state }
       });
+    },
+  SET_USE_AI_PITCH_DETECTION:
+    ({ dispatch, getState }) =>
+    async ({ payload }) => {
+      const state = getState();
+
+      if (payload.useAI && state.audioEngine?.isAIPitchDetectorInitialized) {
+        dispatch({
+          type: '#SET_USE_AI_PITCH_DETECTION',
+          payload: { useAI: true }
+        });
+      } else if (
+        payload.useAI &&
+        !state.audioEngine?.isAIPitchDetectorInitialized
+      ) {
+        await state.audioEngine?.initAIPitchDetection();
+
+        dispatch({
+          type: '#SET_USE_AI_PITCH_DETECTION',
+          payload: { useAI: true }
+        });
+      } else {
+        dispatch({
+          type: '#SET_USE_AI_PITCH_DETECTION',
+          payload: { useAI: false }
+        });
+      }
     }
 };

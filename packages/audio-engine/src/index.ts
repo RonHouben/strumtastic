@@ -1,3 +1,5 @@
+import { ML5PitchDetector } from './types/ml5-pitchdetector';
+
 export interface OscillatorOptions {
   type: OscillatorNode['type'];
   hertz: number;
@@ -8,39 +10,47 @@ export interface AudioEngineDebugOptions {
 }
 
 interface AudioEngineOptions {
-  inputAudioStream: MediaStream;
+  mediaStream: MediaStream;
 }
 
 export class AudioEngine {
   private readonly audioContext: AudioContext;
-  private readonly analyser: AnalyserNode;
-  private readonly inputAudioStream: MediaStream;
-  private readonly inputAudioStreamSource: MediaStreamAudioSourceNode;
+  private readonly analyserNode: AnalyserNode;
+  private readonly mediaStream: MediaStream;
+  private readonly mediaStreamSourceNode: MediaStreamAudioSourceNode;
+  // TODO: chech this can be loaded in from the library instead of a CDN
+  private readonly pitchDetectionModelPath: string =
+    'https://cdn.jsdelivr.net/gh/ml5js/ml5-library/examples/javascript/PitchDetection/PitchDetection/model';
+  private pitchDetector?: ML5PitchDetector;
   private oscillator?: OscillatorNode;
   private requestAnimationFrameId?: number;
+
+  private _isAIPitchDetectorInitialized: boolean = false;
   private _currentFrequency = -1;
   private _isStreamingAudio: boolean = false;
+  private _useAIPitchDetection: boolean = false;
 
   public readonly bufferLength: number;
   public readonly frequencyData: Float32Array;
 
-  constructor({ inputAudioStream }: AudioEngineOptions) {
-    this.inputAudioStream = inputAudioStream;
+  constructor({ mediaStream }: AudioEngineOptions) {
+    this.mediaStream = mediaStream;
     this.audioContext = new AudioContext();
-    this.analyser = this.audioContext.createAnalyser();
 
-    this.analyser.fftSize = 2048;
-    this.analyser.minDecibels = -50;
-    this.analyser.maxDecibels = -10;
-    this.analyser.smoothingTimeConstant = 0.85;
+    this.analyserNode = this.audioContext.createAnalyser();
+    this.analyserNode.fftSize = 2048;
+    this.analyserNode.minDecibels = -100;
+    this.analyserNode.maxDecibels = -10;
+    this.analyserNode.smoothingTimeConstant = 0.85;
 
-    this.bufferLength = this.analyser.frequencyBinCount;
+    this.bufferLength = this.analyserNode.frequencyBinCount;
     this.frequencyData = new Float32Array(this.bufferLength);
 
     // connect inputAudioStreamSouce
-    this.inputAudioStreamSource = this.audioContext.createMediaStreamSource(
-      this.inputAudioStream
+    this.mediaStreamSourceNode = this.audioContext.createMediaStreamSource(
+      this.mediaStream
     );
+
     // this.analyser.connect(this.audioContext.destination);
   }
 
@@ -52,14 +62,22 @@ export class AudioEngine {
     return this._isStreamingAudio;
   }
 
-  private streamInputAudio(): void {
+  get isAIPitchDetectorInitialized(): boolean {
+    return this._isAIPitchDetectorInitialized;
+  }
+
+  get useAIPitchDetection(): boolean {
+    return this._useAIPitchDetection;
+  }
+
+  private async streamInputAudio(): Promise<void> {
     this.requestAnimationFrameId = requestAnimationFrame(() =>
       this.streamInputAudio()
     );
 
-    this.analyser.getFloatTimeDomainData(this.frequencyData);
+    this.analyserNode.getFloatTimeDomainData(this.frequencyData);
 
-    this._currentFrequency = this.getFrequency(
+    this._currentFrequency = await this.getFrequency(
       this.frequencyData,
       this.audioContext.sampleRate
     );
@@ -67,17 +85,43 @@ export class AudioEngine {
     this.setIsStreamingAudio(true);
   }
 
-  private getFrequency(buffer: Float32Array, sampleRate: number): number {
+  private async getFrequency(
+    frequencyData: Float32Array,
+    sampleRate: number
+  ): Promise<number> {
+    // RMS = root-mean-square value of a signal
+    // https://en.wikipedia.org/wiki/Root_mean_square#RMS_in_frequency_domain
+    const rms = Math.sqrt(
+      frequencyData.reduce((acc, el) => acc + el ** 2, 0) / frequencyData.length
+    );
+    const hasEnoughSignal = rms < 0.2;
+
+    if (hasEnoughSignal) {
+      if (this.useAIPitchDetection) {
+        return this.getAIPitchDetectionFrequency();
+      } else {
+        return this.getAutoCorrelateFrequency(frequencyData, sampleRate);
+      }
+    }
+
+    return -1;
+  }
+
+  private getAIPitchDetectionFrequency(): Promise<number> {
+    if (!this.pitchDetector) {
+      throw new Error('AI Pitch Detection has not been initialised!');
+    }
+
+    return this.pitchDetector.getPitch();
+  }
+
+  private getAutoCorrelateFrequency(
+    buffer: Float32Array,
+    sampleRate: number
+  ): number {
+    // ACF2+ algorithm
     // source: https://github.com/cwilso/PitchDetect
     // source: https://github.com/sablevsky/freelizer
-
-    // Not enough signal check
-    const RMS = Math.sqrt(
-      buffer.reduce((acc, el) => acc + el ** 2, 0) / buffer.length
-    );
-    if (RMS < 0.001) return NaN;
-    // console.log(RMS)
-    // if (RMS < 0.2) return NaN;
 
     const THRES = 0.2;
     let r1 = 0;
@@ -130,11 +174,11 @@ export class AudioEngine {
   }
 
   public startInputAudioStream(): void {
-    this.inputAudioStreamSource.connect(this.analyser);
+    this.mediaStreamSourceNode.connect(this.analyserNode);
 
     // this is for debug purposes
     if (this.oscillator && this.oscillator?.context.state !== 'running') {
-      this.oscillator.connect(this.analyser);
+      this.oscillator.connect(this.analyserNode);
       this.oscillator.start();
     }
 
@@ -174,5 +218,29 @@ export class AudioEngine {
     console.warn(
       'No OscillatorNode has been initialised. Make sure to create an OscillatorNode first'
     );
+  }
+
+  public async initAIPitchDetection(): Promise<void> {
+    // dynamically import is necesary because when importing ML5
+    // it looks for the `window` object. Since we're using NextJS
+    // it happens that the window doesn't exists due to SSR.
+    // it's also not necesary to have the complete ML5 library loaded
+    // if the user doesn't want to use AI.
+    const ml5 = await import('ml5');
+
+    this.pitchDetector = ml5.pitchDetection(
+      this.pitchDetectionModelPath,
+      this.audioContext,
+      this.mediaStream,
+      () => {
+        console.info('ml5 pitchDetection model has been loaded');
+      }
+    );
+
+    this._isAIPitchDetectorInitialized = true;
+  }
+
+  public setUseAIPitchDetection(useAI: boolean): void {
+    this._useAIPitchDetection = useAI; 
   }
 }
