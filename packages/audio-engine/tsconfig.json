@@ -4,8 +4,11 @@
     "target": "es6",
     "typeRoots": ["src/types"],
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "declaration": true,
+    "skipLibCheck": true,
+    "module": "ESNext", 
   },
-  "include": ["src"],
+  "include": ["src", "**/*.d.ts", "**/*.ts", "src/types/ml5.d.ts"],
   "exclude": ["dist", "node_modules"]
 }

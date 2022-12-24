@@ -1,4 +1,4 @@
-import * as ml5 from 'ml5';
+import { ML5PitchDetector } from './types/ml5-pitchdetector';
 
 export interface OscillatorOptions {
   type: OscillatorNode['type'];
@@ -21,7 +21,7 @@ export class AudioEngine {
   // TODO: chech this can be loaded in from the library instead of a CDN
   private readonly pitchDetectionModelPath: string =
     'https://cdn.jsdelivr.net/gh/ml5js/ml5-library/examples/javascript/PitchDetection/PitchDetection/model';
-  private pitchDetector?: ml5.PitchDetector;
+  private pitchDetector?: ML5PitchDetector;
   private oscillator?: OscillatorNode;
   private requestAnimationFrameId?: number;
 
@@ -220,7 +220,14 @@ export class AudioEngine {
     );
   }
 
-  public initAIPitchDetection(): void {
+  public async initAIPitchDetection(): Promise<void> {
+    // dynamically import is necesary because when importing ML5
+    // it looks for the `window` object. Since we're using NextJS
+    // it happens that the window doesn't exists due to SSR.
+    // it's also not necesary to have the complete ML5 library loaded
+    // if the user doesn't want to use AI.
+    const ml5 = await import('ml5');
+
     this.pitchDetector = ml5.pitchDetection(
       this.pitchDetectionModelPath,
       this.audioContext,
