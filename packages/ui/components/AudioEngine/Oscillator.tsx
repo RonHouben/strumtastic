@@ -1,27 +1,27 @@
 import { IMusicNote } from 'music-notes';
 import { useCallback, useEffect } from 'react';
-import { useAudioEngine } from '../../hooks/useAudioEngine';
+import { useAudioEngine } from 'audio-engine';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const Oscillator = () => {
   const { allMusicNotes } = useMusicNotes();
-  const [_state, dispatch] = useAudioEngine();
+  const [_state, send] = useAudioEngine();
 
   useEffect(() => {
-    dispatch({
+    send({
       type: 'CREATE_OSCILLATOR',
       payload: { hertz: 82, type: 'sine' }
     });
-  }, [dispatch]);
+  }, [send]);
 
   const handleChangeFrequency = useCallback(
     (note: IMusicNote) => {
-      dispatch({
+      send({
         type: 'SET_OSCILATOR_FREQUENCY',
         payload: { frequency: note.hz }
       });
     },
-    [dispatch]
+    [send]
   );
 
   return (

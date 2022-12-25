@@ -36,33 +36,33 @@ export function AudioEngineProvider({ children }: Props) {
     const [state, dispatch] = memoisedReducer;
     let requestAnimationFrameId: number;
 
-    if (state.state === 'UNINITIALIZED') {
-      const getMicrophonePermissionsAsync = async () => {
-        const microphonePermissionStatus = await navigator.permissions.query({
-          name: 'microphone' as PermissionName
-        });
+    // if (state.state === 'UNINITIALIZED') {
+    //   const getMicrophonePermissionsAsync = async () => {
+    //     const microphonePermissionStatus = await navigator.permissions.query({
+    //       name: 'microphone' as PermissionName
+    //     });
 
-        if (
-          microphonePermissionStatus.state === 'granted' &&
-          state.state === 'UNINITIALIZED'
-        ) {
-          dispatch({
-            type: 'INITIALIZE_AUDIO_ENGINE',
-            payload: {
-              userMediaStream: await navigator.mediaDevices.getUserMedia({
-                audio: {
-                  noiseSuppression: true,
-                  echoCancellation: true,
-                  autoGainControl: true,
-                },
-              })
-            }
-          });
-        }
-      };
+    //     if (
+    //       microphonePermissionStatus.state === 'granted' &&
+    //       state.state === 'UNINITIALIZED'
+    //     ) {
+    //       dispatch({
+    //         type: 'INITIALIZE_AUDIO_ENGINE',
+    //         payload: {
+    //           userMediaStream: await navigator.mediaDevices.getUserMedia({
+    //             audio: {
+    //               noiseSuppression: true,
+    //               echoCancellation: true,
+    //               autoGainControl: true,
+    //             },
+    //           })
+    //         }
+    //       });
+    //     }
+    //   };
 
-      getMicrophonePermissionsAsync();
-    }
+    //   getMicrophonePermissionsAsync();
+    // }
 
     // update currentFrequency
     if (state.state === 'LISTENING_TO_MICROPHONE') {

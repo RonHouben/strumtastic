@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
+		"jsx": "react",
     "target": "es6",
     "typeRoots": ["src/types"],
     "outDir": "dist",

@@ -1,45 +1,28 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
-import { Oscillator } from 'ui/components/AudioEngine/Oscillator';
 import { Button } from 'ui/components/Button';
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { Article } from 'ui/components/Typography';
-import { useAudioEngine } from 'ui/hooks/useAudioEngine';
+import { useAudioEngine } from 'audio-engine';
 import { useExercise } from 'ui/hooks/useExercise';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
-import { useRouter } from 'next/navigation';
-import { AudioEngineDebugger, Hertz } from 'ui/components/AudioEngine';
+import { AudioEngineDebugger } from 'ui/components/AudioEngine';
+import { AudioEngineNotInitialized } from 'ui/components/AudioEngine/NotInitialized';
 
 export default function ExercisePage() {
-  const router = useRouter();
   const [exerciseState, exerciseDispatch] = useExercise();
-  const [audioEngineState, audioEngineDispatch] = useAudioEngine();
+  const [audioEngineState, sendToAudioEngine] = useAudioEngine();
   const { getMusicNoteByNoteName, getMusicNotesByNoteNames, getNoteName } =
     useMusicNotes();
 
   const handleStartExercise = useCallback(() => {
-    audioEngineDispatch({ type: 'START_LISTENING_TO_MICROPHONE' });
-  }, [audioEngineDispatch]);
+    sendToAudioEngine({ type: 'START_LISTENING_TO_MICROPHONE' });
+  }, [sendToAudioEngine]);
 
   const handleStopExercise = useCallback(() => {
-    audioEngineDispatch({ type: 'STOP_LISTENING_TO_MICROPHONE' });
-  }, [audioEngineDispatch]);
-
-  // automatically route to the page to get
-  // permissions for the microphone
-  useEffect(() => {
-    if (
-      audioEngineState.state === 'UNINITIALIZED' ||
-      audioEngineState.microphonePermissionState === 'denied'
-    ) {
-      router.push('/connect-guitar');
-    }
-
-    if (audioEngineState.state !== 'UNINITIALIZED') {
-      audioEngineDispatch({ type: 'GET_MICROPHONE_PERMISSION_STATE' });
-    }
-  }, [router, audioEngineState, audioEngineDispatch]);
+    sendToAudioEngine({ type: 'STOP_LISTENING_TO_MICROPHONE' });
+  }, [sendToAudioEngine]);
 
   useEffect(() => {
     if (!exerciseState.isInitialised) {
@@ -79,11 +62,14 @@ export default function ExercisePage() {
         musicKey={exerciseState.key}
       />
       <div className="w-full">
-        {audioEngineState.state !== 'LISTENING_TO_MICROPHONE' && (
+        {audioEngineState.matches('unitialized') && (
+          <AudioEngineNotInitialized />
+        )}
+        {audioEngineState.matches('idle') && (
           <Button label="Start Exercise" onClick={handleStartExercise} />
         )}
-        {audioEngineState.state === 'LISTENING_TO_MICROPHONE' && (
-          <Button label="Stop Exercise" onClick={handleStopExercise} />
+        {audioEngineState.matches('listeningToMicrophone') && (
+          <Button label="Stop Exercise" className='bg-red-500 hover:!bg-red-300' onClick={handleStopExercise} />
         )}
       </div>
       <AudioEngineDebugger />
