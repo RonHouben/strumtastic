@@ -9,12 +9,12 @@ type Context = {
 
 type Service = {
   getMicrophoneAccess: { data: MediaStream; onError: Error };
-  updateAudioEngine: any;
+  updateAudioEnginePeriodically: any;
   configureAIPitchDetection: { data: { useAIPitchDetection: boolean } };
 };
 
 export const audioEngineMachine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QEECuECWB7AogOygzzAFkBDAYwAsiwA6VPDAFwzIBsMAvSAYgEkAcvwAq-ZABl+ALRwBtAAwBdRKAAOWWC2x5VIAB6IAjAHYFdEwFYTADgDMAFgCcANhMAmZzZcAaEAE9ET3c6d0sFBUs7F09rBXcbAF9EvzRMXAJacmpaOiJtDm4iKDoYZlYCEgwKACcsNSosYmQKCjhYXggm+iIANywAa3oyqtr6xubW9sUVJBANLVYmvUMEK3NLdztwo0dLFzsFGz9AhAd90OdXE1cbbxcjB2TU9Gx8QmJsmmI8plZCrjFUpgcrFUZ1BrdFptWAdMA1Oo1OhqdhkZgAMywNQAtsDmODxlCprCZnoFtplnNVus6JttgpducDkcTog7I46Ed2XYnHs4pZLM8QGk3plPpRvj0-mxOICCHRamA0cURRkPmBeKS5uSlroqcYXAo7HQ7AlokZXO5dptWWcLp4nNdbvdHkLVe8shLcvl-rKgRAwExIATIZMYR0AEo4EQRgCaAH0AOLR+MkfgAYQjAHkAAoACSzghw8eQ6fTOAAyhWtepNBS9aBqeFaVsdntmccAkF7LT7Oyjg4bEY3J43a81Z6cj8MBB2BqKyJkBGRPGpAucMJBIn4yIs6mM9n84X5MoyXXdStEM4XLSYvstjZ3O4nPZbUYFC+LFcHEZ7+ETHYY7pB64pTj0s4aumhYAGL8ImACqUbxhW0ZiFu1antq546JeawclEuwKC41gWi4TiWG+CiDqE4TxFabiWu4QGiuqXy5JwsDMIGxQiFgIYTPOu45qu-Drpu267vuma5gWRY1vM2GUo2V6uLeYQxHYj7Pq+XYIDE5juABDjuMRvJGDYlhGMxE6gZKdAcVxTAELx-HdLwUGCLBCFIShIhoYmGGzLWiw4fqCDhDef4aVpL52LaQ43g61wJEYuxhNZIGkF6PwOdxzl8dUEICfZGCcXlUC8PBOYACLICIxbIPB1X8HuG6JkIJ5BQpIVKQYxiWXQMSpYOdyWPYNy2mRli0qlU22GZjoZWKWVgQqTTohgUCoDUxQViCFRQLAdBkBgOYsNQ1UgmAFC6p03S-P0QxrXgG1bTUYDIPwZ3MBdV03To8k6qFykIEY7gRLSdhg04ETGalnanI+Jh0O+bgDvcDgKCYS2sdl9AUOtm3bbt+3FEdJ3fb9XH-U0vDwoiyKohiWK4gTL1E+9n2U1Ql3U7qgOKQ2fWg+DGxQ8+sNWuZtpOODtKWI6RzQ64YPJCkIB4FgAbwHM7rLWxxBnj1QurAAtBatqm54nIRLbdu2666t67jq2MAUsqQEb9a4cZtrBBYtEfljUM-kxTvjplBtSu7RQEF7F5hc+Rgto4AGmpjUQOJRNg27bDjRPnji7Djk52T6MqxyUZQHa5YbtPHwPC+yTgpw4aeeJEjh+1YdDkX2YSEeZ9gl7Z3rSgCQKKsqBDO7QDe9as8M3uRHgOA4LjOI8+e2j+02Oo6tgb2RUsjytZfj368oBkGEC1x9xI68F3the+Jg3qaj7r1a+cTbpYQt4HXYppzLGSSOHYC+s8Z5AgvPE2BpPw-h-FYAuphDLxTbr3Ki7c7A3Ask8cBLFS7sVKo5HiBUxihjALA3Cz5bT7GNJZYcZFHiyxMMXAhNkz7ELKk5KALlCqEhyiQ8q1CwomBMLaG4y8N5Diogcc4VhT5R2eq9YmBA9qggII-bqz8QYeGTgRQ4xE2GuHIpI84vd94PGIucHkgEOGRygWzVRO11Gky0cdU650eZ-QTk-Pxws34AKhkYkipiKK6T7HQK4Tg2GbFisZNWiQgA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QEECuECWB7AogOygzzAFkBDAYwAsiwA6VPDAFwzIBsMAvSAYgEkAcvwAq-ZABl+ALRwBtAAwBdRKAAOWWC2x5VIAB6IAjAHYArHXMmTATgDMN6wCYbCgGxOANCACeiOwAsFiYKdkZmAR5ugWamAL5x3miYuAS05NS0dETaHNxEUHQwzKwEJBgUAE5YalRYxMgUFHCwvBD19EQAblgA1vTF5VU1dQ1NLYoqSCAaWqz1eoYI5hZmToFOAQEAHAF2Ll6+iAGhdE6hRnYhbkYKNtt2ZglJ6Nj4hMQZNMTZTKx5XAKRTAJQKQ2qtQ6jWasFaYEq1UqdDU7DIzAAZlhKgBbYHMcEjKHjWGTPSzbQLaZLFZ0NYbLa7fY2Q5+BBmEwBWl2NwBdYKEzbbYuIzPEDJN5pT6Ub6dP5sTiAgh0KpgNEFcWpD5gXik6bk+a6KnGdl2Oj7bbhNwKNYKIwBbysk6m85hK7uW73R6ijXvdLSrI5f4KoHIfgABRY1AAIiCwBQDW0Or8ev1frlmGBQxHmNHY-GdLr1JoKYbQEtzjYbHQAnbNqZ2dsTEYHf5HHQefsTOcu04hd7Xpq-ZkfoH5fklVnI1QYxn8-VePDEcjURisbjR2jM+GpzO4wbCzNiwbFsZzJZ2bYHM5XB4WwgjE43HQFC-bUZok5e9szHZ+ylfVKw6yrkwZKhAYBMJABKQmMMKtAASjgIjwQAmgA+gA4khaEkPwADC8EAPJhgAEoRgg4GhyB4XhOAAMp0Qe+o6CeyxmKs6y8gyewHHeaycqEPI2Oyva2Lsf4SlqXwBhA7DanRIjIPBIhoVICk4MIggYWhIiETh+FEaR5HyMoZJHixRpsvydCVrZQQhGY-LNkc96Pk+LqfjYNxmDYNZOBJg6ATK2SydqeHkQAYvwGEAKqIWhdFIWIWmMaZermZSZaIByFheY2P6mA85wssYTjhJYoR2Aon5uD5txPIkYoDgBpD+j8nCwBmTAECIWDQaM8m6WGqn8Opmnabp+kEcRZEUUxGWlgYiCOSYNm2b57LWk5d5dqaXa1T51prCaAUtdJ7UYJ1EEFL1-UdLw4WCFFsXxYlIjJRhqVTEWcwWVlbKmGtdmbStJUIJ6FV2FVjjhA8tinZKrVAXQHVdTdfUVBCA0o5daMELwMVhlGyAiJRyAxVG-B6RpGFCCZ32Hr9mVLfe7Jmg4QoBCEYT8mDticmVOw3F5PnFQjUltfQFD1OiGBQKglQFHRIKlFAsB0GQGDZrms4Ju0I54CmUsy3LCtbtr055vuaU-SWrEPkYRg2W4jZcxygpOByd6VpyZhWvyChc+4+wio1PqI+dxt4LL8uKwQyuggQ6uaxbu5zngC4Iliy5opiOLKibsfmzuVsFjbjN25ZDtO3lHLWDsQpey5tyCs+lyXNsb4Pr+op4Fg4HwNM4cS0BZlM4tSwALRGDYd6T244tDsFjAgdwkBj5X-28ne4SmuxlbRPs-Fdtsi9BQGcoAgUG-HpZLhPnSvKVh3n6e3eZVO0EYS2UYQpuT3Lx-wR0lmmIM45CjFFVndWCLQb5-RZoEX2nEXA2Bfp+Ewd4HAPwFLWT2tkuxnyRsFDcoFCgqjVAQYetA4HMyWI7VBNkQbVREpcDBLluROEYWEAUbgOQKF2I+QhkdQFjkVIUScOZLa63gcxWhxg3Au2rHaB8PIayoJdpgtwVYXR2hrFxWwodAGSSXhfVeYi6DgUghAaBmZiSD1trff6LcnbmnfBEbkFpPx3gCJWLhtwypWl8jyIRICMChRoRPRA6w1g2XcCcQ61VuRsNZLccqjxO4O1smYPsYdmrAORqja6PUMbDBgmACJrEXB3gUZwwWqCA7RHYgApqQCR7BUKd1KAt1MaEguldTpFTLLWDvNsYS7ZeGOH4aMo6zSqHnx+NLaOps45QATqrexFdHEsxMPsZ2+VuFFWqiMnx1YCo7MFMJHYDUjGBSIVkRZMcFZKxVgUZOWsS7SOZrIyJyxO57PMAc-YRzm6vi4Z7KGrhvyBASAkIAA */
   createMachine(
     {
       id: 'AudioEngineMachine',
@@ -52,18 +52,31 @@ export const audioEngineMachine =
                 }
               }
             },
-
             creatingAudioEngine: {
               description: `This instantiates a new AudioEngine`,
               entry: 'createAudioEngine',
               always: {
-                target: '#AudioEngineMachine.idle'
+                target: 'AIPitchDetection'
+              }
+            },
+
+            AIPitchDetection: {
+              invoke: {
+                id: 'initiateAIPitchDetection',
+                src: 'intiateAIPitchDetection',
+                onError: {
+                  actions: 'setError',
+                  target: '#AudioEngineMachine.unitialized'
+                },
+                onDone: {
+                  actions: 'updateAudioEngine',
+                  target: '#AudioEngineMachine.idle'
+                }
               }
             },
 
             deniedMicrophoneAccess: {
               entry: 'setError',
-
               description: `It can happen that the user denies access to the microphone.
 If that's the case it will end up in this state, so we can show an error message`,
 
@@ -105,8 +118,8 @@ If that's the case it will end up in this state, so we can show an error message
               },
 
               invoke: {
-                id: 'updateAudioEngine',
-                src: 'updateAudioEngine'
+                id: 'updateAudioEnginePeriodically',
+                src: 'updateAudioEnginePeriodically'
               }
             }
           },
@@ -170,18 +183,24 @@ I.e.: the enabling/disabling of A.I. based pitch detection`
       },
       services: {
         getMicrophoneAccess: async (): Promise<MediaStream> => {
-          return await navigator.mediaDevices.getUserMedia({ audio: true });
+          return navigator.mediaDevices.getUserMedia({ audio: true });
         },
-        updateAudioEngine: (ctx, _event) => (callback, _onReceive) => {
-          // the audioEngine needs to be updated on a regular basis
-          // to get the new values
-          const id = setInterval(
-            () => callback('UPDATE_AUDIO_ENGINE'),
-            ctx.updateAudioEngineInterval
-          );
+        updateAudioEnginePeriodically:
+          (ctx, _event) => (callback, _onReceive) => {
+            // the audioEngine needs to be updated on a regular basis
+            // to get the new values
+            const id = setInterval(
+              () => callback('UPDATE_AUDIO_ENGINE'),
+              ctx.updateAudioEngineInterval
+            );
 
-          // Perform cleanup
-          return () => clearInterval(id);
+            // Perform cleanup
+            return () => clearInterval(id);
+          },
+        intiateAIPitchDetection: async (ctx) => {
+          await ctx.audioEngine?.initAIPitchDetection();
+
+          ctx.audioEngine?.setUseAIPitchDetection(true);
         },
         configureAIPitchDetection: async (
           ctx,
