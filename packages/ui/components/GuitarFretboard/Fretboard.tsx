@@ -1,7 +1,6 @@
-import { IMusicNote } from 'music-notes';
+import { IMusicNote, STRING_NAMES } from 'music-notes';
 import { GuitarFretboardString } from './FretboardString';
 import { GuitarFretboardFretNumbers } from './FretNumbers';
-import { STRING_NAMES } from 'music-notes/constants';
 import { GuitarFretboardMarkers } from './FretboardMarker';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { IMusicNote } from 'music-notes/types';
+import { IMusicNote } from 'music-notes';
 
 export type ExerciseReducerState = {
   name: string;

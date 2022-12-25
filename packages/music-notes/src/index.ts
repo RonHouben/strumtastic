@@ -2,6 +2,7 @@ import { MUSIC_NOTES } from './constants/musicnotes.constant';
 import { FlatsOrSharps, IMusicNote, StringName } from './types';
 
 export * from './types';
+export * from './constants';
 
 const NOTES = [
   'C',

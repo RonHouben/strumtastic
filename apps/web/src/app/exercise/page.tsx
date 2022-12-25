@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { Button } from 'ui/components/Button';
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { Article } from 'ui/components/Typography';
-import { useAudioEngine } from 'audio-engine';
+import { useAudioEngine } from '@audio-engine/react';
 import { useExercise } from 'ui/hooks/useExercise';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
 import { AudioEngineDebugger } from 'ui/components/AudioEngine';

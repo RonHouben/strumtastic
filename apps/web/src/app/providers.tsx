@@ -1,6 +1,6 @@
 'use client';
 
-import { AudioEngineProvider } from 'audio-engine';
+import { AudioEngineProvider } from '@audio-engine/react';
 import { ReactNode } from 'react';
 import { ExerciseProvider } from 'ui/providers/ExerciseProvider';
 

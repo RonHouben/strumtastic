@@ -22,6 +22,7 @@ It includes the following packages/apps:
 - `/packages/music-notes`: a custom made controller to handle everything that has to do with Musical Notation (i.e. translating frequency to a Note name).
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `xState`: Awesome framework agnostic state management tool!
 
 Everything is developed using TypeScript.
 
@@ -33,6 +34,7 @@ This turborepo has some additional tools:
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 - [TailwindCSS](https://tailwindcss.com) for styling
+- [xState](https://xstate.com) for state management
 
 ### Build
 

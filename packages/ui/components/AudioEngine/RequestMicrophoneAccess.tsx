@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { ButtonLink } from '../ButtonLink';
 import { Button } from '../Button';
 import { useRouter } from 'next/navigation';
-import { useAudioEngine as useAudioEngineX } from 'audio-engine';
+import { useAudioEngine } from '@audio-engine/react';
 
 interface Props {
   navigatedFrom?: '/tuner' | string;
@@ -17,7 +17,7 @@ interface Props {
 export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
   const router = useRouter();
 
-  const [state, send] = useAudioEngineX();
+  const [state, send] = useAudioEngine();
 
   const handleContinue = useCallback(() => {
     if (navigatedFrom) {

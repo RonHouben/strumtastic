@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useAudioEngine } from 'audio-engine';
+import { useAudioEngine } from '@audio-engine/react';
 
 export const WaveFormAnayliser = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

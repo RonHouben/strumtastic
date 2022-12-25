@@ -7,6 +7,6 @@
     "declaration": true,
     "skipLibCheck": true,
   },
-  "include": ["src", "**/*.d.ts", "**/*.ts", "src/types/ml5.d.ts"],
+  "include": ["src", "**/*.d.ts", "**/*.ts", "src/types/**.d.ts"],
   "exclude": ["dist", "node_modules"]
 }

@@ -1,7 +1,7 @@
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
 import { useMemo } from 'react';
 import { classNames } from 'ui/utils';
-import { useAudioEngine } from 'audio-engine';
+import { useAudioEngine } from '@audio-engine/react';
 import { useExercise } from '../../hooks/useExercise';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 

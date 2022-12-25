@@ -1,4 +1,4 @@
-import { useAudioEngine } from 'audio-engine';
+import { useAudioEngine } from '@audio-engine/react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Hertz } from './Hertz';
 import { MusicNote } from './MusicNote';

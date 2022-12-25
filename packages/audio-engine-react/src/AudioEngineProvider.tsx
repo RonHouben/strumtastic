@@ -1,6 +1,6 @@
 import { useMachine } from '@xstate/react';
 import React, { createContext } from 'react';
-import { audioEngineMachine } from '../machines/audio-engine.machine';
+import { audioEngineMachine } from 'audio-engine';
 
 export type IAudioEngineContext = ReturnType<
   typeof useMachine<typeof audioEngineMachine>

@@ -1,6 +1,6 @@
 import { IMusicNote } from 'music-notes';
 import { useCallback, useEffect } from 'react';
-import { useAudioEngine } from 'audio-engine';
+import { useAudioEngine } from '@audio-engine/react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 export const Oscillator = () => {

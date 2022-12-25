@@ -3,7 +3,7 @@ import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Hertz } from '../AudioEngine';
 import { Button } from '../Button';
 import { Article } from '../Typography';
-import { useAudioEngine } from 'audio-engine';
+import { useAudioEngine } from '@audio-engine/react';
 import { AudioEngineNotInitialized } from '../AudioEngine/NotInitialized';
 
 interface Props {
