@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useAudioEngine } from '../../hooks/useAudioEngine';
+import { useAudioEngine } from '@audio-engine/react';
 
 export const WaveFormAnayliser = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -14,11 +14,11 @@ export const WaveFormAnayliser = () => {
 
       let requestAnimationFrameId = 0;
 
-      if (!state.audioEngine?.isStreamingAudio) {
+      if (!state.matches('listeningToMicrophone')) {
         cancelAnimationFrame(requestAnimationFrameId);
       }
 
-      if (canvasCtx && state.audioEngine?.frequencyData) {
+      if (canvasCtx && state.matches('listeningToMicrophone')) {
         const draw = () => {
           requestAnimationFrameId = requestAnimationFrame(draw);
 
@@ -36,7 +36,8 @@ export const WaveFormAnayliser = () => {
           for (let i = 1; i < WIDTH; i++) {
             canvasCtx.lineTo(
               i,
-              HEIGHT / 2 + (state.audioEngine?.frequencyData[i] || 0) * 128
+              HEIGHT / 2 +
+                (state.context.audioEngine?.frequencyData[i] || 0) * 128
             );
           }
 
@@ -51,7 +52,7 @@ export const WaveFormAnayliser = () => {
         cancelAnimationFrame(requestAnimationFrameId);
       };
     }
-  }, [canvasRef, state.audioEngine]);
+  }, [canvasRef, state]);
 
   return <canvas ref={canvasRef} />;
 };

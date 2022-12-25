@@ -1,4 +1,4 @@
-import { STRING_NAMES } from './constants';
+import { STRING_NAMES } from '../constants';
 
 export interface IMusicNote {
   names: MusicNoteName;

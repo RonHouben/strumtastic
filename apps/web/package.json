@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "audio-engine": "*",
+    "@audio-engine/react": "*",
     "clsx": "1.2.1",
     "concurrently": "7.6.0",
     "music-notes": "*",

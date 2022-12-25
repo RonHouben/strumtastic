@@ -14,8 +14,8 @@ export const Button = ({ label, disabled, onClick, className }: Props) => {
     <button
       className={classNames(
         disabled ? 'bg-transparent' : '',
-        'inline-flex rounded-md bg-slate-400 p-2 shadow',
-        className || '',
+        'prose w-full rounded-md bg-blue-500 p-2 text-center shadow-md hover:bg-blue-400',
+        className || ''
       )}
       onClick={onClick}
       disabled={disabled}

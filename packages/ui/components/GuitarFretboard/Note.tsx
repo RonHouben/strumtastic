@@ -1,7 +1,7 @@
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
 import { useMemo } from 'react';
 import { classNames } from 'ui/utils';
-import { useAudioEngine } from '../../hooks/useAudioEngine';
+import { useAudioEngine } from '@audio-engine/react';
 import { useExercise } from '../../hooks/useExercise';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 
@@ -23,8 +23,8 @@ export const Note = ({
   const [audioEngineState] = useAudioEngine();
 
   const isCurrentlyPlaying = useMemo(
-    () => musicNote === audioEngineState.currentMusicNote,
-    [musicNote, audioEngineState.currentMusicNote]
+    () => musicNote === audioEngineState.context.audioEngine?.currentMusicNote,
+    [musicNote, audioEngineState]
   );
 
   const isCorrectlyPlayed = useMemo(

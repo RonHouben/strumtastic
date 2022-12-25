@@ -3,27 +3,29 @@ import {
   ExerciseContext,
   IExerciseContext
 } from '../providers/ExerciseProvider';
-import { useAudioEngine } from './useAudioEngine';
+import { useAudioEngine } from '@audio-engine/react';
 
 export function useExercise(): IExerciseContext {
   const [state, dispatch] = useContext(ExerciseContext);
 
   const [audioEngineState, _audioEngineDispatch] = useAudioEngine();
-  const { currentMusicNote } = audioEngineState;
 
   useEffect(() => {
     if (
       state.isInitialised &&
       !state.isDone &&
-      currentMusicNote &&
-      state.lastPlayedNote !== currentMusicNote
+      audioEngineState.context.audioEngine?.currentMusicNote &&
+      audioEngineState.context.audioEngine?.currentMusicNote !==
+        state.lastPlayedNote
     ) {
       dispatch({
         type: 'record-played-note',
-        payload: { playedNote: currentMusicNote }
+        payload: {
+          playedNote: audioEngineState.context.audioEngine.currentMusicNote
+        }
       });
     }
-  }, [currentMusicNote, state, dispatch]);
+  }, [audioEngineState, state, dispatch]);
 
   return [state, dispatch];
 }

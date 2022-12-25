@@ -1,7 +1,7 @@
 {
-  "name": "audio-engine",
+  "name": "@audio-engine/react",
   "version": "0.0.2",
-  "description": "This is a Audio Engine which is responsible to manage the Web Audio API stream and frequency pitch detection",
+  "description": "This library is to use the Audio Engine in React",
   "author": {
     "name": "Ron Houben",
     "email": "ron.houben85@gmail.com",
@@ -15,8 +15,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "ml5": "^0.12.2",
-    "xstate": "^4.35.1",
-    "music-notes": "*"
+    "@xstate/react": "^3.0.1",
+    "audio-engine": "*"
   }
 }

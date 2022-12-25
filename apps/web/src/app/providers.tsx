@@ -1,7 +1,7 @@
 'use client';
 
+import { AudioEngineProvider } from '@audio-engine/react';
 import { ReactNode } from 'react';
-import { AudioEngineProvider } from 'ui/providers/AudioEngineProvider';
 import { ExerciseProvider } from 'ui/providers/ExerciseProvider';
 
 interface Props {

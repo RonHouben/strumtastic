@@ -15,7 +15,10 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "lib": ["ESNext", "DOM"],
+    "target": "ESNext",
+    "module": "ESNext"
   },
   "include": ["**/*.ts", "**/*.d.ts"],
   "exclude": ["node_modules"]
