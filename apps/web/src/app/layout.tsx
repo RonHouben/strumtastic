@@ -16,7 +16,7 @@ export default function RootLayout({ children }: Props) {
       </head>
       <body>
         <Navbar />
-        <div className="container mx-auto bg-primary-200">
+        <div className="container mx-auto">
           <Providers>{children}</Providers>
         </div>
       </body>
