@@ -1,3 +1,5 @@
+import { ReactSVG, ReactSVGElement } from "react";
+
 interface Props {
 	height?: string | number;
 	width?: string | number;
