@@ -43,7 +43,7 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex items-center h-full space-x-4">
-                <MenuButtons buttons={menuButtons} />
+                {/* <MenuButtons buttons={menuButtons} /> */}
               </div>
             </div>
           </div>
