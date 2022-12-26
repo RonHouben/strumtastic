@@ -5,7 +5,7 @@ import Article from 'ui/components/Typography/Article';
 
 export default function Page() {
   return (
-    <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-4">
       <Card>
         <Link href="/connect-guitar">
           <CardMedia

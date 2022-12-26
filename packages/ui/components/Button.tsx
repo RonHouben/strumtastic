@@ -23,8 +23,8 @@ export default function Button({
   return (
     <button
       className={classNames(
-        'hover:bg-secondary-500 bg-secondary-400 text-secondary-50 outline-secondary-700 group w-full rounded-md px-2 py-1 text-center',
-        selected ? '!bg-secondary-500 `hover:!text-secondary-500' : '',
+        'hover:bg-secondary-500 duration-500 bg-secondary-400 !text-secondary-50 outline-secondary-700 group w-full rounded-md px-2 py-1 text-center',
+        selected ? '!bg-secondary-500 hover:!text-secondary-500' : '',
         disabled ? '!bg-secondary-200' : '',
         className || ''
       )}

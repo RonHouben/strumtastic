@@ -2,9 +2,9 @@ import { useClassNames } from '../../hooks/useClassNames';
 import Article from './Article';
 
 interface Props {
-  variant: 'h1' | 'button' | 'p';
+  variant: 'h1' | 'button' | 'p' | 'em';
   className?: string;
-  children: string;
+  children: string | React.ReactNode[];
 }
 
 export default function Typography({ variant, className, children }: Props) {
@@ -17,7 +17,7 @@ export default function Typography({ variant, className, children }: Props) {
         </h1>
       )}
       {variant === 'button' && (
-        <strong className={classNames('text-primary-500', className || '')}>
+        <strong className={classNames('text-primary-50', className || '')}>
           {children}
         </strong>
       )}
@@ -25,6 +25,11 @@ export default function Typography({ variant, className, children }: Props) {
         <p className={classNames('text-primary-900', className || '')}>
           {children}
         </p>
+      )}
+      {variant === 'em' && (
+        <em className={classNames('text-primary-900', className || '')}>
+          {children}
+        </em>
       )}
     </Article>
   );
