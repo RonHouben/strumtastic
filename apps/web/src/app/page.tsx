@@ -5,12 +5,12 @@ import Article from 'ui/components/Typography/Article';
 
 export default function Page() {
   return (
-    <div className="grid grid-cols-4 gap-4 pt-28">
+    <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-4">
       <Card>
         <Link href="/connect-guitar">
           <CardMedia
             svgComponent={
-              <GuitarAmpSVG className="h-2/3 fill-primary-500 stroke-primary-500" />
+              <GuitarAmpSVG className="md:h-2/3 fill-primary-500 stroke-primary-500" />
             }
           />
           <CardContent>

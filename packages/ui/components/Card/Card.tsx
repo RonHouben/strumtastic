@@ -11,7 +11,7 @@ export default function Card({ children, className }: Props) {
   return (
     <div
       className={classNames(
-        'shadow-accent-900 bg-primary-500 m-2 rounded-md shadow-2xl transition-all duration-500 hover:scale-105 hover:brightness-105 hover:saturate-150',
+        'shadow-accent-900 bg-primary-500 m-2 rounded-md shadow-2xl transition-all duration-500 hover:scale-105 hover:brightness-105',
         className || ''
       )}
     >
