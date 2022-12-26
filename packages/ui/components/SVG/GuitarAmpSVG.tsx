@@ -1,18 +1,22 @@
 interface Props {
+	height?: string | number;
+	width?: string | number;
   className?: string;
 }
 
-export const GuitarAmpSVG = ({ className }: Props) => {
+export const GuitarAmpSVG = ({ height, width, className }: Props) => {
   return (
     <svg
       className={className}
       version="1.1"
-      id="Capa_1"
+      id="guitar-amp-svg"
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"
       viewBox="0 0 193.757 193.757"
-      xmlSpace="preserve"
+			height={height}
+			width={width}
+			// preserveAspectRatio="none"
     >
       <path
         d="M159.604,193.757h-21.885c-1.104,0-2-0.896-2-2v-8h-77.9v8c0,1.104-0.896,2-2,2H33.934c-1.104,0-2-0.896-2-2v-8H21.031

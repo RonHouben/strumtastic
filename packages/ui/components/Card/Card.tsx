@@ -8,5 +8,5 @@ interface Props {
 export default function Card({ children, className }: Props) {
   const { classNames } = useClassNames();
 
-  return <div className={classNames('shadow-sm p-2 rounded-sm bg-primary-500 h-60', className || '')}>{children}</div>;
+  return <div className={classNames('shadow-2xl shadow-accent-900 m-2 rounded-md bg-primary-500', className || '')}>{children}</div>;
 }
