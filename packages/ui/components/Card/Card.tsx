@@ -13,7 +13,7 @@ export default function Card({ disabled, children, className }: Props) {
     <div
       className={classNames(
         'shadow-accent-900 bg-primary-500 m-2 rounded-md shadow-2xl transition-all duration-500',
-        disabled ? 'brightness-50' : 'hover:scale-105 hover:brightness-105',
+        disabled ? 'brightness-50' : 'md:hover:scale-105 hover:brightness-105',
         className || ''
       )}
     >

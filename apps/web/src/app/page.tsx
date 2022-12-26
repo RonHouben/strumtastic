@@ -8,7 +8,7 @@ export default function Page() {
     <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-4">
       <PluginGuitarCard />
 
-      <Card>
+      <Card className="h-[30rem]">
         <Link href="/tuner">
           <CardMedia>[Tuner SVG Image]</CardMedia>
           <CardContent>
@@ -22,7 +22,7 @@ export default function Page() {
         </Link>
       </Card>
 
-      <Card>
+      <Card className="h-[30rem]">
         <Link href="#">
           <CardMedia>[Pick your practice SVG Image]</CardMedia>
           <CardContent>
@@ -39,7 +39,7 @@ export default function Page() {
         </Link>
       </Card>
 
-      <Card>
+      <Card className="h-[30rem]">
         <Link href="/exercise">
           <CardMedia>[Rockstar SVG Image]</CardMedia>
           <CardContent>
