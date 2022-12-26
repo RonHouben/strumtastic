@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
-import { Button } from 'ui/components/Button';
+import { Button } from 'ui/components';
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { Article } from 'ui/components/Typography';
 import { useAudioEngine } from '@audio-engine/react';

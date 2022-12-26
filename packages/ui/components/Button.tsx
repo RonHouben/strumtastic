@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '../utils';
+import { useClassNames } from '../hooks/useClassNames';
 
 interface Props {
   label: string;
@@ -9,7 +9,9 @@ interface Props {
   className?: string;
 }
 
-export const Button = ({ label, disabled, onClick, className }: Props) => {
+export default function Button({ label, disabled, onClick, className }: Props) {
+  const { classNames } = useClassNames();
+
   return (
     <button
       className={classNames(
@@ -23,4 +25,4 @@ export const Button = ({ label, disabled, onClick, className }: Props) => {
       {label}
     </button>
   );
-};
+}

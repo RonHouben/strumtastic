@@ -1,14 +1,14 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
-import { classNames } from '../../utils';
 import { GuitarAmpSVG } from '../SVG';
-import { Article } from '../Typography';
+import Article from '../Typography/Article';
 import Link from 'next/link';
 import { ButtonLink } from '../ButtonLink';
-import { Button } from '../Button';
+import Button from '../Button';
 import { useRouter } from 'next/navigation';
 import { useAudioEngine } from '@audio-engine/react';
+import { useClassNames } from '../../hooks/useClassNames';
 
 interface Props {
   navigatedFrom?: '/tuner' | string;
@@ -16,6 +16,7 @@ interface Props {
 
 export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
   const router = useRouter();
+  const { classNames } = useClassNames();
 
   const [state, send] = useAudioEngine();
 
