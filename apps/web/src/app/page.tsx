@@ -1,29 +1,12 @@
+import { PluginGuitarCard } from 'ui/components';
 import { Card, CardContent, CardMedia } from 'ui/components/Card/';
 import Link from 'ui/components/Link';
-import { GuitarAmpSVG } from 'ui/components/SVG/GuitarAmpSVG';
 import Article from 'ui/components/Typography/Article';
 
 export default function Page() {
   return (
-    <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-4">
-      <Card>
-        <Link href="/connect-guitar">
-          <CardMedia
-            svgComponent={
-              <GuitarAmpSVG className="md:h-2/3 fill-primary-500 stroke-primary-500" />
-            }
-          />
-          <CardContent>
-            <Article>
-              <h1 className="text-secondary-500">1. Plug In</h1>
-              <p className="text-secondary-50">
-                Connect your guitar so you&apos;ll instant feedback on your
-                playing
-              </p>
-            </Article>
-          </CardContent>
-        </Link>
-      </Card>
+    <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-4">
+      <PluginGuitarCard />
 
       <Card>
         <Link href="/tuner">

@@ -16,7 +16,7 @@ export default function CardMedia({
   return (
     <div
       className={classNames(
-        'bg-secondary-500 md:h-1/2 w-full rounded-t-md p-2',
+        'bg-secondary-500 md:h-1/2 w-full rounded-t-md p-2 flex justify-center items-center',
         className || ''
       )}
     >

@@ -1,5 +1,6 @@
 import Button from './Button';
 import { Navbar } from './Navbar';
+import PluginGuitarCard from './PluginGuitarCard';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -13,4 +14,4 @@ export * from './InputLabel';
 export * from './Link';
 export * from './Card';
 
-export { Button, Navbar };
+export { Button, Navbar, PluginGuitarCard };

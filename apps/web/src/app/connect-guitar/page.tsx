@@ -10,7 +10,7 @@ export default function ConnectGuitarPage({ searchParams }: Props) {
   const navigatedFrom = searchParams?.navigatedFrom as string | undefined;
 
   return (
-    <div className=" md:pt-28">
+    <div className="md:pt-28">
       <RequestMicrophoneAccess navigatedFrom={navigatedFrom} />
     </div>
   );

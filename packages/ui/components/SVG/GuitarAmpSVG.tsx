@@ -1,24 +1,16 @@
-import { ReactSVG, ReactSVGElement } from "react";
+import SVGWrapper from './SVGWrapper';
+import { SVGProps } from './types';
 
-interface Props {
-	height?: string | number;
-	width?: string | number;
-  className?: string;
-}
+interface Props extends SVGProps {}
 
-export const GuitarAmpSVG = ({ height, width, className }: Props) => {
+export default function GuitarAmpSVG({ height, width, className }: Props) {
   return (
-    <svg
-      className={className}
-      version="1.1"
+    <SVGWrapper
+      className={className || ''}
       id="guitar-amp-svg"
-      xmlns="http://www.w3.org/2000/svg"
-      x="0px"
-      y="0px"
       viewBox="0 0 193.757 193.757"
-			height={height}
-			width={width}
-			// preserveAspectRatio="none"
+      height={height}
+      width={width}
     >
       <path
         d="M159.604,193.757h-21.885c-1.104,0-2-0.896-2-2v-8h-77.9v8c0,1.104-0.896,2-2,2H33.934c-1.104,0-2-0.896-2-2v-8H21.031
@@ -72,21 +64,6 @@ export const GuitarAmpSVG = ({ height, width, className }: Props) => {
 	 M132.199,27.655c-4.146,0-7.52-3.373-7.52-7.52s3.373-7.52,7.52-7.52s7.52,3.373,7.52,7.52S136.346,27.655,132.199,27.655z
 	 M132.199,16.616c-1.94,0-3.52,1.579-3.52,3.52s1.579,3.52,3.52,3.52s3.52-1.579,3.52-3.52S134.14,16.616,132.199,16.616z"
       />
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-    </svg>
+    </SVGWrapper>
   );
-};
+}
