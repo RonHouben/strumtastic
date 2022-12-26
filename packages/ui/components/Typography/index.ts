@@ -1,3 +1,4 @@
 import Article from './Article';
+import Typography from './Typography';
 
-export { Article };
+export { Article, Typography };

@@ -1,3 +1,5 @@
+'use client';
+
 import { useMachine } from '@xstate/react';
 import React, { createContext } from 'react';
 import { audioEngineMachine } from 'audio-engine';

@@ -1,5 +1,7 @@
 import '@styles/dist.css';
 import React from 'react';
+import { Navbar } from 'ui/components/Navbar';
+import {} from 'ui/components';
 import { Providers } from './providers';
 
 interface Props {
@@ -10,10 +12,13 @@ export default function RootLayout({ children }: Props) {
   return (
     <html>
       <head>
-        <title>Musician</title>
+        <title>Strumtastic</title>
       </head>
-      <body className='md:container mx-auto h-screen bg-slate-500'>
-        <Providers>{children}</Providers>
+      <body>
+        <Navbar />
+        <div className="container mx-auto bg-primary-200">
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import { IMusicNote } from 'music-notes';
 import { useCallback, useEffect } from 'react';
 import { useAudioEngine } from '@audio-engine/react';
