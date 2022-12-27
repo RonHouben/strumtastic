@@ -23,17 +23,18 @@ export default function PluginGuitarCard() {
       <CardMedia svgComponent={<PluginGuitarSVG />} />
       <CardContent>
         <Article>
-          <h1 className="text-secondary-500 mb-1">1. Plug In</h1>
+          <h1 className="text-secondary-100 mb-1">1. Plug In</h1>
           {state.matches('unitialized') && (
-            <p className="text-primary-50">
+            <p className="text-primary-100">
               Connect your guitar so you&apos;ll instant feedback on your
               playing
             </p>
           )}
 
-          {state.matches('initializing.gettingMicrophoneAccess') ||
-            (state.matches('initializing.AIPitchDetection') && (
-              <p className="text-primary-50">
+          {state.matches('initializing') &&
+            (state.matches('initializing.gettingMicrophoneAccess') ||
+              state.matches('initializing.AIPitchDetection')) && (
+              <p className="text-primary-100">
                 Please the allow to use your microphone
                 <p className="m-0">
                   <em className="text-xs">
@@ -42,12 +43,12 @@ export default function PluginGuitarCard() {
                   </em>
                 </p>
               </p>
-            ))}
+            )}
 
           {state.matches('initializing.deniedMicrophoneAccess') && (
             <div className="flex flex-col gap-8">
-              <p className="text-primary-50 m-0">
-                <strong className="text-red-400">
+              <p className="text-primary-100 m-0">
+                <strong className="text-accent-500">
                   {state.context.error?.message}!
                 </strong>
                 <br />
@@ -56,7 +57,7 @@ export default function PluginGuitarCard() {
                 <Link
                   href="https://support.google.com/chrome/answer/2693767"
                   target="_blank"
-                  className="text-secondary-500 hover:text-secondary-400"
+                  className="text-accent-500 hover:text-accent-200"
                 >
                   Click here to learn how to reset your microphone permissions
                 </Link>
@@ -65,12 +66,11 @@ export default function PluginGuitarCard() {
           )}
 
           {state.matches('idle') && (
-            <p className="text-primary-50">
+            <p className="text-primary-100">
               Thanks for plugging in!
-							<br />
-							<br />
-							Now it&apos;s time to get your guitar in
-              tune.
+              <br />
+              <br />
+              Now it&apos;s time to get your guitar in tune.
             </p>
           )}
         </Article>
@@ -106,7 +106,7 @@ const PluginGuitarSVG = () => {
         )}
 
       {state.matches('idle') && (
-        <CheckMarkCircleSVG className="stroke-green-300 fill-green-300 h-full" />
+        <CheckMarkCircleSVG className="h-full fill-green-300 stroke-green-300" />
       )}
 
       {state.matches('initializing.deniedMicrophoneAccess') && (

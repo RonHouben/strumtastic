@@ -13,8 +13,8 @@ export default function Page() {
           <CardMedia>[Tuner SVG Image]</CardMedia>
           <CardContent>
             <Article>
-              <h1 className="text-secondary-500">2. Get in tune</h1>
-              <p className="text-primary-50">
+              <h1 className="text-secondary-100">2. Get in tune</h1>
+              <p className="text-primary-100">
                 Be sure to have your guitar in tune!
               </p>
             </Article>
@@ -27,8 +27,8 @@ export default function Page() {
           <CardMedia>[Pick your practice SVG Image]</CardMedia>
           <CardContent>
             <Article>
-              <h1 className="text-secondary-500">3. Pick your practice</h1>
-              <p className="text-secondary-50">
+              <h1 className="text-secondary-100">3. Pick your practice</h1>
+              <p className="text-secondary-100">
                 We will guide you to make sure that you&apos;re practicing the
                 right thing.
                 <br />
@@ -44,8 +44,8 @@ export default function Page() {
           <CardMedia>[Rockstar SVG Image]</CardMedia>
           <CardContent>
             <Article>
-              <h1 className="text-secondary-500">4. Become a Rockstar!</h1>
-              <p className="text-primary-50">
+              <h1 className="text-secondary-100">4. Become a Rockstar!</h1>
+              <p className="text-primary-100">
                 Measure yourself against other Rockstars by joining the
                 leaderboards.
               </p>

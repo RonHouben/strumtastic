@@ -33,7 +33,7 @@ export default function Button({
     >
       <Typography
         variant="button"
-        className={'text-inherit group-hover:text-inherit'}
+        className={'text-inherit group-hover:text-inherit text-center mr-0'}
       >
         {label}
       </Typography>
