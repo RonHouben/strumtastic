@@ -1,4 +1,4 @@
-import { PluginGuitarCard } from 'ui/components';
+import { PluginGuitarCard, TunerCard } from 'ui/components';
 import { Card, CardContent, CardMedia } from 'ui/components/Card/';
 import Link from 'ui/components/Link';
 import Article from 'ui/components/Typography/Article';
@@ -7,20 +7,8 @@ export default function Page() {
   return (
     <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-4">
       <PluginGuitarCard />
+      <TunerCard />
 
-      <Card className="h-[30rem]">
-        <Link href="/tuner">
-          <CardMedia>[Tuner SVG Image]</CardMedia>
-          <CardContent>
-            <Article>
-              <h1 className="text-secondary-100">2. Get in tune</h1>
-              <p className="text-primary-100">
-                Be sure to have your guitar in tune!
-              </p>
-            </Article>
-          </CardContent>
-        </Link>
-      </Card>
 
       <Card className="h-[30rem]">
         <Link href="#">
