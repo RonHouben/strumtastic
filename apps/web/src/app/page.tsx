@@ -1,23 +1,46 @@
-import Link from 'next/link';
-import { Article } from 'ui/components/Typography';
+import { PluginGuitarCard, TunerCard } from 'ui/components';
+import { Card, CardContent, CardMedia } from 'ui/components/Card/';
+import Link from 'ui/components/Link';
+import Article from 'ui/components/Typography/Article';
 
 export default function Page() {
   return (
-    <div>
-      <Article>
-        <h1>Homepage</h1>
-        <ul className="list-disc">
-          <li>
-            <Link href="/connect-guitar" className='no-underline'>Connect guitar</Link>
-          </li>
-          <li>
-            <Link href="/tuner" className='no-underline'>Tuner</Link>
-          </li>
-          <li>
-            <Link href="/exercise" className='no-underline'>Exercises</Link>
-          </li>
-        </ul>
-      </Article>
+    <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-4">
+      <PluginGuitarCard />
+      <TunerCard />
+
+
+      <Card className="h-[30rem]">
+        <Link href="#">
+          <CardMedia>[Pick your practice SVG Image]</CardMedia>
+          <CardContent>
+            <Article>
+              <h1 className="text-secondary-100">3. Pick your practice</h1>
+              <p className="text-secondary-100">
+                We will guide you to make sure that you&apos;re practicing the
+                right thing.
+                <br />
+                No matter what level!
+              </p>
+            </Article>
+          </CardContent>
+        </Link>
+      </Card>
+
+      <Card className="h-[30rem]">
+        <Link href="/exercise">
+          <CardMedia>[Rockstar SVG Image]</CardMedia>
+          <CardContent>
+            <Article>
+              <h1 className="text-secondary-100">4. Become a Rockstar!</h1>
+              <p className="text-primary-100">
+                Measure yourself against other Rockstars by joining the
+                leaderboards.
+              </p>
+            </Article>
+          </CardContent>
+        </Link>
+      </Card>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { classNames } from '../../utils';
+import { useClassNames } from "../../hooks/useClassNames";
 
 interface Props {
   children: React.ReactNode;
@@ -6,6 +6,8 @@ interface Props {
 }
 
 export const Row = ({ children, className }: Props) => {
+  const { classNames } = useClassNames();
+
   return (
     <div
       className={classNames(

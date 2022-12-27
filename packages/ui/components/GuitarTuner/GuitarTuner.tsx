@@ -1,8 +1,10 @@
+'use client';
+
 import { useCallback } from 'react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Hertz } from '../AudioEngine';
-import { Button } from '../Button';
-import { Article } from '../Typography';
+import Button from '../Button';
+import Article from '../Typography/Article';
 import { useAudioEngine } from '@audio-engine/react';
 import { AudioEngineNotInitialized } from '../AudioEngine/NotInitialized';
 
@@ -10,9 +12,9 @@ interface Props {
   onStopTuner: () => void;
 }
 
-export const GuitarTuner = ({ onStopTuner }: Props) => {
+export default function GuitarTuner({ onStopTuner }: Props) {
   const { getNoteName } = useMusicNotes();
-  const [state, send] = useAudioEngine({ debug: { currentState: true } });
+  const [state, send] = useAudioEngine();
 
   const handleStartTuner = useCallback(() => {
     send('START_LISTENING_TO_MICROPHONE');
@@ -57,4 +59,4 @@ export const GuitarTuner = ({ onStopTuner }: Props) => {
       </Article>
     </div>
   );
-};
+}

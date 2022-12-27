@@ -1,5 +1,5 @@
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
-import { classNames } from '../../utils';
+import { useClassNames } from '../../hooks/useClassNames';
 import { Note } from './Note';
 
 interface Props {
@@ -17,6 +17,8 @@ export const Fret = ({
   toBePlayed,
   className
 }: Props) => {
+  const { classNames } = useClassNames();
+
   return (
     <div
       className={classNames('my-1 flex w-12 justify-center', className || '')}

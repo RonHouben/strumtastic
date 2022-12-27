@@ -1,10 +1,16 @@
-import { classNames } from '../../utils';
+import { useClassNames } from '../../hooks/useClassNames';
 
 interface Props {
   children: React.ReactNode;
   className?: string;
 }
 
-export const Article = ({ children, className }: Props) => (
-  <article className={classNames('prose', className || '')}>{children}</article>
-);
+export default function Article({ children, className }: Props) {
+  const { classNames } = useClassNames();
+
+  return (
+    <article className={classNames('prose', className || '')}>
+      {children}
+    </article>
+  );
+}
