@@ -19,6 +19,7 @@ export function useGlobalState({ debug }: Props = {}): Result {
   // For debugging
   useEffect(() => {
     if (debug?.audioEngine) {
+      console.log('*** audioEngine state machine ***');
       if (debug.audioEngine.context) {
         console.log(audioEngine.state.context);
       }
