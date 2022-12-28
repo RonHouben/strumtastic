@@ -1,36 +1,58 @@
 import { useEffect } from 'react';
 import { useAudioEngine } from './useAudioEngine';
+import { useOnboardUser } from './useOnboardUser';
 
 type DebugOptions = { stateValue?: boolean; context?: boolean };
 
+type Debug = {
+  audioEngine?: DebugOptions;
+  onboardUser?: DebugOptions;
+};
+
 interface Props {
-  debug?: {
-    audioEngine?: DebugOptions;
-  };
+  debug?: Debug;
 }
 
-interface Result {
+interface MachineActors {
   audioEngine: ReturnType<typeof useAudioEngine>;
+  onboardUser: ReturnType<typeof useOnboardUser>;
 }
 
-export function useGlobalState({ debug }: Props = {}): Result {
+export function useGlobalState({ debug }: Props = {}): MachineActors {
   const audioEngine = useAudioEngine();
+  const onboardUser = useOnboardUser();
 
   // For debugging
   useEffect(() => {
-    if (debug?.audioEngine) {
-      console.log('*** audioEngine state machine ***');
-      if (debug.audioEngine.context) {
-        console.log(audioEngine.state.context);
-      }
-
-      if (debug.audioEngine.stateValue) {
-        console.log(JSON.stringify(audioEngine.state.value));
-      }
+    if (debug) {
+      debugStateMachines(debug, { audioEngine, onboardUser });
     }
-  }, [audioEngine, debug]);
+  }, [debug, audioEngine, onboardUser]);
 
   return {
-    audioEngine
+    audioEngine,
+    onboardUser
   };
+}
+
+type DebugMachines = {
+  [key in keyof Debug]: MachineActors[key];
+};
+
+function debugStateMachines(debug: Debug, machines: DebugMachines): void {
+  for (const [machineName, debugOptions] of Object.entries(debug)) {
+    const machine = machines[machineName as keyof DebugMachines];
+
+    if (machine) {
+      console.log(`*** ${machineName} state machine ***`);
+
+      if (debugOptions.context) {
+        console.log(machine.state.context);
+      }
+
+      if (debugOptions.stateValue) {
+        console.log(JSON.stringify(machine.state.value));
+      }
+    }
+  }
 }
