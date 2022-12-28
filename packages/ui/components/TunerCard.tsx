@@ -8,7 +8,7 @@ import { TuningForkSVG } from './SVG';
 import { Article } from './Typography';
 
 interface Props {
-  disabled: boolean;
+  disabled?: boolean;
   onDone: () => void;
 }
 
@@ -28,7 +28,7 @@ export default function TunerCard({ disabled, onDone }: Props) {
             className={classNames(
               'stroke-primary-500 fill-primary-500 h-full',
               onboardUser.state.context.isTuned
-                ? 'fill-green-300 stroke-green-300'
+                ? '!fill-green-300 !stroke-green-300'
                 : ''
             )}
           />

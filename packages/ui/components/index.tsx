@@ -2,6 +2,8 @@ import Button from './Button';
 import { Navbar } from './Navbar';
 import PluginGuitarCard from './PluginGuitarCard';
 import TunerCard from './TunerCard';
+import SelectExerciseCard from './SelectExerciseCard';
+import { Select } from './Select';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -15,4 +17,11 @@ export * from './InputLabel';
 export * from './Link';
 export * from './Card';
 
-export { Button, Navbar, PluginGuitarCard, TunerCard };
+export {
+  Button,
+  Navbar,
+  PluginGuitarCard,
+  TunerCard,
+  SelectExerciseCard,
+  Select
+};

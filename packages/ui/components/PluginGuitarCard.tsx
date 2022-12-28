@@ -9,7 +9,7 @@ import PluginGuitarSVG from './SVG/PluginGuitarSVG';
 import { Article } from './Typography';
 
 interface Props {
-  disabled: boolean;
+  disabled?: boolean;
   onDone: () => void;
 }
 
