@@ -1,11 +1,14 @@
+import { Typography } from "../Typography";
+
 interface Props {
   hertz: number;
+  className?: string;
 }
 
-export const Hertz = ({ hertz }: Props) => {
+export const Hertz = ({ hertz, className }: Props) => {
   return (
-    <span>
-      hertz: {hertz === -1 || Number.isNaN(hertz) ? '--' : Math.round(hertz)}Hz
-    </span>
+    <Typography variant="p" className={className}>
+      {hertz === -1 || Number.isNaN(hertz) ? '-' : Math.round(hertz)} Hz
+    </Typography>
   );
 };

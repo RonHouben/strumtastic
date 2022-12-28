@@ -16,7 +16,9 @@
           services: never;
         };
         eventsCausingActions: {
-          
+          "toggleIsExerciseSelected": "START_EXERCISE";
+"toggleIsPluggedIn": "TUNE_GUITAR";
+"toggleIsTuned": "SELECT_EXERCISE";
         };
         eventsCausingDelays: {
           

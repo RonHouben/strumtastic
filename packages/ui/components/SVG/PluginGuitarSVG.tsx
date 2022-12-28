@@ -1,38 +1,42 @@
 'use client';
 
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useClassNames } from '../../hooks/useClassNames';
 import CheckMarkCircleSVG from './CheckMarkCircleSVG';
 import ErrorCicleSVG from './ErrorCircleSVG';
 import GuitarAmpSVG from './GuitarAmpSVG';
 import LoadingCircleSVG from './LoadingCircleSVG';
 
 interface Props {
-  disabled: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
+  isDone?: boolean;
 }
 
-export default function PluginGuitarSVG({ disabled }: Props) {
-  const { audioEngine } = useGlobalState();
+export default function PluginGuitarSVG({ isLoading, isDone, isError }: Props) {
+  const { classNames } = useClassNames();
 
   return (
     <div className="h-full">
-      {audioEngine.state.matches('unitialized') && (
-        <GuitarAmpSVG className="stroke-primary-500 fill-primary-500 h-full" />
+      {!isLoading && !isError && (
+        <GuitarAmpSVG
+          className={classNames(
+            'h-full',
+            isDone
+              ? 'fill-green-300 stroke-green-300'
+              : 'stroke-primary-500 fill-primary-500 '
+          )}
+        />
       )}
 
-      {audioEngine.state.matches('initializing') &&
-        !audioEngine.state.matches('initializing.deniedMicrophoneAccess') && (
-          <LoadingCircleSVG
-            animationDuration="1.5s"
-            className="stroke-primary-500 fill-primary-500 h-full"
-          />
-        )}
-
-      {disabled && (
-        <CheckMarkCircleSVG className="h-full fill-green-300 stroke-green-300" />
+      {isLoading && (
+        <LoadingCircleSVG
+          animationDuration="1.5s"
+          className="stroke-primary-500 fill-primary-500 h-full"
+        />
       )}
 
-      {audioEngine.state.matches('initializing.deniedMicrophoneAccess') && (
-        <ErrorCicleSVG className="stroke-primary-500 fill-primary-500 h-full" />
+      {isError && (
+        <ErrorCicleSVG className="stroke-error-500 fill-error-500 h-full" />
       )}
     </div>
   );

@@ -29,7 +29,18 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
 
   return (
     <Card className="h-[30rem]" disabled={disabled}>
-      <CardMedia svgComponent={<PluginGuitarSVG disabled={disabled} />} />
+      <CardMedia>
+        <PluginGuitarSVG
+          isDone={onboardUser.state.context.isPluggedIn}
+          isLoading={
+            audioEngine.state.matches('initializing') &&
+            !audioEngine.state.matches('initializing.deniedMicrophoneAccess')
+          }
+          isError={audioEngine.state.matches(
+            'initializing.deniedMicrophoneAccess'
+          )}
+        />
+      </CardMedia>
       <CardContent>
         <Article>
           <h1 className="text-secondary-100 mb-1">1. Plug In</h1>
@@ -56,14 +67,14 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
           {audioEngine.state.matches('initializing.deniedMicrophoneAccess') && (
             <div className="flex flex-col gap-8">
               <p className="text-primary-100 m-0">
-                <strong className="text-accent-500">Permissions denied!</strong>
+                <strong className="text-error-500">Permissions denied!</strong>
                 <br />
                 This means that you cannot use most features of Strumtasic!
                 <br />
                 <Link
                   href="https://support.google.com/chrome/answer/2693767"
                   target="_blank"
-                  className="text-accent-500 hover:text-accent-200"
+                  className="text-error-500 hover:text-accent-200"
                 >
                   Click here to learn how to reset your microphone permissions
                 </Link>

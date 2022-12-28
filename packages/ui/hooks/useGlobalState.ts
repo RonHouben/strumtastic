@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAudioEngine } from './useAudioEngine';
 import { useOnboardUser } from './useOnboardUser';
 
-type DebugOptions = { stateValue?: boolean; context?: boolean };
+type DebugOptions = { state?: boolean; context?: boolean };
 
 type Debug = {
   audioEngine?: DebugOptions;
@@ -50,7 +50,7 @@ function debugStateMachines(debug: Debug, machines: DebugMachines): void {
         console.log(machine.state.context);
       }
 
-      if (debugOptions.stateValue) {
+      if (debugOptions.state) {
         console.log(JSON.stringify(machine.state.value));
       }
     }
