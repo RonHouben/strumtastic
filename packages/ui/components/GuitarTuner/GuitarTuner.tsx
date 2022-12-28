@@ -5,8 +5,8 @@ import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Hertz } from '../AudioEngine';
 import Button from '../Button';
 import Article from '../Typography/Article';
-import { useAudioEngine } from '@audio-engine/react';
 import { AudioEngineNotInitialized } from '../AudioEngine/NotInitialized';
+import { useGlobalState } from '../../hooks/useGlobalState';
 
 interface Props {
   onStopTuner: () => void;
@@ -14,40 +14,46 @@ interface Props {
 
 export default function GuitarTuner({ onStopTuner }: Props) {
   const { getNoteName } = useMusicNotes();
-  const [state, send] = useAudioEngine();
+  const { audioEngine } = useGlobalState();
 
   const handleStartTuner = useCallback(() => {
-    send('START_LISTENING_TO_MICROPHONE');
-  }, [send]);
+    audioEngine.send('START_LISTENING_TO_MICROPHONE');
+  }, [audioEngine]);
 
   const handleStopTuner = useCallback(() => {
-    send('STOP_LISTENING_TO_MICROPHONE');
+    audioEngine.send('STOP_LISTENING_TO_MICROPHONE');
     onStopTuner();
-  }, [send, onStopTuner]);
+  }, [audioEngine, onStopTuner]);
 
   return (
     <div className="m-2 flex w-60 flex-col items-center justify-center rounded-md bg-slate-400 p-2 shadow-lg">
       <Article className="w-full text-center">
-        {state.matches('unitialized') && <AudioEngineNotInitialized />}
-        {!state.matches('unitialized') && (
+        {audioEngine.state.matches('unitialized') && (
+          <AudioEngineNotInitialized />
+        )}
+        {!audioEngine.state.matches('unitialized') && (
           <>
-            <Hertz hertz={state.context.audioEngine?.currentFrequency || 0} />
+            <Hertz
+              hertz={
+                audioEngine.state.context.audioEngine?.currentFrequency || 0
+              }
+            />
             <h1>
-              {state.context.audioEngine?.currentMusicNote
+              {audioEngine.state.context.audioEngine?.currentMusicNote
                 ? getNoteName(
                     'sharps',
-                    state.context.audioEngine.currentMusicNote
+                    audioEngine.state.context.audioEngine?.currentMusicNote!
                   )
                 : '-'}
             </h1>
-            {state.matches('idle') && (
+            {audioEngine.state.matches('idle') && (
               <Button
                 label="Start Tuning"
                 className="bg-slate-600 text-slate-300"
                 onClick={handleStartTuner}
               />
             )}
-            {state.matches('listeningToMicrophone') && (
+            {audioEngine.state.matches('listeningToMicrophone') && (
               <Button
                 label="Done"
                 className="bg-slate-600 text-slate-300"

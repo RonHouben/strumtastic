@@ -1,8 +1,8 @@
 'use client';
 
-import { AudioEngineProvider } from '@audio-engine/react';
 import { ReactNode } from 'react';
 import { ExerciseProvider } from 'ui/providers/ExerciseProvider';
+import { GlobalStateProvider } from 'ui/providers/GlobalStateProvider';
 
 interface Props {
   children: ReactNode;
@@ -10,8 +10,8 @@ interface Props {
 
 export function Providers({ children }: Props) {
   return (
-    <AudioEngineProvider>
+    <GlobalStateProvider>
       <ExerciseProvider>{children}</ExerciseProvider>
-    </AudioEngineProvider>
+    </GlobalStateProvider>
   );
 }
