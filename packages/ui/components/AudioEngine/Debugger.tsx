@@ -2,21 +2,21 @@ import { AudioEngineCurrentAudioData } from './CurrentAudioData';
 import { WaveFormAnayliser } from './WaveFormAnalyser';
 import { Oscillator } from './Oscillator';
 import Article from '../Typography/Article';
-import { useAudioEngine } from '@audio-engine/react';
 import { useCallback } from 'react';
 import { Checkbox } from '../Checkbox';
+import { useGlobalState } from '../../hooks/useGlobalState';
 
 export const AudioEngineDebugger = () => {
-  const [state, send] = useAudioEngine({ debug: { currentState: true } });
+  const { audioEngine } = useGlobalState();
 
   const handleSwitchUseAIPitchDetector = useCallback(() => {
-    send({
+    audioEngine.send({
       type: 'CONFIGURE_SETTINGS',
       data: {
-        useAIPitchDetection: !state.context.audioEngine?.useAIPitchDetection
+        useAIPitchDetection: !audioEngine.state.context.audioEngine?.useAIPitchDetection
       }
     });
-  }, [state, send]);
+  }, [audioEngine]);
 
   return (
     <Article>
@@ -25,8 +25,8 @@ export const AudioEngineDebugger = () => {
       <Checkbox
         id="use-ai-pitch-detector"
         label="Use AI Pitch Detector?"
-        checked={state.context.audioEngine?.useAIPitchDetection || false}
-        disabled={state.matches('unitialized')}
+        checked={audioEngine.state.context.audioEngine?.useAIPitchDetection || false}
+        disabled={audioEngine.state.matches('unitialized')}
         onChange={handleSwitchUseAIPitchDetector}
       />
       <WaveFormAnayliser />

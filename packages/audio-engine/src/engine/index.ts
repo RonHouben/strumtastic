@@ -26,10 +26,11 @@ export class AudioEngine {
   private oscillator?: OscillatorNode;
   private requestAnimationFrameId?: number;
 
-  private _isAIPitchDetectorInitialized: boolean = false;
   private _currentFrequency = -1;
   private _currentMusicNote?: IMusicNote;
+  private _isAIPitchDetectorInitialized: boolean = false;
   private _isStreamingAudio: boolean = false;
+  private _isOscillatorRunning: boolean = false;
   private _useAIPitchDetection: boolean = false;
 
   public readonly bufferLength: number;
@@ -70,6 +71,14 @@ export class AudioEngine {
 
   get isAIPitchDetectorInitialized(): boolean {
     return this._isAIPitchDetectorInitialized;
+  }
+
+  get isOscillatorCreated(): boolean {
+    return this.oscillator !== undefined;
+  }
+
+  get isOscillatorRunning(): boolean {
+    return this._isOscillatorRunning;
   }
 
   get useAIPitchDetection(): boolean {
@@ -216,6 +225,7 @@ export class AudioEngine {
       this.audioContext.currentTime
     );
     this.oscillator.start();
+    this._isOscillatorRunning = true;
   }
 
   public setOscillatorFrequency(frequency: number): void {

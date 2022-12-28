@@ -2,7 +2,7 @@ import { useClassNames } from '../../hooks/useClassNames';
 import Article from './Article';
 
 interface Props {
-  variant: 'h1' | 'button' | 'p' | 'em';
+  variant: 'h1' | 'button' | 'p' | 'em' | 'strong';
   className?: string;
   children: string | React.ReactNode[];
 }
@@ -12,7 +12,7 @@ export default function Typography({ variant, className, children }: Props) {
   return (
     <Article className={className}>
       {variant === 'h1' && (
-        <h1 className={classNames('text-primary-500', className || '')}>
+        <h1 className={classNames('text-primary-500', className || 'text-primary-500')}>
           {children}
         </h1>
       )}
@@ -30,6 +30,9 @@ export default function Typography({ variant, className, children }: Props) {
         <em className={classNames('text-primary-900', className || '')}>
           {children}
         </em>
+      )}
+      {variant === 'strong' && (
+        <strong className={classNames('text-primary-800', className || '')}>{children}</strong>
       )}
     </Article>
   );

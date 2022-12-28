@@ -5,5 +5,5 @@ interface Props {
 }
 
 export default function CardContent({ children }: Props) {
-  return <div className="mx-3 my-2 -1/2">{children}</div>;
+  return <div className="mx-3 my-2 flex h-1/2 flex-col gap-4">{children}</div>;
 }

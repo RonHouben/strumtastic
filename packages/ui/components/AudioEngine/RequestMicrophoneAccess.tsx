@@ -9,6 +9,7 @@ import { useAudioEngine } from '@audio-engine/react';
 import { useClassNames } from '../../hooks/useClassNames';
 import { Article } from '../Typography';
 import Link from '../Link';
+import { useGlobalState } from '../../hooks/useGlobalState';
 
 interface Props {
   navigatedFrom?: '/tuner' | string;
@@ -17,8 +18,7 @@ interface Props {
 export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
   const router = useRouter();
   const { classNames } = useClassNames();
-
-  const [state, send] = useAudioEngine();
+  const { audioEngine } = useGlobalState();
 
   const handleContinue = useCallback(() => {
     if (navigatedFrom) {
@@ -29,33 +29,35 @@ export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
   }, [router, navigatedFrom]);
 
   useEffect(() => {
-    send('INITIALIZE');
-  }, [send]);
+    if (audioEngine.state.matches('unitialized')) {
+      audioEngine.send('INITIALIZE');
+    }
+  }, [audioEngine]);
 
   return (
     <div className="flex-col">
       <GuitarAmpSVG
         className={classNames(
-          state.matches('unitialized') ||
-            state.matches('initializing.gettingMicrophoneAccess')
+          audioEngine.state.matches('unitialized') ||
+            audioEngine.state.matches('initializing.gettingMicrophoneAccess')
             ? 'fill-warning-500'
             : '',
-          state.matches('initializing.deniedMicrophoneAccess')
+          audioEngine.state.matches('initializing.deniedMicrophoneAccess')
             ? 'fill-error-600'
             : '',
-          state.matches('idle') ? 'fill-green-600' : '',
+          audioEngine.state.matches('idle') ? 'fill-green-600' : '',
           'h-28 pb-5'
         )}
       />
       <Article>
-        {!state.matches('idle') &&
-          !state.matches('initializing.deniedMicrophoneAccess') && (
+        {!audioEngine.state.matches('idle') &&
+          !audioEngine.state.matches('initializing.deniedMicrophoneAccess') && (
             <h1 className="text-primary-500">Lets Plug In Baby!</h1>
           )}
-        {state.matches('initializing.deniedMicrophoneAccess') && (
+        {audioEngine.state.matches('initializing.deniedMicrophoneAccess') && (
           <>
             <h1 className="text-error-600">
-              {state.context.error?.message || 'Unknown Error!'}
+              {audioEngine.state.context.error?.message || 'Unknown Error!'}
             </h1>
             <div className="flex flex-col gap-8">
               <Link
@@ -70,13 +72,10 @@ export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
             </div>
           </>
         )}
-        {state.matches('idle') && (
+        {audioEngine.state.matches('idle') && (
           <>
             <h1>Thanks for plugging in!</h1>
-            <Button
-              label="Continue"
-              onClick={handleContinue}
-            />
+            <Button label="Continue" onClick={handleContinue} />
           </>
         )}
         <Disclaimer />
