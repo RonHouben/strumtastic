@@ -23,8 +23,11 @@
     "singleQuote": true
   },
   "dependencies": {
-    "audio-engine": "*",
     "@audio-engine/react": "*",
+    "@radix-ui/react-icons": "^1.1.1",
+    "@radix-ui/react-label": "^2.0.0",
+    "@radix-ui/react-select": "^1.1.2",
+    "audio-engine": "*",
     "clsx": "1.2.1",
     "concurrently": "7.6.0",
     "music-notes": "*",
@@ -34,7 +37,6 @@
     "styled-components": "6.0.0-beta.2",
     "styled-jsx": "5.1.1",
     "ui": "*",
-    "use-count-up": "3.0.1",
     "use-reducer-async": "^2.1.1"
   },
   "devDependencies": {
