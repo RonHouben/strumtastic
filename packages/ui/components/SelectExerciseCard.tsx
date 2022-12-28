@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import { useGlobalState } from '../hooks/useGlobalState';
-import { ButtonLink } from './ButtonLink';
+import Button from './Button';
 import { Card, CardMedia, CardContent } from './Card';
 import Select from './Select/Select';
 import SelectItem from './Select/SelectItem';
@@ -18,7 +19,9 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
   const { classNames } = useClassNames();
   const { onboardUser } = useGlobalState();
 
-  const handleOnSelectExercise = () => {
+  const [selectedExercise, setSelectedExercise] = useState<string>();
+
+  const handleStartExercise = () => {
     onDone();
   };
 
@@ -42,14 +45,14 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
               ariaLabel="select exercise"
               placeholder="Select exercise..."
               disabled={disabled}
-              onSelect={handleOnSelectExercise}
+              onSelect={setSelectedExercise}
             >
               <SelectItem value="triads">Triads</SelectItem>
               <SelectItem value="major scale" disabled>
                 Major Scale
               </SelectItem>
             </Select>
-            <ButtonLink label="Start!" href="/exercise" />
+            <Button disabled={disabled || !selectedExercise} label="Start!" onClick={handleStartExercise} />
           </div>
           <p className='text-center text-secondary-700'>Register to get access to all exercises!</p>
         </Article>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { useAudioEngine } from './useAudioEngine';
 import { useOnboardUser } from './useOnboardUser';

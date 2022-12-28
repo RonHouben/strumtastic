@@ -1,9 +1,9 @@
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
 import { useMemo } from 'react';
-import { useAudioEngine } from '@audio-engine/react';
 import { useExercise } from '../../hooks/useExercise';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { useClassNames } from '../../hooks/useClassNames';
+import { useGlobalState } from '../../hooks/useGlobalState';
 
 interface Props {
   musicNote: IMusicNote;
@@ -20,12 +20,12 @@ export const Note = ({
 }: Props) => {
   const { getNoteName } = useMusicNotes();
   const [exerciseState] = useExercise();
-  const [audioEngineState] = useAudioEngine();
+  const { audioEngine } = useGlobalState();
   const { classNames } = useClassNames();
 
   const isCurrentlyPlaying = useMemo(
-    () => musicNote === audioEngineState.context.audioEngine?.currentMusicNote,
-    [musicNote, audioEngineState]
+    () => musicNote === audioEngine.state.context.audioEngine?.currentMusicNote,
+    [musicNote, audioEngine]
   );
 
   const isCorrectlyPlayed = useMemo(

@@ -2,28 +2,33 @@
 
 import { IMusicNote } from 'music-notes';
 import { useCallback, useEffect } from 'react';
-import { useAudioEngine } from '@audio-engine/react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
+// import { useGlobalState } from '../../hooks/useGlobalState';
 
 export const Oscillator = () => {
   const { allMusicNotes } = useMusicNotes();
-  const [_state, send] = useAudioEngine();
+  // const { audioEngine } = useGlobalState();
 
+  //TODO: add oscillator settings to audio-engine machine
   useEffect(() => {
-    send({
-      type: 'CREATE_OSCILLATOR',
-      payload: { hertz: 82, type: 'sine' }
-    });
-  }, [send]);
+    console.log('TODO: implement creating of oscillator in audio-engine machine')
+    // if (audioEngine.state.context.audioEngine?.isOscillatorCreated === false) {
+    //   audioEngine.send({
+    //     type: 'CREATE_OSCILLATOR',
+    //     payload: { hertz: 82, type: 'sine' }
+    //   });
+    // }
+  }, []);
 
   const handleChangeFrequency = useCallback(
     (note: IMusicNote) => {
-      send({
-        type: 'SET_OSCILATOR_FREQUENCY',
-        payload: { frequency: note.hz }
-      });
+      console.log('TODO: implement setting oscillator frequency in audio-engine machine')
+      // audioEngine.send({
+      //   type: 'SET_OSCILATOR_FREQUENCY',
+      //   payload: { frequency: note.hz }
+      // });
     },
-    [send]
+    []
   );
 
   return (
@@ -31,7 +36,7 @@ export const Oscillator = () => {
       <label htmlFor="select-oscillator-note">Set Oscillator Note:</label>
       <select
         id="select-oscillator-note"
-        onChange={(e) =>
+        onChange={(e) => 
           handleChangeFrequency(JSON.parse(e.currentTarget.value))
         }
         className="rounded-sm border border-slate-300 bg-slate-500"

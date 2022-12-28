@@ -5,29 +5,28 @@ import {
   ExerciseContext,
   IExerciseContext
 } from '../providers/ExerciseProvider';
-import { useAudioEngine } from '@audio-engine/react';
+import { useGlobalState } from './useGlobalState';
 
 export function useExercise(): IExerciseContext {
   const [state, dispatch] = useContext(ExerciseContext);
-
-  const [audioEngineState, _audioEngineDispatch] = useAudioEngine();
+  const { audioEngine } = useGlobalState();
 
   useEffect(() => {
     if (
       state.isInitialised &&
       !state.isDone &&
-      audioEngineState.context.audioEngine?.currentMusicNote &&
-      audioEngineState.context.audioEngine?.currentMusicNote !==
+      audioEngine.state.context.audioEngine?.currentMusicNote &&
+      audioEngine.state.context.audioEngine?.currentMusicNote !==
         state.lastPlayedNote
     ) {
       dispatch({
         type: 'record-played-note',
         payload: {
-          playedNote: audioEngineState.context.audioEngine.currentMusicNote
+          playedNote: audioEngine.state.context.audioEngine.currentMusicNote
         }
       });
     }
-  }, [audioEngineState, state, dispatch]);
+  }, [audioEngine, state, dispatch]);
 
   return [state, dispatch];
 }

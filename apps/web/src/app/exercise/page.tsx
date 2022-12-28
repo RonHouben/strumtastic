@@ -4,25 +4,25 @@ import { useCallback, useEffect } from 'react';
 import { Button } from 'ui/components';
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { Article } from 'ui/components/Typography';
-import { useAudioEngine } from '@audio-engine/react';
 import { useExercise } from 'ui/hooks/useExercise';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
 import { AudioEngineDebugger } from 'ui/components/AudioEngine';
 import { AudioEngineNotInitialized } from 'ui/components/AudioEngine/NotInitialized';
+import { useGlobalState } from 'ui/hooks/useGlobalState';
 
 export default function ExercisePage() {
   const [exerciseState, exerciseDispatch] = useExercise();
-  const [audioEngineState, sendToAudioEngine] = useAudioEngine();
+  const { audioEngine } = useGlobalState();
   const { getMusicNoteByNoteName, getMusicNotesByNoteNames, getNoteName } =
     useMusicNotes();
 
   const handleStartExercise = useCallback(() => {
-    sendToAudioEngine({ type: 'START_LISTENING_TO_MICROPHONE' });
-  }, [sendToAudioEngine]);
+    audioEngine.send({ type: 'START_LISTENING_TO_MICROPHONE' });
+  }, [audioEngine]);
 
   const handleStopExercise = useCallback(() => {
-    sendToAudioEngine({ type: 'STOP_LISTENING_TO_MICROPHONE' });
-  }, [sendToAudioEngine]);
+    audioEngine.send({ type: 'STOP_LISTENING_TO_MICROPHONE' });
+  }, [audioEngine]);
 
   useEffect(() => {
     if (!exerciseState.isInitialised) {
@@ -62,13 +62,13 @@ export default function ExercisePage() {
         musicKey={exerciseState.key}
       />
       <div className="w-full">
-        {audioEngineState.matches('unitialized') && (
+        {audioEngine.state.matches('unitialized') && (
           <AudioEngineNotInitialized />
         )}
-        {audioEngineState.matches('idle') && (
+        {audioEngine.state.matches('idle') && (
           <Button label="Start Exercise" onClick={handleStartExercise} />
         )}
-        {audioEngineState.matches('listeningToMicrophone') && (
+        {audioEngine.state.matches('listeningToMicrophone') && (
           <Button label="Stop Exercise" className='bg-red-500 hover:!bg-red-300' onClick={handleStopExercise} />
         )}
       </div>

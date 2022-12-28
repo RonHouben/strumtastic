@@ -8,7 +8,7 @@ interface Props {
   placeholder: string;
   children: React.ReactNode;
   disabled?: boolean;
-  onSelect: () => void;
+  onSelect?: (value: string) => void;
 }
 
 export default function Select({ onSelect, ariaLabel, placeholder, disabled, children }: Props) {

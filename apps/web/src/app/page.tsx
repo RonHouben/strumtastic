@@ -1,12 +1,20 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { SelectExerciseCard, PluginGuitarCard, TunerCard } from 'ui/components';
 import { useGlobalState } from 'ui/hooks/useGlobalState';
 
 export default function Page() {
+  const router = useRouter();
   const { onboardUser } = useGlobalState({
     debug: { audioEngine: { state: true } },
   });
+
+  const handleStartExercise = () => {
+    onboardUser.send('START_EXERCISE');
+
+    router.push('/exercise');
+  };
 
   return (
     <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-3">
@@ -19,7 +27,8 @@ export default function Page() {
         onDone={() => onboardUser.send('SELECT_EXERCISE')}
       />
       <SelectExerciseCard
-        onDone={() => onboardUser.send('START_EXERCISE')}
+        disabled={!onboardUser.state.matches('selectingExercise') && !onboardUser.state.matches('playingExercise')}
+        onDone={handleStartExercise}
       />
 
       {/* <Card

@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useAudioEngine } from '@audio-engine/react';
+import { useGlobalState } from '../../hooks/useGlobalState';
 
 export const WaveFormAnayliser = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [state] = useAudioEngine();
+  const { audioEngine } = useGlobalState();
 
   // initialise canvas to draw when frequencyData changes
   useEffect(() => {
@@ -14,11 +14,11 @@ export const WaveFormAnayliser = () => {
 
       let requestAnimationFrameId = 0;
 
-      if (!state.matches('listeningToMicrophone')) {
+      if (!audioEngine.state.matches('listeningToMicrophone')) {
         cancelAnimationFrame(requestAnimationFrameId);
       }
 
-      if (canvasCtx && state.matches('listeningToMicrophone')) {
+      if (canvasCtx && audioEngine.state.matches('listeningToMicrophone')) {
         const draw = () => {
           requestAnimationFrameId = requestAnimationFrame(draw);
 
@@ -37,7 +37,7 @@ export const WaveFormAnayliser = () => {
             canvasCtx.lineTo(
               i,
               HEIGHT / 2 +
-                (state.context.audioEngine?.frequencyData[i] || 0) * 128
+                (audioEngine.state.context.audioEngine?.frequencyData[i] || 0) * 128
             );
           }
 
@@ -52,7 +52,7 @@ export const WaveFormAnayliser = () => {
         cancelAnimationFrame(requestAnimationFrameId);
       };
     }
-  }, [canvasRef, state]);
+  }, [canvasRef, audioEngine]);
 
   return <canvas ref={canvasRef} />;
 };
