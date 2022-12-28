@@ -1,16 +1,26 @@
+'use client';
+
 import { PluginGuitarCard, TunerCard } from 'ui/components';
 import { Card, CardContent, CardMedia } from 'ui/components/Card/';
 import Link from 'ui/components/Link';
 import Article from 'ui/components/Typography/Article';
+import { useGlobalState } from 'ui/hooks/useGlobalState';
 
 export default function Page() {
+  const { onboardUser } = useGlobalState();
+
   return (
     <div className="grid gap-4 sm:grid-cols-1 md:pt-28 lg:grid-cols-4">
-      <PluginGuitarCard />
-      <TunerCard />
+      <PluginGuitarCard
+        disabled={!onboardUser.state.matches('pluggingInGuitar')}
+        onDone={() => onboardUser.send('TUNE_GUITAR')}
+      />
+      <TunerCard disabled={!onboardUser.state.matches('tuningGuitar')} />
 
-
-      <Card className="h-[30rem]">
+      <Card
+        className="h-[30rem]"
+        disabled={!onboardUser.state.matches('selectingExercise')}
+      >
         <Link href="#">
           <CardMedia>[Pick your practice SVG Image]</CardMedia>
           <CardContent>
@@ -27,7 +37,10 @@ export default function Page() {
         </Link>
       </Card>
 
-      <Card className="h-[30rem]">
+      <Card
+        className="h-[30rem]"
+        disabled={!onboardUser.state.matches('playingExercise')}
+      >
         <Link href="/exercise">
           <CardMedia>[Rockstar SVG Image]</CardMedia>
           <CardContent>

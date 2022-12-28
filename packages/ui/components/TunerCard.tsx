@@ -4,13 +4,17 @@ import { Card, CardMedia, CardContent } from './Card';
 import { GuitarTuner } from './GuitarTuner';
 import { Article } from './Typography';
 
-export default function TunerCard() {
+interface Props {
+  disabled: boolean;
+}
+
+export default function TunerCard({ disabled }: Props) {
   const handleStopTuner = () => {
     console.log('IMPLEMENT');
   };
 
   return (
-    <Card className="h-[30rem]">
+    <Card className="h-[30rem]" disabled={disabled}>
       <CardMedia>
         <GuitarTuner onStopTuner={handleStopTuner} />
       </CardMedia>
