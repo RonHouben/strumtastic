@@ -4,8 +4,7 @@ import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import Button from './Button';
 import { Card, CardMedia, CardContent } from './Card';
-import Select from './Select/Select';
-import SelectItem from './Select/SelectItem';
+import Select, { SelectOption } from './Select/Select';
 import { GuitarPickSVG } from './SVG';
 import { Typography } from './Typography';
 
@@ -14,10 +13,20 @@ interface Props {
   onDone: () => void;
 }
 
+
+interface ExerciseOption extends SelectOption {
+  title: string;
+}
+
+const options: ExerciseOption[] = [
+  { id: '1', title: 'Triads', disabled: false },
+  { id: '1', title: 'Scales', disabled: true }
+];
+
 export default function SelectExerciseCard({ disabled, onDone }: Props) {
   const { classNames } = useClassNames();
 
-  const [selectedExercise, setSelectedExercise] = useState<string>();
+  const [selectedExercise, setSelectedExercise] = useState<ExerciseOption>();
 
   const handleStartExercise = useCallback(() => {
     onDone();
@@ -34,28 +43,27 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
         />
       </CardMedia>
       <CardContent>
-          <Typography variant='h1' className="!text-secondary-100">3. Pick your practice</Typography>
-          <div className="flex flex-col items-center justify-center gap-4">
-            <Select
-              ariaLabel="select exercise"
-              placeholder="Select exercise..."
-              disabled={disabled}
-              onSelect={setSelectedExercise}
-            >
-              <SelectItem value="triads">Triads</SelectItem>
-              <SelectItem value="major scale" disabled>
-                Major Scale
-              </SelectItem>
-            </Select>
-            <Button
-              disabled={disabled || !selectedExercise}
-              label="Start!"
-              onClick={handleStartExercise}
-            />
-          </div>
-          <p className="!text-secondary-700 text-center">
-            Register to get access to all exercises!
-          </p>
+        <Typography variant="h1" className="!text-secondary-100">
+          3. Pick your practice
+        </Typography>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <Select
+            placeHolder="Select exercise..."
+            disabled={disabled}
+            options={options}
+            labelProperty='title'
+            selected={selectedExercise}
+            onChange={setSelectedExercise}
+          />
+          <Button
+            disabled={disabled || !selectedExercise}
+            label="Start!"
+            onClick={handleStartExercise}
+          />
+        </div>
+        <p className="!text-secondary-700 text-center">
+          Register to get access to all exercises!
+        </p>
       </CardContent>
     </Card>
   );

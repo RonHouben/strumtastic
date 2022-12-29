@@ -1,53 +1,90 @@
 'use client';
 
-import * as RadixSelect from '@radix-ui/react-select';
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
+import { Fragment } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { useClassNames } from '../../hooks/useClassNames';
 
-interface Props {
-  ariaLabel: string;
-  placeholder: string;
-  children: React.ReactNode;
+export type SelectOption = { id: string; disabled: boolean };
+
+interface Props<T extends SelectOption> {
+  options: T[];
+  selected: T | undefined;
+  placeHolder?: string;
+  labelProperty: keyof T;
   disabled?: boolean;
-  onSelect?: (value: string) => void;
+  onChange: (value: T) => void;
+  className?: string;
 }
 
-export default function Select({
-  onSelect,
-  ariaLabel,
-  placeholder,
+export default function Select<T extends SelectOption>({
+  options,
+  selected,
+  placeHolder,
+  labelProperty,
   disabled,
-  children
-}: Props) {
+  onChange,
+  className
+}: Props<T>) {
+  const { classNames } = useClassNames();
+
   return (
-    <RadixSelect.Root
-      name="select-exercise"
-      required
-      onValueChange={onSelect}
-      open
-    >
-      <RadixSelect.Trigger
-        className="text-primary-500 dark:text-primary-50 bg-primary-50 hover:bg-secondary-100 inline-flex w-full items-center justify-center gap-2 rounded-md p-2 shadow-md dark:bg-slate-700 dark:hover:bg-slate-600"
-        aria-label={ariaLabel}
-        disabled={disabled}
-      >
-        <RadixSelect.Value placeholder={placeholder} />
-        <RadixSelect.Icon className="text-primary-500 dark:text-primary-50">
-          <ChevronDownIcon />
-        </RadixSelect.Icon>
-      </RadixSelect.Trigger>
-      <RadixSelect.Portal>
-        <RadixSelect.Content className="bg-primary-50 overflow-hidden rounded-md shadow-md dark:bg-slate-600">
-          <RadixSelect.ScrollUpButton className="bg-primary-50 text-primary-500 flex h-6 cursor-default items-center justify-center">
-            <ChevronUpIcon />
-          </RadixSelect.ScrollUpButton>
-          <RadixSelect.Viewport className="p-1">
-            {children}
-          </RadixSelect.Viewport>
-          <RadixSelect.ScrollDownButton className="bg-primary-50 text-primary-500 flex h-6 cursor-default items-center justify-center">
-            <ChevronDownIcon />
-          </RadixSelect.ScrollDownButton>
-        </RadixSelect.Content>
-      </RadixSelect.Portal>
-    </RadixSelect.Root>
+    <Listbox value={selected} onChange={onChange} disabled={disabled}>
+      <div className={classNames('relative mt-1 w-full', className || '')}>
+        <Listbox.Button className="bg-primary-50 dark:text-primary-50 relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 sm:text-sm">
+          <span className="block truncate">
+            {selected ? (selected[labelProperty] as string) : placeHolder}
+          </span>
+          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+            <ChevronUpDownIcon
+              className="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </span>
+        </Listbox.Button>
+        <Transition
+          as={Fragment}
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Listbox.Options className="bg-primary-50 absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-700 sm:text-sm">
+            {options.map((option, i) => (
+              <Listbox.Option
+                key={i}
+                disabled={option.disabled}
+                className={({ active, disabled }) =>
+                  classNames(
+                    `relative cursor-pointer select-none py-2 pl-10 pr-4 dark:text-primary-50 text-gray-900`,
+                    disabled ? '!text-slate-500 !cursor-default' : '',
+                    active
+                      ? 'bg-primary-200 text-primary-50 dark:bg-slate-600'
+                      : ''
+                  )
+                }
+                value={option}
+              >
+                {({ selected }) => (
+                  <>
+                    <span
+                      className={`block truncate ${
+                        selected ? 'font-medium' : 'font-normal'
+                      }`}
+                    >
+                      {option[labelProperty] as string}
+                    </span>
+                    {selected ? (
+                      <span className="text-secondary-500 absolute inset-y-0 left-0 flex items-center pl-3">
+                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    ) : null}
+                  </>
+                )}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
+        </Transition>
+      </div>
+    </Listbox>
   );
 }
