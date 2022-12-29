@@ -11,6 +11,7 @@ import { Typography } from './Typography';
 interface Props {
   disabled?: boolean;
   onDone: () => void;
+  myRef?: React.Ref<HTMLDivElement>;
 }
 
 interface ExerciseOption extends SelectOption {
@@ -22,7 +23,7 @@ const options: ExerciseOption[] = [
   { id: '1', title: 'Scales', disabled: true }
 ];
 
-export default function SelectExerciseCard({ disabled, onDone }: Props) {
+export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
 
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOption>();
@@ -32,7 +33,7 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
   }, [onDone]);
 
   return (
-    <Card className="h-[30rem]" disabled={disabled}>
+    <Card className="h-[30rem] snap-center" disabled={disabled} myRef={myRef}>
       <CardMedia className="relative">
         <GuitarPickSVG
           className={classNames(
@@ -59,7 +60,7 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
             label="Start!"
             className={classNames(
               disabled || !selectedExercise
-                ? '!bg-inherit shadow-none border !border-secondary-500'
+                ? '!border-secondary-500 border !bg-inherit shadow-none'
                 : '!bg-secondary-500 hover:!bg-secondary-700'
             )}
             onClick={handleStartExercise}

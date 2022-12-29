@@ -1250,6 +1250,18 @@ video {
           user-select: none;
 }
 
+.snap-y {
+  scroll-snap-type: y var(--tw-scroll-snap-strictness);
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}
+
 .flex-col {
   flex-direction: column;
 }
