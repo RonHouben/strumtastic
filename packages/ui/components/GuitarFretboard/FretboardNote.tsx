@@ -39,20 +39,16 @@ export const FretboardNote = ({
   return (
     <div
       className={classNames(
-        'w-6 rounded-full bg-slate-500 text-slate-400 dark:bg-slate-900 dark:text-slate-600',
-        isCurrentlyPlaying ? 'border-secondary-500 border' : '',
-        isCorrectlyPlayed ? 'border border-green-500' : '',
-        isCurrentlyPlaying && isCorrectlyPlayed
-          ? 'bg-green-800 text-slate-200'
+        'bg-secondary-100 w-6 h-6 rounded-full text-slate-400 dark:bg-slate-900 dark:text-slate-600',
+        isCurrentlyPlaying
+          ? '!bg-secondary-500 border-secondary-500 border text-white dark:!text-black'
           : '',
+        isCorrectlyPlayed ? '!bg-green-500 text-white dark:text-black' : '',
         isRoot && isCorrectlyPlayed
-          ? 'ring-0 ring-red-500 ring-offset-2 ring-offset-green-500'
+          ? 'border !border-red-500'
           : '',
         isRoot && !isCorrectlyPlayed ? 'border !border-red-500' : '',
         toBePlayed && !isCorrectlyPlayed ? 'border border-orange-500' : '',
-        toBePlayed && isRoot && !isCorrectlyPlayed
-          ? 'bg-orange-700 text-slate-200'
-          : ''
       )}
     >
       <span>{getNoteName(showFlatsOrSharps, musicNote)}</span>

@@ -10,12 +10,10 @@ export const FretboardFretNumbers = ({ numberOfFrets }: Props) => {
     <FretboardRow id="fretboard-numbers-container">
       {new Array(numberOfFrets + 1).fill(1).map((_, fretNumber) => (
         <Fret key={fretNumber}>
-          <span className="dark:text-primary-50 text-sm">
+          <span className="dark:text-slate-500 text-sm">
             {fretNumber !== 0 ? fretNumber : ''}
           </span>
         </Fret>
-        // <div id='fretboard-number' key={fretNumber} className="m-2 flex w-12 justify-center">
-        // </div>
       ))}
     </FretboardRow>
   );
