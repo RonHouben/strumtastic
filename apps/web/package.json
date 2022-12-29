@@ -24,9 +24,8 @@
   },
   "dependencies": {
     "@audio-engine/react": "*",
-    "@radix-ui/react-icons": "^1.1.1",
-    "@radix-ui/react-label": "^2.0.0",
-    "@radix-ui/react-select": "^1.1.2",
+    "@headlessui/react": "^1.7.7",
+    "@heroicons/react": "^2.0.13",
     "audio-engine": "*",
     "clsx": "1.2.1",
     "concurrently": "7.6.0",
