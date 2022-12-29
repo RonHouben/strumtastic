@@ -26,7 +26,7 @@ export const FretboardString = ({
     <FretboardRow id="fredboard-strings-container">
       {getMusicNotesForString(stringName, numberOfFrets).map((musicNote, i) => {
         const toBePlayed = notesToPlay.includes(musicNote);
-        const isRoot = musicKey === getNoteName(showFlatsOrSharps, musicNote);
+        const isRoot = musicKey === getNoteName(showFlatsOrSharps, musicNote) && toBePlayed;
 
         return (
           <div id="fretboard-string" key={i}>

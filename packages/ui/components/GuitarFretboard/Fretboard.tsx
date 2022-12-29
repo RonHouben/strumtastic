@@ -17,7 +17,7 @@ export const GuitarFretboard = ({
   return (
     <div
       id="guitar-fretboard-container"
-      className="scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-primary-500 dark:scrollbar-track-slate-800 dark:scrollbar-thumb-secondary-800 mb-5 flex min-w-full flex-col overflow-scroll scroll-smooth pb-5"
+      className="scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-primary-500 dark:scrollbar-track-slate-800 dark:scrollbar-thumb-primary-800 mb-5 flex min-w-full flex-col overflow-scroll scroll-smooth pb-5"
     >
       <FretboardFretNumbers numberOfFrets={numberOfFrets} />
       {/* need to spread to reverse because STRING_NAMES is readonly */}
