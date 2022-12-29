@@ -56,7 +56,7 @@ export default function Select<T extends SelectOption>({
                 className={({ active, disabled }) =>
                   classNames(
                     `relative cursor-pointer select-none py-2 pl-10 pr-4 dark:text-primary-50 text-gray-900`,
-                    disabled ? 'text-slate-500 !cursor-default' : '',
+                    disabled ? '!text-slate-500 !cursor-default' : '',
                     active
                       ? 'bg-primary-200 text-primary-50 dark:bg-slate-600'
                       : ''
