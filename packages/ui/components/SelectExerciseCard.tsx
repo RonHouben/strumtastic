@@ -13,7 +13,6 @@ interface Props {
   onDone: () => void;
 }
 
-
 interface ExerciseOption extends SelectOption {
   title: string;
 }
@@ -51,13 +50,18 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
             placeHolder="Select exercise..."
             disabled={disabled}
             options={options}
-            labelProperty='title'
+            labelProperty="title"
             selected={selectedExercise}
             onChange={setSelectedExercise}
           />
           <Button
             disabled={disabled || !selectedExercise}
             label="Start!"
+            className={classNames(
+              disabled || !selectedExercise
+                ? '!bg-inherit shadow-none border !border-secondary-500'
+                : '!bg-secondary-500 hover:!bg-secondary-700'
+            )}
             onClick={handleStartExercise}
           />
         </div>

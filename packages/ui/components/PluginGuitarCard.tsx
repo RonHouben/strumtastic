@@ -93,7 +93,11 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
         </Article>
 
         {!disabled && !audioEngine.state.matches('initializing') && (
-          <Button label="Plugin" onClick={handlePluginGuitar} />
+          <Button
+            className="!bg-secondary-500 hover:!bg-secondary-700"
+            label="Plugin"
+            onClick={handlePluginGuitar}
+          />
         )}
       </CardContent>
     </Card>
