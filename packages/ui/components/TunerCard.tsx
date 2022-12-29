@@ -11,9 +11,10 @@ import { Article } from './Typography';
 interface Props {
   disabled?: boolean;
   onDone: () => void;
+  myRef?: React.Ref<HTMLDivElement>;
 }
 
-export default function TunerCard({ disabled, onDone }: Props) {
+export default function TunerCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
   const { onboardUser } = useGlobalState();
 
@@ -22,7 +23,7 @@ export default function TunerCard({ disabled, onDone }: Props) {
   }, [onDone]);
 
   return (
-    <Card className="h-[30rem]" disabled={disabled}>
+    <Card myRef={myRef} className="h-[30rem] snap-center" disabled={disabled}>
       <CardMedia>
         {disabled && (
           <TuningForkSVG

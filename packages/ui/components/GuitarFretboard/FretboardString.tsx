@@ -2,8 +2,8 @@ import { FlatsOrSharps, IMusicNote, StringName } from 'music-notes';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Fret } from './Fret';
 import { FretBoardNut } from './FretboardNut';
-import { Row } from './Row';
-import { String } from './String';
+import { FretboardRow } from './FretboardRow';
+import { FretboardNote } from './FretboardNote';
 
 interface Props {
   stringName: StringName;
@@ -13,7 +13,7 @@ interface Props {
   musicKey: string;
 }
 
-export const GuitarFretboardString = ({
+export const FretboardString = ({
   numberOfFrets,
   stringName,
   showFlatsOrSharps,
@@ -23,34 +23,33 @@ export const GuitarFretboardString = ({
   const { getMusicNotesForString, getNoteName } = useMusicNotes();
 
   return (
-    <Row>
+    <FretboardRow id="fredboard-strings-container">
       {getMusicNotesForString(stringName, numberOfFrets).map((musicNote, i) => {
         const toBePlayed = notesToPlay.includes(musicNote);
-        const isRoot = musicKey === getNoteName(showFlatsOrSharps, musicNote);
+        const isRoot = musicKey === getNoteName(showFlatsOrSharps, musicNote) && toBePlayed;
 
         return (
-          <div key={i}>
-            <String>
-              {i === 0 ? (
-                <FretBoardNut
+          <div id="fretboard-string" key={i}>
+            {i === 0 ? (
+              <FretBoardNut
+                musicNote={musicNote}
+                showFlatsOrSharps={showFlatsOrSharps}
+                toBePlayed={toBePlayed}
+                isRoot={isRoot}
+              />
+            ) : (
+              <Fret className="border-slate-400">
+                <FretboardNote
                   musicNote={musicNote}
                   showFlatsOrSharps={showFlatsOrSharps}
-                  toBePlayed={toBePlayed}
-                  isRoot={isRoot}
-                />
-              ) : (
-                <Fret
-                  showFlatsOrSharps={showFlatsOrSharps}
-                  musicNote={musicNote}
                   isRoot={isRoot}
                   toBePlayed={toBePlayed}
-                  className="border-slate-400 border-x-2"
                 />
-              )}
-            </String>
+              </Fret>
+            )}
           </div>
         );
       })}
-    </Row>
+    </FretboardRow>
   );
 };

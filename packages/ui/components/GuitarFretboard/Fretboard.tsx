@@ -1,7 +1,7 @@
 import { IMusicNote, STRING_NAMES } from 'music-notes';
-import { GuitarFretboardString } from './FretboardString';
-import { GuitarFretboardFretNumbers } from './FretNumbers';
-import { GuitarFretboardMarkers } from './FretboardMarker';
+import { FretboardString } from './FretboardString';
+import { FretboardFretNumbers } from './FretNumbers';
+import { FretboardMarkers } from './FretboardMarker';
 
 interface Props {
   numberOfFrets: number;
@@ -15,25 +15,23 @@ export const GuitarFretboard = ({
   musicKey
 }: Props) => {
   return (
-    <div id="guitar-fretboard-container" className="prose min-w-full mb-5">
-      <GuitarFretboardFretNumbers numberOfFrets={numberOfFrets} />
-      <div
-        id="guitar-fretboard-strings-container"
-        className="rounded-sm bg-slate-500 p-1 shadow-2xl"
-      >
-        {/* need to spread to reverse because STRING_NAMES is readonly */}
-        {[...STRING_NAMES].reverse().map((stringName) => (
-          <GuitarFretboardString
-            key={stringName}
-            stringName={stringName}
-            numberOfFrets={numberOfFrets}
-            showFlatsOrSharps="sharps"
-            notesToPlay={notesToPlay}
-            musicKey={musicKey}
-          />
-        ))}
-      </div>
-      <GuitarFretboardMarkers numberOfFrets={numberOfFrets}/>
+    <div
+      id="guitar-fretboard-container"
+      className="scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-primary-500 dark:scrollbar-track-slate-800 dark:scrollbar-thumb-primary-800 mb-5 flex min-w-full flex-col overflow-scroll scroll-smooth pb-5"
+    >
+      <FretboardFretNumbers numberOfFrets={numberOfFrets} />
+      {/* need to spread to reverse because STRING_NAMES is readonly */}
+      {[...STRING_NAMES].reverse().map((stringName) => (
+        <FretboardString
+          key={stringName}
+          stringName={stringName}
+          numberOfFrets={numberOfFrets}
+          showFlatsOrSharps="sharps"
+          notesToPlay={notesToPlay}
+          musicKey={musicKey}
+        />
+      ))}
+      <FretboardMarkers numberOfFrets={numberOfFrets} />
     </div>
   );
 };

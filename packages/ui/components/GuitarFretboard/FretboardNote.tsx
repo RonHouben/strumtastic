@@ -12,7 +12,7 @@ interface Props {
   showFlatsOrSharps: FlatsOrSharps;
 }
 
-export const Note = ({
+export const FretboardNote = ({
   musicNote,
   isRoot,
   toBePlayed,
@@ -39,17 +39,16 @@ export const Note = ({
   return (
     <div
       className={classNames(
-        'w-7 rounded-full bg-slate-500 text-slate-400',
-        isCurrentlyPlaying ? '!bg-blue-500 text-slate-200' : '',
-        isCorrectlyPlayed ? 'bg-green-500 text-slate-900' : '',
-        isCurrentlyPlaying && isCorrectlyPlayed
-          ? 'bg-green-800 text-slate-200'
+        'bg-secondary-100 w-6 h-6 rounded-full text-slate-400 dark:bg-slate-900 dark:text-slate-600',
+        isCurrentlyPlaying
+          ? '!bg-secondary-500 border-secondary-500 border text-white dark:!text-black'
           : '',
-        isRoot && !isCorrectlyPlayed ? 'bg-slate-900 text-slate-200' : '',
-        toBePlayed && !isCorrectlyPlayed ? 'bg-orange-500 text-slate-200' : '',
-        toBePlayed && isRoot && !isCorrectlyPlayed
-          ? 'bg-orange-700 text-slate-200'
-          : ''
+        isCorrectlyPlayed ? '!bg-green-500 text-white dark:text-black' : '',
+        isRoot && isCorrectlyPlayed
+          ? 'border !border-red-500'
+          : '',
+        isRoot && !isCorrectlyPlayed ? 'border !border-red-500' : '',
+        toBePlayed && !isCorrectlyPlayed ? 'border border-orange-500' : '',
       )}
     >
       <span>{getNoteName(showFlatsOrSharps, musicNote)}</span>

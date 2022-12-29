@@ -1,12 +1,13 @@
-import { Row } from './Row';
+import { Fret } from './Fret';
+import { FretboardRow } from './FretboardRow';
 
 interface Props {
   numberOfFrets: number;
 }
 
-export const GuitarFretboardMarkers = ({ numberOfFrets }: Props) => {
+export const FretboardMarkers = ({ numberOfFrets }: Props) => {
   return (
-    <Row>
+    <FretboardRow id="fretboard-marker-container">
       {new Array(numberOfFrets + 1).fill(1).map((_, fretNumber) => {
         const isSingleMarker =
           fretNumber === 5 ||
@@ -18,21 +19,23 @@ export const GuitarFretboardMarkers = ({ numberOfFrets }: Props) => {
         const isMultipleMarker = fretNumber === 12;
 
         return (
-          <svg
-            id="guitar-fretboard-marker"
-            key={fretNumber}
-            className="h-4 w-12 fill-slate-700"
-          >
-            {isSingleMarker && <circle cx="1.6rem" cy="50%" r=".25rem" />}
-            {isMultipleMarker && (
-              <>
-                <circle cx="1rem" cy="50%" r=".25rem" />
-                <circle cx="2.0rem" cy="50%" r=".25rem" />
-              </>
-            )}
-          </svg>
+          <Fret key={fretNumber}>
+            <svg
+              id="guitar-fretboard-marker"
+              key={fretNumber}
+              className="h-4 w-12 fill-slate-700"
+            >
+              {isSingleMarker && <circle cx="1.6rem" cy="50%" r=".25rem" />}
+              {isMultipleMarker && (
+                <>
+                  <circle cx="1rem" cy="50%" r=".25rem" />
+                  <circle cx="2.0rem" cy="50%" r=".25rem" />
+                </>
+              )}
+            </svg>
+          </Fret>
         );
       })}
-    </Row>
+    </FretboardRow>
   );
 };

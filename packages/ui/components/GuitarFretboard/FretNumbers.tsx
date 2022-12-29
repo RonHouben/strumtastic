@@ -1,17 +1,20 @@
-import { Row } from './Row';
+import { Fret } from './Fret';
+import { FretboardRow } from './FretboardRow';
 
 interface Props {
   numberOfFrets: number;
 }
 
-export const GuitarFretboardFretNumbers = ({ numberOfFrets }: Props) => {
+export const FretboardFretNumbers = ({ numberOfFrets }: Props) => {
   return (
-    <Row>
+    <FretboardRow id="fretboard-numbers-container">
       {new Array(numberOfFrets + 1).fill(1).map((_, fretNumber) => (
-        <div key={fretNumber} className="m-2 flex w-12 justify-center">
-          <span className="text-sm">{fretNumber !== 0 ? fretNumber : ''}</span>
-        </div>
+        <Fret key={fretNumber}>
+          <span className="dark:text-slate-500 text-sm">
+            {fretNumber !== 0 ? fretNumber : ''}
+          </span>
+        </Fret>
       ))}
-    </Row>
+    </FretboardRow>
   );
 };
