@@ -12,7 +12,7 @@ interface Props {
   showFlatsOrSharps: FlatsOrSharps;
 }
 
-export const Note = ({
+export const FretboardNote = ({
   musicNote,
   isRoot,
   toBePlayed,
@@ -39,7 +39,7 @@ export const Note = ({
   return (
     <div
       className={classNames(
-        'w-7 rounded-full bg-slate-500 text-slate-400',
+        'w-6 rounded-full bg-slate-500 text-slate-400',
         isCurrentlyPlaying ? '!bg-blue-500 text-slate-200' : '',
         isCorrectlyPlayed ? 'bg-green-500 text-slate-900' : '',
         isCurrentlyPlaying && isCorrectlyPlayed
