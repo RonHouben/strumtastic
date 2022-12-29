@@ -1,14 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
-import { useGlobalState } from '../hooks/useGlobalState';
 import Button from './Button';
 import { Card, CardMedia, CardContent } from './Card';
 import Select from './Select/Select';
 import SelectItem from './Select/SelectItem';
 import { GuitarPickSVG } from './SVG';
-import { Article } from './Typography';
+import { Typography } from './Typography';
 
 interface Props {
   disabled?: boolean;
@@ -17,13 +16,12 @@ interface Props {
 
 export default function SelectExerciseCard({ disabled, onDone }: Props) {
   const { classNames } = useClassNames();
-  const { onboardUser } = useGlobalState();
 
   const [selectedExercise, setSelectedExercise] = useState<string>();
 
-  const handleStartExercise = () => {
+  const handleStartExercise = useCallback(() => {
     onDone();
-  };
+  }, [onDone]);
 
   return (
     <Card className="h-[30rem]" disabled={disabled}>
@@ -31,16 +29,13 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
         <GuitarPickSVG
           className={classNames(
             'h-full',
-            onboardUser.state.context.isExerciseSelected
-              ? 'fill-green-300 stroke-green-300'
-              : 'fill-primary-500 stroke-primary-500 '
+            selectedExercise ? '!fill-green-300 !stroke-green-300' : ''
           )}
         />
       </CardMedia>
       <CardContent>
-        <Article>
-          <h1 className="text-secondary-100">3. Pick your practice</h1>
-          <div className="flex flex-col gap-4">
+          <Typography variant='h1' className="!text-secondary-100">3. Pick your practice</Typography>
+          <div className="flex flex-col items-center justify-center gap-4">
             <Select
               ariaLabel="select exercise"
               placeholder="Select exercise..."
@@ -52,10 +47,15 @@ export default function SelectExerciseCard({ disabled, onDone }: Props) {
                 Major Scale
               </SelectItem>
             </Select>
-            <Button disabled={disabled || !selectedExercise} label="Start!" onClick={handleStartExercise} />
+            <Button
+              disabled={disabled || !selectedExercise}
+              label="Start!"
+              onClick={handleStartExercise}
+            />
           </div>
-          <p className='text-center text-secondary-700'>Register to get access to all exercises!</p>
-        </Article>
+          <p className="!text-secondary-700 text-center">
+            Register to get access to all exercises!
+          </p>
       </CardContent>
     </Card>
   );

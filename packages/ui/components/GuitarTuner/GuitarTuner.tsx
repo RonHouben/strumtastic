@@ -26,18 +26,18 @@ export default function GuitarTuner({ onStopTuner }: Props) {
   }, [audioEngine, onStopTuner]);
 
   return (
-    <div className="bg-primary-500 m-2 flex w-60 flex-col items-center justify-center gap-2 rounded-md p-2 shadow-lg">
-      <Typography variant="h1" className="text-secondary-500">
+    <div className="bg-primary-500 dark:bg-secondary-700 m-2 flex w-60 flex-col items-center justify-center gap-2 rounded-md p-2 shadow-lg">
+      <Typography variant="h1" className="text-secondary-500 dark:text-primary-700">
         {audioEngine.state.context.audioEngine?.currentMusicNote
           ? getNoteName(
               'sharps',
-              audioEngine.state.context.audioEngine?.currentMusicNote!
+              audioEngine.state.context.audioEngine?.currentMusicNote
             )
           : '-'}
       </Typography>
       <DistanceFromNote />
       <Hertz
-        className="text-secondary-500"
+        className="text-secondary-500 dark:text-primary-700"
         hertz={audioEngine.state.context.audioEngine?.currentFrequency || -1}
       />
       {audioEngine.state.matches('idle') && (

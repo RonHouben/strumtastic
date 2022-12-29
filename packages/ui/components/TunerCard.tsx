@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import { useGlobalState } from '../hooks/useGlobalState';
 import { Card, CardMedia, CardContent } from './Card';
@@ -16,9 +17,9 @@ export default function TunerCard({ disabled, onDone }: Props) {
   const { classNames } = useClassNames();
   const { onboardUser } = useGlobalState();
 
-  const handleStopTuner = () => {
+  const handleStopTuner = useCallback(() => {
     onDone();
-  };
+  }, [onDone]);
 
   return (
     <Card className="h-[30rem]" disabled={disabled}>
@@ -26,7 +27,7 @@ export default function TunerCard({ disabled, onDone }: Props) {
         {disabled && (
           <TuningForkSVG
             className={classNames(
-              'stroke-primary-500 fill-primary-500 h-full',
+              'stroke-primary-500 fill-primary-500 dark:stroke-secondary-500 dark:fill-secondary-500 h-full',
               onboardUser.state.context.isTuned
                 ? '!fill-green-300 !stroke-green-300'
                 : ''

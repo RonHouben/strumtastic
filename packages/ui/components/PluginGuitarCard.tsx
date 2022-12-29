@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useGlobalState } from '../hooks/useGlobalState';
 import Button from './Button';
 import { Card, CardMedia, CardContent } from './Card';
@@ -16,9 +16,9 @@ interface Props {
 export default function PluginGuitarCard({ disabled, onDone }: Props) {
   const { audioEngine, onboardUser } = useGlobalState();
 
-  const handlePluginGuitar = () => {
+  const handlePluginGuitar = useCallback(() => {
     audioEngine.send('INITIALIZE');
-  };
+  }, [audioEngine]);
 
   // Call onDone if plugging in is done
   useEffect(() => {

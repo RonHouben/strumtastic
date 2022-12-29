@@ -1,5 +1,3 @@
-import Article from '../Typography/Article';
-
 interface Props {
   children?: React.ReactNode;
 }
