@@ -16,7 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "ml5": "^0.12.2",
-    "xstate": "^4.35.1",
-    "music-notes": "*"
+    "xstate": "^4.35.1"
   }
 }

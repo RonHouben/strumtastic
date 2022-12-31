@@ -1,4 +1,3 @@
-import { IMusicNote, MusicNotes } from 'music-notes';
 import { ML5PitchDetector } from '../types/ml5-pitchdetector';
 
 interface OscillatorOptions {
@@ -27,7 +26,6 @@ export class AudioEngine {
   private requestAnimationFrameId?: number;
 
   private _currentFrequency = -1;
-  private _currentMusicNote?: IMusicNote;
   private _isAIPitchDetectorInitialized: boolean = false;
   private _isStreamingAudio: boolean = false;
   private _isOscillatorRunning: boolean = false;
@@ -61,10 +59,6 @@ export class AudioEngine {
     return this._currentFrequency;
   }
 
-  get currentMusicNote(): IMusicNote | undefined {
-    return this._currentMusicNote;
-  }
-
   get isStreamingAudio(): boolean {
     return this._isStreamingAudio;
   }
@@ -96,8 +90,6 @@ export class AudioEngine {
       this.frequencyData,
       this.audioContext.sampleRate
     );
-
-    this._currentMusicNote = MusicNotes.getMusicNoteFromFrequency(this._currentFrequency);
 
     this.setIsStreamingAudio(true);
   }

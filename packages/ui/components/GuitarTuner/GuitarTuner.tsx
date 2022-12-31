@@ -12,8 +12,8 @@ interface Props {
 }
 
 export default function GuitarTuner({ onStopTuner }: Props) {
-  const { getNoteName } = useMusicNotes();
   const { audioEngine } = useGlobalState();
+  const { currentMusicNote } = useMusicNotes();
 
   const handleStartTuner = useCallback(() => {
     audioEngine.send('START_LISTENING_TO_MICROPHONE');
@@ -31,12 +31,7 @@ export default function GuitarTuner({ onStopTuner }: Props) {
         variant="h1"
         className="text-secondary-500 dark:text-primary-700"
       >
-        {audioEngine.state.context.audioEngine?.currentMusicNote
-          ? getNoteName(
-              'sharps',
-              audioEngine.state.context.audioEngine?.currentMusicNote
-            )
-          : '-'}
+        {currentMusicNote?.letter|| '-'}
       </Typography>
       <DistanceFromNote />
       <Hertz
@@ -63,18 +58,20 @@ export default function GuitarTuner({ onStopTuner }: Props) {
 
 function DistanceFromNote() {
   const { audioEngine } = useGlobalState();
+  const { currentMusicNote } = useMusicNotes();
+
   const margin = 2;
 
   const isMissingData = useMemo(() => {
     if (
       audioEngine.state.context.audioEngine?.currentFrequency === undefined ||
-      audioEngine.state.context.audioEngine?.currentMusicNote === undefined
+      currentMusicNote === undefined
     ) {
       return true;
     }
 
     return false;
-  }, [audioEngine]);
+  }, [audioEngine, currentMusicNote]);
 
   const absFrequencyDiff = useMemo(
     () =>
@@ -82,9 +79,9 @@ function DistanceFromNote() {
         ? NaN
         : Math.abs(
             audioEngine.state.context.audioEngine!.currentFrequency -
-              audioEngine.state.context.audioEngine!.currentMusicNote!.hz
+              currentMusicNote!.freq!
           ),
-    [audioEngine, isMissingData]
+    [audioEngine, isMissingData, currentMusicNote]
   );
 
   const frequencyDiff = useMemo(
@@ -92,8 +89,8 @@ function DistanceFromNote() {
       isMissingData
         ? NaN
         : audioEngine.state.context.audioEngine!.currentFrequency -
-          audioEngine.state.context.audioEngine!.currentMusicNote!.hz,
-    [isMissingData, audioEngine]
+          currentMusicNote!.freq!,
+    [isMissingData, audioEngine, currentMusicNote]
   );
 
   const isLower = useMemo(

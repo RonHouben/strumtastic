@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext } from 'react';
 import { useInterpret } from '@xstate/react';
 import type { InterpreterFrom } from 'xstate';

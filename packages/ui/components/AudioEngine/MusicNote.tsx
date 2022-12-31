@@ -22,16 +22,9 @@ export const MusicNote = ({ musicNote }: Props) => {
         </thead>
         <tbody>
           <tr>
-            <td>{memoisedMusicNote?.hz}</td>
-            <td>{memoisedMusicNote?.octave}</td>
-            <td>{JSON.stringify(memoisedMusicNote?.names)}</td>
-            <td>
-              <ul>
-                {memoisedMusicNote?.positions.map((position, i) => (
-                  <li key={i}>{JSON.stringify(position)}</li>
-                ))}
-              </ul>
-            </td>
+            <td>{memoisedMusicNote?.freq}</td>
+            <td>{memoisedMusicNote?.oct}</td>
+            <td>{memoisedMusicNote?.name}</td>
           </tr>
         </tbody>
       </table>

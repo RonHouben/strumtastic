@@ -20,13 +20,17 @@ export const FretboardString = ({
   notesToPlay,
   musicKey
 }: Props) => {
-  const { getMusicNotesForString, getNoteName } = useMusicNotes();
+  const { getMusicNotesForString } = useMusicNotes();
 
   return (
     <FretboardRow id="fredboard-strings-container">
-      {getMusicNotesForString(stringName, numberOfFrets).map((musicNote, i) => {
-        const toBePlayed = notesToPlay.includes(musicNote);
-        const isRoot = musicKey === getNoteName(showFlatsOrSharps, musicNote) && toBePlayed;
+      {getMusicNotesForString({
+        startNote: stringName,
+        numberOfFrets,
+        sharps: showFlatsOrSharps === 'sharps'
+      }).map((musicNote, i) => {
+        const toBePlayed = notesToPlay.some((noteToPlay) => noteToPlay.pc === musicNote.pc);
+        const isRoot = musicKey === musicNote.pc //&& toBePlayed;
 
         return (
           <div id="fretboard-string" key={i}>
