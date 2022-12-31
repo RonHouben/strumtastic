@@ -1,6 +1,5 @@
 import { AudioEngineCurrentAudioData } from './CurrentAudioData';
 import { WaveFormAnayliser } from './WaveFormAnalyser';
-import { Oscillator } from './Oscillator';
 import Article from '../Typography/Article';
 import { useCallback } from 'react';
 import { Checkbox } from '../Checkbox';
@@ -30,7 +29,6 @@ export const AudioEngineDebugger = () => {
         onChange={handleSwitchUseAIPitchDetector}
       />
       <WaveFormAnayliser />
-      <Oscillator />
       <AudioEngineCurrentAudioData />
     </Article>
   );

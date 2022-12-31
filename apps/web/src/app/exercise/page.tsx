@@ -13,7 +13,7 @@ import { useGlobalState } from 'ui/hooks/useGlobalState';
 export default function ExercisePage() {
   const [exerciseState, exerciseDispatch] = useExercise();
   const { audioEngine } = useGlobalState();
-  const { getMusicNoteByNoteName, getMusicNotesByNoteNames, getNoteName } =
+  const { getMusicNoteByName, getRangeOfMusicNotes } =
     useMusicNotes();
 
   const handleStartExercise = useCallback(() => {
@@ -31,16 +31,16 @@ export default function ExercisePage() {
         payload: {
           key: 'C',
           name: 'C Major Triads',
-          nextNoteToPlay: getMusicNoteByNoteName('C'),
-          notesToPlay: getMusicNotesByNoteNames(['C', 'E', 'G'], 3, 1),
+          nextNoteToPlay: getMusicNoteByName('C'),
+          notesToPlay: getRangeOfMusicNotes(['C', 'E', 'G']),
         },
       });
     }
   }, [
     exerciseState,
     exerciseDispatch,
-    getMusicNoteByNoteName,
-    getMusicNotesByNoteNames,
+    getMusicNoteByName,
+    getRangeOfMusicNotes
   ]);
 
   return (
@@ -51,7 +51,7 @@ export default function ExercisePage() {
           Notes to play are: <br />
           <span>
             {exerciseState.notesToPlay
-              .map((musicNote) => getNoteName('sharps', musicNote))
+              .map((musicNote) => musicNote.name)
               .join(' - ')}
           </span>
         </p>

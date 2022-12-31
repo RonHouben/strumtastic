@@ -60,12 +60,12 @@ export function exerciseReducer(
       }
 
       const hasPlayedCorrectNote =
-        action.payload.playedNote.hz === state.nextNoteToPlay.hz;
+        action.payload.playedNote.pc === state.nextNoteToPlay.pc;
 
       if (hasPlayedCorrectNote) {
         // calculate the nextNoteToPlay
         const currentNoteIndex = state.notesToPlay.findIndex(
-          (note) => note.hz === action.payload.playedNote.hz
+          (note) => note.pc === action.payload.playedNote.pc
         );
         const nextNoteToPlay = state.notesToPlay.at(currentNoteIndex + 1);
 
