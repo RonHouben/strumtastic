@@ -1,0 +1,21 @@
+{
+  "name": "exercise-engine",
+  "version": "0.0.2",
+  "description": "This is the Exercise Engine which is responsible to manage the exercises that are being played",
+  "author": {
+    "name": "Ron Houben",
+    "email": "ron.houben85@gmail.com",
+    "url": "https://github.com/RonHouben"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc --build && cp -r src/types dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "xstate": "^4.35.1",
+    "music-notes": "*"
+  }
+}
