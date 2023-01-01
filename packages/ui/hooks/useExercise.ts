@@ -1,32 +1,33 @@
-'use client';
+import { useContext } from 'react';
+import { GlobalStateContext } from '../providers/GlobalStateProvider';
+import { useActor, useSelector, useMachine } from '@xstate/react';
+import { exerciseEngineMachine } from 'exercise-engine';
 
-import { useContext, useEffect } from 'react';
-import {
-  ExerciseContext,
-  IExerciseContext
-} from '../providers/ExerciseProvider';
-import { useMusicNotes } from './useMusicNotes';
+// The isExercisingSelector is created for performance reasons.
+// See:
+// https://xstate.js.org/docs/recipes/react.html#improving-performance
 
-export function useExercise(): IExerciseContext {
-  const [state, dispatch] = useContext(ExerciseContext);
-  const { currentMusicNote } = useMusicNotes();
+type ExerciseEngineState = ReturnType<
+  typeof useMachine<typeof exerciseEngineMachine>
+>[0];
+type ExerciseEngineSend = ReturnType<
+  typeof useMachine<typeof exerciseEngineMachine>
+>[1];
 
-  useEffect(() => {
-    if (
-      state.isInitialised &&
-      !state.isDone &&
-      currentMusicNote &&
-      currentMusicNote !== state.lastPlayedNote
-    ) {
+const isExercisingSelector = (state: ExerciseEngineState) =>
+  state.matches('exercizing');
 
-      dispatch({
-        type: 'record-played-note',
-        payload: {
-          playedNote: currentMusicNote
-        }
-      });
-    }
-  }, [state, dispatch, currentMusicNote]);
+interface UseExerciseEngineResult {
+  state: ExerciseEngineState;
+  send: ExerciseEngineSend;
+  isExercising: boolean;
+}
 
-  return [state, dispatch];
+export function useExerciseEngine(): UseExerciseEngineResult {
+  const { exerciseEngineService } = useContext(GlobalStateContext);
+  const isExercising = useSelector(exerciseEngineService, isExercisingSelector);
+
+  const [state, send] = useActor(exerciseEngineService);
+
+  return { state, send, isExercising };
 }

@@ -29,6 +29,7 @@
     "audio-engine": "*",
     "clsx": "1.2.1",
     "concurrently": "7.6.0",
+    "exercise-engine": "*",
     "music-notes": "*",
     "next": "latest",
     "react": "18.2.0",

@@ -1,10 +1,10 @@
 'use client';
 
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
-import { useEffect, useMemo } from 'react';
-import { useExercise } from '../../hooks/useExercise';
+import { useMemo } from 'react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { useClassNames } from '../../hooks/useClassNames';
+import { useGlobalState } from '../../hooks/useGlobalState';
 
 interface Props {
   musicNote: IMusicNote;
@@ -19,7 +19,7 @@ export const FretboardNote = ({
   toBePlayed,
   showFlatsOrSharps
 }: Props) => {
-  const [exerciseState] = useExercise();
+  const { exerciseEngine } = useGlobalState();
   const { currentMusicNote } = useMusicNotes();
   const { classNames } = useClassNames();
 
@@ -30,10 +30,10 @@ export const FretboardNote = ({
 
   const isCorrectlyPlayed = useMemo(
     () =>
-      exerciseState.playedNotes.some(
+      exerciseEngine.state.context.correctlyPlayedNotes.some(
         (playedNote) => playedNote.name === musicNote.name
       ),
-    [exerciseState.playedNotes, musicNote]
+    [exerciseEngine.state.context.correctlyPlayedNotes, musicNote]
   );
 
   return (

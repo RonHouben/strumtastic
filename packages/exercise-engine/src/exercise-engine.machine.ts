@@ -1,11 +1,16 @@
-import { IMusicNote, NoteName } from 'music-notes';
+import { IMusicNote, MusicKey, MusicNotes, NoteNameWithOctave } from 'music-notes';
 import { createMachine, assign } from 'xstate';
 
-type Exercise = {
-  name: string;
-  key: NoteName;
-  notesToPlay: IMusicNote[];
+export type CreateExercise = {
+  id: string;
+  title: string;
+  key: MusicKey;
+  notesToPlay: NoteNameWithOctave[];
 };
+
+interface Exercise extends Omit<CreateExercise, 'notesToPlay'> {
+  notesToPlay: IMusicNote[];
+}
 
 type Context = {
   exercise: Exercise | undefined;
@@ -16,7 +21,7 @@ type Context = {
 type Event =
   | {
       type: 'LOAD_EXERCISE';
-      data: { exercise: Exercise };
+      data: { exercise: CreateExercise };
     }
   | { type: 'START_EXERCISE' }
   | { type: 'RECORD_PLAYED_NOTE'; data: { playedNote: IMusicNote } }
@@ -32,6 +37,7 @@ export const exerciseEngineMachine =
     {
       id: 'exerciseEngineMachine',
       description: `This manages the exercises`,
+      predictableActionArguments: true,
       tsTypes: {} as import('./exercise-engine.machine.typegen').Typegen0,
       schema: {
         context: {} as Context,
@@ -67,8 +73,8 @@ export const exerciseEngineMachine =
             RECORD_PLAYED_NOTE: {
               target: 'exercizing',
               internal: true,
-              cond: 'isCorrectNote',
-              actions: 'recordPlayedNote'
+              actions: 'recordPlayedNote',
+              cond: 'isCorrectNotePlayed'
             },
             PAUSE_EXERCISE: {
               target: 'paused'
@@ -96,22 +102,37 @@ export const exerciseEngineMachine =
     {
       actions: {
         loadExercise: assign({
-          exercise: (_ctx, event) => event.data.exercise
+          exercise: (_ctx, event) => ({
+            ...event.data.exercise,
+            notesToPlay: MusicNotes.getRangeOfMusicNotes(
+              event.data.exercise.notesToPlay
+            )
+          }),
+          nextNoteToPlay: (_ctx, event) =>
+            MusicNotes.getMusicNoteByName(event.data.exercise.notesToPlay[0])
         }),
         recordPlayedNote: assign({
           correctlyPlayedNotes: (ctx, event) => [
             ...ctx.correctlyPlayedNotes,
             event.data.playedNote
-          ]
+          ],
+          nextNoteToPlay: (ctx) => {
+            const previousNextNoteToPlayIndex =
+              ctx.exercise!.notesToPlay.findIndex(
+                (note) => note.name === ctx.nextNoteToPlay!.name
+              );
+
+            return ctx.exercise!.notesToPlay.at(
+              previousNextNoteToPlayIndex + 1
+            );
+          }
         })
       },
       guards: {
         hasExerciseLoaded: (ctx) => ctx.exercise !== undefined,
-        isDone: (ctx) => !ctx.nextNoteToPlay,
-        isCorrectNote: (ctx, event) =>
-          ctx.nextNoteToPlay
-            ? ctx.nextNoteToPlay.name === event.data.playedNote.name
-            : false
+        isCorrectNotePlayed: (ctx, event) =>
+          event.data.playedNote.name === ctx.nextNoteToPlay?.name,
+        isDone: (ctx) => !ctx.nextNoteToPlay
       }
     }
   );

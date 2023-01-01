@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAudioEngine } from './useAudioEngine';
+import { useExerciseEngine } from './useExercise';
 import { useOnboardUser } from './useOnboardUser';
 
 type DebugOptions = { state?: boolean; context?: boolean };
@@ -9,6 +10,7 @@ type DebugOptions = { state?: boolean; context?: boolean };
 type Debug = {
   audioEngine?: DebugOptions;
   onboardUser?: DebugOptions;
+  exerciseEngine?: DebugOptions;
 };
 
 interface Props {
@@ -18,22 +20,25 @@ interface Props {
 interface MachineActors {
   audioEngine: ReturnType<typeof useAudioEngine>;
   onboardUser: ReturnType<typeof useOnboardUser>;
+  exerciseEngine: ReturnType<typeof useExerciseEngine>;
 }
 
 export function useGlobalState({ debug }: Props = {}): MachineActors {
   const audioEngine = useAudioEngine();
   const onboardUser = useOnboardUser();
+  const exerciseEngine = useExerciseEngine();
 
   // For debugging
   useEffect(() => {
     if (debug) {
-      debugStateMachines(debug, { audioEngine, onboardUser });
+      debugStateMachines(debug, { audioEngine, onboardUser, exerciseEngine });
     }
-  }, [debug, audioEngine, onboardUser]);
+  }, [debug, audioEngine, onboardUser, exerciseEngine]);
 
   return {
     audioEngine,
-    onboardUser
+    onboardUser,
+    exerciseEngine
   };
 }
 

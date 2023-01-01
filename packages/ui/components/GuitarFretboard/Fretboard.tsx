@@ -1,4 +1,4 @@
-import { IMusicNote, STRING_NAMES } from 'music-notes';
+import { IMusicNote, MusicKey, STRING_NAMES } from 'music-notes';
 import { FretboardString } from './FretboardString';
 import { FretboardFretNumbers } from './FretNumbers';
 import { FretboardMarkers } from './FretboardMarker';
@@ -6,7 +6,7 @@ import { FretboardMarkers } from './FretboardMarker';
 interface Props {
   numberOfFrets: number;
   notesToPlay: IMusicNote[];
-  musicKey: string;
+  musicKey: MusicKey;
 }
 
 export const GuitarFretboard = ({

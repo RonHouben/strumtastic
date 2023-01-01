@@ -1,7 +1,9 @@
 'use client';
 
+import { CreateExercise } from 'exercise-engine';
 import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
+import { useGlobalState } from '../hooks/useGlobalState';
 import Button from './Button';
 import { Card, CardMedia, CardContent } from './Card';
 import Select, { SelectOption } from './Select/Select';
@@ -14,23 +16,43 @@ interface Props {
   myRef?: React.Ref<HTMLDivElement>;
 }
 
-interface ExerciseOption extends SelectOption {
-  title: string;
-}
+interface ExerciseOption extends SelectOption, CreateExercise {}
 
 const options: ExerciseOption[] = [
-  { id: '1', title: 'Triads', disabled: false },
-  { id: '1', title: 'Scales', disabled: true }
+  {
+    id: '1',
+    disabled: false,
+    title: 'C Major Triads',
+    key: 'C major',
+    notesToPlay: ['C3', 'E3', 'G3']
+  },
+  {
+    id: '1',
+    disabled: true,
+    title: 'C Major (Ionian) scale',
+    key: 'C major',
+    notesToPlay: []
+  }
 ];
 
 export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
+  const { exerciseEngine } = useGlobalState();
 
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOption>();
 
   const handleStartExercise = useCallback(() => {
-    onDone();
-  }, [onDone]);
+    if (selectedExercise) {
+      exerciseEngine.send({
+        type: 'LOAD_EXERCISE',
+        data: {
+          exercise: selectedExercise
+        }
+      });
+
+      onDone();
+    }
+  }, [onDone, exerciseEngine, selectedExercise]);
 
   return (
     <Card className="h-[30rem] snap-center" disabled={disabled} myRef={myRef}>

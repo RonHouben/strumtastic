@@ -1,4 +1,4 @@
-import { FlatsOrSharps, IMusicNote, StringName } from 'music-notes';
+import { FlatsOrSharps, IMusicNote, MusicKey, StringName } from 'music-notes';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Fret } from './Fret';
 import { FretBoardNut } from './FretboardNut';
@@ -10,7 +10,7 @@ interface Props {
   numberOfFrets: number;
   showFlatsOrSharps: FlatsOrSharps;
   notesToPlay: IMusicNote[];
-  musicKey: string;
+  musicKey: MusicKey;
 }
 
 export const FretboardString = ({
@@ -29,8 +29,8 @@ export const FretboardString = ({
         numberOfFrets,
         sharps: showFlatsOrSharps === 'sharps'
       }).map((musicNote, i) => {
-        const toBePlayed = notesToPlay.some((noteToPlay) => noteToPlay.pc === musicNote.pc);
-        const isRoot = musicKey === musicNote.pc //&& toBePlayed;
+        const toBePlayed = notesToPlay.some((noteToPlay) => noteToPlay.name === musicNote.name);
+        const isRoot = musicKey.split(' ')[0] === musicNote.name;
 
         return (
           <div id="fretboard-string" key={i}>

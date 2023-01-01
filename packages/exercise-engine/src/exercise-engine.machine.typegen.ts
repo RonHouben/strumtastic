@@ -25,7 +25,7 @@
         };
         eventsCausingGuards: {
           "hasExerciseLoaded": "START_EXERCISE";
-"isCorrectNote": "RECORD_PLAYED_NOTE";
+"isCorrectNotePlayed": "RECORD_PLAYED_NOTE";
 "isDone": "";
         };
         eventsCausingServices: {
