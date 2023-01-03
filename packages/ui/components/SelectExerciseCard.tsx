@@ -1,7 +1,8 @@
 'use client';
 
-import { CreateExercise } from 'exercise-engine';
+import { LoadExercise } from 'exercise-engine';
 import { useCallback, useState } from 'react';
+import { exercises } from '../dummy-data';
 import { useClassNames } from '../hooks/useClassNames';
 import { useGlobalState } from '../hooks/useGlobalState';
 import Button from './Button';
@@ -12,28 +13,11 @@ import { Typography } from './Typography';
 
 interface Props {
   disabled?: boolean;
-  onDone: () => void;
+  onDone: (exerciseId: string) => void;
   myRef?: React.Ref<HTMLDivElement>;
 }
 
-interface ExerciseOption extends SelectOption, CreateExercise {}
-
-const options: ExerciseOption[] = [
-  {
-    id: '1',
-    disabled: false,
-    title: 'C Major Triads',
-    key: 'C major',
-    notesToPlay: ['C3', 'E3', 'G3']
-  },
-  {
-    id: '1',
-    disabled: true,
-    title: 'C Major (Ionian) scale',
-    key: 'C major',
-    notesToPlay: []
-  }
-];
+interface ExerciseOption extends SelectOption, LoadExercise {}
 
 export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
@@ -50,7 +34,7 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
         }
       });
 
-      onDone();
+      onDone(selectedExercise.id);
     }
   }, [onDone, exerciseEngine, selectedExercise]);
 
@@ -72,7 +56,7 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
           <Select
             placeHolder="Select exercise..."
             disabled={disabled}
-            options={options}
+            options={exercises}
             labelProperty="title"
             selected={selectedExercise}
             onChange={setSelectedExercise}
