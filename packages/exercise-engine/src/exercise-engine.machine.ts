@@ -1,14 +1,14 @@
 import { IMusicNote, MusicKey, MusicNotes, NoteNameWithOctave } from 'music-notes';
 import { createMachine, assign } from 'xstate';
 
-export type CreateExercise = {
+export type LoadExercise = {
   id: string;
   title: string;
   key: MusicKey;
   notesToPlay: NoteNameWithOctave[];
 };
 
-interface Exercise extends Omit<CreateExercise, 'notesToPlay'> {
+interface Exercise extends Omit<LoadExercise, 'notesToPlay'> {
   notesToPlay: IMusicNote[];
 }
 
@@ -21,7 +21,7 @@ type Context = {
 type Event =
   | {
       type: 'LOAD_EXERCISE';
-      data: { exercise: CreateExercise };
+      data: { exercise: LoadExercise };
     }
   | { type: 'START_EXERCISE' }
   | { type: 'RECORD_PLAYED_NOTE'; data: { playedNote: IMusicNote } }
