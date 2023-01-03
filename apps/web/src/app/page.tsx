@@ -25,10 +25,10 @@ export default function Page() {
     scrollIntoView(selectExerciseCardRef);
   }, [onboardUser, scrollIntoView]);
 
-  const handleStartExercise = useCallback(() => {
+  const handleStartExercise = useCallback((exerciseId: string) => {
     onboardUser.send('START_EXERCISE');
 
-    router.push('/exercise');
+    router.push(`/exercise/${exerciseId}`);
   }, [onboardUser, router]);
 
   return (
