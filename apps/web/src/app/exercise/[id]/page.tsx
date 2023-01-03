@@ -8,17 +8,24 @@ import { AudioEngineDebugger } from 'ui/components/AudioEngine';
 import { AudioEngineNotInitialized } from 'ui/components/AudioEngine/NotInitialized';
 import { useGlobalState } from 'ui/hooks/useGlobalState';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
+import { exercises } from 'ui/dummy-data';
+import Loading from '../../loading';
 
-export default function ExercisePage() {
+interface Props {
+  params: { id: string };
+}
+
+export default function ExercisePage({ params }: Props) {
   const { currentMusicNote } = useMusicNotes();
   const { audioEngine, exerciseEngine } = useGlobalState({
     debug: {
       // exerciseEngine: {
-        // context: true,
-        // state: true,
+      // context: true,
+      // state: true,
       // },
     },
   });
+
   // destructuring `send` so th e useEffect doesn't
   // trigger every time the exerciseEngine state changes
   const { send } = exerciseEngine;
@@ -33,6 +40,15 @@ export default function ExercisePage() {
     audioEngine.send({ type: 'STOP_LISTENING_TO_MICROPHONE' });
   }, [audioEngine, exerciseEngine]);
 
+  // load the exercise
+  useEffect(() => {
+    const exercise = exercises.find(({ id }) => id === params.id);
+
+    if (exercise) {
+      send({ type: 'LOAD_EXERCISE', data: { exercise } });
+    }
+  }, [params, send]);
+
   // record played note if currentMusicNote changes
   useEffect(() => {
     if (currentMusicNote) {
@@ -43,8 +59,9 @@ export default function ExercisePage() {
     }
   }, [currentMusicNote, send]);
 
+
   if (!exerciseEngine.state.context.exercise) {
-    return <div>NO EXERCISE CHOOSEN!</div>;
+    return <Loading />
   }
 
   return (
@@ -62,8 +79,8 @@ export default function ExercisePage() {
       </Article>
       <GuitarFretboard
         numberOfFrets={24}
-        notesToPlay={exerciseEngine.state.context.exercise?.notesToPlay}
-        musicKey={exerciseEngine.state.context.exercise?.key}
+        notesToPlay={exerciseEngine.state.context.exercise.notesToPlay}
+        musicKey={exerciseEngine.state.context.exercise.key}
       />
       <div className="w-full">
         {audioEngine.state.matches('unitialized') && (

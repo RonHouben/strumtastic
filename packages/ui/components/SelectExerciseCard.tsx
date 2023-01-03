@@ -21,22 +21,14 @@ interface ExerciseOption extends SelectOption, LoadExercise {}
 
 export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
-  const { exerciseEngine } = useGlobalState();
 
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOption>();
 
   const handleStartExercise = useCallback(() => {
     if (selectedExercise) {
-      exerciseEngine.send({
-        type: 'LOAD_EXERCISE',
-        data: {
-          exercise: selectedExercise
-        }
-      });
-
       onDone(selectedExercise.id);
     }
-  }, [onDone, exerciseEngine, selectedExercise]);
+  }, [onDone, selectedExercise]);
 
   return (
     <Card className="h-[30rem] snap-center" disabled={disabled} myRef={myRef}>
