@@ -2,14 +2,13 @@
 
 import { LoadExercise } from 'exercise-engine';
 import { useCallback, useState } from 'react';
-import { exercises } from '../dummy-data';
 import { useClassNames } from '../hooks/useClassNames';
-import { useGlobalState } from '../hooks/useGlobalState';
 import Button from './Button';
 import { Card, CardMedia, CardContent } from './Card';
 import Select, { SelectOption } from './Select/Select';
 import { GuitarPickSVG } from './SVG';
 import { Typography } from './Typography';
+import { trpc } from '@client/trpc';
 
 interface Props {
   disabled?: boolean;
@@ -21,6 +20,7 @@ interface ExerciseOption extends SelectOption, LoadExercise {}
 
 export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
+  const { isLoading, data: exercises } = trpc.exercises.getAll.useQuery();
 
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOption>();
 
@@ -48,10 +48,11 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
           <Select
             placeHolder="Select exercise..."
             disabled={disabled}
-            options={exercises}
+            options={exercises || []}
             labelProperty="title"
             selected={selectedExercise}
             onChange={setSelectedExercise}
+            isLoading={isLoading}
           />
           <Button
             disabled={disabled || !selectedExercise}

@@ -1,7 +1,7 @@
 import { LoadExercise } from "exercise-engine";
 import { SelectOption } from "../components/Select/Select";
 
-interface ExerciseOption extends SelectOption, LoadExercise {}
+export interface ExerciseOption extends SelectOption, LoadExercise {}
 
 export const exercises: ExerciseOption[] = [
   {

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { TRCPClientProvider } from '@client/trpc';
 import { GlobalStateProvider } from 'ui/providers/GlobalStateProvider';
 
 interface Props {
@@ -6,5 +7,9 @@ interface Props {
 }
 
 export function Providers({ children }: Props) {
-  return <GlobalStateProvider>{children}</GlobalStateProvider>;
+  return (
+    <TRCPClientProvider>
+      <GlobalStateProvider>{children}</GlobalStateProvider>
+    </TRCPClientProvider>
+  );
 }

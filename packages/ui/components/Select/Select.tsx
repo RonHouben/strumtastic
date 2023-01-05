@@ -15,6 +15,7 @@ interface Props<T extends SelectOption> {
   disabled?: boolean;
   onChange: (value: T) => void;
   className?: string;
+  isLoading?: boolean;
 }
 
 export default function Select<T extends SelectOption>({
@@ -24,16 +25,20 @@ export default function Select<T extends SelectOption>({
   labelProperty,
   disabled,
   onChange,
-  className
+  className,
+  isLoading
 }: Props<T>) {
   const { classNames } = useClassNames();
 
   return (
-    <Listbox value={selected} onChange={onChange} disabled={disabled}>
+    <Listbox value={selected || null} onChange={onChange} disabled={disabled}>
       <div className={classNames('relative mt-1 w-full', className || '')}>
         <Listbox.Button className="bg-primary-50 dark:text-primary-50 relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 sm:text-sm">
           <span className="block truncate">
-            {selected ? (selected[labelProperty] as string) : placeHolder}
+            {isLoading && 'Loading...'}
+            {!isLoading && selected
+              ? (selected[labelProperty] as string)
+              : !isLoading && placeHolder}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
@@ -55,8 +60,8 @@ export default function Select<T extends SelectOption>({
                 disabled={option.disabled}
                 className={({ active, disabled }) =>
                   classNames(
-                    `relative cursor-pointer select-none py-2 pl-10 pr-4 dark:text-primary-50 text-gray-900`,
-                    disabled ? '!text-slate-500 !cursor-default' : '',
+                    `dark:text-primary-50 relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-900`,
+                    disabled ? '!cursor-default !text-slate-500' : '',
                     active
                       ? 'bg-primary-200 text-primary-50 dark:bg-slate-600'
                       : ''

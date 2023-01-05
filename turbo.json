@@ -11,7 +11,7 @@
     },
     "web#build": {
       "dependsOn": ["audio-engine#build"],
-      "env": ["SOME_OTHER_ENV_VAR"],
+      "env": ["VERCEL_URL", "PORT"],
       "outputs": [".next/**"]
     },
     "lint": {
