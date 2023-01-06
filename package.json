@@ -9,8 +9,7 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "music-notes"
+    "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",
