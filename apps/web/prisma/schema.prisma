@@ -9,3 +9,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Exercise {
+  id String @id @default(uuid())
+  title String
+  key String
+  notesToPlay String[]
+
+  isDisabled Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @default(now())
+
+  // TODO: add these properties when Users are
+  // implemented.
+  // createdBy String
+  // updatedBy String? 
+}
