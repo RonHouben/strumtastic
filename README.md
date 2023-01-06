@@ -16,13 +16,13 @@ It includes the following packages/apps:
 
 ### Apps and Packages
 
-- `/apps/web`: the NextJS 13 web application
-- `/packages/ui`: a custom React component library used by the `web` application
+- `/apps/web`: the NextJS 13 web application.
+- `/apps/database`: a PostgreSQL database running in Docker.
+- `/packages/ui`: a custom React component library used by the `web` application.
 - `/packages/audio-engine`: a custom made audio engine that uses the Web Audio API.
 - `/packages/music-notes`: a custom made controller to handle everything that has to do with Musical Notation (i.e. translating frequency to a Note name).
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
-- `xState`: Awesome framework agnostic state management tool!
+- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`).
+- `tsconfig`: `tsconfig.json`s used throughout the monorepo.
 
 Everything is developed using TypeScript.
 
@@ -35,6 +35,7 @@ This turborepo has some additional tools:
 - [Prettier](https://prettier.io) for code formatting
 - [TailwindCSS](https://tailwindcss.com) for styling
 - [xState](https://xstate.com) for state management
+- [trpc](https://trpc.io) as E2E typesafe API library
 
 ### Build
 

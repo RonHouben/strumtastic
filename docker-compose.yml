@@ -1,0 +1,13 @@
+services:
+  database:
+    image: postgres:15.1
+    container_name: strumtastic-database
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=strumtastic
+    volumes:
+      - ./apps/database:/var/lib/postgresql
