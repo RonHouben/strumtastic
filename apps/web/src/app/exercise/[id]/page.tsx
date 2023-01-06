@@ -8,14 +8,20 @@ import { AudioEngineDebugger } from 'ui/components/AudioEngine';
 import { AudioEngineNotInitialized } from 'ui/components/AudioEngine/NotInitialized';
 import { useGlobalState } from 'ui/hooks/useGlobalState';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
-import { exercises } from 'ui/dummy-data';
 import Loading from '../../loading';
+import { trpc } from '@client/trpc';
 
 interface Props {
   params: { id: string };
 }
 
 export default function ExercisePage({ params }: Props) {
+  const {
+    isLoading,
+    isError,
+    data: exercise,
+  } = trpc.exercises.getById.useQuery({ id: params.id });
+
   const { currentMusicNote } = useMusicNotes();
   const { audioEngine, exerciseEngine } = useGlobalState({
     debug: {
@@ -42,12 +48,10 @@ export default function ExercisePage({ params }: Props) {
 
   // load the exercise
   useEffect(() => {
-    const exercise = exercises.find(({ id }) => id === params.id);
-
     if (exercise) {
       send({ type: 'LOAD_EXERCISE', data: { exercise } });
     }
-  }, [params, send]);
+  }, [exercise, send]);
 
   // record played note if currentMusicNote changes
   useEffect(() => {
@@ -59,9 +63,8 @@ export default function ExercisePage({ params }: Props) {
     }
   }, [currentMusicNote, send]);
 
-
   if (!exerciseEngine.state.context.exercise) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (

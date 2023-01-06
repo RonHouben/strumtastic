@@ -9,14 +9,14 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "music-notes"
+    "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:start": "docker compose up"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
@@ -26,6 +26,8 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@prisma/client": "^4.8.1"
+  },
   "packageManager": "npm@8.19.2"
 }

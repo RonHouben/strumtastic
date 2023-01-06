@@ -19,9 +19,10 @@ type NoteNameWithoutOctave =
   | 'B';
 
 export type IMusicNote = TonalNote;
-export type NoteNameWithOctave = `${NoteNameWithoutOctave}${Octave}`;
+export type NoteNameWithOctave = `${NoteNameWithoutOctave}${Octave}` | string;
 export type StringName = typeof STRING_NAMES[number];
 export type FlatsOrSharps = 'flats' | 'sharps';
 export type MusicKey =
   | `${NoteNameWithoutOctave} major`
-  | `${NoteNameWithoutOctave} minor`;
+  | `${NoteNameWithoutOctave} minor`
+  | string;

@@ -5,10 +5,11 @@ import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import Button from './Button';
 import { Card, CardMedia, CardContent } from './Card';
-import Select, { SelectOption } from './Select/Select';
+import Select from './Select/Select';
 import { GuitarPickSVG } from './SVG';
 import { Typography } from './Typography';
 import { trpc } from '@client/trpc';
+import { Exercise } from '@prisma/client';
 
 interface Props {
   disabled?: boolean;
@@ -16,13 +17,11 @@ interface Props {
   myRef?: React.Ref<HTMLDivElement>;
 }
 
-interface ExerciseOption extends SelectOption, LoadExercise {}
-
 export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
   const { isLoading, data: exercises } = trpc.exercises.getAll.useQuery();
 
-  const [selectedExercise, setSelectedExercise] = useState<ExerciseOption>();
+  const [selectedExercise, setSelectedExercise] = useState<Exercise>();
 
   const handleStartExercise = useCallback(() => {
     if (selectedExercise) {
@@ -47,7 +46,7 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
         <div className="flex flex-col items-center justify-center gap-4">
           <Select
             placeHolder="Select exercise..."
-            disabled={disabled}
+            isDisabled={disabled}
             options={exercises || []}
             labelProperty="title"
             selected={selectedExercise}

@@ -14,7 +14,10 @@
     "lint": "next lint",
     "tailwind": "tailwindcss -i src/styles/globals.css -o src/styles/dist.css",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
-    "postinstall": "npm run tailwind"
+    "postinstall": "npm run tailwind",
+    "prisma:db:migrate": "npx prisma migrate dev",
+    "prisma:db:seed": "npx prisma db seed",
+    "prisma:generate": "npx prisma generate"
   },
   "prettier": {
     "arrowParens": "always",
@@ -39,6 +42,7 @@
     "music-notes": "*",
     "next": "latest",
     "npm": "^9.2.0",
+    "prisma": "^4.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "6.0.0-beta.2",
@@ -50,17 +54,22 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.8",
-    "@types/node": "18.11.17",
+    "@types/node": "18.11.18",
     "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.9",
+    "@types/react-dom": "18.0.10",
     "autoprefixer": "^10.4.13",
-    "eslint": "8.30.0",
+    "eslint": "8.31.0",
     "eslint-config-next": "latest",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "tailwind-scrollbar": "^2.1.0",
     "tailwindcss": "^3.2.4",
+    "ts-node": "^10.9.1",
     "typescript": "4.9.4"
+  },
+  "prisma": {
+    "schema": "../database/prisma/schema.prisma",
+    "seed": "ts-node ../database/prisma/seeds/index.ts"
   }
 }
