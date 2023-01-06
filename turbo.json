@@ -2,7 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "prisma:generate", "prisma:db:migrate", "prisma:db:seed"],
+      "dependsOn": ["^build", "prisma:generate", "prisma:db:migrate"],
       "outputs": ["dist/**"]
     },
     "audio-engine:build": {
