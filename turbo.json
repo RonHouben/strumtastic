@@ -5,12 +5,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "audio-engine#build": {
+    "audio-engine:build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**"]
     },
-    "web#build": {
-      "dependsOn": ["audio-engine#build"],
+    "web:build": {
+      "dependsOn": ["audio-engine#build", "prisma:generate"],
       "env": ["VERCEL_URL", "PORT", "NODE_ENV"],
       "outputs": [".next/**"]
     },
@@ -18,13 +18,16 @@
       "outputs": []
     },
     "dev": {
-      "dependsOn": ["db:migrate", "db:seed"],
+      "dependsOn": ["prisma:db:migrate", "prisma:db:seed"],
       "cache": false
     },
-    "db:migrate": {
+    "prisma:db:migrate": {
       "cache": false
     },
-    "db:seed": {
+    "prisma:db:seed": {
+      "cache": false
+    },
+    "prisma:generate": {
       "cache": false
     }
   }

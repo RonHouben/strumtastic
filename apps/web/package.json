@@ -15,8 +15,9 @@
     "tailwind": "tailwindcss -i src/styles/globals.css -o src/styles/dist.css",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
     "postinstall": "npm run tailwind",
-    "db:migrate": "npx prisma migrate dev",
-    "db:seed": "npx prisma db seed"
+    "prisma:db:migrate": "npx prisma migrate dev",
+    "prisma:db:seed": "npx prisma db seed",
+    "prisma:generate": "npx prisma generate"
   },
   "prettier": {
     "arrowParens": "always",
