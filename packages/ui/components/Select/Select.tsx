@@ -5,14 +5,14 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useClassNames } from '../../hooks/useClassNames';
 
-export type SelectOption = { id: string; disabled: boolean };
+export type SelectOption = { id: string; isDisabled: boolean };
 
 interface Props<T extends SelectOption> {
   options: T[];
   selected: T | undefined;
   placeHolder?: string;
   labelProperty: keyof T;
-  disabled?: boolean;
+  isDisabled?: boolean;
   onChange: (value: T) => void;
   className?: string;
   isLoading?: boolean;
@@ -23,7 +23,7 @@ export default function Select<T extends SelectOption>({
   selected,
   placeHolder,
   labelProperty,
-  disabled,
+  isDisabled,
   onChange,
   className,
   isLoading
@@ -31,7 +31,7 @@ export default function Select<T extends SelectOption>({
   const { classNames } = useClassNames();
 
   return (
-    <Listbox value={selected || null} onChange={onChange} disabled={disabled}>
+    <Listbox value={selected || null} onChange={onChange} disabled={isDisabled}>
       <div className={classNames('relative mt-1 w-full', className || '')}>
         <Listbox.Button className="bg-primary-50 dark:text-primary-50 relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 sm:text-sm">
           <span className="block truncate">
@@ -57,7 +57,7 @@ export default function Select<T extends SelectOption>({
             {options.map((option, i) => (
               <Listbox.Option
                 key={i}
-                disabled={option.disabled}
+                disabled={option.isDisabled}
                 className={({ active, disabled }) =>
                   classNames(
                     `dark:text-primary-50 relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-900`,
