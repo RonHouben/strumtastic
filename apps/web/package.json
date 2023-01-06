@@ -39,6 +39,7 @@
     "music-notes": "*",
     "next": "latest",
     "npm": "^9.2.0",
+    "prisma": "^4.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "6.0.0-beta.2",
