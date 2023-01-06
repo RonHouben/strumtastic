@@ -18,6 +18,13 @@
       "outputs": []
     },
     "dev": {
+      "dependsOn": ["db:migrate", "db:seed"],
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:seed": {
       "cache": false
     }
   }
