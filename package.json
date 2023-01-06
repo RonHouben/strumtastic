@@ -17,7 +17,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:start": "docker compose up",
-    "db:migrate:local": "",
+    "db:migrate:local": "npx prisma migrate dev",
     "db:seed": ""
   },
   "devDependencies": {
@@ -28,6 +28,11 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
-  "packageManager": "npm@8.19.2"
+  "dependencies": {
+    "@prisma/client": "^4.8.1"
+  },
+  "packageManager": "npm@8.19.2",
+  "prisma": {
+    "schema": "./apps/database/prisma/schema.prisma"
+  }
 }
