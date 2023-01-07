@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  linting:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,4 +23,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    # TODO: add caches of dependencies? https://github.com/marketplace/actions/cache
+    - run: npm install
     - run: npm run lint
