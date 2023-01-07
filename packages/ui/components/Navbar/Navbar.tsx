@@ -26,7 +26,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="mb-2 shadow-2xl">
+    <nav className="mb-2 shadow-md bg-secondary-500 dark:bg-secondary-900">
       <div className="mx-auto max-w-7xl">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
