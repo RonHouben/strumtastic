@@ -4,6 +4,8 @@ import PluginGuitarCard from './PluginGuitarCard';
 import TunerCard from './TunerCard';
 import SelectExerciseCard from './SelectExerciseCard';
 import { Select } from './Select';
+import Input from './Input';
+import AutoComplete from './Autocomplete';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -18,10 +20,12 @@ export * from './Link';
 export * from './Card';
 
 export {
+  AutoComplete,
   Button,
   Navbar,
   PluginGuitarCard,
   TunerCard,
   SelectExerciseCard,
-  Select
+  Select,
+  Input
 };

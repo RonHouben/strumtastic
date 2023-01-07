@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Props) {
       <head>
         <title>Strumtastic</title>
       </head>
-      <body className='bg-secondary-100 dark:bg-black dark:text-primary-50'>
+      <body className="bg-secondary-100 text-base dark:bg-black dark:text-primary-50">
         <Navbar />
         <div className="container mx-auto pt-4">
           <Providers>{children}</Providers>

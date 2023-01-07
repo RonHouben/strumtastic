@@ -22,11 +22,11 @@ export default function Disclosure({ items }: Props) {
           key={item.title}
           as="div"
           defaultOpen={item.isOpen}
-          className="rounded-md bg-secondary-500 dark:bg-secondary-900 shadow-md"
+          className="rounded-md bg-secondary-500 shadow-md dark:bg-secondary-900"
         >
           {({ open }) => (
             <>
-              <HeadlessDisclosure.Button className="flex w-full justify-between rounded-md bg-primary-500 dark:bg-primary-900 px-4 py-2 text-left text-sm font-medium text-primary-50 focus:outline-none focus-visible:ring focus-visible:ring-secondary-900 focus-visible:ring-opacity-75">
+              <HeadlessDisclosure.Button className="flex w-full justify-between rounded-md bg-primary-500 px-4 py-2 text-left font-medium text-primary-50 focus:outline-none focus-visible:ring focus-visible:ring-secondary-900 focus-visible:ring-opacity-75 dark:bg-primary-900">
                 <span>{item.title}</span>
                 <ChevronUpIcon
                   className={`${

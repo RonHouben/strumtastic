@@ -7,8 +7,8 @@ interface Props {
 export default function AdminLayout({ children }: Props) {
   return (
     <div className="flex gap-6 max-sm:gap-0">
-      <AdminMenu className="w-52 max-sm:hidden" />
-      <div>{children}</div>
+      <AdminMenu className="w-72 max-sm:hidden" />
+      <div className='w-full'>{children}</div>
     </div>
   );
 }

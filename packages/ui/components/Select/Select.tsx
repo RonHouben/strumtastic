@@ -4,8 +4,7 @@ import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useClassNames } from '../../hooks/useClassNames';
-
-export type SelectOption = { id: string; isDisabled: boolean };
+import { SelectOption } from '../../types';
 
 interface Props<T extends SelectOption> {
   options: T[];
@@ -33,7 +32,7 @@ export default function Select<T extends SelectOption>({
   return (
     <Listbox value={selected || null} onChange={onChange} disabled={isDisabled}>
       <div className={classNames('relative mt-1 w-full', className || '')}>
-        <Listbox.Button className="bg-primary-50 dark:text-primary-50 relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 sm:text-sm">
+        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-primary-50 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 dark:text-primary-50 sm:text-sm">
           <span className="block truncate">
             {isLoading && 'Loading...'}
             {!isLoading && selected
@@ -53,14 +52,14 @@ export default function Select<T extends SelectOption>({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="bg-primary-50 absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-700 sm:text-sm">
+          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-primary-50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-700 sm:text-sm">
             {options.map((option, i) => (
               <Listbox.Option
                 key={i}
                 disabled={option.isDisabled}
                 className={({ active, disabled }) =>
                   classNames(
-                    `dark:text-primary-50 relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-900`,
+                    `relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-900 dark:text-primary-50`,
                     disabled ? '!cursor-default !text-slate-500' : '',
                     active
                       ? 'bg-primary-200 text-primary-50 dark:bg-slate-600'
@@ -79,7 +78,7 @@ export default function Select<T extends SelectOption>({
                       {option[labelProperty] as string}
                     </span>
                     {selected ? (
-                      <span className="text-secondary-500 absolute inset-y-0 left-0 flex items-center pl-3">
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary-500">
                         <CheckIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
                     ) : null}

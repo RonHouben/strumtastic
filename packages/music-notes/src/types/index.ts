@@ -25,4 +25,4 @@ export type FlatsOrSharps = 'flats' | 'sharps';
 export type MusicKey =
   | `${NoteNameWithoutOctave} major`
   | `${NoteNameWithoutOctave} minor`
-  | string;
+  // | string;

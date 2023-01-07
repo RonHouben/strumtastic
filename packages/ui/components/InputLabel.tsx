@@ -1,8 +1,12 @@
 interface Props {
-	label: string;
-	htmlFor: string;
+  children: string;
+  htmlFor: string;
 }
 
-export const InputLabel = ({ htmlFor, label}: Props) => {
-	return <label className="mr-2" htmlFor={htmlFor}>{label}</label>;
-}
+export const InputLabel = ({ htmlFor, children }: Props) => {
+  return (
+    <label className="mr-2 font-bold" htmlFor={htmlFor}>
+      {children}
+    </label>
+  );
+};
