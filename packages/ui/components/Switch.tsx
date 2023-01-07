@@ -21,7 +21,7 @@ export default function Switch({ id, isEnabled, screenReaderText }: Props) {
       onChange={setEnabled}
       className={classNames(
         `relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`,
-        enabled ? 'bg-secondary-500' : 'bg-primary-900'
+        enabled ? 'bg-secondary-500' : 'bg-slate-400 dark:bg-slate-600'
       )}
     >
       <span className="sr-only">{screenReaderText || 'Use setting'}</span>
