@@ -32,7 +32,7 @@ export default function Page() {
   }, [onboardUser, router]);
 
   return (
-    <div className="grid snap-y gap-4 sm:grid-cols-1 lg:grid-cols-3 lg:pt-28">
+    <div className="grid snap-y gap-4 sm:grid-cols-1 lg:grid-cols-3 lg:pt-20">
       <PluginGuitarCard
         disabled={!onboardUser.state.matches('pluggingInGuitar')}
         onDone={handlePluginGuitarDone}
