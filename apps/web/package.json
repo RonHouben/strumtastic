@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "private": true,
+  "private": false,
   "author": {
     "name": "Ron Houben",
     "email": "ron.houben85@gmail.com",
