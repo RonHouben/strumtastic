@@ -1,5 +1,5 @@
 import nodeFetch from 'node-fetch';
-import { appRouter, AppRouter } from '@server/routers/_app';
+import { AppRouter } from '@server/routers/_app';
 
 type TrpcResult<T> = {
   result: {
@@ -17,13 +17,14 @@ type Uri = `${PartialRouter}.${keyof Omit<
 >}`;
 
 export async function fetch<R>(uri: Uri) {
+  const hostUrl = `http://localhost:${process.env.PORT || 3000}`;
   const trpcUri = '/api/trpc';
-  const baseUrl =
+  const url =
     process.env.NODE_ENV === 'development'
-      ? `http://localhost:${process.env.PORT || 3000}${trpcUri}`
-      : `${process.env.VERCEL_URL}${trpcUri}`;
+      ? `${hostUrl}${trpcUri}`
+      : `${process.env.VERCEL_URL || hostUrl}${trpcUri}`;
 
-  const res = await nodeFetch(`${baseUrl}/${uri}`);
+  const res = await nodeFetch(`${url}/${uri}`);
   const result = (await res.json()) as TrpcResult<R>;
 
   return result.result.data.json;
