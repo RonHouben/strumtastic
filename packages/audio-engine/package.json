@@ -11,11 +11,15 @@
   "types": "src/index.ts",
   "scripts": {
     "build": "tsc --build && cp -r src/types dist",
+    "lint": "eslint ./src/*.ts*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
   "dependencies": {
     "ml5": "^0.12.2",
     "xstate": "^4.35.2"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*"
   }
 }

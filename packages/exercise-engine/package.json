@@ -11,11 +11,15 @@
   "types": "src/index.ts",
   "scripts": {
     "build": "tsc --build",
+    "lint": "eslint ./src/*.ts*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
   "dependencies": {
     "xstate": "^4.35.2",
     "music-notes": "*"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*"
   }
 }
