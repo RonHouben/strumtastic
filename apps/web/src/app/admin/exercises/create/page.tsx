@@ -1,5 +1,5 @@
 import { MusicKey } from 'music-notes';
-import { AutoComplete, Input, InputLabel, Typography } from 'ui/components';
+import { AutoComplete, Input, InputLabel, Switch } from 'ui/components';
 import { SelectOption } from 'ui/types';
 
 interface AutoCompleteOption extends SelectOption {
@@ -43,8 +43,11 @@ export default function CreateExercisePage() {
 				id='key'
         options={people}
         labelProperty="key"
-        placeholder="Select key"
+        placeholder="Select a key"
       />
+			<InputLabel htmlFor='enabled'>Enabled</InputLabel>
+      <Switch id='enabled' isEnabled />
+
     </form>
   );
 }

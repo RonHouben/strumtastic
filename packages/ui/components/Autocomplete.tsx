@@ -77,7 +77,7 @@ export default function AutoComplete<T extends SelectOption>({
         >
           <Combobox.Options
             static
-            className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-50 py-1 text-base shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-700 sm:text-sm"
+            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-50 py-1 text-base shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-700 sm:text-sm"
           >
             {filteredOptions.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
