@@ -2,31 +2,28 @@ import Link from 'next/link';
 import Button from './Button';
 
 interface Props {
-  label: string;
   href: string;
   selected?: boolean;
   disabled?: boolean;
   target?: '_blank' | '_parent' | '_self' | '_top';
   className?: string;
+  children: string;
 }
 
 export const ButtonLink = ({
   href,
-  label,
   selected,
   disabled,
   target,
-  className
+  className,
+  children
 }: Props) => {
   return (
     <div>
       {disabled && (
-        <Button
-          label={label}
-          className={className}
-          selected={selected}
-          disabled={disabled}
-        />
+        <Button className={className} selected={selected} disabled={disabled}>
+          {children}
+        </Button>
       )}
       {!disabled && (
         <Link
@@ -36,12 +33,9 @@ export const ButtonLink = ({
           className="no-underline"
           tabIndex={-1}
         >
-          <Button
-            label={label}
-            className={className}
-            selected={selected}
-            disabled={disabled}
-          />
+          <Button className={className} selected={selected} disabled={disabled}>
+            {children}
+          </Button>
         </Link>
       )}
     </div>

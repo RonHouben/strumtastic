@@ -55,16 +55,17 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
           />
           <Button
             disabled={disabled || !selectedExercise}
-            label="Start!"
             className={classNames(
               disabled || !selectedExercise
-                ? '!border-secondary-500 border !bg-inherit shadow-none'
+                ? 'border !border-secondary-500 !bg-inherit shadow-none'
                 : '!bg-secondary-500 hover:!bg-secondary-700'
             )}
             onClick={handleStartExercise}
-          />
+          >
+            Start!
+          </Button>
         </div>
-        <p className="!text-secondary-700 text-center">
+        <p className="text-center !text-secondary-700">
           Register to get access to all exercises!
         </p>
       </CardContent>

@@ -43,7 +43,7 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
       </CardMedia>
       <CardContent>
         <Article>
-          <h1 className="text-secondary-100 mb-1">1. Plug In</h1>
+          <h1 className="mb-1 text-secondary-100">1. Plug In</h1>
           {audioEngine.state.matches('unitialized') && (
             <p className="text-primary-100">
               Connect your guitar to get feedback on your playing
@@ -66,7 +66,7 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
 
           {audioEngine.state.matches('initializing.deniedMicrophoneAccess') && (
             <div className="flex flex-col gap-8">
-              <p className="text-primary-100 m-0">
+              <p className="m-0 text-primary-100">
                 <strong className="text-error-500">Permissions denied!</strong>
                 <br />
                 This means that you cannot use most features of Strumtasic!
@@ -95,9 +95,10 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
         {!disabled && !audioEngine.state.matches('initializing') && (
           <Button
             className="!bg-secondary-500 hover:!bg-secondary-700"
-            label="Plugin"
             onClick={handlePluginGuitar}
-          />
+          >
+            Plugin
+          </Button>
         )}
       </CardContent>
     </Card>

@@ -26,12 +26,12 @@ export default function GuitarTuner({ onStopTuner }: Props) {
   }, [audioEngine, onStopTuner]);
 
   return (
-    <div className="bg-primary-500 dark:bg-secondary-700 m-2 flex w-60 flex-col items-center justify-center gap-2 rounded-md p-2 shadow-lg">
+    <div className="m-2 flex w-60 flex-col items-center justify-center gap-2 rounded-md bg-primary-500 p-2 shadow-lg dark:bg-secondary-700">
       <Typography
         variant="h1"
         className="text-secondary-500 dark:text-primary-700"
       >
-        {currentMusicNote?.letter|| '-'}
+        {currentMusicNote?.letter || '-'}
       </Typography>
       <DistanceFromNote />
       <Hertz
@@ -41,16 +41,18 @@ export default function GuitarTuner({ onStopTuner }: Props) {
       {audioEngine.state.matches('idle') && (
         <Button
           className="!bg-secondary-500 hover:!bg-secondary-700"
-          label="Start Tuning"
           onClick={handleStartTuner}
-        />
+        >
+          Start Tuning
+        </Button>
       )}
       {audioEngine.state.matches('listeningToMicrophone') && (
         <Button
-          label="Done"
           className="!bg-secondary-500 hover:!bg-secondary-700"
           onClick={handleStopTuner}
-        />
+        >
+          Done
+        </Button>
       )}
     </div>
   );

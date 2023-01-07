@@ -3,19 +3,19 @@
 import { useClassNames } from '../hooks/useClassNames';
 
 interface Props {
-  label: string;
   selected?: boolean;
   disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
+  children: string;
 }
 
 export default function Button({
-  label,
   selected,
   disabled,
   onClick,
-  className
+  className,
+  children
 }: Props) {
   const { classNames } = useClassNames();
 
@@ -32,7 +32,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
     >
-      <strong>{label}</strong>
+      <strong>{children}</strong>
     </button>
   );
 }
