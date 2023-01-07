@@ -21,7 +21,7 @@ export default function Disclosure({ items }: Props) {
         <HeadlessDisclosure
           as="div"
           defaultOpen={item.isOpen}
-          className="rounded-md bg-secondary-200 shadow-md"
+          className="rounded-md bg-secondary-200 dark:bg-secondary-900 shadow-md"
         >
           {({ open }) => (
             <>
