@@ -1,0 +1,23 @@
+{
+  "name": "database",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "dev": "docker compose up & npm run prisma:db:migrate && npm run prisma:db:seed",
+    "prisma:generate": "prisma generate",
+    "prisma:db:push": "prisma db push --skip-generate",
+    "prisma:db:migrate": "prisma migrate dev",
+    "prisma:db:seed": "npx prisma db seed"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.8.1"
+  },
+  "devDependencies": {
+    "prisma": "^4.8.1",
+    "ts-node": "^10.9.1"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma",
+    "seed": "ts-node ./prisma/seeds/index.ts"
+  }
+}

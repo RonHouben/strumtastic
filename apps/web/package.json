@@ -14,10 +14,7 @@
     "lint": "next lint",
     "tailwind": "tailwindcss -i src/styles/globals.css -o src/styles/dist.css",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
-    "postinstall": "npm run tailwind",
-    "prisma:db:migrate": "npx prisma migrate dev",
-    "prisma:db:seed": "npx prisma db seed",
-    "prisma:generate": "npx prisma generate"
+    "postinstall": "npm run tailwind"
   },
   "prettier": {
     "arrowParens": "always",
@@ -37,12 +34,12 @@
     "audio-engine": "*",
     "clsx": "1.2.1",
     "concurrently": "7.6.0",
+    "database": "*",
     "exercise-engine": "*",
     "install": "^0.13.0",
     "music-notes": "*",
     "next": "latest",
     "npm": "^9.2.0",
-    "prisma": "^4.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "6.0.0-beta.2",
@@ -65,11 +62,6 @@
     "prettier-plugin-tailwindcss": "^0.2.1",
     "tailwind-scrollbar": "^2.1.0",
     "tailwindcss": "^3.2.4",
-    "ts-node": "^10.9.1",
     "typescript": "4.9.4"
-  },
-  "prisma": {
-    "schema": "../database/prisma/schema.prisma",
-    "seed": "ts-node ../database/prisma/seeds/index.ts"
   }
 }
