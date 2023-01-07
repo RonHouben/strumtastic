@@ -19,9 +19,10 @@ export default function Disclosure({ items }: Props) {
     <div className="flex flex-col gap-4">
       {items.map((item) => (
         <HeadlessDisclosure
+          key={item.title}
           as="div"
           defaultOpen={item.isOpen}
-          className="rounded-md bg-secondary-200 dark:bg-secondary-900 shadow-md"
+          className="rounded-md bg-secondary-500 dark:bg-secondary-900 shadow-md"
         >
           {({ open }) => (
             <>

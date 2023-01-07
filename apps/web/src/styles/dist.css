@@ -1439,6 +1439,61 @@ video {
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 
+.\!bg-primary-800 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(8 78 197 / var(--tw-bg-opacity)) !important;
+}
+
+.bg-secondary-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(68 23 192 / var(--tw-bg-opacity));
+}
+
+.\!bg-secondary-800 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(68 23 192 / var(--tw-bg-opacity)) !important;
+}
+
+.\!bg-primary-900 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(13 70 155 / var(--tw-bg-opacity)) !important;
+}
+
+.\!bg-primary-300 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(131 213 255 / var(--tw-bg-opacity)) !important;
+}
+
+.\!bg-primary-400 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(72 188 255 / var(--tw-bg-opacity)) !important;
+}
+
+.bg-secondary-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 132 255 / var(--tw-bg-opacity));
+}
+
+.\!bg-secondary-400 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(148 132 255 / var(--tw-bg-opacity)) !important;
+}
+
+.\!bg-secondary-600 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(96 46 249 / var(--tw-bg-opacity)) !important;
+}
+
+.\!bg-secondary-300 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(183 176 255 / var(--tw-bg-opacity)) !important;
+}
+
+.\!bg-primary-500 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(30 154 255 / var(--tw-bg-opacity)) !important;
+}
+
 .\!fill-green-300 {
   fill: #86efac !important;
 }
@@ -1685,6 +1740,26 @@ video {
 .text-primary-800 {
   --tw-text-opacity: 1;
   color: rgb(8 78 197 / var(--tw-text-opacity));
+}
+
+.\!text-gray-300 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.\!text-gray-400 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
+}
+
+.\!text-gray-500 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(107 114 128 / var(--tw-text-opacity)) !important;
+}
+
+.text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
 .no-underline {
@@ -1936,6 +2011,26 @@ video {
   color: rgb(250 208 242 / var(--tw-text-opacity));
 }
 
+.hover\:text-gray-100:hover {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
+.hover\:\!text-gray-100:hover {
+  --tw-text-opacity: 1 !important;
+  color: rgb(243 244 246 / var(--tw-text-opacity)) !important;
+}
+
+.hover\:text-secondary-50:hover {
+  --tw-text-opacity: 1;
+  color: rgb(242 242 255 / var(--tw-text-opacity));
+}
+
+.hover\:\!text-secondary-50:hover {
+  --tw-text-opacity: 1 !important;
+  color: rgb(242 242 255 / var(--tw-text-opacity)) !important;
+}
+
 .hover\:brightness-105:hover {
   --tw-brightness: brightness(1.05);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -2000,6 +2095,31 @@ video {
     background-color: rgb(0 0 0 / var(--tw-bg-opacity));
   }
 
+  .dark\:\!bg-primary-800 {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(8 78 197 / var(--tw-bg-opacity)) !important;
+  }
+
+  .dark\:\!bg-primary-700 {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(0 102 255 / var(--tw-bg-opacity)) !important;
+  }
+
+  .dark\:\!bg-secondary-700 {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(91 40 230 / var(--tw-bg-opacity)) !important;
+  }
+
+  .dark\:\!bg-secondary-800 {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(68 23 192 / var(--tw-bg-opacity)) !important;
+  }
+
+  .dark\:\!bg-primary-900 {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(13 70 155 / var(--tw-bg-opacity)) !important;
+  }
+
   .dark\:fill-secondary-500 {
     fill: #7252ff;
   }
@@ -2057,6 +2177,11 @@ video {
   .dark\:text-primary-600 {
     --tw-text-opacity: 1;
     color: rgb(6 122 255 / var(--tw-text-opacity));
+  }
+
+  .dark\:\!text-gray-400 {
+    --tw-text-opacity: 1 !important;
+    color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
   }
 
   .dark\:shadow-none {

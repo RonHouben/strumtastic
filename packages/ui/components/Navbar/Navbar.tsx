@@ -41,7 +41,7 @@ export default function Navbar() {
           </div>
           <div className="flex max-sm:justify-center container">
             <Link href="/">
-              <Typography variant="h1">Strumtastic</Typography>
+              <Typography variant="h1" className='text-gray-100'>Strumtastic</Typography>
             </Link>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex h-full items-center space-x-4">

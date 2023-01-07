@@ -22,10 +22,10 @@ export default function Button({
   return (
     <button
       className={classNames(
-        'hover:bg-primary-400 dark:hover:bg-primary-800 bg-primary-500 dark:bg-primary-900 !text-secondary-50 outline-secondary-700 group w-full rounded-md px-2 py-1 text-center shadow-md duration-500',
-        selected ? '!bg-secondary-500 hover:!text-secondary-500' : '',
+        'group w-full rounded-md bg-primary-500 px-2 py-1 text-center !text-secondary-50 shadow-md outline-secondary-700 duration-500 hover:bg-primary-400 hover:!text-secondary-50 dark:bg-primary-900 dark:hover:bg-primary-800',
+        selected ? '!bg:primary-400 dark:!bg-secondary-700' : '',
         disabled
-          ? '!bg-primary-200 dark:border-secondary-900 dark:border dark:!bg-transparent'
+          ? '!bg-primary-200 dark:border dark:border-secondary-900 dark:!bg-transparent'
           : '',
         className || ''
       )}
