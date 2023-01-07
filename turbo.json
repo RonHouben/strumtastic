@@ -9,7 +9,7 @@
       "dependsOn": ["^build"],
       "outputs": ["build/**"]
     },
-    "web:build": {
+    "musician-web:build": {
       "dependsOn": ["audio-engine:build"],
       "env": ["VERCEL_URL", "PORT", "NODE_ENV"],
       "outputs": [".next/**"]
