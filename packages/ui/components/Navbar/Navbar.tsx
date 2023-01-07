@@ -19,6 +19,10 @@ const menuButtons: MenuButton[] = [
   {
     label: 'Exercise',
     href: '/exercise'
+  },
+  {
+    label: 'Admin',
+    href: '/admin'
   }
 ];
 

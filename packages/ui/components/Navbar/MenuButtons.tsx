@@ -18,10 +18,11 @@ export default function MenuButtons({ buttons }: Props) {
         <ButtonLink
           key={button.href}
           href={button.href}
-          label={button.label}
           selected={button.selected}
-          disabled={button.disabled} 
-        />
+          disabled={button.disabled}
+        >
+          {button.label}
+        </ButtonLink>
       ))}
     </>
   );

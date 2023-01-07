@@ -5,7 +5,6 @@ import { GuitarAmpSVG } from '../SVG';
 import { ButtonLink } from '../ButtonLink';
 import Button from '../Button';
 import { useRouter } from 'next/navigation';
-import { useAudioEngine } from '@audio-engine/react';
 import { useClassNames } from '../../hooks/useClassNames';
 import { Article } from '../Typography';
 import Link from '../Link';
@@ -68,14 +67,14 @@ export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
                   Click here to learn how to reset the Microphone permissions
                 </p>
               </Link>
-              <ButtonLink label="Go Home" href="/" />
+              <ButtonLink href="/">Go Home</ButtonLink>
             </div>
           </>
         )}
         {audioEngine.state.matches('idle') && (
           <>
             <h1>Thanks for plugging in!</h1>
-            <Button label="Continue" onClick={handleContinue} />
+            <Button onClick={handleContinue}>Continue</Button>
           </>
         )}
         <Disclaimer />
