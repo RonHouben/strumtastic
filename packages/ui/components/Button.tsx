@@ -6,7 +6,7 @@ interface Props {
   label: string;
   selected?: boolean;
   disabled?: boolean;
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
 }
 

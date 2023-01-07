@@ -23,7 +23,6 @@ export const ButtonLink = ({
       {disabled && (
         <Button
           label={label}
-          onClick={() => {}}
           className={className}
           selected={selected}
           disabled={disabled}
@@ -39,7 +38,6 @@ export const ButtonLink = ({
         >
           <Button
             label={label}
-            onClick={() => {}}
             className={className}
             selected={selected}
             disabled={disabled}

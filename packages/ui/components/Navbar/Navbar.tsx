@@ -10,11 +10,11 @@ import MobileMenuButton from './MobileMenuButton';
 const menuButtons: MenuButton[] = [
   {
     label: 'Connect guitar',
-    href: '/connect-guitar',
+    href: '/connect-guitar'
   },
   {
     label: 'Tuner',
-    href: '/tuner',
+    href: '/tuner'
   },
   {
     label: 'Exercise',
@@ -26,7 +26,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className='mb-2 shadow-2xl'>
+    <nav className="mb-2 shadow-2xl">
       <div className="mx-auto max-w-7xl">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -35,14 +35,12 @@ export default function Navbar() {
               onClick={setIsMobileMenuOpen}
             />
           </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center mx-auto">
-              <Link href="/">
-                <Typography variant="h1">Strumtastic</Typography>
-              </Link>
-            </div>
+          <div className="flex max-sm:justify-center container">
+            <Link href="/">
+              <Typography variant="h1">Strumtastic</Typography>
+            </Link>
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex items-center h-full space-x-4">
+              <div className="flex h-full items-center space-x-4">
                 {/* <MenuButtons buttons={menuButtons} /> */}
               </div>
             </div>
