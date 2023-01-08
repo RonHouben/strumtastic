@@ -5,7 +5,6 @@ import TunerCard from './TunerCard';
 import SelectExerciseCard from './SelectExerciseCard';
 import { Select } from './Select';
 import AutoComplete from './Autocomplete';
-import Switch from './Switch';
 import ExerciseForm from './ExerciseForm';
 
 export * from './Navbar/Navbar';
@@ -29,6 +28,5 @@ export {
   TunerCard,
   SelectExerciseCard,
   Select,
-  Switch,
   ExerciseForm
 };

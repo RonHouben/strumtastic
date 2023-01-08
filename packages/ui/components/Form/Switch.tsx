@@ -1,23 +1,39 @@
 'use client';
 
 import { Switch as HeadlessSwitch } from '@headlessui/react';
-import { useClassNames } from '../hooks/useClassNames';
+import { useClassNames } from '../../hooks/useClassNames';
+import { useFormikContext } from 'formik';
 
 interface Props {
   name: string;
   isEnabled?: boolean;
   screenReaderText?: string;
-  onChange: (isEnabled: boolean) => void;
+  onChange?: (isEnabled: boolean) => void;
 }
 
-export default function Switch({ name, isEnabled, screenReaderText, onChange }: Props) {
+export default function Switch({
+  name,
+  isEnabled,
+  screenReaderText,
+  onChange
+}: Props) {
   const { classNames } = useClassNames();
+  const { setFieldTouched, setFieldValue } = useFormikContext();
+
+  const handleChange = (isEnabled: boolean) => {
+    setFieldTouched(name);
+    setFieldValue(name, isEnabled);
+
+    if (onChange) {
+      onChange(isEnabled);
+    }
+  };
 
   return (
     <HeadlessSwitch
       name={name}
       checked={isEnabled}
-      onChange={onChange}
+      onChange={handleChange}
       className={classNames(
         `relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`,
         isEnabled ? 'bg-secondary-500' : 'bg-slate-400 dark:bg-slate-600'

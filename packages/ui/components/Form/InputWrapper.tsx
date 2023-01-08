@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
-import { ErrorMessage } from 'formik';
+import ErrorMessage from './ErrorMessage';
 import InputLabel from './InputLabel';
 
-interface Props {
+interface Props<T> {
   name: string;
   label?: string;
   children: ReactNode;
@@ -10,13 +10,13 @@ interface Props {
   showErrorMessage?: boolean;
 }
 
-export default function InputWrapper({
+export default function InputWrapper<T>({
   name,
   children,
   required,
   label,
-  showErrorMessage = true 
-}: Props) {
+  showErrorMessage = true
+}: Props<T>) {
   return (
     <>
       {label && (
@@ -25,13 +25,7 @@ export default function InputWrapper({
         </InputLabel>
       )}
       {children}
-      {showErrorMessage && (
-        <ErrorMessage
-          name={name}
-          component="div"
-          className="font-semibold text-red-500"
-        />
-      )}
+      {showErrorMessage && <ErrorMessage name={name} />}
     </>
   );
 }

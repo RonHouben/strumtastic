@@ -1,6 +1,6 @@
 'use client';
 
-import { Field } from 'formik';
+import { Field, useFormikContext } from 'formik';
 import { FocusEvent, HTMLInputTypeAttribute } from 'react';
 import { useClassNames } from '../../hooks/useClassNames';
 
@@ -23,10 +23,20 @@ export default function InputField({
   onBlur,
   onFocus
 }: Props) {
+  const { setFieldTouched } = useFormikContext();
   const { classNames } = useClassNames();
+
+  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+    setFieldTouched(name);
+
+    if (onBlur){
+      onBlur(e);
+    }
+  }
 
   return (
     <Field
+      id={name}
       name={name}
       type={type}
       className={classNames(
@@ -35,7 +45,7 @@ export default function InputField({
       )}
       autoFocus={autoFocus}
       placeholder={placeholder}
-      onBlur={onBlur}
+      onBlur={handleBlur}
       onFocus={onFocus}
     />
   );

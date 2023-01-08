@@ -5,15 +5,16 @@ import AutoComplete from './Autocomplete';
 import Button from './Button';
 import { Form, InputWrapper, InputField } from './Form';
 import { GuitarFretboard } from './GuitarFretboard';
-import Switch from './Switch';
-import { FormikHelpers, FormikValues } from 'formik';
+import Switch from './Form/Switch';
+import { FormikHelpers } from 'formik';
 import { ZodType } from 'zod';
 import { useMusicNotes } from '../hooks/useMusicNotes';
 
-interface Props<T extends FormikValues> {
+interface Props<T extends ExerciseFormState> {
   handleSubmit: (values: T, formikHelpers: FormikHelpers<T>) => void;
   validationSchema: ZodType<T>;
-	initialValues: T;
+  initialValues: T;
+  submitButtonLabel?: string;
 }
 
 interface AutoCompleteOption extends SelectOption {
@@ -22,7 +23,7 @@ interface AutoCompleteOption extends SelectOption {
 
 export type ExerciseFormState =
   | typeof exercisesSchemas.create._output
-  | typeof exercisesSchemas.update._output;
+  | typeof exercisesSchemas.updateById._output;
 
 const keys: AutoCompleteOption[] = [
   { id: 1, key: 'A major' },
@@ -51,22 +52,24 @@ const keys: AutoCompleteOption[] = [
   { id: 24, key: 'G# minor' }
 ];
 
-export default function ExerciseForm<T extends FormikValues>({
+export default function ExerciseForm<T extends ExerciseFormState>({
   handleSubmit,
   validationSchema,
-	initialValues
+  initialValues,
+  submitButtonLabel
 }: Props<T>) {
   const { getMusicNotesByNames } = useMusicNotes();
 
   const handleClickNote = (
     clickedMusicNote: IMusicNote,
     formState: ExerciseFormState,
-    setFormikFieldValue: (
-      field: string,
-      value: any,
-      shouldValidate?: boolean | undefined
-    ) => void
+    {
+      setFieldValue,
+      setFieldTouched
+    }: Pick<FormikHelpers<T>, 'setFieldValue' | 'setFieldTouched'>
   ) => {
+    setFieldTouched('notesToPlay');
+
     if (formState.notesToPlay) {
       const exists =
         formState.notesToPlay.some(
@@ -75,14 +78,14 @@ export default function ExerciseForm<T extends FormikValues>({
 
       if (exists) {
         // remove the note
-        setFormikFieldValue(
+        setFieldValue(
           'notesToPlay',
           formState.notesToPlay.filter(
             (noteToPlay) => noteToPlay !== clickedMusicNote.name
           )
         );
       } else {
-        setFormikFieldValue('notesToPlay', [
+        setFieldValue('notesToPlay', [
           ...formState.notesToPlay,
           clickedMusicNote.name
         ]);
@@ -96,31 +99,31 @@ export default function ExerciseForm<T extends FormikValues>({
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {({ values, setFieldValue, isSubmitting, isValid }) => (
+      {({ values, setFieldValue, isSubmitting, setFieldTouched }) => (
         <>
-          <InputWrapper label="Title" name="title">
+          <InputWrapper label="Title" name="title" required>
             <InputField name="title" type="text" placeholder="Title" />
           </InputWrapper>
 
-          <InputWrapper name="key" label="Select a key">
+          <InputWrapper name="key" label="Select a key" required>
             <AutoComplete
               name="key"
               options={keys}
+              selected={keys.find((key) => key.key === values.key)}
               labelProperty="key"
               placeholder="Select a key"
-              onChange={({ key }) => setFieldValue('key', key)}
             />
           </InputWrapper>
 
-          <InputWrapper name="isEnabled" label="Enabled">
-            <Switch
-              name="isEnabled"
-              isEnabled={values.isEnabled}
-              onChange={(isEnabled) => setFieldValue('isEnabled', isEnabled)}
-            />
+          <InputWrapper name="isEnabled" label="Enabled" required>
+            <Switch name="isEnabled" isEnabled={values.isEnabled} />
           </InputWrapper>
 
-          <InputWrapper label="Select the notes to play" name="notesToPlay">
+          <InputWrapper
+            label="Select the notes to play"
+            name="notesToPlay"
+            required
+          >
             <div>
               Selected notes:
               {values.notesToPlay?.toString()}
@@ -132,19 +135,18 @@ export default function ExerciseForm<T extends FormikValues>({
               viewType="exercise-order"
               showFlatsOrSharps="sharps"
               onNoteClick={(clickedMusicNote) =>
-                handleClickNote(clickedMusicNote, values, setFieldValue)
+                handleClickNote(clickedMusicNote, values, {
+                  setFieldValue,
+                  setFieldTouched
+                })
               }
               numberOfFrets={24}
               notesToPlay={getMusicNotesByNames(values.notesToPlay || [])}
               musicKey={values.key || ''}
             />
           </div>
-          <Button
-            type="submit"
-            disabled={isSubmitting || !isValid}
-            className="w-32"
-          >
-            Create
+          <Button type="submit" disabled={isSubmitting} className="w-32">
+            {submitButtonLabel || 'Submit'}
           </Button>
         </>
       )}

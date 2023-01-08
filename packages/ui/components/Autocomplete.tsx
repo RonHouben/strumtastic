@@ -1,29 +1,34 @@
 'use client';
 
-import { Fragment, useState, FocusEvent } from 'react';
+import React, { Fragment, useState, FocusEvent } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { SelectOption } from '../types';
 import { useClassNames } from '../hooks/useClassNames';
-import React from 'react';
+import { useFormikContext } from 'formik';
 
 interface Props<T extends SelectOption> {
   name: string;
   options: T[];
+  selected?: T;
   labelProperty: keyof T;
   placeholder?: string;
-  onChange: (selectedOption: T) => void;
+  onChange?: (selectedOption: T) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export default function AutoComplete<T extends SelectOption>({
   name,
   options,
+  selected,
   labelProperty,
   placeholder,
-  onChange
+  onChange,
+  onBlur
 }: Props<T>) {
   const { classNames } = useClassNames();
-  const [selected, setSelected] = useState<T | null>(null);
+  const { setFieldTouched, setFieldValue } = useFormikContext();
+  const [selectedOption, setSelectedOption] = useState<T | undefined>(selected);
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,14 +47,28 @@ export default function AutoComplete<T extends SelectOption>({
     setIsOpen(true);
   };
 
-  const handleOnChange = (option: T) => {
-    setSelected(option);
+  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+    setFieldTouched(name);
     setIsOpen(false);
-    onChange(option);
+
+    if (onBlur) {
+      onBlur(e);
+    }
+  };
+
+  const handleOnChange = (option: T) => {
+    setSelectedOption(option);
+    setFieldValue(name, option);
+
+    if (onChange) {
+      onChange(option);
+    }
+
+    setIsOpen(false);
   };
 
   return (
-    <Combobox value={selected} onChange={handleOnChange}>
+    <Combobox value={selectedOption} onChange={handleOnChange}>
       <div className="relative mt-1">
         <div className="relative w-full cursor-default overflow-hidden rounded-md text-left shadow-sm">
           <Combobox.Input
@@ -62,7 +81,7 @@ export default function AutoComplete<T extends SelectOption>({
             }
             onFocus={handleFocus}
             onChange={(event) => setQuery(event.target.value)}
-            onBlur={() => setIsOpen(false)}
+            onBlur={handleBlur}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 m-2 flex cursor-pointer items-center rounded-md dark:bg-slate-700 dark:text-primary-50 sm:text-sm">
             <ChevronUpDownIcon

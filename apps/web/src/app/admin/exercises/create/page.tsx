@@ -38,6 +38,7 @@ export default function CreateExercisePage() {
       }}
       handleSubmit={handleSubmit}
       validationSchema={exercisesSchemas.create}
+      submitButtonLabel='Create'
     />
   );
 }

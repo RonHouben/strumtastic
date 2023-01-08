@@ -2,7 +2,7 @@ import { PrismaClient, Exercise } from '@prisma/client';
 
 type PartialExercise = Pick<
   Exercise,
-  'title' | 'key' | 'isDisabled' | 'notesToPlay'
+  'title' | 'key' | 'isEnabled' | 'notesToPlay'
 >;
 
 export async function seedExercises(prismaClient: PrismaClient) {
@@ -10,13 +10,13 @@ export async function seedExercises(prismaClient: PrismaClient) {
 
   const exercises: PartialExercise[] = [
     {
-      isDisabled: false,
+      isEnabled: true,
       title: 'C Major Triads',
       key: 'C major',
       notesToPlay: ['C3', 'E3', 'G3']
     },
     {
-      isDisabled: true,
+      isEnabled: false,
       title: 'C Major (Ionian) scale',
       key: 'C major',
       notesToPlay: []
