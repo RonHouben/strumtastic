@@ -13,7 +13,15 @@ interface Props {
 
 export default function GuitarTuner({ onStopTuner }: Props) {
   const { audioEngine } = useGlobalState();
-  const { currentMusicNote } = useMusicNotes();
+  const { getMusicNoteFromFrequency } = useMusicNotes();
+
+  const currentMusicNote = useMemo(() => {
+    if (audioEngine.state.context.audioEngine?.currentFrequency) {
+      return getMusicNoteFromFrequency(
+        audioEngine.state.context.audioEngine.currentFrequency
+      );
+    }
+  }, [audioEngine, getMusicNoteFromFrequency]);
 
   const handleStartTuner = useCallback(() => {
     audioEngine.send('START_LISTENING_TO_MICROPHONE');
@@ -29,13 +37,13 @@ export default function GuitarTuner({ onStopTuner }: Props) {
     <div className="m-2 flex w-60 flex-col items-center justify-center gap-2 rounded-md bg-primary-500 p-2 shadow-lg dark:bg-secondary-700">
       <Typography
         variant="h1"
-        className="text-secondary-500 dark:text-primary-700"
+        className="!text-secondary-500 dark:!text-primary-700"
       >
         {currentMusicNote?.letter || '-'}
       </Typography>
       <DistanceFromNote />
       <Hertz
-        className="text-secondary-500 dark:text-primary-700"
+        className="!text-secondary-500 dark:!text-primary-700"
         hertz={audioEngine.state.context.audioEngine?.currentFrequency || -1}
       />
       {audioEngine.state.matches('idle') && (
@@ -60,7 +68,15 @@ export default function GuitarTuner({ onStopTuner }: Props) {
 
 function DistanceFromNote() {
   const { audioEngine } = useGlobalState();
-  const { currentMusicNote } = useMusicNotes();
+  const { getMusicNoteFromFrequency } = useMusicNotes();
+
+  const currentMusicNote = useMemo(() => {
+    if (audioEngine.state.context.audioEngine?.currentFrequency) {
+      return getMusicNoteFromFrequency(
+        audioEngine.state.context.audioEngine.currentFrequency
+      );
+    }
+  }, [audioEngine, getMusicNoteFromFrequency]);
 
   const margin = 2;
 
