@@ -6,6 +6,7 @@ import SelectExerciseCard from './SelectExerciseCard';
 import { Select } from './Select';
 import AutoComplete from './Autocomplete';
 import Switch from './Switch';
+import ExerciseForm from './ExerciseForm';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -29,4 +30,5 @@ export {
   SelectExerciseCard,
   Select,
   Switch,
+  ExerciseForm
 };

@@ -12,4 +12,14 @@ export const exercisesSchemas = {
     isEnabled: z.boolean(),
     notesToPlay: z.array(z.string()).min(1),
   }),
+  update: z.object({
+    title: z.string().min(5).and(z.string().max(140)).optional(),
+    key: z
+      .string()
+      .endsWith(' major')
+      .or(z.string().endsWith(' minor'))
+      .optional(),
+    isEnabled: z.boolean().optional(),
+    notesToPlay: z.array(z.string()).min(1).optional(),
+  }),
 };
