@@ -4,7 +4,6 @@ import PluginGuitarCard from './PluginGuitarCard';
 import TunerCard from './TunerCard';
 import SelectExerciseCard from './SelectExerciseCard';
 import { Select } from './Select';
-import Input from './Input';
 import AutoComplete from './Autocomplete';
 import Switch from './Switch';
 
@@ -16,9 +15,10 @@ export * from './Typography';
 export * from './SVG';
 export * from './GuitarTuner';
 export * from './Checkbox';
-export * from './InputLabel';
+export * from './Form/InputLabel';
 export * from './Link';
 export * from './Card';
+export * from './Form';
 
 export {
   AutoComplete,
@@ -29,5 +29,4 @@ export {
   SelectExerciseCard,
   Select,
   Switch,
-  Input
 };

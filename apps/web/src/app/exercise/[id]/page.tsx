@@ -27,14 +27,7 @@ export default function ExercisePage({ params }: Props) {
 
   const { getMusicNoteFromFrequency, transformMusicNotesAccidentals } =
     useMusicNotes();
-  const { audioEngine, exerciseEngine } = useGlobalState({
-    debug: {
-      // exerciseEngine: {
-      // context: true,
-      // state: true,
-      // },
-    },
-  });
+  const { audioEngine, exerciseEngine } = useGlobalState();
 
   const notesToPlay = useMemo<IMusicNote[]>(() => {
     if (exerciseEngine.state.context.exercise) {

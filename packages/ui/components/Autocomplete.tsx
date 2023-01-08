@@ -5,7 +5,7 @@ import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { SelectOption } from '../types';
 import { useClassNames } from '../hooks/useClassNames';
-import Input from './Input';
+import Input from './Form/InputWrapper';
 import React from 'react';
 
 interface Props<T extends SelectOption> {

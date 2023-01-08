@@ -5,16 +5,17 @@ import { IMusicNote, MusicKey } from 'music-notes';
 import {
   AutoComplete,
   Button,
+  Form,
   GuitarFretboard,
-  Input,
+  InputField,
   InputLabel,
   Switch,
 } from 'ui/components';
 import { SelectOption } from 'ui/types';
-import { ErrorMessage, Form, Formik, FormikHelpers } from 'formik';
-import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { FormikHelpers } from 'formik';
 import { exercisesSchemas } from '@server/routers/exercises.schema';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
+import InputWrapper from 'ui/components/Form/InputWrapper';
 
 interface AutoCompleteOption extends SelectOption {
   key: MusicKey;
@@ -57,7 +58,7 @@ const initialValues: FormState = {
 };
 
 export default function CreateExercisePage() {
-  const { getMusicNotesByNames } =useMusicNotes();
+  const { getMusicNotesByNames } = useMusicNotes();
 
   const { mutate, data, isError, isLoading, error } =
     trpc.exercises.create.useMutation({});
@@ -93,71 +94,62 @@ export default function CreateExercisePage() {
 
   const handleSubmit = (
     values: FormState,
-    { setSubmitting }: FormikHelpers<FormState>,
+    { setSubmitting, resetForm }: FormikHelpers<FormState>,
   ) => {
-    console.log('PING');
-    mutate(values);
-    console.log('PONG');
-
-    setSubmitting(false);
+    mutate(values, {
+      onError: () => {
+        setSubmitting(false);
+        // TODO: show Toaster Error message
+      },
+      onSuccess: () => {
+        setSubmitting(false);
+        resetForm();
+        // TODO: show Toaster succes message
+      },
+    });
   };
 
   return (
-    <Formik
+    <Form
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={toFormikValidationSchema(exercisesSchemas.create)}
+      validationSchema={exercisesSchemas.create}
     >
-      {({ values, setFieldValue, isSubmitting }) => (
-        <Form className="flex flex-col gap-2">
-          <InputLabel htmlFor="title" required>
-            Title
-          </InputLabel>
-          <Input type="text" name="title" />
-          <ErrorMessage
-            name="title"
-            component="div"
-            className="font-semibold text-red-500"
-          />
+      {({ values, setFieldValue, isSubmitting, isValid }) => (
+        <>
+          <InputWrapper label="Title" name="title">
+            <InputField name="title" type="text" placeholder="Title" />
+          </InputWrapper>
 
-          <InputLabel htmlFor="key">Key</InputLabel>
-          <AutoComplete
-            name="key"
-            options={keys}
-            labelProperty="key"
-            placeholder="Select a key"
-            onChange={({ key }) => setFieldValue('key', key)}
-          />
-          <ErrorMessage
-            name="key"
-            component="div"
-            className="font-semibold text-red-500"
-          />
+          <InputWrapper name="key" label="Select a key">
+            <AutoComplete
+              name="key"
+              options={keys}
+              labelProperty="key"
+              placeholder="Select a key"
+              onChange={({ key }) => setFieldValue('key', key)}
+            />
+          </InputWrapper>
 
-          <InputLabel htmlFor="isEnabled">Enabled</InputLabel>
-          <Switch
-            name="isEnabled"
-            isEnabled={values.isEnabled}
-            onChange={(isEnabled) => setFieldValue('isEnabled', isEnabled)}
-          />
+          <InputWrapper name="isEnabled" label="Enabled">
+            <Switch
+              name="isEnabled"
+              isEnabled={values.isEnabled}
+              onChange={(isEnabled) => setFieldValue('isEnabled', isEnabled)}
+            />
+          </InputWrapper>
 
-          <InputLabel htmlFor="notesToPlay">
-            Select the notes to play
-          </InputLabel>
-          <div>
-            Selected notes:
-            {values.notesToPlay.toString()}
-          </div>
-          <ErrorMessage
-            name="notesToPlay"
-            component="div"
-            className="font-semibold text-red-500"
-          />
+          <InputWrapper label="Select the notes to play" name="notesToPlay">
+            <div>
+              Selected notes:
+              {values.notesToPlay.toString()}
+            </div>
+          </InputWrapper>
 
           <div className="w-full">
             <GuitarFretboard
               viewType="exercise-order"
-              showFlatsOrSharps='sharps'
+              showFlatsOrSharps="sharps"
               onNoteClick={(clickedMusicNote) =>
                 handleClickNote(clickedMusicNote, values, setFieldValue)
               }
@@ -166,11 +158,15 @@ export default function CreateExercisePage() {
               musicKey={values.key}
             />
           </div>
-          <Button type="submit" disabled={isSubmitting} className="w-32">
+          <Button
+            type="submit"
+            disabled={isSubmitting || !isValid}
+            className="w-32"
+          >
             Create
           </Button>
-        </Form>
+        </>
       )}
-    </Formik>
+    </Form>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
-import { HTMLInputTypeAttribute, FocusEvent, ChangeEvent } from 'react';
-import { useClassNames } from '../hooks/useClassNames';
 import { Field } from 'formik';
+import { FocusEvent, HTMLInputTypeAttribute } from 'react';
+import { useClassNames } from '../../hooks/useClassNames';
 
 interface Props {
   name: string;
@@ -14,7 +14,7 @@ interface Props {
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
-export default function Input({
+export default function InputField({
   name,
   type,
   className,
