@@ -1,5 +1,14 @@
-import { MusicKey } from 'music-notes';
-import { AutoComplete, Input, InputLabel, Switch } from 'ui/components';
+'use client';
+
+import { IMusicNote, MusicKey } from 'music-notes';
+import { useState } from 'react';
+import {
+  AutoComplete,
+  GuitarFretboard,
+  Input,
+  InputLabel,
+  Switch,
+} from 'ui/components';
 import { SelectOption } from 'ui/types';
 
 interface AutoCompleteOption extends SelectOption {
@@ -34,20 +43,52 @@ const people: AutoCompleteOption[] = [
 ];
 
 export default function CreateExercisePage() {
+  const [selectedNotes, setSelectedNotes] = useState<IMusicNote[]>([]);
+
+  const handleClickNote = (clickedMusicNote: IMusicNote) => {
+    const exists = selectedNotes.some(
+      (selectedNote) => selectedNote.name === clickedMusicNote.name,
+    );
+
+    if (exists) {
+      setSelectedNotes((prev) =>
+        prev.filter(
+          (selectedNote) => selectedNote.name !== clickedMusicNote.name,
+        ),
+      );
+    } else {
+      setSelectedNotes((prev) => [...prev, clickedMusicNote]);
+    }
+  };
+
   return (
     <form className="flex flex-col gap-2">
       <InputLabel htmlFor="title">Title</InputLabel>
       <Input id="title" type="text" placeholder="Title" />
       <InputLabel htmlFor="key">Key</InputLabel>
       <AutoComplete
-				id='key'
+        id="key"
         options={people}
         labelProperty="key"
         placeholder="Select a key"
       />
-			<InputLabel htmlFor='enabled'>Enabled</InputLabel>
-      <Switch id='enabled' isEnabled />
+      <InputLabel htmlFor="enabled">Enabled</InputLabel>
+      <Switch id="enabled" isEnabled />
+      <InputLabel htmlFor="notesToPlay">Select the notes to play</InputLabel>
+      <div>
+        Selected notes:
+        {selectedNotes.map((selectedNote) => selectedNote.name).join(', ')}
+      </div>
 
+      <div className="w-full">
+        <GuitarFretboard
+          viewType="exercise-order"
+          onNoteClick={handleClickNote}
+          numberOfFrets={24}
+          notesToPlay={selectedNotes}
+          musicKey="A major"
+        />
+      </div>
     </form>
   );
 }

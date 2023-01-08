@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Button } from 'ui/components';
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { Article } from 'ui/components/Typography';
@@ -22,7 +22,7 @@ export default function ExercisePage({ params }: Props) {
     data: exercise,
   } = trpc.exercises.getById.useQuery({ id: params.id });
 
-  const { currentMusicNote } = useMusicNotes();
+  const { getMusicNoteFromFrequency } = useMusicNotes();
   const { audioEngine, exerciseEngine } = useGlobalState({
     debug: {
       // exerciseEngine: {
@@ -31,6 +31,15 @@ export default function ExercisePage({ params }: Props) {
       // },
     },
   });
+
+  const currentMusicNote = useMemo(() => {
+    if (audioEngine.state.context.audioEngine?.currentFrequency) {
+      return getMusicNoteFromFrequency(
+        audioEngine.state.context.audioEngine.currentFrequency
+      );
+    }
+  }, [audioEngine, getMusicNoteFromFrequency]);
+
 
   // destructuring `send` so th e useEffect doesn't
   // trigger every time the exerciseEngine state changes
@@ -81,6 +90,7 @@ export default function ExercisePage({ params }: Props) {
         </p>
       </Article>
       <GuitarFretboard
+        viewType='notes'
         numberOfFrets={24}
         notesToPlay={exerciseEngine.state.context.exercise.notesToPlay}
         musicKey={exerciseEngine.state.context.exercise.key}

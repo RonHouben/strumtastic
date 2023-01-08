@@ -1,0 +1,1 @@
+export type GuitarFretboardViewType = 'notes' | 'exercise-order' | 'intervals';
