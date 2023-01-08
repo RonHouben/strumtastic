@@ -1,21 +1,28 @@
 'use client';
 
+import { trpc } from '@client/trpc';
 import { IMusicNote, MusicKey } from 'music-notes';
-import { useState } from 'react';
 import {
   AutoComplete,
+  Button,
   GuitarFretboard,
   Input,
   InputLabel,
   Switch,
 } from 'ui/components';
 import { SelectOption } from 'ui/types';
+import { ErrorMessage, Form, Formik, FormikHelpers } from 'formik';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { exercisesSchemas } from '@server/routers/exercises.schema';
+import { useMusicNotes } from 'ui/hooks/useMusicNotes';
 
 interface AutoCompleteOption extends SelectOption {
   key: MusicKey;
 }
 
-const people: AutoCompleteOption[] = [
+type FormState = typeof exercisesSchemas.create._output;
+
+const keys: AutoCompleteOption[] = [
   { id: 1, key: 'A major' },
   { id: 2, key: 'A minor' },
   { id: 3, key: 'A# major' },
@@ -42,53 +49,128 @@ const people: AutoCompleteOption[] = [
   { id: 24, key: 'G# minor' },
 ];
 
-export default function CreateExercisePage() {
-  const [selectedNotes, setSelectedNotes] = useState<IMusicNote[]>([]);
+const initialValues: FormState = {
+  title: '',
+  key: '',
+  isEnabled: true,
+  notesToPlay: [],
+};
 
-  const handleClickNote = (clickedMusicNote: IMusicNote) => {
-    const exists = selectedNotes.some(
-      (selectedNote) => selectedNote.name === clickedMusicNote.name,
+export default function CreateExercisePage() {
+  const { getMusicNotesByNames } =useMusicNotes();
+
+  const { mutate, data, isError, isLoading, error } =
+    trpc.exercises.create.useMutation({});
+
+  const handleClickNote = (
+    clickedMusicNote: IMusicNote,
+    formState: FormState,
+    setFormikFieldValue: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean | undefined,
+    ) => void,
+  ) => {
+    const exists = formState.notesToPlay.some(
+      (noteToPlay) => noteToPlay === clickedMusicNote.name,
     );
 
     if (exists) {
-      setSelectedNotes((prev) =>
-        prev.filter(
-          (selectedNote) => selectedNote.name !== clickedMusicNote.name,
+      // remove the note
+      setFormikFieldValue(
+        'notesToPlay',
+        formState.notesToPlay.filter(
+          (noteToPlay) => noteToPlay !== clickedMusicNote.name,
         ),
       );
     } else {
-      setSelectedNotes((prev) => [...prev, clickedMusicNote]);
+      setFormikFieldValue('notesToPlay', [
+        ...formState.notesToPlay,
+        clickedMusicNote.name,
+      ]);
     }
   };
 
-  return (
-    <form className="flex flex-col gap-2">
-      <InputLabel htmlFor="title">Title</InputLabel>
-      <Input id="title" type="text" placeholder="Title" />
-      <InputLabel htmlFor="key">Key</InputLabel>
-      <AutoComplete
-        id="key"
-        options={people}
-        labelProperty="key"
-        placeholder="Select a key"
-      />
-      <InputLabel htmlFor="enabled">Enabled</InputLabel>
-      <Switch id="enabled" isEnabled />
-      <InputLabel htmlFor="notesToPlay">Select the notes to play</InputLabel>
-      <div>
-        Selected notes:
-        {selectedNotes.map((selectedNote) => selectedNote.name).join(', ')}
-      </div>
+  const handleSubmit = (
+    values: FormState,
+    { setSubmitting }: FormikHelpers<FormState>,
+  ) => {
+    console.log('PING');
+    mutate(values);
+    console.log('PONG');
 
-      <div className="w-full">
-        <GuitarFretboard
-          viewType="exercise-order"
-          onNoteClick={handleClickNote}
-          numberOfFrets={24}
-          notesToPlay={selectedNotes}
-          musicKey="A major"
-        />
-      </div>
-    </form>
+    setSubmitting(false);
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={toFormikValidationSchema(exercisesSchemas.create)}
+    >
+      {({ values, setFieldValue, isSubmitting }) => (
+        <Form className="flex flex-col gap-2">
+          <InputLabel htmlFor="title" required>
+            Title
+          </InputLabel>
+          <Input type="text" name="title" />
+          <ErrorMessage
+            name="title"
+            component="div"
+            className="font-semibold text-red-500"
+          />
+
+          <InputLabel htmlFor="key">Key</InputLabel>
+          <AutoComplete
+            name="key"
+            options={keys}
+            labelProperty="key"
+            placeholder="Select a key"
+            onChange={({ key }) => setFieldValue('key', key)}
+          />
+          <ErrorMessage
+            name="key"
+            component="div"
+            className="font-semibold text-red-500"
+          />
+
+          <InputLabel htmlFor="isEnabled">Enabled</InputLabel>
+          <Switch
+            name="isEnabled"
+            isEnabled={values.isEnabled}
+            onChange={(isEnabled) => setFieldValue('isEnabled', isEnabled)}
+          />
+
+          <InputLabel htmlFor="notesToPlay">
+            Select the notes to play
+          </InputLabel>
+          <div>
+            Selected notes:
+            {values.notesToPlay.toString()}
+          </div>
+          <ErrorMessage
+            name="notesToPlay"
+            component="div"
+            className="font-semibold text-red-500"
+          />
+
+          <div className="w-full">
+            <GuitarFretboard
+              viewType="exercise-order"
+              showFlatsOrSharps='sharps'
+              onNoteClick={(clickedMusicNote) =>
+                handleClickNote(clickedMusicNote, values, setFieldValue)
+              }
+              numberOfFrets={24}
+              notesToPlay={getMusicNotesByNames(values.notesToPlay)}
+              musicKey={values.key}
+            />
+          </div>
+          <Button type="submit" disabled={isSubmitting} className="w-32">
+            Create
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 }

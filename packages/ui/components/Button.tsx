@@ -1,5 +1,6 @@
 'use client';
 
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
   children: string;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
 }
 
 export default function Button({
@@ -15,7 +17,8 @@ export default function Button({
   disabled,
   onClick,
   className,
-  children
+  children,
+  type
 }: Props) {
   const { classNames } = useClassNames();
 
@@ -31,6 +34,7 @@ export default function Button({
       )}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       <strong>{children}</strong>
     </button>

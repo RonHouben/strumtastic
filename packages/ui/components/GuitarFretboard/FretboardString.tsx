@@ -1,54 +1,56 @@
-import {
-  ExerciseMusicNote,
-  FlatsOrSharps,
-  IMusicNote,
-  MusicKey,
-  StringName
-} from 'music-notes';
+import { FlatsOrSharps, IMusicNote, MusicKey, StringName } from 'music-notes';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Fret } from './Fret';
 import { FretBoardNut } from './FretboardNut';
 import { FretboardRow } from './FretboardRow';
 import { FretboardNote } from './FretboardNote';
 import { GuitarFretboardViewType } from './types';
+import { useMemo } from 'react';
 
 interface Props {
   stringName: StringName;
   numberOfFrets: number;
-  showFlatsOrSharps: FlatsOrSharps;
   notesToPlay: IMusicNote[];
   musicKey: MusicKey;
   onNoteClick?: (note: IMusicNote) => void;
   viewType: GuitarFretboardViewType;
+  showFlatsOrSharps: FlatsOrSharps;
 }
 
 export const FretboardString = ({
   numberOfFrets,
   stringName,
-  showFlatsOrSharps,
   notesToPlay,
   musicKey,
   onNoteClick,
-  viewType
+  viewType,
+  showFlatsOrSharps
 }: Props) => {
-  const { getMusicNotesForString } = useMusicNotes();
+  const { getMusicNotesForString, transformMusicNotesAccidentals } =
+    useMusicNotes();
+
+  const notesToPlayWithTransformedAccidentals = useMemo<IMusicNote[]>(
+    () => transformMusicNotesAccidentals(notesToPlay, showFlatsOrSharps),
+    [showFlatsOrSharps, notesToPlay, transformMusicNotesAccidentals]
+  );
 
   return (
     <FretboardRow id="fredboard-strings-container">
       {getMusicNotesForString({
         startNote: stringName,
         numberOfFrets,
-        sharps: showFlatsOrSharps === 'sharps'
+        flatsOrSharps: showFlatsOrSharps
       }).map((musicNote, i) => {
-        const toBePlayed = notesToPlay.some(
+        const toBePlayed = notesToPlayWithTransformedAccidentals.some(
           (noteToPlay) => noteToPlay.name === musicNote.name
         );
 
-        const isRoot = musicKey.split(' ')[0] === musicNote.name;
+        const isRoot = musicKey.split(' ')[0] === musicNote.pc && toBePlayed;
 
-        const exerciseNoteNumber = notesToPlay.findIndex(
-          (noteToPlay) => noteToPlay.name === musicNote.name
-        ) + 1;
+        const exerciseNoteNumber =
+          notesToPlayWithTransformedAccidentals.findIndex(
+            (noteToPlay) => noteToPlay.name === musicNote.name
+          ) + 1;
 
         return (
           <div id="fretboard-string" key={i}>
@@ -57,7 +59,6 @@ export const FretboardString = ({
                 viewType={viewType}
                 onNoteClick={onNoteClick}
                 musicNote={musicNote}
-                showFlatsOrSharps={showFlatsOrSharps}
                 toBePlayed={toBePlayed}
                 isRoot={isRoot}
                 exerciseNoteNumber={exerciseNoteNumber}
@@ -68,7 +69,6 @@ export const FretboardString = ({
                   viewType={viewType}
                   onNoteClick={onNoteClick}
                   musicNote={musicNote}
-                  showFlatsOrSharps={showFlatsOrSharps}
                   isRoot={isRoot}
                   toBePlayed={toBePlayed}
                   exerciseNoteNumber={exerciseNoteNumber}

@@ -2,16 +2,20 @@ import { MusicNotes } from 'music-notes';
 
 interface UseMusicNotesResult {
   getMusicNoteFromFrequency: typeof MusicNotes.getMusicNoteFromFrequency;
-  getRangeOfMusicNotes: typeof MusicNotes.getRangeOfMusicNotes;
   getMusicNotesForString: typeof MusicNotes.getMusicNotesForString;
   getMusicNoteByName: typeof MusicNotes.getMusicNoteByName;
+  getMusicNotesByNames: typeof MusicNotes.getMusicNotesByNames;
+  transformMusicNoteAccidental: typeof MusicNotes.transformMusicNoteAccidental;
+  transformMusicNotesAccidentals: typeof MusicNotes.transformMusicNotesAccidentals;
 }
 
 export function useMusicNotes(): UseMusicNotesResult {
   return {
     getMusicNoteFromFrequency: MusicNotes.getMusicNoteFromFrequency,
-    getRangeOfMusicNotes: MusicNotes.getRangeOfMusicNotes,
     getMusicNoteByName: MusicNotes.getMusicNoteByName,
-    getMusicNotesForString: MusicNotes.getMusicNotesForString
+    getMusicNotesByNames: MusicNotes.getMusicNotesByNames,
+    getMusicNotesForString: MusicNotes.getMusicNotesForString,
+    transformMusicNoteAccidental: MusicNotes.transformMusicNoteAccidental,
+    transformMusicNotesAccidentals: MusicNotes.transformMusicNotesAccidentals,
   };
 }

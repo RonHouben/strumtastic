@@ -16,7 +16,7 @@ model Exercise {
   key String
   notesToPlay String[]
 
-  isDisabled Boolean @default(false)
+  isEnabled Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime? @default(now())

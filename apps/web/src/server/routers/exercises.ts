@@ -1,16 +1,17 @@
 import { prisma } from '@server/prisma';
 import { router, publicProcedure } from '@server/trcp';
-import { z } from 'zod';
+import { exercisesSchemas } from './exercises.schema';
 
 export const exercisesRouter = router({
   getById: publicProcedure
-    .input(
-      z.object({
-        id: z.string().uuid(),
-      }),
-    )
+    .input(exercisesSchemas.getById)
     .query(({ input }) =>
       prisma.exercise.findUnique({ where: { id: input.id } }),
     ),
-  getAll: publicProcedure.query(() => prisma.exercise.findMany()),
+  getAll: publicProcedure.query(() => prisma.exercise.findMany({ orderBy: { title: 'asc' }})),
+  create: publicProcedure.input(exercisesSchemas.create).mutation(({ input }) =>
+    prisma.exercise.create({
+      data: input,
+    }),
+  ),
 });

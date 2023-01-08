@@ -1,6 +1,5 @@
 'use client';
 
-import { LoadExercise } from 'exercise-engine';
 import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import Button from './Button';
@@ -47,7 +46,13 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
           <Select
             placeHolder="Select exercise..."
             isDisabled={disabled}
-            options={exercises || []}
+            options={
+              exercises
+                ?.map((exercise) => ({
+                  ...exercise,
+                  isDisabled: !exercise.isEnabled
+                })) || []
+            }
             labelProperty="title"
             selected={selectedExercise}
             onChange={setSelectedExercise}

@@ -5,7 +5,6 @@ import { GuitarFretboardViewType } from './types';
 
 interface Props {
   musicNote: IMusicNote;
-  showFlatsOrSharps: FlatsOrSharps;
   isRoot: boolean;
   toBePlayed: boolean;
   onNoteClick?: (note: IMusicNote) => void;
@@ -15,7 +14,6 @@ interface Props {
 
 export const FretBoardNut = ({
   musicNote,
-  showFlatsOrSharps,
   isRoot,
   toBePlayed,
   onNoteClick,
@@ -28,7 +26,6 @@ export const FretBoardNut = ({
         exerciseNoteNumber={exerciseNoteNumber}
         viewType={viewType}
         onNoteClick={onNoteClick}
-        showFlatsOrSharps={showFlatsOrSharps}
         musicNote={musicNote}
         isRoot={isRoot}
         toBePlayed={toBePlayed}

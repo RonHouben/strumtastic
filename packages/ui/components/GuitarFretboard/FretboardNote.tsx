@@ -1,6 +1,6 @@
 'use client';
 
-import { ExerciseMusicNote, FlatsOrSharps, IMusicNote } from 'music-notes';
+import { IMusicNote } from 'music-notes';
 import { useCallback, useMemo, useState } from 'react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { useClassNames } from '../../hooks/useClassNames';
@@ -11,7 +11,6 @@ interface Props {
   musicNote: IMusicNote;
   isRoot?: boolean;
   toBePlayed?: boolean;
-  showFlatsOrSharps: FlatsOrSharps;
   onNoteClick?: (note: IMusicNote) => void;
   viewType: GuitarFretboardViewType;
   exerciseNoteNumber: number;
@@ -21,7 +20,6 @@ export const FretboardNote = ({
   musicNote,
   isRoot,
   toBePlayed,
-  showFlatsOrSharps,
   onNoteClick,
   viewType,
   exerciseNoteNumber
@@ -61,7 +59,7 @@ export const FretboardNote = ({
   return (
     <div
       className={classNames(
-        'h-6 w-6 rounded-full bg-secondary-100 text-slate-400 transition delay-150 duration-300 ease-in-out hover:scale-150 dark:bg-slate-900 dark:text-slate-600',
+        'h-6 w-6 cursor-default rounded-full bg-secondary-100 text-slate-400 transition delay-150 duration-300 ease-in-out hover:scale-125 dark:bg-slate-900 dark:text-slate-600',
         isCurrentlyPlaying
           ? 'border border-secondary-500 !bg-secondary-500 text-white dark:!text-black'
           : '',

@@ -1,4 +1,4 @@
-import { IMusicNote, MusicKey, STRING_NAMES } from 'music-notes';
+import { FlatsOrSharps, IMusicNote, MusicKey, STRING_NAMES } from 'music-notes';
 import { FretboardString } from './FretboardString';
 import { FretboardFretNumbers } from './FretNumbers';
 import { FretboardMarkers } from './FretboardMarker';
@@ -10,6 +10,7 @@ interface Props {
   musicKey: MusicKey;
   onNoteClick?: (note: IMusicNote) => void;
   viewType: GuitarFretboardViewType;
+  showFlatsOrSharps: FlatsOrSharps;
 }
 
 export const GuitarFretboard = ({
@@ -17,7 +18,8 @@ export const GuitarFretboard = ({
   notesToPlay,
   musicKey,
   onNoteClick,
-  viewType
+  viewType,
+  showFlatsOrSharps
 }: Props) => {
   return (
     <div
@@ -29,11 +31,11 @@ export const GuitarFretboard = ({
       {[...STRING_NAMES].reverse().map((stringName) => (
         <FretboardString
           viewType={viewType}
+          showFlatsOrSharps={showFlatsOrSharps}
           onNoteClick={onNoteClick}
           key={stringName}
           stringName={stringName}
           numberOfFrets={numberOfFrets}
-          showFlatsOrSharps="sharps"
           notesToPlay={notesToPlay}
           musicKey={musicKey}
         />

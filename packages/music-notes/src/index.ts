@@ -1,4 +1,4 @@
-import { IMusicNote, StringName } from './types';
+import { FlatsOrSharps, IMusicNote, StringName } from './types';
 import Note from '@tonaljs/note';
 
 export * from './types';
@@ -7,21 +7,48 @@ export * from './constants';
 interface GetMusicNotesForString {
   startNote: StringName;
   numberOfFrets: number;
-  sharps?: boolean;
+  flatsOrSharps?: FlatsOrSharps;
 }
 
 export class MusicNotes {
-  static getMusicNoteFromFrequency(pitch: number): IMusicNote {
-    const noteName = Note.fromFreq(pitch);
-    return Note.get(noteName);
+  private static transformAccidental(
+    noteName: IMusicNote['name'],
+    flatsOrSharps?: FlatsOrSharps
+  ): IMusicNote['name'] {
+    if (!flatsOrSharps) {
+      return noteName;
+    }
+
+    if (flatsOrSharps === 'flats' && noteName.includes('#')) {
+      return Note.enharmonic(noteName);
+    }
+
+    if (flatsOrSharps === 'sharps' && noteName.includes('b')) {
+      return Note.enharmonic(noteName);
+    }
+
+    return noteName;
   }
 
-  static getMusicNotesForString({
+  public static getMusicNoteFromFrequency(
+    pitch: number,
+    flatsOrSharps?: FlatsOrSharps
+  ): IMusicNote {
+    const noteName = Note.fromFreq(pitch);
+    const transformedAccidental = MusicNotes.transformAccidental(
+      noteName,
+      flatsOrSharps
+    );
+
+    return Note.get(transformedAccidental);
+  }
+
+  public static getMusicNotesForString({
     numberOfFrets,
     startNote,
-    sharps
+    flatsOrSharps
   }: GetMusicNotesForString): IMusicNote[] {
-    let currentNoteName: string = startNote; 
+    let currentNoteName: string = startNote;
     let currentFretNumber = 0;
 
     const musicNotes: IMusicNote[] = [];
@@ -32,8 +59,12 @@ export class MusicNotes {
 
     while (currentFretNumber < numberOfFrets) {
       const nextNoteName = Note.transpose(currentNoteName, '2m');
-      const simplifiedNextNoteName = Note.simplify(nextNoteName)
-      const nextMusicNote = Note.get(simplifiedNextNoteName);
+      const simplifiedNextNoteName = Note.simplify(nextNoteName);
+      const transformedAccidental = MusicNotes.transformAccidental(
+        simplifiedNextNoteName,
+        flatsOrSharps
+      );
+      const nextMusicNote = Note.get(transformedAccidental);
 
       musicNotes.push(nextMusicNote);
 
@@ -44,11 +75,48 @@ export class MusicNotes {
     return musicNotes;
   }
 
-  static getRangeOfMusicNotes(noteNames: string[]): IMusicNote[] {
-    return noteNames.map((noteName) => Note.get(noteName));
+  public static getMusicNotesByNames(
+    noteNames: string[],
+    flatsOrSharps?: FlatsOrSharps
+  ): IMusicNote[] {
+    return noteNames.map((noteName) =>
+      MusicNotes.getMusicNoteByName(noteName, flatsOrSharps)
+    );
   }
 
-  static getMusicNoteByName(noteName: string): IMusicNote {
-    return Note.get(noteName);
+  public static getMusicNoteByName(
+    noteName: string,
+    flatsOrSharps?: FlatsOrSharps
+  ): IMusicNote {
+    const transformedAccidental = MusicNotes.transformAccidental(
+      noteName,
+      flatsOrSharps
+    );
+
+    return Note.get(transformedAccidental);
+  }
+
+  public static transformMusicNoteAccidental(
+    flatsOrSharps: FlatsOrSharps,
+    musicNote: IMusicNote
+  ): IMusicNote {
+    const transformedAccidental = MusicNotes.transformAccidental(
+      musicNote.name,
+      flatsOrSharps
+    );
+    return Note.get(transformedAccidental);
+  }
+
+  public static transformMusicNotesAccidentals(
+    musicNotes: IMusicNote[],
+    flatsOrSharps?: FlatsOrSharps
+  ): IMusicNote[] {
+    if (!flatsOrSharps) {
+      return musicNotes;
+    }
+
+    return musicNotes.map((musicNote) =>
+      MusicNotes.transformMusicNoteAccidental(flatsOrSharps, musicNote)
+    );
   }
 }

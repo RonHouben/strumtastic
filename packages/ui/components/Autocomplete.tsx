@@ -5,19 +5,23 @@ import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { SelectOption } from '../types';
 import { useClassNames } from '../hooks/useClassNames';
+import Input from './Input';
+import React from 'react';
 
 interface Props<T extends SelectOption> {
-  id: string;
+  name: string;
   options: T[];
   labelProperty: keyof T;
   placeholder?: string;
+  onChange: (selectedOption: T) => void;
 }
 
 export default function AutoComplete<T extends SelectOption>({
-  id,
+  name,
   options,
   labelProperty,
-  placeholder
+  placeholder,
+  onChange
 }: Props<T>) {
   const { classNames } = useClassNames();
   const [selected, setSelected] = useState<T | null>(null);
@@ -42,6 +46,7 @@ export default function AutoComplete<T extends SelectOption>({
   const handleOnChange = (option: T) => {
     setSelected(option);
     setIsOpen(false);
+    onChange(option);
   };
 
   return (
@@ -49,7 +54,7 @@ export default function AutoComplete<T extends SelectOption>({
       <div className="relative mt-1">
         <div className="relative w-full cursor-default overflow-hidden rounded-md text-left shadow-sm">
           <Combobox.Input
-            id={id}
+            name={name}
             className={classNames(
               'relative w-full cursor-default rounded-md py-2 pl-3 pr-10 text-left shadow-sm focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 dark:text-primary-50 sm:text-sm'
             )}

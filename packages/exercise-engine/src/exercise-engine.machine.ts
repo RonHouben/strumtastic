@@ -103,8 +103,8 @@ createMachine(
         loadExercise: assign({
           exercise: (_ctx, event) => ({
             ...event.data.exercise,
-            notesToPlay: MusicNotes.getRangeOfMusicNotes(
-              event.data.exercise.notesToPlay
+            notesToPlay: MusicNotes.getMusicNotesByNames(
+              event.data.exercise.notesToPlay,
             )
           }),
           nextNoteToPlay: (_ctx, event) =>
