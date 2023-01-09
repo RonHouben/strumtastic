@@ -7,30 +7,15 @@ import MenuButtons, { MenuButton } from './MenuButtons';
 import MobileMenu from './MobileMenu';
 import MobileMenuButton from './MobileMenuButton';
 
-const menuButtons: MenuButton[] = [
-  {
-    label: 'Connect guitar',
-    href: '/connect-guitar'
-  },
-  {
-    label: 'Tuner',
-    href: '/tuner'
-  },
-  {
-    label: 'Exercise',
-    href: '/exercise'
-  },
-  {
-    label: 'Admin',
-    href: '/admin'
-  }
-];
+interface Props {
+  menuButtons: MenuButton[];
+}
 
-export default function Navbar() {
+export default function Navbar({ menuButtons }: Props) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="mb-2 shadow-md bg-secondary-500 dark:bg-secondary-900">
+    <nav className="col-start-1 col-span-12 mb-2 shadow-md bg-secondary-500 dark:bg-secondary-900">
       <div className="mx-auto max-w-7xl">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -44,7 +29,7 @@ export default function Navbar() {
               <Typography variant="h1" className='text-gray-100'>Strumtastic</Typography>
             </Link>
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex h-full items-center space-x-4">
+              <div className="flex h-full items-center space-x-4 justify-end">
                 {/* <MenuButtons buttons={menuButtons} /> */}
               </div>
             </div>
