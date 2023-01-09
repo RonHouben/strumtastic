@@ -6,6 +6,7 @@ import SelectExerciseCard from './SelectExerciseCard';
 import { Select } from './Select';
 import AutoComplete from './Autocomplete';
 import ExerciseForm from './ExerciseForm';
+import Sidebar from './Sidebar';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -28,5 +29,6 @@ export {
   TunerCard,
   SelectExerciseCard,
   Select,
-  ExerciseForm
+  ExerciseForm,
+  Sidebar
 };

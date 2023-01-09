@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Color, Size, Variant } from '../types';
 import Button from './Button';
 
 interface Props {
@@ -8,6 +9,10 @@ interface Props {
   target?: '_blank' | '_parent' | '_self' | '_top';
   className?: string;
   children: string;
+  icon?: React.ReactNode;
+  size: Size;
+  variant: Variant;
+  color: Color;
 }
 
 export const ButtonLink = ({
@@ -16,12 +21,24 @@ export const ButtonLink = ({
   disabled,
   target,
   className,
-  children
+  children,
+  icon,
+  size,
+  variant,
+  color
 }: Props) => {
   return (
     <div>
       {disabled && (
-        <Button className={className} selected={selected} disabled={disabled}>
+        <Button
+          className={className}
+          selected={selected}
+          disabled={disabled}
+          icon={icon}
+          size={size}
+          variant={variant}
+          color={color}
+        >
           {children}
         </Button>
       )}
@@ -33,7 +50,15 @@ export const ButtonLink = ({
           className="no-underline"
           tabIndex={-1}
         >
-          <Button className={className} selected={selected} disabled={disabled}>
+          <Button
+            className={className}
+            selected={selected}
+            disabled={disabled}
+            icon={icon}
+            size={size}
+            variant={variant}
+            color={color}
+          >
             {children}
           </Button>
         </Link>
