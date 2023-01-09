@@ -23,7 +23,7 @@ export default function TunerCard({ disabled, onDone, myRef }: Props) {
   }, [onDone]);
 
   return (
-    <Card myRef={myRef} className="h-[30rem] snap-center" disabled={disabled}>
+    <Card myRef={myRef} className="h-[35rem] snap-center" disabled={disabled}>
       <CardMedia>
         {disabled && (
           <TuningForkSVG

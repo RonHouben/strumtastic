@@ -29,7 +29,7 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   }, [onDone, selectedExercise]);
 
   return (
-    <Card className="h-[30rem] snap-center" disabled={disabled} myRef={myRef}>
+    <Card className="h-[35rem] snap-center" disabled={disabled} myRef={myRef}>
       <CardMedia className="relative">
         <GuitarPickSVG
           className={classNames(
@@ -47,11 +47,10 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
             placeHolder="Select exercise..."
             isDisabled={disabled}
             options={
-              exercises
-                ?.map((exercise) => ({
-                  ...exercise,
-                  isDisabled: !exercise.isEnabled
-                })) || []
+              exercises?.map((exercise) => ({
+                ...exercise,
+                isDisabled: !exercise.isEnabled
+              })) || []
             }
             labelProperty="title"
             selected={selectedExercise}
@@ -59,12 +58,10 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
             isLoading={isLoading}
           />
           <Button
+            size="md"
+            variant="filled"
+            color="green"
             disabled={disabled || !selectedExercise}
-            className={classNames(
-              disabled || !selectedExercise
-                ? 'border !border-secondary-500 !bg-inherit shadow-none'
-                : '!bg-secondary-500 hover:!bg-secondary-700'
-            )}
             onClick={handleStartExercise}
           >
             Start!

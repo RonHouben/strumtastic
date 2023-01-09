@@ -28,7 +28,7 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
   }, [disabled, audioEngine, onDone]);
 
   return (
-    <Card className="h-[30rem] snap-center" disabled={disabled}>
+    <Card className="h-[35rem] snap-center" disabled={disabled}>
       <CardMedia>
         <PluginGuitarSVG
           isDone={onboardUser.state.context.isPluggedIn}
@@ -94,6 +94,9 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
 
         {!disabled && !audioEngine.state.matches('initializing') && (
           <Button
+            size='md'
+            variant='filled'
+            color='secondary'
             className="!bg-secondary-500 hover:!bg-secondary-700"
             onClick={handlePluginGuitar}
           >

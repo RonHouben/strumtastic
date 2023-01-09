@@ -13,6 +13,7 @@ interface Props {
   size: Size;
   variant: Variant;
   color: Color;
+  fullWidth?: boolean;
 }
 
 export const ButtonLink = ({
@@ -25,12 +26,14 @@ export const ButtonLink = ({
   icon,
   size,
   variant,
-  color
+  color,
+  fullWidth
 }: Props) => {
   return (
     <div>
       {disabled && (
         <Button
+          fullWidth={fullWidth}
           className={className}
           selected={selected}
           disabled={disabled}
@@ -51,6 +54,7 @@ export const ButtonLink = ({
           tabIndex={-1}
         >
           <Button
+            fullWidth={fullWidth}
             className={className}
             selected={selected}
             disabled={disabled}

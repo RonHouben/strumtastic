@@ -67,14 +67,23 @@ export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
                   Click here to learn how to reset the Microphone permissions
                 </p>
               </Link>
-              <ButtonLink href="/">Go Home</ButtonLink>
+              <ButtonLink size="md" variant="filled" color="secondary" href="/">
+                Go Home
+              </ButtonLink>
             </div>
           </>
         )}
         {audioEngine.state.matches('idle') && (
           <>
             <h1>Thanks for plugging in!</h1>
-            <Button onClick={handleContinue}>Continue</Button>
+            <Button
+              size="md"
+              variant="filled"
+              color="secondary"
+              onClick={handleContinue}
+            >
+              Continue
+            </Button>
           </>
         )}
         <Disclaimer />

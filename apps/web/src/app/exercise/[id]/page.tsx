@@ -103,11 +103,20 @@ export default function ExercisePage({ params }: Props) {
           <AudioEngineNotInitialized />
         )}
         {audioEngine.state.matches('idle') && (
-          <Button onClick={handleStartExercise}>Start Exercise</Button>
+          <Button
+            size="md"
+            variant="filled"
+            color="secondary"
+            onClick={handleStartExercise}
+          >
+            Start Exercise
+          </Button>
         )}
         {audioEngine.state.matches('listeningToMicrophone') && (
           <Button
-            className="bg-red-500 hover:!bg-red-300"
+            size="md"
+            variant="filled"
+            color="red"
             onClick={handleStopExercise}
           >
             Stop Exercise

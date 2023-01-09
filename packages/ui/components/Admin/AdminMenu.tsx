@@ -25,9 +25,6 @@ function getMenuItems(path: string | null): DisclosureItem[] {
   const isShowAllExercisesSelected = path === '/admin/exercises';
   const isCreateExerciseSelected = path === '/admin/exercises/create';
 
-  const buttonSelectedClass = 'dark:!bg-primary-900 !bg-primary-500';
-  const buttonDeselectedClass = 'dark:!bg-secondary-800 dark:!text-gray-400 !bg-secondary-400';
-
   return [
     {
       title: 'Exercises',
@@ -35,21 +32,23 @@ function getMenuItems(path: string | null): DisclosureItem[] {
         <div className="flex flex-col gap-2">
           <ButtonLink
             href="/admin/exercises"
-            className={
-              isShowAllExercisesSelected
-                ? buttonSelectedClass
-                : buttonDeselectedClass
-            }
+            size="md"
+            variant="text"
+            color="secondary"
+            fullWidth
+            className='!justify-start'
+            selected={isShowAllExercisesSelected}
           >
             Show All
           </ButtonLink>
           <ButtonLink
             href="/admin/exercises/create"
-            className={
-              isCreateExerciseSelected
-                ? buttonSelectedClass
-                : buttonDeselectedClass
-            }
+            size="md"
+            variant="text"
+            color="secondary"
+            fullWidth
+            className='!justify-start'
+            selected={isCreateExerciseSelected}
           >
             Create
           </ButtonLink>

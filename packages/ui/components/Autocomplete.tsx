@@ -82,6 +82,7 @@ export default function AutoComplete<T extends SelectOption>({
             onFocus={handleFocus}
             onChange={(event) => setQuery(event.target.value)}
             onBlur={handleBlur}
+            autoComplete='off'
           />
           <Combobox.Button className="absolute inset-y-0 right-0 m-2 flex cursor-pointer items-center rounded-md dark:bg-slate-700 dark:text-primary-50 sm:text-sm">
             <ChevronUpDownIcon

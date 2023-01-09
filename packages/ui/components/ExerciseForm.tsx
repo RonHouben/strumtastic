@@ -145,7 +145,14 @@ export default function ExerciseForm<T extends ExerciseFormState>({
               musicKey={values.key || ''}
             />
           </div>
-          <Button type="submit" disabled={isSubmitting} className="w-32">
+          <Button
+            size="md"
+            variant="filled"
+            color="secondary"
+            type="submit"
+            disabled={isSubmitting}
+            className="w-32"
+          >
             {submitButtonLabel || 'Submit'}
           </Button>
         </>

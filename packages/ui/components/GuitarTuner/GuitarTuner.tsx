@@ -48,7 +48,9 @@ export default function GuitarTuner({ onStopTuner }: Props) {
       />
       {audioEngine.state.matches('idle') && (
         <Button
-          className="!bg-secondary-500 hover:!bg-secondary-700"
+          size="md"
+          variant="filled"
+          color="green"
           onClick={handleStartTuner}
         >
           Start Tuning
@@ -56,7 +58,9 @@ export default function GuitarTuner({ onStopTuner }: Props) {
       )}
       {audioEngine.state.matches('listeningToMicrophone') && (
         <Button
-          className="!bg-secondary-500 hover:!bg-secondary-700"
+          size="md"
+          variant="filled"
+          color="red"
           onClick={handleStopTuner}
         >
           Done
