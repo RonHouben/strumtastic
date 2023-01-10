@@ -10,10 +10,11 @@ import Button from '../Button';
 interface Props {
   title: string;
   isOpen?: boolean;
+  icon?: React.ReactNode;
   children: React.ReactNode | React.ReactNode[];
 }
 
-export default function Disclosure({ children, isOpen, title }: Props) {
+export default function Disclosure({ children, isOpen, title, icon }: Props) {
   return (
     <HeadlessDisclosure
       as="div"
@@ -25,16 +26,18 @@ export default function Disclosure({ children, isOpen, title }: Props) {
           <HeadlessDisclosure.Button
             size="md"
             variant="text"
+            icon={icon}
             fullWidth
             color="secondary"
             as={Button}
             className="justify-between"
+            selected={open}
           >
             <span>{title}</span>
             <ChevronUpIcon
               className={`${
                 open ? 'rotate-180 transform' : ''
-              } h-5 w-5 text-primary-50`}
+              } h-5 w-5 text-primary-50 dark:text-secondary-500 hover:text-primary-50`}
             />
           </HeadlessDisclosure.Button>
           <Transition
@@ -48,7 +51,7 @@ export default function Disclosure({ children, isOpen, title }: Props) {
           >
             <HeadlessDisclosure.Panel
               static
-              className="rounded-md px-4 pt-2 pb-2 text-sm"
+              className="rounded-md pl-5 py-2 text-sm"
             >
               {children}
             </HeadlessDisclosure.Panel>

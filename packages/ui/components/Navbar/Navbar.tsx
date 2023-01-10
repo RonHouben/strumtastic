@@ -3,19 +3,14 @@
 import { useState } from 'react';
 import Link from '../Link';
 import { Typography } from '../Typography';
-import MenuButtons, { MenuButton } from './MenuButtons';
 import MobileMenu from './MobileMenu';
 import MobileMenuButton from './MobileMenuButton';
 
-interface Props {
-  menuButtons: MenuButton[];
-}
-
-export default function Navbar({ menuButtons }: Props) {
+export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="col-start-1 col-span-12 mb-2 shadow-md bg-secondary-500 dark:bg-secondary-900">
+    <nav className="col-span-12 col-start-1 mb-2 bg-secondary-500 shadow-md dark:bg-secondary-900">
       <div className="mx-auto max-w-7xl">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -24,12 +19,14 @@ export default function Navbar({ menuButtons }: Props) {
               onClick={setIsMobileMenuOpen}
             />
           </div>
-          <div className="flex max-sm:justify-center container">
+          <div className="container flex max-sm:justify-center">
             <Link href="/">
-              <Typography variant="h1" className='text-gray-100'>Strumtastic</Typography>
+              <Typography variant="h1" className="text-gray-100">
+                Strumtastic
+              </Typography>
             </Link>
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex h-full items-center space-x-4 justify-end">
+              <div className="flex h-full items-center justify-end space-x-4">
                 {/* <MenuButtons buttons={menuButtons} /> */}
               </div>
             </div>
@@ -40,7 +37,7 @@ export default function Navbar({ menuButtons }: Props) {
       {isMobileMenuOpen && (
         <MobileMenu>
           <div className="flex flex-col gap-3">
-            <MenuButtons buttons={menuButtons} />
+            {/* <MenuButtons buttons={menuButtons} /> */}
           </div>
         </MobileMenu>
       )}

@@ -1,6 +1,5 @@
 'use client';
 
-import { useClassNames } from '../../hooks/useClassNames';
 import { ButtonLink } from '../ButtonLink';
 import { Disclosure } from '../Disclosure/';
 import { usePathname } from 'next/navigation';
@@ -10,11 +9,10 @@ interface Props {
 }
 
 export default function AdminMenu({ className }: Props) {
-  const { classNames } = useClassNames();
   const path = usePathname();
 
   return (
-    <div className={classNames(className || '')}>
+    <>
       <Disclosure title="Exercises">
         <ButtonLink
           href="/admin/exercises"
@@ -52,6 +50,6 @@ export default function AdminMenu({ className }: Props) {
           Show All
         </ButtonLink>
       </Disclosure>
-    </div>
+    </>
   );
 }

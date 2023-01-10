@@ -1,13 +1,13 @@
-import MenuButtons, { MenuButton } from './Navbar/MenuButtons';
+import { AdminMenu } from './Admin';
+import { Disclosure } from './Disclosure';
+import { AdminIconSVG } from './SVG';
 
-interface Props {
-  menuButtons: MenuButton[];
-}
-
-export default function Sidebar({ menuButtons }: Props) {
+export default function Sidebar() {
   return (
     <div className="col-span-2 col-start-1">
-      <MenuButtons buttons={menuButtons} />
+      <Disclosure title="Admin" icon={<AdminIconSVG size="md" />} isOpen>
+        <AdminMenu />
+      </Disclosure>
     </div>
   );
 }

@@ -13,7 +13,8 @@ export default function SVGWrapper({
   width,
   viewBox,
   className,
-  children
+  children,
+  size
 }: Props) {
   const { classNames } = useClassNames();
 
@@ -21,6 +22,11 @@ export default function SVGWrapper({
     <svg
       className={classNames(
         'stroke-primary-500 fill-primary-500 dark:stroke-secondary-900 dark:fill-secondary-900',
+        size === 'xs' ? 'h-3' : '',
+        size === 'sm' ? 'h-4' : '',
+        size === 'md' ? 'h-5' : '',
+        size === 'lg' ? 'h-7' : '',
+        size === 'xl' ? 'h-9' : '',
         className || ''
       )}
       version="1.1"
