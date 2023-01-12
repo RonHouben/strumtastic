@@ -7,6 +7,7 @@ import { Select } from './Select';
 import AutoComplete from './Autocomplete';
 import ExerciseForm from './ExerciseForm';
 import Sidebar from './Sidebar';
+import IconButton from './IconButton';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -30,5 +31,6 @@ export {
   SelectExerciseCard,
   Select,
   ExerciseForm,
-  Sidebar
+  Sidebar,
+  IconButton
 };

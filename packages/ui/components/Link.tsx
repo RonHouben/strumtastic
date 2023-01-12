@@ -16,7 +16,7 @@ export default function Link({ href, target, tabIndex, className, children }: Pr
     <NextLink
       href={href}
       target={target}
-      className={classNames('no-underline text-accent-500 hover:text-accent-800 duration-500 outline-secondary-700', className || '')}
+      className={classNames('w-fit no-underline text-accent-500 hover:text-accent-800 duration-500 outline-secondary-700', className || '')}
       tabIndex={tabIndex}
     >
       {children}
