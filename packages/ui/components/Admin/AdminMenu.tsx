@@ -9,7 +9,7 @@ export default function AdminMenu() {
 
   return (
     <>
-      <Disclosure title="Exercises">
+      <Disclosure title="Exercises" isOpen={path?.includes('/admin/exercises')}>
         <ButtonLink
           href="/admin/exercises"
           size="md"
@@ -31,17 +31,6 @@ export default function AdminMenu() {
           selected={path === '/admin/exercises/create'}
         >
           Create
-        </ButtonLink>
-        <ButtonLink
-          href={`${path}#`}
-          size="md"
-          variant="text"
-          color="secondary"
-          fullWidth
-          className="!justify-start"
-          selected={path === '/admin/exercises/update'}
-        >
-          Update
         </ButtonLink>
       </Disclosure>
       <Disclosure title="Users">
