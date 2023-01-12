@@ -28,6 +28,7 @@ export default function Disclosure({ children, isOpen, title, icon }: Props) {
             variant="text"
             icon={icon}
             fullWidth
+            refName='disclosure-button'
             color="secondary"
             as={Button}
             className="justify-between"

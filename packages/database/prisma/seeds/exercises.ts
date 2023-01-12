@@ -19,7 +19,7 @@ export async function seedExercises(prismaClient: PrismaClient) {
       isEnabled: false,
       title: 'C Major (Ionian) scale',
       key: 'C major',
-      notesToPlay: []
+      notesToPlay: ['C3', 'D3', 'E3', 'F3', 'G3', 'A4', 'B4']
     }
   ];
 
