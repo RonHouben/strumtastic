@@ -7,9 +7,10 @@ interface Props {
   variant: Variant;
   color: Color;
   children: React.ReactNode;
+  onClick: () => void;
 }
 
-export default function IconButton({ children, size, variant, color }: Props) {
+export default function IconButton({ children, size, variant, color, onClick }: Props) {
   const { classNames } = useClassNames();
 
   return (
@@ -26,6 +27,7 @@ export default function IconButton({ children, size, variant, color }: Props) {
         size === 'lg' ? 'h-8 w-8 !p-1' : '',
         size === 'xl' ? 'h-9 w-9 !p-1' : ''
       )}
+      onClick={onClick}
     >
       {''}
     </Button>

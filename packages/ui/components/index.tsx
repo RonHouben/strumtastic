@@ -5,7 +5,6 @@ import TunerCard from './TunerCard';
 import SelectExerciseCard from './SelectExerciseCard';
 import { Select } from './Select';
 import AutoComplete from './Autocomplete';
-import ExerciseForm from './ExerciseForm';
 import Sidebar from './Sidebar';
 import IconButton from './IconButton';
 
@@ -30,7 +29,6 @@ export {
   TunerCard,
   SelectExerciseCard,
   Select,
-  ExerciseForm,
   Sidebar,
   IconButton
 };

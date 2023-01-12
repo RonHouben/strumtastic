@@ -1,14 +1,14 @@
 import { exercisesSchemas } from '@server/routers/exercises.schema';
 import { IMusicNote, MusicKey } from 'music-notes';
-import { SelectOption } from '../types';
-import AutoComplete from './Autocomplete';
-import Button from './Button';
-import { Form, InputWrapper, InputField } from './Form';
-import { GuitarFretboard } from './GuitarFretboard';
-import Switch from './Form/Switch';
+import { SelectOption } from '../../types';
+import AutoComplete from '../Autocomplete';
+import Button from '../Button';
+import { Form, InputWrapper, InputField } from '../Form';
+import { GuitarFretboard } from '../GuitarFretboard';
+import Switch from '../Form/Switch';
 import { FormikHelpers } from 'formik';
 import { ZodType } from 'zod';
-import { useMusicNotes } from '../hooks/useMusicNotes';
+import { useMusicNotes } from '../../hooks/useMusicNotes';
 
 interface Props<T extends ExerciseFormState> {
   handleSubmit: (values: T, formikHelpers: FormikHelpers<T>) => void;
@@ -112,6 +112,7 @@ export default function ExerciseForm<T extends ExerciseFormState>({
               selected={keys.find((key) => key.key === values.key)}
               labelProperty="key"
               placeholder="Select a key"
+              onChange={({ key }) => setFieldValue('key', key)}
             />
           </InputWrapper>
 

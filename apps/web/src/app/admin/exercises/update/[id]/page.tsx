@@ -1,7 +1,7 @@
 'use client';
 
-import { trpc } from '@client/trpc';
-import { ExerciseForm } from 'ui/components';
+import { api } from '@client/trpc';
+import ExerciseForm from 'ui/components/Admin/ExerciseForm';
 import { FormikHelpers } from 'formik';
 import { exercisesSchemas } from '@server/routers/exercises.schema';
 import Loading from 'src/app/loading';
@@ -17,9 +17,9 @@ export default function UpdateExercisePage({ params }: Props) {
     data: exercise,
     isLoading: isLoadingQuery,
     isError: isErrorQuery,
-  } = trpc.exercises.getById.useQuery({ id: params.id });
+  } = api.exercises.getById.useQuery({ id: params.id });
 
-  const { mutate } = trpc.exercises.updateById.useMutation();
+  const { mutate } = api.exercises.updateById.useMutation();
 
   const handleSubmit = (
     values: UpdateExerciseValues,

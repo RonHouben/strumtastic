@@ -1,15 +1,18 @@
 'use client';
 
-import { trpc } from '@client/trpc';
-import { ExerciseForm } from 'ui/components';
+import { api } from '@client/trpc';
+import { ExerciseForm } from 'ui/components/Admin/';
 import { FormikHelpers } from 'formik';
 import { exercisesSchemas } from '@server/routers/exercises.schema';
+import { useRouter } from 'next/navigation';
 
 type CreateExerciseValues = typeof exercisesSchemas.create._output;
 
 export default function CreateExercisePage() {
   const { mutate, data, isError, isLoading, error } =
-    trpc.exercises.create.useMutation();
+    api.exercises.create.useMutation();
+  
+  const router = useRouter();
 
   const handleSubmit = (
     values: CreateExerciseValues,
@@ -24,6 +27,8 @@ export default function CreateExercisePage() {
         setSubmitting(false);
         resetForm();
         // TODO: show Toaster succes message
+
+        router.push('/admin/exercises');
       },
     });
   };

@@ -27,7 +27,7 @@ export default function AutoComplete<T extends SelectOption>({
   onBlur
 }: Props<T>) {
   const { classNames } = useClassNames();
-  const { setFieldTouched, setFieldValue } = useFormikContext();
+  const { setFieldTouched, setFieldValue } = useFormikContext<T>();
   const [selectedOption, setSelectedOption] = useState<T | undefined>(selected);
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
