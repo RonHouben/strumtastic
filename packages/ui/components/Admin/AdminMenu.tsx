@@ -4,11 +4,7 @@ import { ButtonLink } from '../ButtonLink';
 import { Disclosure } from '../Disclosure/';
 import { usePathname } from 'next/navigation';
 
-interface Props {
-  className?: string;
-}
-
-export default function AdminMenu({ className }: Props) {
+export default function AdminMenu() {
   const path = usePathname();
 
   return (
@@ -36,10 +32,21 @@ export default function AdminMenu({ className }: Props) {
         >
           Create
         </ButtonLink>
+        <ButtonLink
+          href={`${path}#`}
+          size="md"
+          variant="text"
+          color="secondary"
+          fullWidth
+          className="!justify-start"
+          selected={path === '/admin/exercises/update'}
+        >
+          Update
+        </ButtonLink>
       </Disclosure>
       <Disclosure title="Users">
         <ButtonLink
-          href={`${path}/#`}
+          href={`${path}#`}
           size="md"
           variant="text"
           color="secondary"
