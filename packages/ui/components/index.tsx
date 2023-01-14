@@ -7,6 +7,8 @@ import { Select } from './Select';
 import AutoComplete from './Autocomplete';
 import Sidebar from './Sidebar';
 import IconButton from './IconButton';
+import IconButtonLink from './IconButtonLink';
+import Skeleton from './Skeleton';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -30,5 +32,7 @@ export {
   SelectExerciseCard,
   Select,
   Sidebar,
-  IconButton
+  IconButton,
+  IconButtonLink,
+  Skeleton
 };
