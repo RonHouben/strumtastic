@@ -9,7 +9,7 @@ import { AudioEngineNotInitialized } from 'ui/components/AudioEngine/NotInitiali
 import { useGlobalState } from 'ui/hooks/useGlobalState';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
 import Loading from '../../loading';
-import { trpc } from '@client/trpc';
+import { api } from '@client/trpc';
 import { FlatsOrSharps, IMusicNote } from 'music-notes';
 
 interface Props {
@@ -23,7 +23,7 @@ export default function ExercisePage({ params }: Props) {
     isLoading,
     isError,
     data: exercise,
-  } = trpc.exercises.getById.useQuery({ id: params.id });
+  } = api.exercises.getById.useQuery({ id: params.id });
 
   const { getMusicNoteFromFrequency, transformMusicNotesAccidentals } =
     useMusicNotes();
