@@ -1702,6 +1702,26 @@ video {
   background-color: rgb(239 68 68 / 0.5) !important;
 }
 
+.\!bg-secondary-500\/100 {
+  background-color: rgb(114 82 255 / 1) !important;
+}
+
+.\!bg-primary-500\/100 {
+  background-color: rgb(30 154 255 / 1) !important;
+}
+
+.\!bg-green-500\/100 {
+  background-color: rgb(34 197 94 / 1) !important;
+}
+
+.\!bg-amber-500\/100 {
+  background-color: rgb(245 158 11 / 1) !important;
+}
+
+.\!bg-red-500\/100 {
+  background-color: rgb(239 68 68 / 1) !important;
+}
+
 .\!fill-green-300 {
   fill: #86efac !important;
 }
@@ -2247,6 +2267,26 @@ video {
 
 .brightness-125 {
   --tw-brightness: brightness(1.25);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.brightness-100 {
+  --tw-brightness: brightness(1);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.brightness-0 {
+  --tw-brightness: brightness(0);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.\!brightness-100 {
+  --tw-brightness: brightness(1) !important;
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
+}
+
+.grayscale-0 {
+  --tw-grayscale: grayscale(0);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -2903,6 +2943,42 @@ video {
     background-color: rgb(0 0 0 / var(--tw-bg-opacity));
   }
 
+  .dark\:\!bg-secondary-500\/50 {
+    background-color: rgb(114 82 255 / 0.5) !important;
+  }
+
+  .dark\:\!bg-secondary-500\/75 {
+    background-color: rgb(114 82 255 / 0.75) !important;
+  }
+
+  .dark\:\!bg-secondary-500\/100 {
+    background-color: rgb(114 82 255 / 1) !important;
+  }
+
+  .dark\:\!bg-secondary-500\/60 {
+    background-color: rgb(114 82 255 / 0.6) !important;
+  }
+
+  .dark\:\!bg-secondary-500\/70 {
+    background-color: rgb(114 82 255 / 0.7) !important;
+  }
+
+  .dark\:\!bg-primary-500\/70 {
+    background-color: rgb(30 154 255 / 0.7) !important;
+  }
+
+  .dark\:\!bg-green-500\/70 {
+    background-color: rgb(34 197 94 / 0.7) !important;
+  }
+
+  .dark\:\!bg-amber-500\/70 {
+    background-color: rgb(245 158 11 / 0.7) !important;
+  }
+
+  .dark\:\!bg-red-500\/70 {
+    background-color: rgb(239 68 68 / 0.7) !important;
+  }
+
   .dark\:fill-secondary-500 {
     fill: #7252ff;
   }
@@ -2971,6 +3047,11 @@ video {
     --tw-shadow: 0 0 #0000;
     --tw-shadow-colored: 0 0 #0000;
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+
+  .dark\:\!brightness-100 {
+    --tw-brightness: brightness(1) !important;
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
   }
 
   .dark\:scrollbar-track-slate-800 {
