@@ -93,7 +93,7 @@ export default function Button({
                 ? 'hover:!bg-primary-500/50 hover:!text-primary-400'
                 : '',
               color === 'secondary'
-                ? 'hover:bg-secondary-500/50 hover:!text-secondary-400'
+                ? 'hover:!bg-secondary-500/50 hover:!text-secondary-400'
                 : '',
               color === 'green'
                 ? 'hover!:text-green-400 hover:!bg-green-500/50'

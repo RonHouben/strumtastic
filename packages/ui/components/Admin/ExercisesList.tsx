@@ -3,8 +3,11 @@
 import { api } from '@client/trpc';
 import { Exercise } from 'database';
 import IconButton from '../IconButton';
-import Link from '../Link';
-import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
+import DeleteIcon from '@heroicons/react/24/outline/TrashIcon';
+import EditIcon from '@heroicons/react/24/outline/PencilSquareIcon';
+import IconButtonLink from '../IconButtonLink';
+import { Typography } from '../Typography';
+import Skeleton from '../Skeleton';
 
 export default function ExercisesList() {
   const {
@@ -15,17 +18,15 @@ export default function ExercisesList() {
   const { mutate } = api.exercises.delete.useMutation();
 
   const handleDeleteExercise = async (id: Exercise['id']) => {
+    // TODO: add confirm delete dialog
     mutate({ id });
   };
 
   return (
     <>
       {isLoading && (
-        <div className='my-2'>
-          <span className="inline-block h-5 w-10/12 animate-pulse rounded-md bg-secondary-900" />
-          <span className="inline-block h-5 w-10/12 animate-pulse rounded-md bg-secondary-900" />
-          <span className="inline-block h-5 w-10/12 animate-pulse rounded-md bg-secondary-900" />
-          <span className="inline-block h-5 w-10/12 animate-pulse rounded-md bg-secondary-900" />
+        <div className="my-2">
+          <Skeleton lines={10} />
         </div>
       )}
       {!isLoading && !isError && exercises && (
@@ -35,16 +36,22 @@ export default function ExercisesList() {
               key={exercise.id}
               className="flex w-fit justify-between gap-4 align-middle"
             >
-              <Link href={`/admin/exercises/update/${exercise.id}`}>
-                {exercise.title}
-              </Link>
-              <IconButton
+              <Typography variant='p'>{exercise.title}</Typography>
+              <IconButtonLink
+                href={`/admin/exercises/edit/${exercise.id}`}
                 color="secondary"
+                variant="text"
+                size="md"
+              >
+                <EditIcon />
+              </IconButtonLink>
+              <IconButton
+                color="red"
                 variant="text"
                 size="md"
                 onClick={() => handleDeleteExercise(exercise.id)}
               >
-                <TrashIcon />
+                <DeleteIcon />
               </IconButton>
             </div>
           ))}

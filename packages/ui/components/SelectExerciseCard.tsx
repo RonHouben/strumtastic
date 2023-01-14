@@ -7,7 +7,7 @@ import { Card, CardMedia, CardContent } from './Card';
 import Select from './Select/Select';
 import { GuitarPickSVG } from './SVG';
 import { Typography } from './Typography';
-import { trpc } from '@client/trpc';
+import { api } from '@client/trpc';
 import { Exercise } from '@prisma/client';
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
 
 export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
-  const { isLoading, data: exercises } = trpc.exercises.getAll.useQuery();
+  const { isLoading, data: exercises } = api.exercises.getAll.useQuery();
 
   const [selectedExercise, setSelectedExercise] = useState<Exercise>();
 

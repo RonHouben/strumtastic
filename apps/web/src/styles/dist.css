@@ -1217,6 +1217,10 @@ video {
   height: 0.75rem;
 }
 
+.\!h-7 {
+  height: 1.75rem !important;
+}
+
 .max-h-60 {
   max-height: 15rem;
 }
@@ -1280,6 +1284,10 @@ video {
 
 .w-60 {
   width: 15rem;
+}
+
+.\!w-7 {
+  width: 1.75rem !important;
 }
 
 .min-w-full {
@@ -2612,6 +2620,10 @@ video {
 
 .hover\:\!bg-red-500\/50:hover {
   background-color: rgb(239 68 68 / 0.5) !important;
+}
+
+.hover\:\!bg-secondary-500\/50:hover {
+  background-color: rgb(114 82 255 / 0.5) !important;
 }
 
 .hover\:\!text-primary-400:hover {

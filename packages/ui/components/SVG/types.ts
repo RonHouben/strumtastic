@@ -16,7 +16,7 @@ type PreserveAspectRatio =
 export interface SVGProps {
   height?: number | string;
   width?: number | string;
-  size: Size;
+  size?: Size;
   className?: string;
   preserveAspectRatio?: PreserveAspectRatio;
 }
