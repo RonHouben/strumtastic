@@ -1,13 +1,9 @@
-import { AdminMenu } from './Admin';
-import { Disclosure } from './Disclosure';
-import { AdminIconSVG } from './SVG';
+import NavMenuButtons from "./NavMenuButtons";
 
 export default function Sidebar() {
   return (
-    <div className="col-span-2 col-start-1">
-      <Disclosure title="Admin" icon={<AdminIconSVG size="md" />} isOpen>
-        <AdminMenu />
-      </Disclosure>
+    <div className="col-span-3 col-start-1 max-sm:hidden">
+      <NavMenuButtons />
     </div>
   );
 }

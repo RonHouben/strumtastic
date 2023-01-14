@@ -9,6 +9,7 @@ import Sidebar from './Sidebar';
 import IconButton from './IconButton';
 import IconButtonLink from './IconButtonLink';
 import Skeleton from './Skeleton';
+import NavMenuButtons from './NavMenuButtons';
 
 export * from './Navbar/Navbar';
 export * from './AudioEngine';
@@ -34,5 +35,6 @@ export {
   Sidebar,
   IconButton,
   IconButtonLink,
-  Skeleton
+  Skeleton,
+  NavMenuButtons
 };

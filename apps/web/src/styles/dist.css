@@ -1069,12 +1069,24 @@ video {
   grid-column: span 10 / span 10;
 }
 
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
+.col-span-9 {
+  grid-column: span 9 / span 9;
+}
+
 .col-start-1 {
   grid-column-start: 1;
 }
 
 .col-start-3 {
   grid-column-start: 3;
+}
+
+.col-start-4 {
+  grid-column-start: 4;
 }
 
 .m-2 {
@@ -3102,6 +3114,22 @@ video {
 }
 
 @media not all and (min-width: 640px) {
+  .max-sm\:col-span-10 {
+    grid-column: span 10 / span 10;
+  }
+
+  .max-sm\:col-span-12 {
+    grid-column: span 12 / span 12;
+  }
+
+  .max-sm\:col-start-1 {
+    grid-column-start: 1;
+  }
+
+  .max-sm\:hidden {
+    display: none;
+  }
+
   .max-sm\:justify-center {
     justify-content: center;
   }
