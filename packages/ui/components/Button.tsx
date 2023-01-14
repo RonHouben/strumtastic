@@ -63,7 +63,7 @@ export default function Button({
               color === 'secondary' ? '!text-secondary-200' : '',
               color === 'green' ? '!text-green-200' : '',
               color === 'amber' ? '!text-amber-200' : '',
-              color === 'red' ? '!text-red-200' : '',
+              color === 'red' ? '!text-red-200' : ''
             )
           : '',
         variant === 'outlined'
@@ -111,21 +111,21 @@ export default function Button({
               variant === 'outlined' ? '' : '',
               variant === 'text'
                 ? classNames(
-                    'backdrop-grayscale-0',
+                    'dark:!brightness-100',
                     color === 'primary'
-                      ? '!bg-primary-500/50 !text-primary-200 hover:!text-primary-50'
+                      ? '!bg-primary-500/100  !text-primary-200 hover:!text-primary-50 dark:!bg-primary-500/70'
                       : '',
                     color === 'secondary'
-                      ? '!bg-secondary-500/50 !text-secondary-200 hover:!text-secondary-50'
+                      ? '!bg-secondary-500/100 !text-secondary-200 hover:!text-secondary-50 dark:!bg-secondary-500/70'
                       : '',
                     color === 'green'
-                      ? 'hover!:text-green-50 !bg-green-500/50 !text-green-200'
+                      ? 'hover!:text-green-50 !bg-green-500/100 !text-green-200 dark:!bg-green-500/70'
                       : '',
                     color === 'amber'
-                      ? 'hover!:text-amber-50 !bg-amber-500/50 !text-amber-200'
+                      ? 'hover!:text-amber-50 !bg-amber-500/100 !text-amber-200 dark:!bg-amber-500/70'
                       : '',
                     color === 'red'
-                      ? 'hover!:text-red-50 !bg-red-500/50 !text-red-200'
+                      ? 'hover!:text-red-50 !bg-red-500/100 !text-red-200 dark:!bg-red-500/70'
                       : ''
                   )
                 : ''
