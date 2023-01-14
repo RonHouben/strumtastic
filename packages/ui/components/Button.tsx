@@ -36,89 +36,109 @@ export default function Button({
   return (
     <button
       className={classNames(
-        'flex items-center justify-center gap-1 rounded-md text-center font-medium text-slate-200 duration-500',
+        'flex items-center justify-center gap-1 rounded-md text-center font-medium duration-500',
         fullWidth ? 'w-full' : '',
         size === 'xs' ? 'px-3 py-2 text-xs' : '',
         size === 'sm' ? 'px-3 py-2 text-sm' : '',
         size === 'md' ? 'px-5 py-2.5' : '',
         size === 'lg' ? 'px-5 py-3 text-base' : '',
         size === 'xl' ? 'px-6 py-3.5 text-base' : '',
-        color === 'primary' ? 'bg-primary-500' : '',
-        color === 'secondary' ? 'bg-secondary-500' : '',
-        color === 'green' ? 'bg-green-600' : '',
-        color === 'amber' ? 'bg-amber-600' : '',
-        color === 'red' ? 'bg-red-600' : '',
-        variant === 'filled' ? 'hover:shadow-lg' : '',
+        color === 'primary'
+          ? 'bg-primary-500 text-primary-800 hover:text-primary-50'
+          : '',
+        color === 'secondary'
+          ? 'bg-secondary-500 text-secondary-800 hover:text-secondary-50'
+          : '',
+        color === 'green'
+          ? 'bg-green-500 text-green-800 hover:text-green-50'
+          : '',
+        color === 'amber'
+          ? 'bg-amber-500 text-amber-800 hover:text-amber-50'
+          : '',
+        color === 'red' ? 'bg-red-500 text-red-800 hover:text-red-50' : '',
+        variant === 'filled'
+          ? classNames(
+              'hover:shadow-lg hover:brightness-125',
+              color === 'primary' ? '!text-primary-200' : '',
+              color === 'secondary' ? '!text-secondary-200' : '',
+              color === 'green' ? '!text-green-200' : '',
+              color === 'amber' ? '!text-amber-200' : '',
+              color === 'red' ? '!text-red-200' : '',
+            )
+          : '',
         variant === 'outlined'
           ? classNames(
-              'border bg-transparent',
+              'border !bg-transparent',
               color === 'primary'
-                ? 'border-primary-500 !text-primary-500 hover:border-primary-400 hover:!text-primary-400'
+                ? 'border-primary-500 !text-primary-500 hover:!text-primary-900'
                 : '',
               color === 'secondary'
-                ? 'border-secondary-500 !text-secondary-500 hover:border-secondary-400 hover:!text-secondary-400'
+                ? 'border-secondary-500 !text-secondary-500 hover:!text-secondary-900'
                 : '',
               color === 'green'
-                ? 'border-green-600 !text-green-600 hover:border-green-500 hover:!text-green-500'
+                ? 'border-green-500 !text-green-500 hover:!text-green-900'
                 : '',
               color === 'amber'
-                ? 'border-amber-600 !text-amber-600 hover:border-amber-500 hover:!text-amber-500'
+                ? 'border-amber-600 !text-amber-500 hover:!text-amber-900'
                 : '',
               color === 'red'
-                ? 'border-red-600 !text-red-600 hover:border-red-500 hover:!text-red-500'
+                ? 'border-red-600 !text-red-500 hover:!text-red-900'
                 : ''
             )
           : '',
         variant === 'text'
           ? classNames(
-              'bg-transparent',
+              '!bg-transparent',
               color === 'primary'
-                ? '!text-primary-600 hover:bg-primary-600/25 hover:!text-slate-200 hover:backdrop-grayscale-0'
+                ? 'hover:!bg-primary-500/50 hover:!text-primary-400'
                 : '',
               color === 'secondary'
-                ? '!text-secondary-500 hover:bg-secondary-500/25 hover:!text-slate-200 hover:backdrop-grayscale-0'
+                ? 'hover:bg-secondary-500/50 hover:!text-secondary-400'
                 : '',
               color === 'green'
-                ? '!text-green-600 hover:bg-green-600/25 hover:!text-slate-200 hover:backdrop-grayscale-0'
+                ? 'hover!:text-green-400 hover:!bg-green-500/50'
                 : '',
               color === 'amber'
-                ? '!text-amber-600 hover:bg-amber-600/25 hover:!text-slate-200 hover:backdrop-grayscale-0'
+                ? 'hover!:text-amber-400 hover:!bg-amber-500/50'
                 : '',
-              color === 'red'
-                ? '!text-red-600 hover:bg-red-600/25 hover:!text-slate-200 hover:backdrop-grayscale-0'
-                : ''
+              color === 'red' ? 'hover!:text-red-400 hover:!bg-red-500/50' : ''
             )
           : '',
         selected
           ? classNames(
-              '!text-slate-200',
+              'brightness-125',
+              variant === 'filled' ? 'shadow-lg' : '',
+              variant === 'outlined' ? '' : '',
               variant === 'text'
                 ? classNames(
+                    'backdrop-grayscale-0',
                     color === 'primary'
-                      ? 'bg-primary-600/25 backdrop-grayscale-0'
+                      ? '!bg-primary-500/50 !text-primary-300 hover:!text-primary-50'
                       : '',
                     color === 'secondary'
-                      ? 'bg-secondary-500/25 backdrop-grayscale-0'
+                      ? '!bg-secondary-500/50 !text-secondary-300 hover:!text-secondary-50'
                       : '',
                     color === 'green'
-                      ? 'bg-green-600/25 backdrop-grayscale-0'
+                      ? 'hover!:text-green-50 !bg-green-500/50 !text-green-300'
                       : '',
                     color === 'amber'
-                      ? 'bg-amber-600/25 backdrop-grayscale-0'
+                      ? 'hover!:text-amber-50 !bg-amber-500/50 !text-amber-300'
                       : '',
-                    color === 'red' ? 'bg-red-600/25 backdrop-grayscale-0' : ''
+                    color === 'red'
+                      ? 'hover!:text-red-50 !bg-red-500/50 !text-red-300'
+                      : ''
                   )
                 : ''
             )
           : '',
         disabled
           ? classNames(
-              'backdrop-grayscale-0',
-              color === 'primary' ? 'bg-primary-500/25' : '',
-              color === 'secondary' ? 'bg-secondary-500/25' : '',
-              color === 'green' ? 'bg-green-600/25' : '',
-              color === 'amber' ? 'bg-amber-600/25' : '',
-              color === 'red' ? 'bg-red-600/25' : ''
+              'cursor-not-allowed brightness-50 backdrop-grayscale-0 hover:!bg-transparent',
+              color === 'primary' ? 'hover:!text-primary-800' : '',
+              color === 'secondary' ? 'hover:!text-secondary-800' : '',
+              color === 'green' ? 'hover:!text-green-800' : '',
+              color === 'amber' ? 'hover:!text-amber-800' : '',
+              color === 'red' ? 'hover:!text-red-800' : ''
             )
           : '',
         className || ''
