@@ -113,19 +113,19 @@ export default function Button({
                 ? classNames(
                     'backdrop-grayscale-0',
                     color === 'primary'
-                      ? '!bg-primary-500/50 !text-primary-300 hover:!text-primary-50'
+                      ? '!bg-primary-500/50 !text-primary-200 hover:!text-primary-50'
                       : '',
                     color === 'secondary'
-                      ? '!bg-secondary-500/50 !text-secondary-300 hover:!text-secondary-50'
+                      ? '!bg-secondary-500/50 !text-secondary-200 hover:!text-secondary-50'
                       : '',
                     color === 'green'
-                      ? 'hover!:text-green-50 !bg-green-500/50 !text-green-300'
+                      ? 'hover!:text-green-50 !bg-green-500/50 !text-green-200'
                       : '',
                     color === 'amber'
-                      ? 'hover!:text-amber-50 !bg-amber-500/50 !text-amber-300'
+                      ? 'hover!:text-amber-50 !bg-amber-500/50 !text-amber-200'
                       : '',
                     color === 'red'
-                      ? 'hover!:text-red-50 !bg-red-500/50 !text-red-300'
+                      ? 'hover!:text-red-50 !bg-red-500/50 !text-red-200'
                       : ''
                   )
                 : ''
