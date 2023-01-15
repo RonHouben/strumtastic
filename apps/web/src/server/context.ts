@@ -1,5 +1,6 @@
 import * as trpc from '@trpc/server';
 import * as trpcNext from '@trpc/server/adapters/next';
+import { prisma } from './prisma';
 
 // This example is taken from:
 // https://github.com/trpc/next-13/blob/main/server/context.tshttps://github.com/trpc/next-13/blob/main/server/context.ts
@@ -16,7 +17,7 @@ export async function createContext(
   // for API-response caching see https://trpc.io/docs/caching
   return {
     type: opts.type,
-    foo: 'bar'
+    prisma
   };
 }
 

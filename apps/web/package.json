@@ -36,6 +36,7 @@
     "concurrently": "7.6.0",
     "database": "*",
     "exercise-engine": "*",
+    "formik": "^2.2.9",
     "install": "^0.13.0",
     "music-notes": "*",
     "next": "latest",
@@ -47,7 +48,8 @@
     "superjson": "^1.12.1",
     "ui": "*",
     "use-reducer-async": "^2.1.1",
-    "zod": "^3.20.2"
+    "zod": "^3.20.2",
+    "zod-formik-adapter": "^1.2.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.8",

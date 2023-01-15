@@ -1,6 +1,5 @@
 'use client';
 
-import { LoadExercise } from 'exercise-engine';
 import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import Button from './Button';
@@ -8,7 +7,7 @@ import { Card, CardMedia, CardContent } from './Card';
 import Select from './Select/Select';
 import { GuitarPickSVG } from './SVG';
 import { Typography } from './Typography';
-import { trpc } from '@client/trpc';
+import { api } from '@client/trpc';
 import { Exercise } from '@prisma/client';
 
 interface Props {
@@ -19,7 +18,7 @@ interface Props {
 
 export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
-  const { isLoading, data: exercises } = trpc.exercises.getAll.useQuery();
+  const { isLoading, data: exercises } = api.exercises.getAll.useQuery();
 
   const [selectedExercise, setSelectedExercise] = useState<Exercise>();
 
@@ -30,7 +29,7 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
   }, [onDone, selectedExercise]);
 
   return (
-    <Card className="h-[30rem] snap-center" disabled={disabled} myRef={myRef}>
+    <Card className="h-[35rem] snap-center" disabled={disabled} myRef={myRef}>
       <CardMedia className="relative">
         <GuitarPickSVG
           className={classNames(
@@ -47,24 +46,28 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
           <Select
             placeHolder="Select exercise..."
             isDisabled={disabled}
-            options={exercises || []}
+            options={
+              exercises?.map((exercise) => ({
+                ...exercise,
+                isDisabled: !exercise.isEnabled
+              })) || []
+            }
             labelProperty="title"
             selected={selectedExercise}
             onChange={setSelectedExercise}
             isLoading={isLoading}
           />
           <Button
+            size="md"
+            variant="filled"
+            color="green"
             disabled={disabled || !selectedExercise}
-            label="Start!"
-            className={classNames(
-              disabled || !selectedExercise
-                ? '!border-secondary-500 border !bg-inherit shadow-none'
-                : '!bg-secondary-500 hover:!bg-secondary-700'
-            )}
             onClick={handleStartExercise}
-          />
+          >
+            Start!
+          </Button>
         </div>
-        <p className="!text-secondary-700 text-center">
+        <p className="text-center !text-secondary-700">
           Register to get access to all exercises!
         </p>
       </CardContent>

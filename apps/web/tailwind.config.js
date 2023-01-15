@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   ...require('ui/tailwind.config'),
+  experimental: {
+    optimizeUniversalDefaults: true,
+  },
   darkMode: 'media',
   content: [
     './src/app/**/*.{js,ts,jsx,tsx}',

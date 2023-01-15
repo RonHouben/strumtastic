@@ -12,7 +12,7 @@ export default function Typography({ variant, className, children }: Props) {
   return (
     <Article className={className}>
       {variant === 'h1' && (
-        <h1 className={classNames('text-primary-500 dark:text-primary-600', className || '')}>
+        <h1 className={classNames('text-primary-500 dark:text-primary-600 mb-4', className || '')}>
           {children}
         </h1>
       )}

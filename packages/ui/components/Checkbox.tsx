@@ -1,4 +1,4 @@
-import { InputLabel } from './InputLabel';
+import InputLabel from './Form/InputLabel';
 
 interface Props {
   id: string;
@@ -11,7 +11,7 @@ interface Props {
 export const Checkbox = ({ id, label, checked, disabled, onChange }: Props) => {
   return (
     <>
-      {label && <InputLabel label={label} htmlFor={id} />}
+      {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
       <input
         id={id}
         type="checkbox"

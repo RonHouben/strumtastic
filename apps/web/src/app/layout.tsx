@@ -1,7 +1,7 @@
 import '@styles/dist.css';
 import React from 'react';
 import { Navbar } from 'ui/components/Navbar';
-import {} from 'ui/components';
+import { Sidebar } from 'ui/components';
 import { Providers } from './providers';
 
 interface Props {
@@ -14,10 +14,13 @@ export default function RootLayout({ children }: Props) {
       <head>
         <title>Strumtastic</title>
       </head>
-      <body className='bg-secondary-100 dark:bg-black'>
-        <Navbar />
-        <div className="container mx-auto">
-          <Providers>{children}</Providers>
+      <body className="bg-secondary-100 text-base dark:bg-black dark:text-primary-50">
+        <div className="grid grid-cols-12 gap-4">
+          <Navbar />
+          <Sidebar />
+          <div className="container col-span-10 col-start-3 mx-auto max-sm:col-span-12 max-sm:col-start-1">
+            <Providers>{children}</Providers>
+          </div>
         </div>
       </body>
     </html>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Button } from 'ui/components';
 import { GuitarFretboard } from 'ui/components/GuitarFretboard';
 import { Article } from 'ui/components/Typography';
@@ -9,28 +9,43 @@ import { AudioEngineNotInitialized } from 'ui/components/AudioEngine/NotInitiali
 import { useGlobalState } from 'ui/hooks/useGlobalState';
 import { useMusicNotes } from 'ui/hooks/useMusicNotes';
 import Loading from '../../loading';
-import { trpc } from '@client/trpc';
+import { api } from '@client/trpc';
+import { FlatsOrSharps, IMusicNote } from 'music-notes';
 
 interface Props {
   params: { id: string };
 }
 
 export default function ExercisePage({ params }: Props) {
+  const showFlatsOrSharps: FlatsOrSharps = 'flats';
+
   const {
     isLoading,
     isError,
     data: exercise,
-  } = trpc.exercises.getById.useQuery({ id: params.id });
+  } = api.exercises.getById.useQuery({ id: params.id });
 
-  const { currentMusicNote } = useMusicNotes();
-  const { audioEngine, exerciseEngine } = useGlobalState({
-    debug: {
-      // exerciseEngine: {
-      // context: true,
-      // state: true,
-      // },
-    },
-  });
+  const { getMusicNoteFromFrequency, transformMusicNotesAccidentals } =
+    useMusicNotes();
+  const { audioEngine, exerciseEngine } = useGlobalState();
+
+  const notesToPlay = useMemo<IMusicNote[]>(() => {
+    if (exerciseEngine.state.context.exercise) {
+      return transformMusicNotesAccidentals(
+        exerciseEngine.state.context.exercise?.notesToPlay,
+        showFlatsOrSharps,
+      );
+    }
+    return [];
+  }, [exerciseEngine, transformMusicNotesAccidentals]);
+
+  const currentMusicNote = useMemo<IMusicNote | undefined>(() => {
+    if (audioEngine.state.context.audioEngine?.currentFrequency) {
+      return getMusicNoteFromFrequency(
+        audioEngine.state.context.audioEngine.currentFrequency,
+      );
+    }
+  }, [audioEngine, getMusicNoteFromFrequency]);
 
   // destructuring `send` so th e useEffect doesn't
   // trigger every time the exerciseEngine state changes
@@ -73,14 +88,12 @@ export default function ExercisePage({ params }: Props) {
         <h1>{exerciseEngine.state.context.exercise?.title}</h1>
         <p>
           Notes to play are: <br />
-          <span>
-            {exerciseEngine.state.context.exercise?.notesToPlay
-              .map((note) => note.name)
-              .join(' - ')}
-          </span>
+          <span>{notesToPlay.map((note) => note.name).join(' - ')}</span>
         </p>
       </Article>
       <GuitarFretboard
+        viewType="notes"
+        showFlatsOrSharps={showFlatsOrSharps}
         numberOfFrets={24}
         notesToPlay={exerciseEngine.state.context.exercise.notesToPlay}
         musicKey={exerciseEngine.state.context.exercise.key}
@@ -90,14 +103,24 @@ export default function ExercisePage({ params }: Props) {
           <AudioEngineNotInitialized />
         )}
         {audioEngine.state.matches('idle') && (
-          <Button label="Start Exercise" onClick={handleStartExercise} />
+          <Button
+            size="md"
+            variant="filled"
+            color="secondary"
+            onClick={handleStartExercise}
+          >
+            Start Exercise
+          </Button>
         )}
         {audioEngine.state.matches('listeningToMicrophone') && (
           <Button
-            label="Stop Exercise"
-            className="bg-red-500 hover:!bg-red-300"
+            size="md"
+            variant="filled"
+            color="red"
             onClick={handleStopExercise}
-          />
+          >
+            Stop Exercise
+          </Button>
         )}
       </div>
       <AudioEngineDebugger />

@@ -1,33 +1,49 @@
 import Link from 'next/link';
+import { Color, Size, Variant } from '../types';
 import Button from './Button';
 
 interface Props {
-  label: string;
   href: string;
   selected?: boolean;
   disabled?: boolean;
   target?: '_blank' | '_parent' | '_self' | '_top';
   className?: string;
+  children: string;
+  icon?: React.ReactNode;
+  size: Size;
+  variant: Variant;
+  color: Color;
+  fullWidth?: boolean;
 }
 
 export const ButtonLink = ({
   href,
-  label,
   selected,
   disabled,
   target,
-  className
+  className,
+  children,
+  icon,
+  size,
+  variant,
+  color,
+  fullWidth
 }: Props) => {
   return (
     <div>
       {disabled && (
         <Button
-          label={label}
-          onClick={() => {}}
+          fullWidth={fullWidth}
           className={className}
           selected={selected}
           disabled={disabled}
-        />
+          icon={icon}
+          size={size}
+          variant={variant}
+          color={color}
+        >
+          {children}
+        </Button>
       )}
       {!disabled && (
         <Link
@@ -38,12 +54,17 @@ export const ButtonLink = ({
           tabIndex={-1}
         >
           <Button
-            label={label}
-            onClick={() => {}}
+            fullWidth={fullWidth}
             className={className}
             selected={selected}
             disabled={disabled}
-          />
+            icon={icon}
+            size={size}
+            variant={variant}
+            color={color}
+          >
+            {children}
+          </Button>
         </Link>
       )}
     </div>

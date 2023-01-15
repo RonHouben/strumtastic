@@ -1,6 +1,6 @@
 import { router } from '@server/trcp';
-import { healthRouter } from './health';
-import { exercisesRouter } from './exercises';
+import { healthRouter } from './health.router';
+import { exercisesRouter } from './exercises.router';
 
 export const appRouter = router({
   health: healthRouter,

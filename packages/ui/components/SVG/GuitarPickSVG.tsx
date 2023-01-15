@@ -7,12 +7,14 @@ export default function GuitarPickSVG({
   className,
   height,
   preserveAspectRatio,
-  width
+  width,
+  size
 }: Props) {
   return (
     <SVGWrapper
       id="guitar-pick-svg"
       viewBox="0 0 1079.000000 1280.000000"
+      size={size}
       className={className}
       height={height}
       width={width}
