@@ -3,7 +3,7 @@
   "pipeline": {
     "build": {
       "dependsOn": [
-        "^prisma:db:generate:cloud"
+        "^prisma:generate:cloud"
       ],
       "outputs": ["dist/**"]
     },
@@ -40,7 +40,7 @@
       "cache": false
     },
     "prisma:db:seed:cloud": {
-      "dependsOn": ["primsa:db:migrate:cloud"],
+      "dependsOn": ["prisma:db:migrate:cloud"],
       "cache": false
     },
     "prisma:generate:cloud": {
