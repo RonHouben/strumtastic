@@ -3,9 +3,7 @@
   "pipeline": {
     "build": {
       "dependsOn": [
-        "^prisma:db:migrate",
-        "^prisma:db:seed",
-        "^prisma:generate"
+        "^prisma:db:generate:cloud"
       ],
       "outputs": ["dist/**"]
     },
@@ -22,7 +20,7 @@
       "outputs": []
     },
     "dev": {
-      "dependsOn": ["prisma:db:seed"],
+      "dependsOn": ["prisma:db:seed:local"],
       "cache": false,
       "persistent": true
     },
@@ -30,15 +28,23 @@
       "cache": false,
       "persistent": true
     },
-    "prisma:db:migrate": {
+    "prisma:db:migrate:local": {
       "dependsOn": ["db:start"],
       "cache": false
     },
-    "prisma:db:seed": {
-      "dependsOn": ["prisma:db:migrate"],
+    "prisma:db:seed:local": {
+      "dependsOn": ["prisma:db:migrate:local"],
       "cache": false
     },
-    "prisma:generate": {
+    "prisma:db:migrate:cloud": {
+      "cache": false
+    },
+    "prisma:db:seed:cloud": {
+      "dependsOn": ["primsa:db:migrate:cloud"],
+      "cache": false
+    },
+    "prisma:generate:cloud": {
+      "dependsOn": ["prisma:db:seed:cloud"],
       "cache": false
     }
   }
