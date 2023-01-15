@@ -3,12 +3,15 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "dev": "docker compose up & npm run prisma:db:migrate && npm run prisma:db:seed",
+    "db:start": "docker compose up -d",
     "lint": "eslint *.ts*",
-    "prisma:generate": "prisma generate",
+    "prisma:generate:cloud": "prisma generate",
+    "prisma:generate:local": "prisma generate",
     "prisma:db:push": "prisma db push --skip-generate",
-    "prisma:db:migrate": "prisma migrate dev",
-    "prisma:db:seed": "npx prisma db seed"
+    "prisma:db:migrate:cloud": "prisma migrate dev",
+    "prisma:db:migrate:local": "prisma migrate dev",
+    "prisma:db:seed:cloud": "npx prisma db seed",
+    "prisma:db:seed:local": "npx prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^4.8.1"
