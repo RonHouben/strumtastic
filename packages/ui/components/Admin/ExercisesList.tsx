@@ -15,6 +15,7 @@ export default function ExercisesList() {
     isLoading,
     isError
   } = api.exercises.getAll.useQuery();
+
   const { mutate } = api.exercises.delete.useMutation();
 
   const handleDeleteExercise = async (id: Exercise['id']) => {

@@ -35,7 +35,7 @@ export const FretboardNote = ({
         audioEngine.state.context.audioEngine.currentFrequency
       );
     }
-  }, [audioEngine, getMusicNoteFromFrequency]);
+  }, [audioEngine.state.context, getMusicNoteFromFrequency]);
 
   const isCurrentlyPlaying = useMemo(
     () => musicNote === currentMusicNote,
@@ -45,7 +45,7 @@ export const FretboardNote = ({
   const isCorrectlyPlayed = useMemo(
     () =>
       exerciseEngine.state.context.correctlyPlayedNotes.some(
-        (playedNote) => playedNote.name === musicNote.name
+        (playedNote) => playedNote === musicNote
       ),
     [exerciseEngine.state.context.correctlyPlayedNotes, musicNote]
   );
@@ -59,14 +59,13 @@ export const FretboardNote = ({
   return (
     <div
       className={classNames(
-        'h-6 w-6 cursor-default rounded-full bg-secondary-100 text-slate-400 transition delay-150 duration-300 ease-in-out hover:scale-125 dark:bg-slate-900 dark:text-slate-600',
+        'h-6 w-6 cursor-default rounded-full bg-secondary-100 text-slate-400 transition duration-200 ease-in-out dark:bg-slate-900 dark:text-slate-600',
         isCurrentlyPlaying
-          ? 'border border-secondary-500 !bg-secondary-500 text-white dark:!text-black'
+          ? 'scale-150 !bg-secondary-500 dark:!text-black'
           : '',
-        isCorrectlyPlayed ? '!bg-green-500 text-white dark:text-black' : '',
-        isRoot && isCorrectlyPlayed ? 'border !border-red-500' : '',
-        isRoot && !isCorrectlyPlayed ? 'border !border-red-500' : '',
         toBePlayed && !isCorrectlyPlayed ? 'border border-orange-500' : '',
+        isRoot ? 'border !border-red-500' : '',
+        isCorrectlyPlayed ? '!bg-green-500 dark:text-black' : '',
         onNoteClick ? 'cursor-pointer' : '',
         'hover:bg-secondary-500'
       )}
