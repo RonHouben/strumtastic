@@ -18,8 +18,8 @@ export default function Navbar() {
             onClick={setIsMobileMenuOpen}
           />
           <div className="flex max-sm:justify-center">
-            <Link href="/">
-              <Typography variant="h1" className="mb-0 text-gray-100">
+            <Link href="/" className='px-4'>
+              <Typography variant="h1" className="!mb-0 text-gray-100">
                 Strumtastic
               </Typography>
             </Link>
