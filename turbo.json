@@ -2,7 +2,11 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^prisma:db:migrate", "^prisma:db:seed", "^prisma:generate"],
+      "dependsOn": [
+        "^prisma:db:migrate",
+        "^prisma:db:seed",
+        "^prisma:generate"
+      ],
       "outputs": ["dist/**"]
     },
     "audio-engine:build": {
@@ -18,12 +22,16 @@
       "outputs": []
     },
     "dev": {
-      "cache": false
+      "dependsOn": ["prisma:db:seed"],
+      "cache": false,
+      "persistent": true
     },
     "db:start": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "prisma:db:migrate": {
+      "dependsOn": ["db:start"],
       "cache": false
     },
     "prisma:db:seed": {

@@ -3,7 +3,7 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "dev": "docker compose up & npm run prisma:db:migrate && npm run prisma:db:seed",
+    "db:start": "docker compose up -d",
     "lint": "eslint *.ts*",
     "prisma:generate": "prisma generate",
     "prisma:db:push": "prisma db push --skip-generate",
