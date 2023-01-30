@@ -44,7 +44,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "6.0.0-beta.9",
-    "styled-jsx": "5.1.1",
+    "styled-jsx": "5.1.2",
     "superjson": "^1.12.1",
     "ui": "*",
     "use-reducer-async": "^2.1.1",
