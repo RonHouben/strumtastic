@@ -25,8 +25,7 @@
       "persistent": true
     },
     "db:start": {
-      "cache": false,
-      "persistent": true
+      "cache": false
     },
     "prisma:db:migrate:local": {
       "dependsOn": ["db:start"],
