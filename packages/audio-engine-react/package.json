@@ -16,7 +16,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@xstate/react": "^3.0.1",
+    "@xstate/react": "^3.2.1",
     "audio-engine": "*"
   },
   "devDependencies": {

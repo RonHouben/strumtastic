@@ -14,11 +14,11 @@
     "prisma:db:seed:local": "npx prisma db seed"
   },
   "dependencies": {
-    "@prisma/client": "^4.8.1"
+    "@prisma/client": "^4.11.0"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
-    "prisma": "^4.8.1",
+    "prisma": "^4.11.0",
     "ts-node": "^10.9.1"
   },
   "prisma": {

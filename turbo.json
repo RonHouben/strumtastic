@@ -30,7 +30,8 @@
     },
     "prisma:db:migrate:local": {
       "dependsOn": ["db:start"],
-      "cache": false
+      "cache": false,
+      "env": ["DATABASE_URL"]
     },
     "prisma:db:seed:local": {
       "dependsOn": ["prisma:db:migrate:local"],

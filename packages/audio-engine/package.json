@@ -17,7 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "ml5": "^0.12.2",
-    "xstate": "^4.35.2"
+    "xstate": "^4.37.0"
   },
   "devDependencies": {
     "eslint-config-custom": "*"
