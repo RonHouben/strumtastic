@@ -16,8 +16,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@tonaljs/note": "^4.8.0",
-    "@tonaljs/range": "^4.8.0"
+    "@tonaljs/note": "^4.10.0",
+    "@tonaljs/range": "^4.8.1"
   },
   "devDependencies": {
     "eslint-config-custom": "*"
