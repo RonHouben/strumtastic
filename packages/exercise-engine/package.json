@@ -16,7 +16,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "xstate": "^4.37.0",
+    "xstate": "^4.37.1",
     "music-notes": "*"
   },
   "devDependencies": {
