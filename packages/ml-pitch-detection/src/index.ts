@@ -77,11 +77,6 @@ export class MLPitchDetection {
 
 		MLPitchDetection.resample(event.inputBuffer, (resampled) => {
 			tensorflow.tidy(() => {
-				/**
-				 * A boolean value stating whether the model instance is running or not.
-				 * @type {boolean}
-				 * @public
-				 */
 				const centMapping = tensorflow.add(tensorflow.linspace(0, 7180, 360), tensorflow.tensor(1997.3794084376191));
 
 				this.running = true;
@@ -90,10 +85,12 @@ export class MLPitchDetection {
 				const frame = tensorflow.tensor(resampled.slice(0, 1024));
 				const zeroMean = tensorflow.sub(frame, tensorflow.mean(frame));
 				const zeroNormalized = tensorflow.norm(zeroMean).dataSync();
-				const framestd = tensorflow.tensor(zeroNormalized / Math.sqrt(1024));
+				const framestd = tensorflow.tensor(zeroNormalized).div(Math.sqrt(1024));
 				const normalized = tensorflow.div(zeroMean, framestd);
 				const input = normalized.reshape([1, 1024]);
-				const activation = this.model.predict([input]).reshape([360]);
+
+				const output = this.model.predict([input]) as tensorflow.Tensor<tensorflow.Rank>
+				const activation = tensorflow.reshape(output, [360])
 
 				// the confidence of voicing activity and the argmax bin
 				const confidence = activation.max().dataSync()[0];
@@ -108,8 +105,8 @@ export class MLPitchDetection {
 
 				// take the local weighted average to get the predicted pitch
 				const products = tensorflow.mul(weights, cents);
-				const productSum = products.dataSync().reduce((a, b) => a + b, 0);
-				const weightSum = weights.dataSync().reduce((a, b) => a + b, 0);
+				const productSum = [...products.dataSync()].reduce((a, b) => a + b, 0);
+				const weightSum = [...weights.dataSync()].reduce((a, b) => a + b, 0);
 				const predictedCent = productSum / weightSum;
 				const predictedHz = 10 * (2 ** (predictedCent / 1200.0));
 
