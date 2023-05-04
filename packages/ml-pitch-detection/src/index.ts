@@ -1,32 +1,24 @@
-/*
-	Crepe Pitch Detection model
-	Based on https://github.com/marl/crepe/tree/gh-pages
-	Original model and code: https://marl.github.io/crepe/crepe.js
-*/
+import * as tensorflow from '@tensorflow/tfjs';
 
-import tensorflow from '@tensorflow/tfjs';
-
-export class MLPitchDetection {
-	private readonly pitchDetectionModelPath: string = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-library/examples/javascript/PitchDetection/PitchDetection/model';
+export default class MLPitchDetector {
 	private readonly audioContext: AudioContext;
 	private readonly stream: MediaStream;
-	private readonly modelPath: string = './model/crepe/model.json';
+	private readonly modelUrl: string;
 	private model: tensorflow.LayersModel | undefined;
-	private frequency: number | null = null;
+	private frequency: number = 0;
 	private results: Record<string, unknown> = {};
-	private running: boolean = false;
-	private ready: boolean = false;
 
-	constructor(audioContext: AudioContext, stream: MediaStream) {
+	constructor(audioContext: AudioContext, stream: MediaStream, modelUrl: string) {
 		this.audioContext = audioContext;
 		this.stream = stream;
+		this.modelUrl = modelUrl;
 	}
 
 	public async loadModel() {
 		try {
-			this.model = await tensorflow.loadLayersModel(this.modelPath);
+			this.model = await tensorflow.loadLayersModel(this.modelUrl);
 		} catch (error) {
-			throw new Error(`Error loading model from URL ${this.modelPath}: ${String(error)}`);
+			throw new Error(`Error loading model from URL ${this.modelUrl}: ${String(error)}`);
 		}
 
 		await this.processStream();
@@ -65,7 +57,7 @@ export class MLPitchDetection {
 		}
 	}
 
-	async processMicrophoneBuffer(event: AudioProcessingEvent) {
+	private async processMicrophoneBuffer(event: AudioProcessingEvent) {
 		await tensorflow.nextFrame();
 		/**
 		 * The current pitch prediction results from the classification model.
@@ -74,15 +66,13 @@ export class MLPitchDetection {
 		 */
 		this.results = {};
 
-		MLPitchDetection.resample(event.inputBuffer, (resampled) => {
+		MLPitchDetector.resample(event.inputBuffer, (resampled) => {
 			tensorflow.tidy(() => {
 				if (!this.model) {
 					throw new Error('Model not loaded');
 				}
 
 				const centMapping = tensorflow.add(tensorflow.linspace(0, 7180, 360), tensorflow.tensor(1997.3794084376191));
-
-				this.running = true;
 
 				// run the prediction on the model
 				const frame = tensorflow.tensor(resampled.slice(0, 1024));
@@ -114,8 +104,7 @@ export class MLPitchDetection {
 				const predictedHz = 10 * (2 ** (predictedCent / 1200.0));
 
 				// update frequency
-				const frequency = (confidence > 0.5) ? predictedHz : null;
-				this.frequency = frequency;
+				this.frequency = (confidence > 0.5) ? predictedHz : 0;
 			});
 		});
 	}

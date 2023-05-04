@@ -4,6 +4,7 @@ const nextConfig = {
   transpilePackages: ['ui', 'audio-engine'],
   experimental: {
     appDir: true,
+    typedRoutes: true,
   },
 };
 

@@ -1,12 +1,8 @@
-import { ML5PitchDetector } from '../types/ml5-pitchdetector';
+import type MLPitchDetector from 'ml-pitch-detection';
 
 interface OscillatorOptions {
   type: OscillatorNode['type'];
   hertz: number;
-}
-
-interface AudioEngineDebugOptions {
-  oscillator?: OscillatorOptions;
 }
 
 interface AudioEngineOptions {
@@ -18,10 +14,7 @@ export class AudioEngine {
   private readonly analyserNode: AnalyserNode;
   private readonly mediaStream: MediaStream;
   private readonly mediaStreamSourceNode: MediaStreamAudioSourceNode;
-  // TODO: chech this can be loaded in from the library instead of a CDN
-  private readonly pitchDetectionModelPath: string =
-    'https://cdn.jsdelivr.net/gh/ml5js/ml5-library/examples/javascript/PitchDetection/PitchDetection/model';
-  private pitchDetector?: ML5PitchDetector;
+  private pitchDetector?: MLPitchDetector;
   private oscillator?: OscillatorNode;
   private requestAnimationFrameId?: number;
 
@@ -51,8 +44,6 @@ export class AudioEngine {
     this.mediaStreamSourceNode = this.audioContext.createMediaStreamSource(
       this.mediaStream
     );
-
-    // this.analyser.connect(this.audioContext.destination);
   }
 
   get currentFrequency(): number {
@@ -230,22 +221,16 @@ export class AudioEngine {
     );
   }
 
-  public async initAIPitchDetection(): Promise<void> {
-    // dynamically import is necesary because when importing ML5
-    // it looks for the `window` object. Since we're using NextJS
-    // it happens that the window doesn't exists due to SSR.
-    // it's also not necesary to have the complete ML5 library loaded
-    // if the user doesn't want to use AI.
-    const ml5 = await import('ml5');
+  public async initAIPitchDetection(mlModelPath: string): Promise<void> {
+    // dynamically importing the pitch detection library
+    // this is done because the models are quiet big (2mb)
+    // and don't want to send that immediately to the client
+    // on initial load of the app
+    const { default: MLPitchDetector } = await import('ml-pitch-detection');
 
-    this.pitchDetector = ml5.pitchDetection(
-      this.pitchDetectionModelPath,
-      this.audioContext,
-      this.mediaStream,
-      () => {
-        console.info('ml5 pitchDetection model has been loaded');
-      }
-    );
+    this.pitchDetector = new MLPitchDetector(this.audioContext, this.mediaStream, mlModelPath);
+
+    await this.pitchDetector.loadModel();
 
     this._isAIPitchDetectorInitialized = true;
   }
