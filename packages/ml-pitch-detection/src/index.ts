@@ -7,14 +7,13 @@
 import tensorflow from '@tensorflow/tfjs';
 
 export class MLPitchDetection {
-	// TODO: chech this can be loaded in from the library instead of a CDN
 	private readonly pitchDetectionModelPath: string = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-library/examples/javascript/PitchDetection/PitchDetection/model';
 	private readonly audioContext: AudioContext;
 	private readonly stream: MediaStream;
 	private readonly modelPath: string = './model/crepe/model.json';
-	private model: tensorflow.LayersModel;
+	private model: tensorflow.LayersModel | undefined;
 	private frequency: number | null = null;
-	private results: Record<string, unknown>;
+	private results: Record<string, unknown> = {};
 	private running: boolean = false;
 	private ready: boolean = false;
 
@@ -77,6 +76,10 @@ export class MLPitchDetection {
 
 		MLPitchDetection.resample(event.inputBuffer, (resampled) => {
 			tensorflow.tidy(() => {
+				if (!this.model) {
+					throw new Error('Model not loaded');
+				}
+
 				const centMapping = tensorflow.add(tensorflow.linspace(0, 7180, 360), tensorflow.tensor(1997.3794084376191));
 
 				this.running = true;
