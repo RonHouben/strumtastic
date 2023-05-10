@@ -1,12 +1,18 @@
 {
-  "extends": "tsconfig/base.json",
+  // "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "typeRoots": ["src/types"],
+    "module": "esNext",
+    "moduleResolution": "nodenext",
+    "lib": ["esnext", "DOM"],
+    "target": "esnext",
+    "types": [
+      "@types/audioworklet"
+    ],
     "outDir": "dist",
     "rootDir": "src",
     "declaration": true,
     "skipLibCheck": true,
   },
-  "include": ["src", "**/*.d.ts", "**/*.ts", "src/types/ml5.d.ts"],
+  "include": ["src", "**/*.d.ts", "**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }

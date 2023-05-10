@@ -56,6 +56,24 @@ export default class MLPitchDetector {
 		scriptNode.onaudioprocess = this.processMicrophoneBuffer.bind(this);
 		this.mediaSource.connect(scriptNode);
 		scriptNode.connect(this.gainNode);
+
+		// const url = new URL('audioProcessor.js', import.meta.url);
+
+		// 	try {
+		// 		await this.audioContext.audioWorklet.addModule(url)
+		// 	} catch (err) {
+		// 		throw new Error(`Error loading audio worklet: ${String(err)}`);
+		// 	}
+
+		// const audioProcessorNode = new AudioProcessorNode(this.audioContext);
+		// this.mediaSource.connect(audioProcessorNode);
+		// audioProcessorNode.connect(this.gainNode);
+
+		// audioProcessorNode.port.onmessage = this.processMicrophoneBuffer.bind(this);
+
+		if (this.audioContext.state !== 'running') {
+			console.warn('User gesture needed to start AudioContext, please click');
+		}
 	}
 
 	private async processMicrophoneBuffer(event: AudioProcessingEvent) {

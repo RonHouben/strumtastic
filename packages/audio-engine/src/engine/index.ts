@@ -1,4 +1,4 @@
-import type MLPitchDetector from 'ml-pitch-detection';
+import MLPitchDetector from 'ml-pitch-detection';
 
 interface OscillatorOptions {
   type: OscillatorNode['type'];
@@ -14,7 +14,7 @@ export class AudioEngine {
   private readonly analyserNode: AnalyserNode;
   private readonly mediaStream: MediaStream;
   private readonly mediaStreamSourceNode: MediaStreamAudioSourceNode;
-  private pitchDetector?: MLPitchDetector;
+  private pitchDetector!: MLPitchDetector;
   private oscillator?: OscillatorNode;
   private requestAnimationFrameId?: number;
 
