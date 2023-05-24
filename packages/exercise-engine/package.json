@@ -10,7 +10,7 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc --build && cp -r src/types dist",
     "lint": "eslint ./src/*.ts*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -7,14 +7,14 @@ import { audioEngineMachine } from 'audio-engine';
 import { onboardUserMachine } from '../machines';
 import { exerciseEngineMachine } from 'exercise-engine';
 
-export type GlobalStateContext = {
+export interface IGlobalStateContext {
   audioEngineService: InterpreterFrom<typeof audioEngineMachine>;
   onboardUserService: InterpreterFrom<typeof onboardUserMachine>;
   exerciseEngineService: InterpreterFrom<typeof exerciseEngineMachine>;
 };
 
-export const GlobalStateContext = createContext<GlobalStateContext>(
-  {} as GlobalStateContext
+export const GlobalStateContext = createContext<IGlobalStateContext>(
+  {} as IGlobalStateContext
 );
 
 interface Props {
@@ -22,7 +22,10 @@ interface Props {
 }
 
 export const GlobalStateProvider = ({ children }: Props) => {
-  const audioEngineService = useInterpret(audioEngineMachine);
+  const audioEngineService = useInterpret(audioEngineMachine, { context: {
+    mlModelUrl: '/api/v1/ml-model/crepe/model.json',
+  }});
+
   const onboardUserService = useInterpret(onboardUserMachine);
   const exerciseEngineService = useInterpret(exerciseEngineMachine);
 

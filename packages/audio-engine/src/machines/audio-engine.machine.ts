@@ -5,6 +5,7 @@ type Context = {
   audioEngine: AudioEngine | undefined;
   updateAudioEngineInterval: number;
   error: Error | undefined;
+  mlModelUrl: string;
 };
 
 type Service = {
@@ -28,7 +29,8 @@ export const audioEngineMachine =
       context: {
         error: undefined,
         audioEngine: undefined,
-        updateAudioEngineInterval: 100
+        updateAudioEngineInterval: 100,
+        mlModelUrl: '', 
       },
       initial: 'unitialized',
       states: {
@@ -171,11 +173,11 @@ I.e.: the enabling/disabling of A.I. based pitch detection`
           audioEngine: (ctx, event) =>
             new AudioEngine({ mediaStream: event.data })
         }),
-        startListeningToMicrophone: (ctx) => {
-          ctx.audioEngine?.startListeningToMicrophone();
+        startListeningToMicrophone: ({ audioEngine }) => {
+          audioEngine?.startListeningToMicrophone();
         },
-        stopListeningToMicrophone: (ctx) => {
-          ctx.audioEngine?.stopListeningToMicrophone();
+        stopListeningToMicrophone: ({ audioEngine }) => {
+          audioEngine?.stopListeningToMicrophone();
         },
         updateAudioEngine: assign({
           audioEngine: (ctx, _event) => ctx.audioEngine
@@ -186,37 +188,37 @@ I.e.: the enabling/disabling of A.I. based pitch detection`
           return navigator.mediaDevices.getUserMedia({ audio: true });
         },
         updateAudioEnginePeriodically:
-          (ctx, _event) => (callback, _onReceive) => {
+          ({ updateAudioEngineInterval }, _event) => (callback, _onReceive) => {
             // the audioEngine needs to be updated on a regular basis
             // to get the new values
             const id = setInterval(
               () => callback('UPDATE_AUDIO_ENGINE'),
-              ctx.updateAudioEngineInterval
+              updateAudioEngineInterval
             );
 
             // Perform cleanup
             return () => clearInterval(id);
           },
-        intiateAIPitchDetection: async (ctx) => {
-          await ctx.audioEngine?.initAIPitchDetection();
+        intiateAIPitchDetection: async ({ audioEngine, mlModelUrl }) => {
+          await audioEngine?.initAIPitchDetection(mlModelUrl);
 
-          ctx.audioEngine?.setUseAIPitchDetection(true);
+          audioEngine?.setUseAIPitchDetection(true);
         },
         configureAIPitchDetection: async (
-          ctx,
+          { audioEngine, mlModelUrl },
           event: Service['configureAIPitchDetection']
         ): Promise<void> => {
           if (
             event.data.useAIPitchDetection === true &&
-            !ctx.audioEngine?.isAIPitchDetectorInitialized
+            !audioEngine?.isAIPitchDetectorInitialized
           ) {
-            await ctx.audioEngine?.initAIPitchDetection();
+            await audioEngine?.initAIPitchDetection(mlModelUrl);
           }
 
           if (event.data.useAIPitchDetection === true) {
-            ctx.audioEngine?.setUseAIPitchDetection(true);
+            audioEngine?.setUseAIPitchDetection(true);
           } else if (event.data.useAIPitchDetection === false) {
-            ctx.audioEngine?.setUseAIPitchDetection(false);
+            audioEngine?.setUseAIPitchDetection(false);
           }
         }
       }
