@@ -1,0 +1,18 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "skipLibCheck": true,
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "paths": {
+      "@models/*": ["src/models/*"]
+    }
+  },
+  "include": ["src", "**/*.d.ts", "**/*.ts"],
+  "exclude": ["dist", "node_modules"],
+}

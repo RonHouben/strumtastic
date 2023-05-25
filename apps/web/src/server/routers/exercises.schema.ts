@@ -7,7 +7,7 @@ const TITLE_MAX_LENGHT = 140 as const;
 
 export const exercisesSchemas = {
   getById: z.object({
-    id: z.string().uuid(),
+    id: z.string(),
   }),
   create: z.object({
     title: z.string().min(TITLE_MIN_LENGHT).and(z.string().max(TITLE_MAX_LENGHT)),
@@ -16,10 +16,10 @@ export const exercisesSchemas = {
     notesToPlay: z.array(z.string()).min(1, 'Must select at least 1 note'),
   }),
   delete: z.object({
-    id: z.string().uuid(),
+    id: z.string(),
   }),
   updateById: z.object({
-    id: z.string().uuid(),
+    id: z.string(),
     title: z.string().min(TITLE_MIN_LENGHT).and(z.string().max(TITLE_MAX_LENGHT)).optional(),
     key: z
       .string()
