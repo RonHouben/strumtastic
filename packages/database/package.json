@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "lint": "eslint *.ts*",
-    "db:seed": "node --loader ts-node/esm src/seeds/index.ts",
+    "db:seed": "node -r dotenv/config --loader ts-node/esm src/seeds/index.ts",
     "build": "tsc --build"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "firebase": "^9.22.0",
+    "firebase-admin": "^11.8.0",
     "fireorm": "^0.23.3",
     "reflect-metadata": "^0.1.13",
     "uuid": "^9.0.0"

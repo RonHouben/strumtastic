@@ -12,8 +12,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel --concurrency 11",
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -- turbo run dev --parallel --concurrency 11",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
@@ -28,8 +28,7 @@
   "packageManager": "npm@8.19.2",
   "dependencies": {
     "@xstate/react": "^3.2.2",
-    "firebase-admin": "^11.8.0",
-    "fireorm": "^0.23.3",
-    "reflect-metadata": "^0.1.13"
+    "database": "*",
+    "dotenv-cli": "^7.2.1"
   }
 }
