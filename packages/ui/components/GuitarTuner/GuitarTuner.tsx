@@ -1,10 +1,10 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
+import { useGlobalState } from '../../hooks/useGlobalState';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Hertz } from '../AudioEngine';
 import Button from '../Button';
-import { useGlobalState } from '../../hooks/useGlobalState';
 import { Typography } from '../Typography';
 
 interface Props {
@@ -39,7 +39,7 @@ export default function GuitarTuner({ onStopTuner }: Props) {
         variant="h1"
         className="!text-secondary-500 dark:!text-primary-700"
       >
-        {currentMusicNote?.letter || '-'}
+        {currentMusicNote?.pc || '-'}
       </Typography>
       <DistanceFromNote />
       <Hertz
