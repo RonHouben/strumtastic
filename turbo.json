@@ -31,7 +31,8 @@
       "env": [
         "VERCEL_URL",
         "PORT",
-        "NODE_ENV"
+        "NODE_ENV",
+        "FIREBASE_CLIENT_EMAIL", "FIREBASE_PRIVATE_KEY", "FIREBASE_PROJECT_ID"
       ],
       "outputs": [
         ".next/**"
