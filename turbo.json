@@ -2,49 +2,51 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": [
-        "^prisma:generate:cloud"
-      ],
-      "outputs": ["dist/**"]
+      "dependsOn": [],
+      "outputs": [
+        "dist/**"
+      ]
     },
     "audio-engine:build": {
-      "dependsOn": ["^build"],
-      "outputs": ["build/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "build/**"
+      ]
+    },
+    "database:build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "build/**"
+      ]
     },
     "web:build": {
-      "dependsOn": ["audio-engine:build"],
-      "env": ["VERCEL_URL", "PORT", "NODE_ENV"],
-      "outputs": [".next/**"]
+      "dependsOn": [
+        "audio-engine:build"
+      ],
+      "env": [
+        "VERCEL_URL",
+        "PORT",
+        "NODE_ENV"
+      ],
+      "outputs": [
+        ".next/**"
+      ]
     },
     "lint": {
       "outputs": []
     },
     "dev": {
-      "dependsOn": ["prisma:db:seed:local"],
+      "dependsOn": [
+        "db:seed"
+      ],
       "cache": false,
       "persistent": true
     },
-    "db:start": {
-      "cache": false
-    },
-    "prisma:db:migrate:local": {
-      "dependsOn": ["db:start"],
-      "cache": false,
-      "env": ["DATABASE_URL"]
-    },
-    "prisma:db:seed:local": {
-      "dependsOn": ["prisma:db:migrate:local"],
-      "cache": false
-    },
-    "prisma:db:migrate:cloud": {
-      "cache": false
-    },
-    "prisma:db:seed:cloud": {
-      "dependsOn": ["prisma:db:migrate:cloud"],
-      "cache": false
-    },
-    "prisma:generate:cloud": {
-      "dependsOn": ["prisma:db:seed:cloud"],
+    "db:seed": {
       "cache": false
     }
   }

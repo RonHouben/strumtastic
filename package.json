@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel --concurrency 11; docker compose -f ./packages/database/docker-compose.yml stop",
+    "dev": "turbo run dev --parallel --concurrency 11",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
@@ -25,5 +25,11 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "npm@8.19.2"
+  "packageManager": "npm@8.19.2",
+  "dependencies": {
+    "@xstate/react": "^3.2.2",
+    "firebase-admin": "^11.8.0",
+    "fireorm": "^0.23.3",
+    "reflect-metadata": "^0.1.13"
+  }
 }

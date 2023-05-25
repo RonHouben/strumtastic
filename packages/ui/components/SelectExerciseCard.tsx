@@ -1,14 +1,14 @@
 'use client';
 
+import { api } from '@client/trpc';
+import { Exercise } from 'database';
 import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import Button from './Button';
-import { Card, CardMedia, CardContent } from './Card';
-import Select from './Select/Select';
+import { Card, CardContent, CardMedia } from './Card';
 import { GuitarPickSVG } from './SVG';
+import Select from './Select/Select';
 import { Typography } from './Typography';
-import { api } from '@client/trpc';
-import { Exercise } from '@prisma/client';
 
 interface Props {
   disabled?: boolean;

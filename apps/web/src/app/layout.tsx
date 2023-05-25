@@ -1,7 +1,7 @@
 import '@styles/dist.css';
 import React from 'react';
-import { Navbar } from 'ui/components/Navbar';
 import { Sidebar } from 'ui/components';
+import { Navbar } from 'ui/components/Navbar';
 import { Providers } from './providers';
 
 interface Props {
