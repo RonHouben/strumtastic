@@ -1,8 +1,8 @@
-import { FlatsOrSharps, IMusicNote, StringName } from './types';
 import Note from '@tonaljs/note';
+import { FlatsOrSharps, IMusicNote, StringName } from './types';
 
-export * from './types';
 export * from './constants';
+export * from './types';
 
 interface GetMusicNotesForString {
   startNote: StringName;
