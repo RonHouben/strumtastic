@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint *.ts*",
-    "db:seed": "node -r dotenv/config --loader ts-node/esm src/seeds/index.ts",
+    "db:seed": "node --loader ts-node/esm src/seeds/index.ts",
     "build": "tsc --build"
   },
   "dependencies": {
