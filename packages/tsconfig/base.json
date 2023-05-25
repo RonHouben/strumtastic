@@ -18,7 +18,9 @@
     "noEmit": true,
     "lib": ["ESNext", "DOM"],
     "target": "ESNext",
-    "module": "ESNext"
+    "module": "ESNext",
+    "experimentalDecorators": true,
+    "resolveJsonModule": true
   },
   "include": ["**/*.ts", "**/*.d.ts"],
   "exclude": ["node_modules"]

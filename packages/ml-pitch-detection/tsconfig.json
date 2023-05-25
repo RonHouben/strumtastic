@@ -1,0 +1,18 @@
+{
+  // "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "module": "esNext",
+    "moduleResolution": "nodenext",
+    "lib": ["esnext", "DOM"],
+    "target": "esnext",
+    "types": [
+      "@types/audioworklet"
+    ],
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "skipLibCheck": true,
+  },
+  "include": ["src", "**/*.d.ts", "**/*.ts"],
+  "exclude": ["dist", "node_modules"]
+}

@@ -23,7 +23,6 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@audio-engine/react": "*",
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.17",
     "@tanstack/react-query": "^4.29.1",

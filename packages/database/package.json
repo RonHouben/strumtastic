@@ -1,28 +1,24 @@
 {
   "name": "database",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "type": "module",
   "scripts": {
-    "db:start": "docker compose up -d",
     "lint": "eslint *.ts*",
-    "prisma:generate:cloud": "prisma generate",
-    "prisma:generate:local": "prisma generate",
-    "prisma:db:push": "prisma db push --skip-generate",
-    "prisma:db:migrate:cloud": "prisma migrate dev",
-    "prisma:db:migrate:local": "prisma migrate dev",
-    "prisma:db:seed:cloud": "npx prisma db seed",
-    "prisma:db:seed:local": "npx prisma db seed"
+    "db:seed": "node --loader ts-node/esm src/seeds/index.ts",
+    "build": "tsc --build"
   },
   "dependencies": {
-    "@prisma/client": "^4.12.0"
+    "firebase-admin": "^11.8.0",
+    "fireorm": "^0.23.3",
+    "reflect-metadata": "^0.1.13",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.2.3",
+    "@types/uuid": "^9.0.1",
     "eslint-config-custom": "*",
-    "prisma": "^4.12.0",
-    "ts-node": "^10.9.1"
-  },
-  "prisma": {
-    "schema": "./prisma/schema.prisma",
-    "seed": "ts-node ./prisma/seeds/index.ts"
+    "ts-node": "^10.9.1",
+    "tsconfig": "*"
   }
 }

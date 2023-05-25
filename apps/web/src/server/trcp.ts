@@ -12,10 +12,13 @@
  * @see https://trpc.io/docs/v10/procedures
  */
 
-import { Context } from "./context";
 import { initTRPC } from "@trpc/server";
+import { initFirestore } from "database";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { Context } from "./context";
+
+initFirestore();
 
 const t = initTRPC.context<Context>().create({
   transformer: superjson,
