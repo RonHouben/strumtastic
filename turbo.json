@@ -19,6 +19,7 @@
       "dependsOn": [
         "^build"
       ],
+      "env": ["FIREBASE_CLIENT_EMAIL", "FIREBASE_PRIVATE_KEY", "FIREBASE_PROJECT_ID"],
       "outputs": [
         "build/**"
       ]
