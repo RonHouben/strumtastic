@@ -6,7 +6,7 @@ import { MusicNotes } from 'music-notes';
 export default function TestPage() {
   return (
     <OpenSheetMusicDisplay
-      file="https://raw.githubusercontent.com/opensheetmusicdisplay/opensheetmusicdisplay/e9859a205fe1e80a1ec0d4aaa6f9670c90ac31d4/test/data/test_tabs_4_strings_bass_guitar.musicxml"
+      file='http://localhost:3000/api/v1/music-xml'
       options={{
         drawTitle: true,
         autoResize: false,
