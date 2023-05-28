@@ -1,3 +1,9 @@
-import { OpenSheetMusicDisplay } from './components/OpenSheetMusicDisplay';
+import { CursorButtons } from './components/CursorButtons';
+import { OpenSheetMusicDisplayProvider } from './providers/OpenSheetMusicDisplayProvider';
+import useOpenSheetMusicDisplay from './hooks/useOpenSheetMusicDisplay';
 
-export default OpenSheetMusicDisplay;
+export {
+	OpenSheetMusicDisplayProvider,
+	useOpenSheetMusicDisplay,
+	CursorButtons
+}

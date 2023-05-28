@@ -28,6 +28,7 @@
     "audio-engine": "*",
     "autoprefixer": "^10.4.14",
     "exercise-engine": "*",
-    "postcss": "^8.4.21"
+    "postcss": "^8.4.21",
+    "react-opensheet-music-display": "*"
   }
 }

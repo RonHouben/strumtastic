@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE score-partwise PUBLIC '-//Recordare//DTD MusicXML 2.0 Partwise//EN' 'http://www.musicxml.org/dtds/2.0/partwise.dtd'>
 <score-partwise version="2.0">
+ <work>
+  <work-title>C Major Scale</work-title>
+ </work>
  <identification>
   <encoding>
-   <encoding-date>2023-05-26</encoding-date>
+   <encoding-date>2023-05-28</encoding-date>
    <software>Guitar Pro 8.1.0</software>
    <supports value="yes" attribute="new-system" element="print" type="yes"/>
   </encoding>
@@ -18,6 +21,9 @@
    <page-width>1310</page-width>
   </page-layout>
  </defaults>
+ <credit>
+  <credit-words valign="top" font-size="24" justify="center">C Major Scale</credit-words>
+ </credit>
  <part-list>
   <score-part id="P1">
    <part-name>Jazz Guitar</part-name>
@@ -470,6 +476,12 @@
      </technical>
     </notations>
    </note>
+   <barline location="left">
+    <repeat times="99" direction="forward"/>
+   </barline>
+   <barline location="right">
+    <repeat times="99" direction="backward"/>
+   </barline>
   </measure>
  </part>
 </score-partwise>

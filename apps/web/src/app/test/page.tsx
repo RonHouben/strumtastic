@@ -1,33 +1,27 @@
 'use client';
 
-import OpenSheetMusicDisplay from 'react-opensheet-music-display';
-import { MusicNotes } from 'music-notes';
+import { OpenSheetMusicDisplayProvider } from 'react-opensheet-music-display';
+import { Exercise } from 'ui/components/Exercise';
 
 export default function TestPage() {
   return (
-    <OpenSheetMusicDisplay
-      file='http://localhost:3000/api/v1/music-xml'
+    <OpenSheetMusicDisplayProvider
+      musicXml="http://localhost:3000/api/v1/music-xml"
       options={{
         drawTitle: true,
-        autoResize: false,
+        autoResize: true,
+        // darkMode: true,
         cursorsOptions: [
           {
             type: 0,
             color: 'red',
-            alpha: 1,
+            alpha: 0.5,
             follow: true,
           },
         ],
       }}
-      onCursorChange={(notes) => {
-        if (notes[0]?.Pitch?.Frequency) {
-          const musicNote = MusicNotes.getMusicNoteFromFrequency(
-            notes[0].Pitch.Frequency,
-          );
-          console.log(notes[0].ToString());
-          console.log(musicNote.pc);
-        }
-      }}
-    />
+    >
+      <Exercise />
+    </OpenSheetMusicDisplayProvider>
   );
 }

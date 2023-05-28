@@ -14,7 +14,10 @@
     "lint": "TIMING=1 eslint \"**/*.ts*\""
   },
   "dependencies": {
-    "opensheetmusicdisplay": "^1.7.5"
+    "@xstate/react": "^3.2.2",
+    "opensheetmusicdisplay": "^1.7.5",
+    "xstate": "^4.37.2",
+    "music-notes": "*"
   },
   "devDependencies": {
     "@types/react": "^18.2.7"
