@@ -41,7 +41,7 @@
   <measure number="1">
    <print new-system="yes"/>
    <attributes>
-    <divisions>2</divisions>
+    <divisions>1</divisions>
     <key>
      <fifths>0</fifths>
      <mode>major</mode>
@@ -131,6 +131,73 @@
     </direction-type>
     <sound tempo="120"/>
    </direction>
+   <direction>
+    <direction-type>
+     <dynamics>
+      <mf/>
+     </dynamics>
+    </direction-type>
+   </direction>
+   <note>
+    <pitch>
+     <step>C</step>
+     <octave>4</octave>
+    </pitch>
+    <duration>4</duration>
+    <voice>1</voice>
+    <type>whole</type>
+    <stem>up</stem>
+    <notehead>normal</notehead>
+    <staff>1</staff>
+    <notations>
+     <technical>
+<?GP 
+<root>
+<string>6</string>
+<fret>8</fret>
+</root>
+?>
+     </technical>
+    </notations>
+   </note>
+   <backup>
+    <duration>4</duration>
+   </backup>
+   <direction>
+    <direction-type>
+     <dynamics>
+      <mf/>
+     </dynamics>
+    </direction-type>
+   </direction>
+   <note>
+    <pitch>
+     <step>C</step>
+     <octave>3</octave>
+    </pitch>
+    <duration>4</duration>
+    <voice>5</voice>
+    <type>whole</type>
+    <stem>up</stem>
+    <staff>2</staff>
+    <notations>
+     <technical>
+      <string>6</string>
+      <fret>8</fret>
+     </technical>
+    </notations>
+   </note>
+  </measure>
+  <measure number="2">
+   <attributes>
+    <divisions>2</divisions>
+    <staff-details number="1">
+<?GP 
+<root>
+</root>
+?>
+    </staff-details>
+   </attributes>
    <direction>
     <direction-type>
      <dynamics>
@@ -284,7 +351,7 @@
     <duration>1</duration>
     <voice>1</voice>
     <type>eighth</type>
-    <stem>down</stem>
+    <stem>up</stem>
     <notehead>normal</notehead>
     <staff>1</staff>
     <beam number="1">begin</beam>
@@ -307,7 +374,7 @@
     <duration>1</duration>
     <voice>1</voice>
     <type>eighth</type>
-    <stem>down</stem>
+    <stem>up</stem>
     <notehead>normal</notehead>
     <staff>1</staff>
     <beam number="1">end</beam>
@@ -448,7 +515,7 @@
     <duration>1</duration>
     <voice>5</voice>
     <type>eighth</type>
-    <stem>down</stem>
+    <stem>up</stem>
     <staff>2</staff>
     <beam number="1">begin</beam>
     <notations>
@@ -466,7 +533,7 @@
     <duration>1</duration>
     <voice>5</voice>
     <type>eighth</type>
-    <stem>down</stem>
+    <stem>up</stem>
     <staff>2</staff>
     <beam number="1">end</beam>
     <notations>
@@ -477,11 +544,78 @@
     </notations>
    </note>
    <barline location="left">
-    <repeat times="99" direction="forward"/>
+    <repeat times="3" direction="forward"/>
    </barline>
    <barline location="right">
-    <repeat times="99" direction="backward"/>
+    <repeat times="3" direction="backward"/>
    </barline>
+  </measure>
+  <measure number="3">
+   <attributes>
+    <divisions>1</divisions>
+    <staff-details number="1">
+<?GP 
+<root>
+</root>
+?>
+    </staff-details>
+   </attributes>
+   <direction>
+    <direction-type>
+     <dynamics>
+      <mf/>
+     </dynamics>
+    </direction-type>
+   </direction>
+   <note>
+    <pitch>
+     <step>C</step>
+     <octave>5</octave>
+    </pitch>
+    <duration>4</duration>
+    <voice>1</voice>
+    <type>whole</type>
+    <stem>up</stem>
+    <notehead>normal</notehead>
+    <staff>1</staff>
+    <notations>
+     <technical>
+<?GP 
+<root>
+<string>4</string>
+<fret>10</fret>
+</root>
+?>
+     </technical>
+    </notations>
+   </note>
+   <backup>
+    <duration>4</duration>
+   </backup>
+   <direction>
+    <direction-type>
+     <dynamics>
+      <mf/>
+     </dynamics>
+    </direction-type>
+   </direction>
+   <note>
+    <pitch>
+     <step>C</step>
+     <octave>4</octave>
+    </pitch>
+    <duration>4</duration>
+    <voice>5</voice>
+    <type>whole</type>
+    <stem>up</stem>
+    <staff>2</staff>
+    <notations>
+     <technical>
+      <string>4</string>
+      <fret>10</fret>
+     </technical>
+    </notations>
+   </note>
   </measure>
  </part>
 </score-partwise>

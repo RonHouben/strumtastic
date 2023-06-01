@@ -28,7 +28,9 @@ type Events =
   | { type: 'cursor.hide' }
   | { type: 'cursor.toggle' }
   | { type: 'cursor.next' }
-  | { type: 'cursor.prev' };
+  | { type: 'cursor.prev' }
+  | { type: 'cursor.moveToMeasure'; payload: { measureIndex: number } }
+  | { type: 'cursor.data' };
 
 type Actions = { type: 'initialize' };
 
@@ -67,7 +69,10 @@ export const opensheetMusicDisplayMachine = createMachine(
         invoke: {
           src: 'initialize',
           onDone: {
-            actions: [assign((_ctx, event) => ({ osmd: event.data })), 'setNotesUnderCursor'],
+            actions: [
+              assign((_ctx, event) => ({ osmd: event.data })),
+              'setNotesUnderCursor'
+            ],
             target: 'idle'
           },
           onError: {
@@ -101,6 +106,17 @@ export const opensheetMusicDisplayMachine = createMachine(
               (ctx) => ctx.osmd.cursor.previous(),
               'setNotesUnderCursor'
             ]
+          },
+          'cursor.moveToMeasure': {
+            actions: ['moveCursorToMeasure']
+          },
+          'cursor.data': {
+            actions: (ctx) =>
+              console.log({
+                cursor: ctx.osmd.cursor,
+                notesUnderCustor: ctx.osmd.cursor.NotesUnderCursor(),
+                gnotesUnderCursor: ctx.osmd.cursor.GNotesUnderCursor()
+              })
           }
         }
       },
@@ -127,15 +143,71 @@ export const opensheetMusicDisplayMachine = createMachine(
     },
     actions: {
       setNotesUnderCursor: assign((ctx) => {
-				const notes = ctx.osmd.cursor.NotesUnderCursor();
-				
-				return {
-        	cursor: {
-          	notes,
-						musicNotes: notes.map((note) => MusicNotes.getMusicNoteFromFrequency(note.Pitch.Frequency)) 
-        	}
-				}
-			}),
+        const notes = ctx.osmd.cursor.NotesUnderCursor();
+
+        return {
+          cursor: {
+            notes,
+            musicNotes: notes.map((note) =>
+              MusicNotes.getMusicNoteFromFrequency(note.Pitch.Frequency)
+            )
+          }
+        };
+      }),
+      moveCursorToMeasure: (ctx, event) => {
+        let direction: 'forward' | 'backwards' | undefined;
+
+        // forwards
+        while (
+          ctx.osmd.cursor.iterator.CurrentMeasureIndex <
+          event.payload.measureIndex
+        ) {
+          ctx.osmd.cursor.iterator.moveToNext();
+        }
+
+        // backwards
+        while (
+          ctx.osmd.cursor.iterator.CurrentMeasureIndex >
+          event.payload.measureIndex
+        ) {
+          direction = 'backwards';
+
+          ctx.osmd.cursor.iterator.moveToPrevious();
+        }
+
+        if (
+          ctx.osmd.cursor.iterator.CurrentMeasureIndex ===
+            event.payload.measureIndex &&
+          direction === 'backwards'
+        ) {
+          const amountOfNotesInMeasure =
+            ctx.osmd.cursor.iterator.CurrentMeasure.VerticalMeasureList[0]
+              .staffEntries.length; 
+
+          // `let i = 1` is necessary because we should end up on the first note of the measure
+          for (let i = 1; i < amountOfNotesInMeasure; i++) {
+            ctx.osmd.cursor.iterator.moveToPrevious();
+          }
+        }
+
+        if (
+          ctx.osmd.cursor.iterator.CurrentMeasureIndex ===
+            event.payload.measureIndex &&
+          direction === undefined
+        ) {
+          // ts-ignore is necessary, since `currentVoiceEntryIndex` is private
+          // @ts-ignore
+          let currentNoteIndex: number = ctx.osmd.cursor.iterator.currentVoiceEntryIndex
+
+          while (currentNoteIndex !== 0) {
+            ctx.osmd.cursor.iterator.moveToPrevious();
+            // @ts-ignore
+            currentNoteIndex = ctx.osmd.cursor.iterator.currentVoiceEntryIndex
+          }
+        }
+
+        ctx.osmd.cursor.show();
+      }
     }
   }
 );

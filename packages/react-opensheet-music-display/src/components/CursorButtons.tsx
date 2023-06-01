@@ -17,6 +17,8 @@ export function CursorButtons() {
             Previous
           </button>
           <button onClick={() => osmdMachine.send('cursor.next')}>Next</button>
+          <button onClick={() => osmdMachine.send({ type: 'cursor.moveToMeasure', payload: { measureIndex: 1 }})}>Go To Measure 2</button>
+          <button onClick={() => osmdMachine.send('cursor.data')}>Current cursor data</button>
         </div>
       )}
     </>

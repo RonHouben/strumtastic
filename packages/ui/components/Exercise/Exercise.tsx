@@ -12,6 +12,10 @@ export function Exercise() {
   const { audioEngine } = useGlobalState();
   const { osmdMachine } = useOpenSheetMusicDisplay();
 
+  useEffect(() => {
+    // console.log(osmdMachine.state.context.osmd?.cursor?.iterator);
+  }, [osmdMachine])
+
   const handleStartListening = () => {
     audioEngine.send('START_LISTENING_TO_MICROPHONE');
   };

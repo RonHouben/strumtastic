@@ -17,7 +17,8 @@
           services: never;
         };
         eventsCausingActions: {
-          "setNotesUnderCursor": "cursor.hide" | "cursor.next" | "cursor.prev" | "cursor.show" | "cursor.toggle" | "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
+          "moveCursorToMeasure": "cursor.moveToMeasure";
+"setNotesUnderCursor": "cursor.hide" | "cursor.next" | "cursor.prev" | "cursor.show" | "cursor.toggle" | "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
         };
         eventsCausingDelays: {
           
