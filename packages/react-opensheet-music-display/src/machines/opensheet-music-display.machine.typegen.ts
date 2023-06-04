@@ -17,8 +17,8 @@
           services: never;
         };
         eventsCausingActions: {
-          "moveCursorToMeasure": "cursor.moveToMeasure";
-"setNotesUnderCursor": "cursor.hide" | "cursor.next" | "cursor.prev" | "cursor.show" | "cursor.toggle" | "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
+          "setInitialContext": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
+"spawnCursorMachine": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
         };
         eventsCausingDelays: {
           

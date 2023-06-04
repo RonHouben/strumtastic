@@ -1,21 +1,16 @@
 import {
   OpenSheetMusicDisplay,
   IOSMDOptions,
-  Note
 } from 'opensheetmusicdisplay';
-import { assign, createMachine } from 'xstate';
-import { MusicNotes, IMusicNote } from 'music-notes';
+import { ActorRefFrom, assign, createMachine, spawn } from 'xstate';
+import { cursorMachine } from './cursor.machine';
 
 type Context = {
   osmd: OpenSheetMusicDisplay;
+  cursorRef: ActorRefFrom<typeof cursorMachine>;
   error?: Error;
   musicXml: string | Document;
   containerId: string;
-  options: IOSMDOptions;
-  cursor: {
-    notes: Note[];
-    musicNotes: IMusicNote[];
-  };
 };
 
 type Services = {
@@ -23,16 +18,13 @@ type Services = {
 };
 
 type Events =
-  | { type: 'initialize' }
+  | { type: 'initialize', payload: { options: IOSMDOptions } }
   | { type: 'cursor.show' }
   | { type: 'cursor.hide' }
-  | { type: 'cursor.toggle' }
   | { type: 'cursor.next' }
   | { type: 'cursor.prev' }
   | { type: 'cursor.moveToMeasure'; payload: { measureIndex: number } }
   | { type: 'cursor.data' };
-
-type Actions = { type: 'initialize' };
 
 export const opensheetMusicDisplayMachine = createMachine(
   {
@@ -44,19 +36,14 @@ export const opensheetMusicDisplayMachine = createMachine(
     schema: {
       context: {} as Context,
       services: {} as Services,
-      events: {} as Events,
-      actions: {} as Actions
+      events: {} as Events
     },
     context: {
-      osmd: undefined as unknown as OpenSheetMusicDisplay,
+      osmd: {} as unknown as Context['osmd'],
+      cursorRef: {} as Context['cursorRef'],
       error: undefined,
       containerId: '',
       musicXml: '',
-      options: {},
-      cursor: {
-        notes: [],
-        musicNotes: []
-      }
     },
     initial: 'uninitialized',
     states: {
@@ -69,10 +56,7 @@ export const opensheetMusicDisplayMachine = createMachine(
         invoke: {
           src: 'initialize',
           onDone: {
-            actions: [
-              assign((_ctx, event) => ({ osmd: event.data })),
-              'setNotesUnderCursor'
-            ],
+            actions: ['setInitialContext', 'spawnCursorMachine'],
             target: 'idle'
           },
           onError: {
@@ -84,39 +68,26 @@ export const opensheetMusicDisplayMachine = createMachine(
       idle: {
         on: {
           'cursor.show': {
-            actions: [(ctx) => ctx.osmd.cursor.show(), 'setNotesUnderCursor']
+            actions: (ctx) => ctx.cursorRef.send('show')
           },
           'cursor.hide': {
-            actions: [(ctx) => ctx.osmd.cursor.hide(), 'setNotesUnderCursor']
-          },
-          'cursor.toggle': {
-            actions: [
-              (ctx) =>
-                ctx.osmd.cursor.hidden
-                  ? ctx.osmd.cursor.show()
-                  : ctx.osmd.cursor.hide(),
-              'setNotesUnderCursor'
-            ]
+            actions: (ctx) => ctx.cursorRef.send('hide')
           },
           'cursor.next': {
-            actions: [(ctx) => ctx.osmd.cursor.next(), 'setNotesUnderCursor']
+            actions: (ctx) => ctx.cursorRef.send('moveToNext')
           },
           'cursor.prev': {
-            actions: [
-              (ctx) => ctx.osmd.cursor.previous(),
-              'setNotesUnderCursor'
-            ]
+            actions: (ctx) => ctx.cursorRef.send('moveToPrevious')
           },
           'cursor.moveToMeasure': {
-            actions: ['moveCursorToMeasure']
+            actions: (ctx, event) =>
+              ctx.cursorRef.send({
+                type: 'moveToMeasure',
+                payload: event.payload
+              })
           },
           'cursor.data': {
-            actions: (ctx) =>
-              console.log({
-                cursor: ctx.osmd.cursor,
-                notesUnderCustor: ctx.osmd.cursor.NotesUnderCursor(),
-                gnotesUnderCursor: ctx.osmd.cursor.GNotesUnderCursor()
-              })
+            actions: (ctx) => ctx.cursorRef.send('logData')
           }
         }
       },
@@ -125,89 +96,33 @@ export const opensheetMusicDisplayMachine = createMachine(
   },
   {
     services: {
-      initialize: async (ctx) => {
-        const osmd = new OpenSheetMusicDisplay(ctx.containerId, ctx.options);
+      initialize: async (ctx, event) => {
+        const osmd = new OpenSheetMusicDisplay(ctx.containerId, event.payload.options);
         await osmd.load(ctx.musicXml);
 
         osmd.render();
-
-        // show cursor
-        osmd.cursor.show();
-
-        // This is a work-around because TailwindCSS sets the height of all img elements to auto
-        const height = osmd!.cursor.cursorElement.getAttribute('height');
-        osmd.cursor.cursorElement.style.height = `${height}px`;
 
         return osmd;
       }
     },
     actions: {
-      setNotesUnderCursor: assign((ctx) => {
-        const notes = ctx.osmd.cursor.NotesUnderCursor();
-
-        return {
-          cursor: {
-            notes,
-            musicNotes: notes.map((note) =>
-              MusicNotes.getMusicNoteFromFrequency(note.Pitch.Frequency)
-            )
+      setInitialContext: assign((_ctx, event) => ({ osmd: event.data })),
+      spawnCursorMachine: assign((ctx) => ({
+        cursorRef: spawn(
+          cursorMachine.withContext({
+            cursor: ctx.osmd.cursor,
+            notesUnderCursor: [],
+            repetition: {
+              startRepeatSignIndex: null,
+              currentRepeat: 0,
+              maxRepeats: 1
+            }
+          }),
+          {
+            name: 'cursorMachine'
           }
-        };
-      }),
-      moveCursorToMeasure: (ctx, event) => {
-        let direction: 'forward' | 'backwards' | undefined;
-
-        // forwards
-        while (
-          ctx.osmd.cursor.iterator.CurrentMeasureIndex <
-          event.payload.measureIndex
-        ) {
-          ctx.osmd.cursor.iterator.moveToNext();
-        }
-
-        // backwards
-        while (
-          ctx.osmd.cursor.iterator.CurrentMeasureIndex >
-          event.payload.measureIndex
-        ) {
-          direction = 'backwards';
-
-          ctx.osmd.cursor.iterator.moveToPrevious();
-        }
-
-        if (
-          ctx.osmd.cursor.iterator.CurrentMeasureIndex ===
-            event.payload.measureIndex &&
-          direction === 'backwards'
-        ) {
-          const amountOfNotesInMeasure =
-            ctx.osmd.cursor.iterator.CurrentMeasure.VerticalMeasureList[0]
-              .staffEntries.length; 
-
-          // `let i = 1` is necessary because we should end up on the first note of the measure
-          for (let i = 1; i < amountOfNotesInMeasure; i++) {
-            ctx.osmd.cursor.iterator.moveToPrevious();
-          }
-        }
-
-        if (
-          ctx.osmd.cursor.iterator.CurrentMeasureIndex ===
-            event.payload.measureIndex &&
-          direction === undefined
-        ) {
-          // ts-ignore is necessary, since `currentVoiceEntryIndex` is private
-          // @ts-ignore
-          let currentNoteIndex: number = ctx.osmd.cursor.iterator.currentVoiceEntryIndex
-
-          while (currentNoteIndex !== 0) {
-            ctx.osmd.cursor.iterator.moveToPrevious();
-            // @ts-ignore
-            currentNoteIndex = ctx.osmd.cursor.iterator.currentVoiceEntryIndex
-          }
-        }
-
-        ctx.osmd.cursor.show();
-      }
+        )
+      }))
     }
   }
 );

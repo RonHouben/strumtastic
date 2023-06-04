@@ -6,6 +6,7 @@ export default function useOpenSheetMusicDisplay() {
   const { osmdService } = useContext(OpenSheetMusicDisplayContext);
 
   const [state, send] = useActor(osmdService);
+
   const osmdMachine = { state, send };
 
   return {
