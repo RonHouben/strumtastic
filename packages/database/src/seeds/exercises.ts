@@ -12,20 +12,20 @@ export async function seedExercises() {
 
   const exercises: PartialExercise[] = [
     {
-      // id: uuid(),
       isEnabled: true,
       title: 'C Major Triads',
       key: 'C major',
       notesToPlay: ['C3', 'E3', 'G3'],
       createdAt: new Date(),
+      musicXml: '' // TODO: add musicXml
     },
     {
-      // id: uuid(),
       isEnabled: false,
       title: 'C Major (Ionian) scale',
       key: 'C major',
       notesToPlay: ['C3', 'D3', 'E3', 'F3', 'G3', 'A4', 'B4'],
       createdAt: new Date(),
+      musicXml: '' // TODO: add musicXml
     }
   ];
 
@@ -43,7 +43,6 @@ export async function seedExercises() {
     if (!existing) {
       const newExercise = new Exercise();
 
-      // newExercise.id = exercise.id;
       newExercise.createdAt = exercise.createdAt;
       newExercise.isEnabled = exercise.isEnabled;
       newExercise.key = exercise.key;

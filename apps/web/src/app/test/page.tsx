@@ -1,20 +1,9 @@
 'use client';
 
-import { api } from '@client/trpc';
 import { OpenSheetMusicDisplayProvider } from 'react-opensheet-music-display';
 import { Exercise } from 'ui/components/Exercise';
 
-interface Props {
-  params: { id: string };
-}
-
-export default function ExercisePage({ params }: Props) {
-  const { data: exercise } = api.exercises.getById.useQuery({ id: params.id });
-
-  if (!exercise?.musicXml) {
-    return <div>Exercise not found</div>
-  };
-
+export default function TestPage() {
   return (
     <OpenSheetMusicDisplayProvider
       options={{
@@ -31,7 +20,18 @@ export default function ExercisePage({ params }: Props) {
         ],
       }}
     >
-      <Exercise exercise={exercise} />
+      <Exercise
+        exercise={{
+          id: '1',
+          musicXml: 'http://localhost:3000/api/v1/music-xml',
+          createdAt: new Date(),
+          isEnabled: true,
+          key: 'C',
+          notesToPlay: [],
+          title: 'Test',
+          updatedAt: new Date(),
+        }}
+      />
     </OpenSheetMusicDisplayProvider>
   );
 }

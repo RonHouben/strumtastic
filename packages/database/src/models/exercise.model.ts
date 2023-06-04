@@ -6,6 +6,7 @@ export class Exercise {
   title!: string;
   key!: string;
   notesToPlay!: string[];
+  musicXml!: string;
 
   isEnabled!: boolean;
 

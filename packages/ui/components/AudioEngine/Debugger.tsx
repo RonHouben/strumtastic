@@ -11,9 +11,9 @@ export const AudioEngineDebugger = () => {
   const handleSwitchUseAIPitchDetector = useCallback(() => {
     audioEngine.send({
       type: 'CONFIGURE_SETTINGS',
-      data: {
-        useAIPitchDetection: !audioEngine.state.context.audioEngine?.useAIPitchDetection
-      }
+      // data: {
+        // useAIPitchDetection: !audioEngine.state.context.audioEngine?.useAIPitchDetection
+      // }
     });
   }, [audioEngine]);
 

@@ -27,8 +27,6 @@
   },
   "packageManager": "npm@8.19.2",
   "dependencies": {
-    "@xstate/react": "^3.2.2",
-    "database": "*",
     "dotenv-cli": "^7.2.1"
   }
 }

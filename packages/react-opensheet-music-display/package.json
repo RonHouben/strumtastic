@@ -1,0 +1,25 @@
+{
+  "name": "react-opensheet-music-display",
+  "version": "0.0.0",
+  "main": "src/index.tsx",
+  "types": "src/index.tsx",
+  "license": "MIT",
+  "author": {
+    "name": "Ron Houben",
+    "email": "ron.houben85@gmail.com",
+    "url": "https://github.com/RonHouben"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "TIMING=1 eslint \"**/*.ts*\""
+  },
+  "dependencies": {
+    "@xstate/react": "^3.2.2",
+    "opensheetmusicdisplay": "^1.7.5",
+    "xstate": "^4.37.2",
+    "music-notes": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.7"
+  }
+}
