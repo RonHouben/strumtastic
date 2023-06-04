@@ -10,7 +10,7 @@ export default function TestPage() {
       options={{
         drawTitle: true,
         autoResize: true,
-        // darkMode: true,
+        darkMode: false,
         cursorsOptions: [
           {
             type: 0,

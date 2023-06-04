@@ -7,6 +7,7 @@ import { cursorMachine } from './cursor.machine';
 
 type Context = {
   osmd: OpenSheetMusicDisplay;
+  options: IOSMDOptions;
   cursorRef: ActorRefFrom<typeof cursorMachine>;
   error?: Error;
   musicXml: string | Document;
@@ -18,7 +19,7 @@ type Services = {
 };
 
 type Events =
-  | { type: 'initialize', payload: { options: IOSMDOptions } }
+  | { type: 'initialize' }
   | { type: 'cursor.show' }
   | { type: 'cursor.hide' }
   | { type: 'cursor.next' }
@@ -40,6 +41,7 @@ export const opensheetMusicDisplayMachine = createMachine(
     },
     context: {
       osmd: {} as unknown as Context['osmd'],
+      options: {} as Context['options'],
       cursorRef: {} as Context['cursorRef'],
       error: undefined,
       containerId: '',
@@ -97,7 +99,7 @@ export const opensheetMusicDisplayMachine = createMachine(
   {
     services: {
       initialize: async (ctx, event) => {
-        const osmd = new OpenSheetMusicDisplay(ctx.containerId, event.payload.options);
+        const osmd = new OpenSheetMusicDisplay(ctx.containerId, ctx.options);
         await osmd.load(ctx.musicXml);
 
         osmd.render();

@@ -24,9 +24,7 @@ export function Exercise() {
     if (osmdMachine.state.matches('uninitialized')) {
       // hacky workaround so OSMD doesn't get double spawned
       setTimeout(() => {
-        osmdMachine.send({ type: 'initialize', payload: { options: { 
-          darkMode: false,
-        }}});
+        osmdMachine.send('initialize');
       }, 100);
     }
   }, [osmdMachine]);
