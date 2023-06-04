@@ -44,10 +44,13 @@ export const cursorMachine = createMachine(
         maxRepeats: 1
       }
     },
-    initial: 'idle',
+    initial: 'initializing',
     states: {
-      idle: {
+      initializing: {
         entry: ['show', 'styleCursorElement', 'setNotesUnderCursor'],
+        always: 'idle'
+      },
+      idle: {
         on: {
           show: {
             actions: ['show', 'styleCursorElement', 'setNotesUnderCursor']
@@ -90,6 +93,7 @@ export const cursorMachine = createMachine(
       styleCursorElement: (ctx) => {
         // This is a work-around because TailwindCSS sets the height of all img elements to auto
         const height = ctx.cursor.cursorElement.getAttribute('height');
+        console.log('style height:', ctx.cursor.cursorElement.style.height)
         ctx.cursor.cursorElement.style.height = `${height}px`;
       },
       show: (ctx) => {

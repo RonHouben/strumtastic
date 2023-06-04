@@ -6,7 +6,6 @@ import { Exercise } from 'ui/components/Exercise';
 export default function TestPage() {
   return (
     <OpenSheetMusicDisplayProvider
-      musicXml="http://localhost:3000/api/v1/music-xml"
       options={{
         drawTitle: true,
         autoResize: true,
@@ -21,7 +20,18 @@ export default function TestPage() {
         ],
       }}
     >
-      <Exercise />
+      <Exercise
+        exercise={{
+          id: '1',
+          musicXml: 'http://localhost:3000/api/v1/music-xml',
+          createdAt: new Date(),
+          isEnabled: true,
+          key: 'C',
+          notesToPlay: [],
+          title: 'Test',
+          updatedAt: new Date(),
+        }}
+      />
     </OpenSheetMusicDisplayProvider>
   );
 }

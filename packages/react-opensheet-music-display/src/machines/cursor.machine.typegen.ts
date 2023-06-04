@@ -36,7 +36,7 @@
         eventsCausingServices: {
           
         };
-        matchesStates: "idle";
+        matchesStates: "idle" | "initializing";
         tags: never;
       }
   

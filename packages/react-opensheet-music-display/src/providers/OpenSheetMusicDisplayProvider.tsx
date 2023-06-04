@@ -18,20 +18,16 @@ export const OpenSheetMusicDisplayContext =
 interface Props {
   children: React.ReactNode;
   options: IOSMDOptions;
-  musicXml: string | Document;
-  // TODO: add exerciseId to fetch the right exercise xml
 }
 
 export const OpenSheetMusicDisplayProvider = ({
   children,
   options,
-  musicXml
 }: Props) => {
   const containerId = 'opensheet-music-display';
 
   const osmdService = useInterpret(opensheetMusicDisplayMachine, {
     context: {
-      musicXml,
       containerId,
       options
     }
