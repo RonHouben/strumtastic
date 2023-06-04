@@ -40,6 +40,7 @@ export default function CreateExercisePage() {
         key: '',
         isEnabled: true,
         notesToPlay: [],
+        musicXml: ''
       }}
       handleSubmit={handleSubmit}
       validationSchema={exercisesSchemas.create}

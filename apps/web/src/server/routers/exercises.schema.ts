@@ -14,6 +14,7 @@ export const exercisesSchemas = {
     key: z.string().endsWith(' major').or(z.string().endsWith(' minor')),
     isEnabled: z.boolean(),
     notesToPlay: z.array(z.string()).min(1, 'Must select at least 1 note'),
+    musicXml: z.string(),
   }),
   delete: z.object({
     id: z.string(),
