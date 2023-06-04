@@ -32,8 +32,13 @@ export class MusicNotes {
 
   public static getMusicNoteFromFrequency(
     pitch: number,
+    isRest?: boolean,
     flatsOrSharps?: FlatsOrSharps
   ): IMusicNote {
+    if (isRest || pitch === 0) {
+      return { empty: true, name: 'rest', pc: 'rest', acc: '', freq: 0 } as IMusicNote;
+    }
+
     const noteName = Note.fromFreq(pitch);
     const transformedAccidental = MusicNotes.transformAccidental(
       noteName,

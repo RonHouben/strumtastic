@@ -6,7 +6,7 @@ type Context = {
   cursor: Cursor;
   notesUnderCursor: IMusicNote[];
   repetition: {
-    startRepeatSignIndex: number | null;
+    startRepeatSignIndex: number;
     maxRepeats: number;
     currentRepeat: number;
   };
@@ -39,7 +39,7 @@ export const cursorMachine = createMachine(
       cursor: {} as Cursor,
       notesUnderCursor: [],
       repetition: {
-        startRepeatSignIndex: null,
+        startRepeatSignIndex: -1,
         currentRepeat: 0,
         maxRepeats: 1
       }
@@ -114,7 +114,9 @@ export const cursorMachine = createMachine(
           const notes = ctx.cursor.NotesUnderCursor();
 
           return notes.map((note) =>
-            MusicNotes.getMusicNoteFromFrequency(note.Pitch.Frequency)
+            note.Pitch
+              ? MusicNotes.getMusicNoteFromFrequency(note.Pitch.Frequency)
+              : MusicNotes.getMusicNoteFromFrequency(0, true)
           );
         }
       }),
@@ -137,7 +139,9 @@ export const cursorMachine = createMachine(
         let direction: 'forward' | 'backwards' | undefined;
 
         const measureIndex =
-          event.payload?.measureIndex || ctx.repetition.startRepeatSignIndex;
+          event.type === 'moveToMeasure'
+            ? event.payload.measureIndex
+            : ctx.repetition.startRepeatSignIndex;
 
         // forwards
         while (ctx.cursor.iterator.CurrentMeasureIndex < measureIndex) {

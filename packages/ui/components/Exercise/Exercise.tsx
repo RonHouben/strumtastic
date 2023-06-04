@@ -13,7 +13,7 @@ export function Exercise() {
   const { osmdMachine } = useOpenSheetMusicDisplay();
 
   useEffect(() => {
-    // console.log(osmdMachine.state.context.cursorRef.state?.value);
+    // console.log(osmdMachine.state.context.osmd?.Sheet?.Repetitions);
   }, [osmdMachine]);
 
   const handleStartListening = () => {
@@ -83,7 +83,7 @@ export function Exercise() {
       <div>
         Freq to play:
         {osmdMachine.state.context.cursorRef.state?.context?.notesUnderCursor[1]
-          ?.freq || ''}
+          ?.freq}
       </div>
       <div>
         Note to play:

@@ -113,7 +113,7 @@ export const opensheetMusicDisplayMachine = createMachine(
             cursor: ctx.osmd.cursor,
             notesUnderCursor: [],
             repetition: {
-              startRepeatSignIndex: null,
+              startRepeatSignIndex: -1,
               currentRepeat: 0,
               maxRepeats: 1
             }
