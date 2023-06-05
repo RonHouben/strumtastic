@@ -32,7 +32,7 @@
     "@trpc/server": "^10.19.1",
     "audio-engine": "*",
     "clsx": "1.2.1",
-    "concurrently": "8.0.1",
+    "concurrently": "8.1.0",
     "database": "*",
     "exercise-engine": "*",
     "formik": "^2.2.9",
