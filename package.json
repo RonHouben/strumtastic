@@ -13,14 +13,14 @@
   ],
   "scripts": {
     "build": "dotenv -- turbo run build",
-    "dev": "dotenv -- turbo run dev --parallel --concurrency 11",
+    "start": "dotenv -- turbo run dev --parallel --concurrency 12",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint-config-custom": "*",
     "prettier": "latest",
-    "turbo": "^1.9.3"
+    "turbo": "^1.10.1"
   },
   "engines": {
     "node": ">=14.0.0"

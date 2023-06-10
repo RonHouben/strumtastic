@@ -20,7 +20,7 @@ export function Exercise({ exercise }: Props) {
   const { osmdMachine } = useOpenSheetMusicDisplay();
 
   useEffect(() => {
-    // console.log(osmdMachine.state.context.cursorRef.state?.context.cursor.cursorElement);
+    console.log(osmdMachine.state.context.cursorRef.state?.context.cursor.cursorElement);
   }, [osmdMachine]);
 
   const handleStartListening = () => {

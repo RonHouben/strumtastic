@@ -1,5 +1,3 @@
-'use client';
-
 import { api } from '@client/trpc';
 import { Exercise } from 'database';
 import IconButton from '../IconButton';
@@ -9,12 +7,12 @@ import IconButtonLink from '../IconButtonLink';
 import { Typography } from '../Typography';
 import Skeleton from '../Skeleton';
 
-export default function ExercisesList() {
-  const {
-    data: exercises,
-    isLoading,
-    isError
-  } = api.exercises.getAll.useQuery();
+export default async function ExercisesList() {
+  // const {
+  //   data: exercises,
+  //   isLoading,
+  //   isError
+  // } = api.exercises.getAll.useQuery();
 
   const { mutate } = api.exercises.delete.useMutation();
 

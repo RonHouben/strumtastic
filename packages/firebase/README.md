@@ -1,0 +1,1 @@
+# `@strumtastic/firebase`

@@ -1,17 +1,16 @@
-'use client';
-
-import { api } from '@client/trpc';
 import { OpenSheetMusicDisplayProvider } from 'react-opensheet-music-display';
+import { getDocumentById } from '@strumtastic/firebase';
+import { Exercise as IExercise } from 'database';
 import { Exercise } from 'ui/components/Exercise';
 
 interface Props {
   params: { id: string };
 }
 
-export default function ExercisePage({ params }: Props) {
-  const { data: exercise } = api.exercises.getById.useQuery({ id: params.id });
+export default async function ExercisePage({ params }: Props) {
+  const exercise = await getDocumentById<IExercise>('Exercises', params.id);
 
-  if (!exercise?.musicXml) {
+  if (!exercise) {
     return <div>Exercise not found</div>
   };
 
