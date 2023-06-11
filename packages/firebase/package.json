@@ -6,7 +6,7 @@
   "types": "./src/index.ts",
   "type": "module",
   "scripts": {
-    "build": "turbo build"
+    "build": "tsc --build"
   },
   "dependencies": {
     "firebase": "^9.22.1"
