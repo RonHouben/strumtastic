@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "class-validator": "^0.14.0",
-    "firebase-admin": "^11.8.0",
+    "firebase-admin": "^11.9.0",
     "fireorm": "^0.23.3",
     "reflect-metadata": "^0.1.13",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.2.3",
+    "@types/node": "^20.2.5",
     "@types/uuid": "^9.0.1",
     "eslint-config-custom": "*",
     "ts-node": "^10.9.1",

@@ -101,6 +101,9 @@ export const opensheetMusicDisplayMachine = createMachine(
 
         osmd.render();
 
+        // This is a work-around because TailwindCSS sets the height of all img elements to auto
+        const height = osmd.cursor.cursorElement.getAttribute('height');
+        osmd.cursor.cursorElement.style.height = `${height}px`;
         return osmd;
       }
     },
