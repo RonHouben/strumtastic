@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1686550179130,
+      "tag": "0001_misty_arclight",
+      "breakpoints": false
+    }
+  ]
+}

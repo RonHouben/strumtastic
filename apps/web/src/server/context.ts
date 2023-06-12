@@ -12,14 +12,9 @@ export async function createContext(
   opts: // HACKs because we can't import `next/cookies` in `/api`-routes
   trpcNext.CreateNextContextOptions & { type: 'api' },
 ) {
-  // need to use dynamic import to make sure that this is loaded after
-  // firestore has been initialized in `./trcp.ts`
-  const { exerciseRepository } = await import('database/src/repositories');
-
   // for API-response caching see https://trpc.io/docs/caching
   return {
     type: opts.type,
-    exercises: exerciseRepository,
   }
 }
 

@@ -2,7 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["db:seed"],
+      "dependsOn": [],
       "outputs": [
         "dist/**"
       ]
@@ -23,6 +23,17 @@
         "build/**"
       ]
     },
+    "database#seed": {
+      "dependsOn": [
+        "database#migrate:push"
+      ]
+    },
+    "database#migrate:push": {
+      "dependsOn": [
+        "database#start"
+      ]
+    },
+    "database#start": {},
     "web:build": {
       "dependsOn": [
         "audio-engine:build"
@@ -36,18 +47,12 @@
         ".next/**"
       ]
     },
-    "lint": {
-      "outputs": []
-    },
     "dev": {
-      "dependsOn": [
-        "db:seed"
-      ],
       "cache": false,
-      "persistent": true
-    },
-    "db:seed": {
-      "cache": false
+      "persistent": true,
+      "dependsOn": [
+        "database#seed"
+      ]
     }
   }
 }
