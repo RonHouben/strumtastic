@@ -1,9 +1,13 @@
 'use server';
 
-import { db, schemas } from 'database';
+import { schema, repository } from 'database';
 
-export type IExercise = schemas.Exercises.IExercise;
+export type IExercise = schema.exercises.IExercise;
+
+export async function getById(id: IExercise['id']) {
+  return repository.exercises.getById(id)
+}
 
 export async function getAll() {
-  return db.select().from(schemas.Exercises.table);
+  return repository.exercises.getAll()
 }

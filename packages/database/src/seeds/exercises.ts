@@ -1,18 +1,17 @@
-import { Exercises } from '../schemas/index.ts';
-import { db } from '../index.ts';
+import { db, schema } from '../index.ts';
 import { eq } from 'drizzle-orm';
 
 export async function seedExercises() {
   console.log('Seeding Exercises');
 
   const exercises = [
-    Exercises.createSchema.parse({
+    schema.exercises.create.parse({
       isEnabled: true,
       title: 'C Major Triads',
       musicXml: '' // TODO: add musicXml
 
     }),
-    Exercises.createSchema.parse({
+    schema.exercises.create.parse({
       isEnabled: false,
       title: 'C Major (Ionian) scale',
       musicXml: '' // TODO: add musicXml
@@ -22,10 +21,10 @@ export async function seedExercises() {
   for (const exercise of exercises) {
     const exercises = await db
       .select()
-      .from(Exercises.table)
-      .where(eq(Exercises.table.title, exercise.title))
-      .where(eq(Exercises.table.isEnabled, true))
-      .where(eq(Exercises.table.musicXml, exercise.musicXml))
+      .from(schema.exercises.table)
+      .where(eq(schema.exercises.table.title, exercise.title))
+      .where(eq(schema.exercises.table.isEnabled, true))
+      .where(eq(schema.exercises.table.musicXml, exercise.musicXml))
       .limit(1);
 
     const existingExercise = exercises[0];
@@ -35,7 +34,7 @@ export async function seedExercises() {
     }
 
     if (!existingExercise) {
-      await db.insert(Exercises.table).values(exercise);
+      await db.insert(schema.exercises.table).values(exercise);
 
       console.log('Creating exercise:', exercise);
     }

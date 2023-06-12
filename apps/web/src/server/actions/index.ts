@@ -1,1 +1,1 @@
-export * as Exercises from './exercises';
+export * as exercises from './exercises';

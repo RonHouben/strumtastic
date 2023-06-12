@@ -11,7 +11,7 @@ export const table = pgTable('exercises', {
   updatedAt: date('updatedAt')
 });
 
-export const createSchema = createInsertSchema(table, {
+export const create = createInsertSchema(table, {
   id: (schema) => schema.id.positive(),
 });
 
