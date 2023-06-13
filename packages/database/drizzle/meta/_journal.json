@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1686550179130,
+      "tag": "0001_misty_arclight",
+      "breakpoints": false
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1686589191881,
+      "tag": "0002_loving_morlun",
+      "breakpoints": false
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1686593324411,
+      "tag": "0003_curly_inertia",
+      "breakpoints": false
+    }
+  ]
+}
