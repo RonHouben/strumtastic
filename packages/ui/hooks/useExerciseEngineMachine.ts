@@ -23,7 +23,7 @@ interface UseExerciseEngineResult {
   isExercising: boolean;
 }
 
-export function useExerciseEngine(): UseExerciseEngineResult {
+export function useExerciseEngineMachine(): UseExerciseEngineResult {
   const { exerciseEngineService } = useContext(GlobalStateContext);
   const isExercising = useSelector(exerciseEngineService, isExercisingSelector);
 

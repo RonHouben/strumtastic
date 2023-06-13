@@ -1,5 +1,5 @@
 import AdminMenu from "./AdminMenu";
-import ExerciseForm from "./ExerciseForm";
+import ExerciseFormEdit from "./ExerciseFormEdit";
 import ExercisesList from "./ExercisesList";
 
-export { AdminMenu, ExerciseForm, ExercisesList };
+export { AdminMenu, ExerciseFormEdit, ExercisesList };
