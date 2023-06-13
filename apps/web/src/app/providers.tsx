@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { TRCPClientProvider } from '@client/trpc';
 import { GlobalStateProvider } from 'ui/providers/GlobalStateProvider';
+import { Analytics } from '@vercel/analytics/react';
 
 interface Props {
   children: ReactNode;
@@ -8,8 +8,9 @@ interface Props {
 
 export function Providers({ children }: Props) {
   return (
-    <TRCPClientProvider>
+    <>
       <GlobalStateProvider>{children}</GlobalStateProvider>
-    </TRCPClientProvider>
+      <Analytics />
+    </>
   );
 }

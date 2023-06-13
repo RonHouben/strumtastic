@@ -1,18 +1,17 @@
 import { OpenSheetMusicDisplayProvider } from 'react-opensheet-music-display';
-import { getDocumentById } from '@strumtastic/firebase';
-import { Exercise as IExercise } from 'database';
 import { Exercise } from 'ui/components/Exercise';
+import { exercises } from '@server/actions';
 
 interface Props {
-  params: { id: string };
+  params: { id: exercises.IExercise['id'] };
 }
 
 export default async function ExercisePage({ params }: Props) {
-  const exercise = await getDocumentById<IExercise>('Exercises', params.id);
+  const exercise = await exercises.getById(params.id);
 
   if (!exercise) {
-    return <div>Exercise not found</div>
-  };
+    return <div>Exercise not found</div>;
+  }
 
   return (
     <OpenSheetMusicDisplayProvider

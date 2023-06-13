@@ -1,7 +1,5 @@
 'use client';
 
-import { api } from '@client/trpc';
-import { Exercise } from 'database';
 import { useCallback, useState } from 'react';
 import { useClassNames } from '../hooks/useClassNames';
 import Button from './Button';
@@ -9,18 +7,19 @@ import { Card, CardContent, CardMedia } from './Card';
 import { GuitarPickSVG } from './SVG';
 import Select from './Select/Select';
 import { Typography } from './Typography';
+import { exercises } from '@server/actions';
 
 interface Props {
+  exercises: exercises.IExercise[];
   disabled?: boolean;
-  onDone: (exerciseId: string) => void;
+  onDone: (id: exercises.IExercise['id']) => void;
   myRef?: React.Ref<HTMLDivElement>;
 }
 
-export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
+export default function SelectExerciseCard({ exercises, disabled, onDone, myRef }: Props) {
   const { classNames } = useClassNames();
-  const { isLoading, data: exercises } = api.exercises.getAll.useQuery();
 
-  const [selectedExercise, setSelectedExercise] = useState<Exercise>();
+  const [selectedExercise, setSelectedExercise] = useState<exercises.IExercise>();
 
   const handleStartExercise = useCallback(() => {
     if (selectedExercise) {
@@ -55,7 +54,6 @@ export default function SelectExerciseCard({ disabled, onDone, myRef }: Props) {
             labelProperty="title"
             selected={selectedExercise}
             onChange={setSelectedExercise}
-            isLoading={isLoading}
           />
           <Button
             size="md"

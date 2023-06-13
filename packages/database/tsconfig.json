@@ -13,6 +13,6 @@
       "@models/*": ["src/models/*"]
     }
   },
-  "include": ["src", "**/*.d.ts", "**/*.ts"],
+  "include": ["**/*.d.ts", "src/**/*.ts"],
   "exclude": ["dist", "node_modules"],
 }

@@ -1,4 +1,3 @@
-import { initFirestore } from '../init.ts';
 import { seedExercises } from './exercises.ts';
 
 main()
@@ -7,12 +6,12 @@ main()
   })
   .finally(() => {
     console.log('Seeding database complete');
+
+    process.exit(0);
   });
 
 async function main() {
   console.log('Starting seeding database');
-
-  initFirestore();
 
   await seedExercises();
 }
