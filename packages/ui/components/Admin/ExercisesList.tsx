@@ -5,14 +5,14 @@ import DeleteIcon from '@heroicons/react/24/outline/TrashIcon';
 import EditIcon from '@heroicons/react/24/outline/PencilSquareIcon';
 import IconButtonLink from '../IconButtonLink';
 import { Typography } from '../Typography';
-import { Exercises } from '@server/actions';
+import { exercises } from '@server/actions';
 
 interface Props {
-  exercises: Exercises.IExercise[];
+  exercises: exercises.IExercise[];
 }
 
 export default async function ExercisesList({ exercises }: Props) {
-  const handleDeleteExercise = async (id: Exercises.IExercise['id']) => {
+  const handleDeleteExercise = async (id: exercises.IExercise['id']) => {
     // TODO: add confirm delete dialog
     console.log('TODO: add deleting of exercise')
   };
