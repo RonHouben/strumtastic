@@ -9,10 +9,10 @@ import {
   useOpenSheetMusicDisplay,
   CursorButtons
 } from 'react-opensheet-music-display';
-import { Exercise as IExercise } from 'database';
+import { exercises } from '@server/actions';
 
 interface Props {
-  exercise: IExercise;
+  exercise: exercises.IExercise;
 }
 
 export function Exercise({ exercise }: Props) {

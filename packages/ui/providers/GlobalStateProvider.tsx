@@ -25,7 +25,6 @@ export const GlobalStateProvider = ({ children }: Props) => {
   const audioEngineService = useInterpret(audioEngineMachine, { context: {
     mlModelUrl: '/api/v1/ml-model/crepe/model.json',
   }});
-
   const onboardUserService = useInterpret(onboardUserMachine);
   const exerciseEngineService = useInterpret(exerciseEngineMachine);
 
