@@ -4,7 +4,7 @@ import React, { Fragment, useState, FocusEvent } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { SelectOption } from '../types';
-import { useClassNames } from '../hooks/useClassNames';
+import { cn } from '@utils';
 import { useFormikContext } from 'formik';
 
 interface Props<T extends SelectOption> {
@@ -26,7 +26,6 @@ export default function AutoComplete<T extends SelectOption>({
   onChange,
   onBlur
 }: Props<T>) {
-  const { classNames } = useClassNames();
   const { setFieldTouched, setFieldValue } = useFormikContext<T>();
   const [selectedOption, setSelectedOption] = useState<T | undefined>(selected);
   const [query, setQuery] = useState('');
@@ -73,7 +72,7 @@ export default function AutoComplete<T extends SelectOption>({
         <div className="relative w-full cursor-default overflow-hidden rounded-md text-left shadow-sm">
           <Combobox.Input
             name={name}
-            className={classNames(
+            className={cn(
               'relative w-full cursor-default rounded-md py-2 pl-3 pr-10 text-left shadow-sm focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 dark:text-primary-50 sm:text-sm'
             )}
             displayValue={(option: T) =>
@@ -112,7 +111,7 @@ export default function AutoComplete<T extends SelectOption>({
                 <Combobox.Option
                   key={option.id}
                   className={({ active, disabled }) =>
-                    classNames(
+                    cn(
                       `relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-900 dark:text-primary-50`,
                       disabled ? '!cursor-default !text-slate-500' : '',
                       active

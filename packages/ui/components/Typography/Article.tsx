@@ -1,4 +1,4 @@
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 
 interface Props {
   children: React.ReactNode;
@@ -6,10 +6,8 @@ interface Props {
 }
 
 export default function Article({ children, className }: Props) {
-  const { classNames } = useClassNames();
-
   return (
-    <article className={classNames('prose', className || '')}>
+    <article className={cn('prose', className || '')}>
       {children}
     </article>
   );

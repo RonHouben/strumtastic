@@ -3,7 +3,7 @@
 import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 import { SelectOption } from '../../types';
 
 interface Props<T extends SelectOption> {
@@ -27,11 +27,9 @@ export default function Select<T extends SelectOption>({
   className,
   isLoading
 }: Props<T>) {
-  const { classNames } = useClassNames();
-
   return (
     <Listbox value={selected || null} onChange={onChange} disabled={isDisabled}>
-      <div className={classNames('relative mt-1 w-full', className || '')}>
+      <div className={cn('relative mt-1 w-full', className || '')}>
         <Listbox.Button className="relative w-full cursor-default rounded-lg bg-primary-50 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 dark:text-primary-50 sm:text-sm">
           <span className="block truncate">
             {isLoading && 'Loading...'}
@@ -58,7 +56,7 @@ export default function Select<T extends SelectOption>({
                 key={i}
                 disabled={option.isDisabled}
                 className={({ active, disabled }) =>
-                  classNames(
+                  cn(
                     `relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-900 dark:text-primary-50`,
                     disabled ? '!cursor-default !text-slate-500' : '',
                     active

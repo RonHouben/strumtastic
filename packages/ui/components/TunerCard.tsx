@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useClassNames } from '../hooks/useClassNames';
+import { cn } from '@utils';
 import { useGlobalState } from '../hooks/useGlobalState';
 import { Card, CardMedia, CardContent } from './Card';
 import { GuitarTuner } from './GuitarTuner';
@@ -15,7 +15,6 @@ interface Props {
 }
 
 export default function TunerCard({ disabled, onDone, myRef }: Props) {
-  const { classNames } = useClassNames();
   const { onboardUser } = useGlobalState();
 
   const handleStopTuner = useCallback(() => {
@@ -27,7 +26,7 @@ export default function TunerCard({ disabled, onDone, myRef }: Props) {
       <CardMedia>
         {disabled && (
           <TuningForkSVG
-            className={classNames(
+            className={cn(
               'stroke-primary-500 fill-primary-500 dark:stroke-secondary-500 dark:fill-secondary-500 h-full',
               onboardUser.state.context.isTuned
                 ? '!fill-green-300 !stroke-green-300'

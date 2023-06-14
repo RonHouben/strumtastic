@@ -1,4 +1,4 @@
-import { useClassNames } from '../hooks/useClassNames';
+import { cn } from '@utils';
 import { Color, Size, Variant } from '../types';
 import { ButtonLink } from './ButtonLink';
 
@@ -17,8 +17,6 @@ export default function IconButtonLink({
   color,
   href
 }: Props) {
-  const { classNames } = useClassNames();
-
   return (
     <ButtonLink
       href={href}
@@ -26,7 +24,7 @@ export default function IconButtonLink({
       variant={variant}
       color={color}
       icon={children}
-      className={classNames(
+      className={cn(
         'rounded-full',
         size === 'xs' ? 'h-5 w-5 !p-1' : '',
         size === 'sm' ? 'h-6 w-6 !p-1' : '',

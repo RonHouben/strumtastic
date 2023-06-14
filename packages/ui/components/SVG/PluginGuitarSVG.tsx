@@ -1,6 +1,6 @@
 'use client';
 
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 import ErrorCicleSVG from './ErrorCircleSVG';
 import GuitarAmpSVG from './GuitarAmpSVG';
 import LoadingCircleSVG from './LoadingCircleSVG';
@@ -12,13 +12,11 @@ interface Props {
 }
 
 export default function PluginGuitarSVG({ isLoading, isDone, isError }: Props) {
-  const { classNames } = useClassNames();
-
   return (
     <div className="h-full">
       {!isLoading && !isError && (
         <GuitarAmpSVG
-          className={classNames(
+          className={cn(
             'h-full',
             isDone ? '!fill-green-400 !stroke-green-400' : ''
           )}

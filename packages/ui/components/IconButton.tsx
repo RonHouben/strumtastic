@@ -1,4 +1,4 @@
-import { useClassNames } from '../hooks/useClassNames';
+import { cn } from '@utils';
 import { Color, Size, Variant } from '../types';
 import Button from './Button';
 import { MouseEvent } from 'react';
@@ -13,15 +13,13 @@ interface Props {
 }
 
 export default function IconButton({ children, size, variant, color, onClick, className }: Props) {
-  const { classNames } = useClassNames();
-
   return (
     <Button
       size={size}
       variant={variant}
       color={color}
       icon={children}
-      className={classNames(
+      className={cn(
         'rounded-full',
         size === 'xs' ? 'h-5 w-5 !p-1' : '',
         size === 'sm' ? 'h-6 w-6 !p-1' : '',

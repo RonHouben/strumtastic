@@ -1,7 +1,7 @@
 'use client';
 
 import { ButtonHTMLAttributes } from 'react';
-import { useClassNames } from '../hooks/useClassNames';
+import { cn } from '@utils';
 import { Color, Size, Variant } from '../types';
 
 interface Props {
@@ -31,11 +31,9 @@ export default function Button({
   color,
   fullWidth
 }: Props) {
-  const { classNames } = useClassNames();
-
   return (
     <button
-      className={classNames(
+      className={cn(
         'flex items-center justify-center gap-1 rounded-md text-center font-medium duration-500',
         fullWidth ? 'w-full' : '',
         size === 'xs' ? 'px-3 py-2 text-xs' : '',
@@ -57,7 +55,7 @@ export default function Button({
           : '',
         color === 'red' ? 'bg-red-500 text-red-800 hover:text-red-50' : '',
         variant === 'filled'
-          ? classNames(
+          ? cn(
               'hover:shadow-lg hover:brightness-125',
               color === 'primary' ? '!text-primary-200' : '',
               color === 'secondary' ? '!text-secondary-200' : '',
@@ -67,7 +65,7 @@ export default function Button({
             )
           : '',
         variant === 'outlined'
-          ? classNames(
+          ? cn(
               'border !bg-transparent',
               color === 'primary'
                 ? 'border-primary-500 !text-primary-500 hover:!text-primary-900'
@@ -87,7 +85,7 @@ export default function Button({
             )
           : '',
         variant === 'text'
-          ? classNames(
+          ? cn(
               '!bg-transparent',
               color === 'primary'
                 ? 'hover:!bg-primary-500/50 hover:!text-primary-400'
@@ -105,12 +103,12 @@ export default function Button({
             )
           : '',
         selected
-          ? classNames(
+          ? cn(
               'brightness-125',
               variant === 'filled' ? 'shadow-lg' : '',
               variant === 'outlined' ? '' : '',
               variant === 'text'
-                ? classNames(
+                ? cn(
                     'dark:!brightness-100',
                     color === 'primary'
                       ? '!bg-primary-500/100  !text-primary-200 hover:!text-primary-50 dark:!bg-primary-500/70'
@@ -132,7 +130,7 @@ export default function Button({
             )
           : '',
         disabled
-          ? classNames(
+          ? cn(
               'cursor-not-allowed brightness-50 backdrop-grayscale-0 hover:!bg-transparent',
               color === 'primary' ? 'hover:!text-primary-800' : '',
               color === 'secondary' ? 'hover:!text-secondary-800' : '',

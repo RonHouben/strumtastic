@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { useClassNames } from '../hooks/useClassNames';
+import { cn } from '@utils';
 import Button from './Button';
 import { Card, CardContent, CardMedia } from './Card';
 import { GuitarPickSVG } from './SVG';
@@ -17,8 +17,6 @@ interface Props {
 }
 
 export default function SelectExerciseCard({ exercises, disabled, onDone, myRef }: Props) {
-  const { classNames } = useClassNames();
-
   const [selectedExercise, setSelectedExercise] = useState<exercises.IExercise>();
 
   const handleStartExercise = useCallback(() => {
@@ -31,7 +29,7 @@ export default function SelectExerciseCard({ exercises, disabled, onDone, myRef 
     <Card className="h-[35rem] snap-center" disabled={disabled} myRef={myRef}>
       <CardMedia className="relative">
         <GuitarPickSVG
-          className={classNames(
+          className={cn(
             'h-full',
             selectedExercise ? '!fill-green-300 !stroke-green-300' : ''
           )}

@@ -2,7 +2,7 @@
 
 import { Field, useFormikContext } from 'formik';
 import { FocusEvent, HTMLInputTypeAttribute } from 'react';
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 
 interface Props {
   name: string;
@@ -24,7 +24,6 @@ export default function InputField({
   onFocus
 }: Props) {
   const { setFieldTouched } = useFormikContext();
-  const { classNames } = useClassNames();
 
   const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
     setFieldTouched(name);
@@ -39,7 +38,7 @@ export default function InputField({
       id={name}
       name={name}
       type={type}
-      className={classNames(
+      className={cn(
         'relative w-full cursor-default rounded-md py-2 pl-3 pr-10 text-left shadow-sm focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-700 dark:text-primary-50 sm:text-sm',
         className || ''
       )}

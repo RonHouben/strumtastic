@@ -5,7 +5,7 @@ import { GuitarAmpSVG } from '../SVG';
 import { ButtonLink } from '../ButtonLink';
 import Button from '../Button';
 import { useRouter } from 'next/navigation';
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 import { Article } from '../Typography';
 import Link from '../Link';
 import { useGlobalState } from '../../hooks/useGlobalState';
@@ -16,7 +16,6 @@ interface Props {
 
 export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
   const router = useRouter();
-  const { classNames } = useClassNames();
   const { audioEngine } = useGlobalState();
 
   const handleContinue = useCallback(() => {
@@ -36,7 +35,7 @@ export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
   return (
     <div className="flex-col">
       <GuitarAmpSVG
-        className={classNames(
+        className={cn(
           audioEngine.state.matches('unitialized') ||
             audioEngine.state.matches('initializing.gettingMicrophoneAccess')
             ? 'fill-warning-500'

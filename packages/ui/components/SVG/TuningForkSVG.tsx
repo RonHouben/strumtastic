@@ -1,4 +1,4 @@
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 import SVGWrapper from './SVGWrapper';
 import { SVGProps } from './types';
 
@@ -10,8 +10,6 @@ export default function TuningForkSVG({
   preserveAspectRatio,
   width
 }: Props) {
-	const { classNames } = useClassNames();
-
   return (
     <SVGWrapper
       id="tuning-fork-svg"
@@ -19,7 +17,7 @@ export default function TuningForkSVG({
       height={height}
       width={width}
       preserveAspectRatio={preserveAspectRatio}
-      className={classNames('', className || '')}
+      className={cn('', className || '')}
     >
       <g>
         <g>

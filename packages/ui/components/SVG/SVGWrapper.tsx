@@ -1,4 +1,4 @@
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 import { SVGProps } from './types';
 
 interface Props extends SVGProps {
@@ -16,11 +16,10 @@ export default function SVGWrapper({
   children,
   size
 }: Props) {
-  const { classNames } = useClassNames();
 
   return (
     <svg
-      className={classNames(
+      className={cn(
         'stroke-primary-500 fill-primary-500 dark:stroke-secondary-900 dark:fill-secondary-900',
         size === 'xs' ? 'h-3' : '',
         size === 'sm' ? 'h-4' : '',

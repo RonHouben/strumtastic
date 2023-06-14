@@ -1,93 +1,84 @@
+const { fontFamily } = require("tailwindcss/defaultTheme")
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   ...require('ui/tailwind.config'),
   experimental: {
     optimizeUniversalDefaults: true,
   },
-  darkMode: 'media',
+  darkMode: 'class',
   content: [
-    './src/app/**/*.{js,ts,jsx,tsx}',
-    './src/page/**/*.{js,ts,jsx,tsx}',
-    '../../packages/ui/**/*.{js,ts,jsx,tsx}',
+    './src/app/**/*.{ts,tsx}',
+    './src/page/**/*.{ts,tsx}',
+    '../../packages/ui/**/*.{ts,tsx}',
   ],
   theme: {
     container: {
       center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
     },
     extend: {
       colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          50: '#edf8ff',
-          100: '#d6efff',
-          200: '#b5e4ff',
-          300: '#83d5ff',
-          400: '#48bcff',
-          500: '#1e9aff',
-          600: '#067aff',
-          700: '#0066ff',
-          800: '#084ec5',
-          900: '#0d469b',
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          50: '#f2f2ff',
-          100: '#e9e8ff',
-          200: '#d6d3ff',
-          300: '#b7b0ff',
-          400: '#9484ff',
-          500: '#7252ff',
-          600: '#602ef9',
-          700: '#5b28e6',
-          800: '#4417c0',
-          900: '#39159d',
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          50: '#fdf2fb',
-          100: '#fbe8f8',
-          200: '#fad0f2',
-          300: '#f7aae7',
-          400: '#f076d4',
-          500: '#e74dbf',
-          600: '#d839a7',
-          700: '#b91d85',
-          800: '#991b6d',
-          900: '#801b5d',
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        error: {
-          50: '#fff0f1',
-          100: '#ffdddf',
-          200: '#ffc0c4',
-          300: '#ff949c',
-          400: '#ff5763',
-          500: '#ff2333',
-          600: '#ff0012',
-          700: '#d7000f',
-          800: '#b1030f',
-          900: '#920a14',
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        warning: {
-          50: '#fff9eb',
-          100: '#ffeec6',
-          200: '#ffda88',
-          300: '#ffbe42',
-          400: '#ffa920',
-          500: '#f98407',
-          600: '#dd5f02',
-          700: '#b74006',
-          800: '#94300c',
-          900: '#7a290d',
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
-
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+      },
       keyframes: {
-        wiggle: {
-          '0%, 100%': { transform: 'rotate(-3deg)' },
-          '50%': { transform: 'rotate(3deg)' },
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
         },
       },
       animation: {
-        wiggle: 'wiggle 1s ease-in-out infinite',
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [require('@tailwindcss/typography'), require('tailwind-scrollbar')],
+  plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography'), require('tailwind-scrollbar')],
 };

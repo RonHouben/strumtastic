@@ -1,7 +1,7 @@
 'use client';
 
 import { Switch as HeadlessSwitch } from '@headlessui/react';
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn } from '@utils';
 import { useFormikContext } from 'formik';
 
 interface Props {
@@ -17,7 +17,6 @@ export default function Switch({
   screenReaderText,
   onChange
 }: Props) {
-  const { classNames } = useClassNames();
   const { setFieldTouched, setFieldValue } = useFormikContext();
 
   const handleChange = (isEnabled: boolean) => {
@@ -34,7 +33,7 @@ export default function Switch({
       name={name}
       checked={isEnabled}
       onChange={handleChange}
-      className={classNames(
+      className={cn(
         `relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`,
         isEnabled ? 'bg-secondary-500' : 'bg-slate-400 dark:bg-slate-600'
       )}
@@ -42,7 +41,7 @@ export default function Switch({
       <span className="sr-only">{screenReaderText || 'Use setting'}</span>
       <span
         aria-hidden="true"
-        className={classNames(
+        className={cn(
           `pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`,
           isEnabled ? 'translate-x-4' : 'translate-x-0'
         )}
