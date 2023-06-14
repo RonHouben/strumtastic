@@ -1,7 +1,7 @@
 'use client';
 
 import { MusicNotes } from 'music-notes';
-import Button from '../Button';
+import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { useEffect } from 'react';
 import { useGlobalState } from '../../hooks/useGlobalState';
@@ -61,8 +61,6 @@ export function Exercise({ exercise }: Props) {
     <>
       <ButtonGroup>
         <Button
-          size="md"
-          variant="filled"
           color="primary"
           onClick={() => {
             audioEngine.send('INITIALIZE');
@@ -71,8 +69,6 @@ export function Exercise({ exercise }: Props) {
           Init
         </Button>
         <Button
-          size="md"
-          variant="filled"
           color="primary"
           onClick={handleStartListening}
         >

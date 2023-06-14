@@ -2,7 +2,7 @@ import { exercises } from '@server/actions';
 import { MusicKey } from 'music-notes';
 import { SelectOption } from '../../types';
 import AutoComplete from '../Autocomplete';
-import Button from '../Button';
+import { Button } from '../Button';
 import { InputField, InputWrapper } from '../Form';
 import Switch from '../Form/Switch';
 
@@ -62,8 +62,6 @@ export default function ExerciseFormEdit({ exercise }: Props) {
         <Switch name="isEnabled" isEnabled={exercise.isEnabled} />
       </InputWrapper>
       <Button
-        size="md"
-        variant="filled"
         color="secondary"
         type="submit"
         className="w-32"

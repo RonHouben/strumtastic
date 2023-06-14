@@ -3,7 +3,7 @@
 import { IMusicNote } from 'music-notes';
 import { useCallback, useMemo, useState } from 'react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
-import { cn } from '@utils';
+import { cn } from '../../utils';
 import { useGlobalState } from '../../hooks/useGlobalState';
 import { GuitarFretboardViewType } from './types';
 

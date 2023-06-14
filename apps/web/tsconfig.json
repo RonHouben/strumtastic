@@ -16,9 +16,6 @@
       "@styles/*": [
         "src/styles/*"
       ],
-      "@utils": [
-        "src/utils"
-      ],
       "@server/*": [
         "src/server/*"
       ],

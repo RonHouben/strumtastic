@@ -5,7 +5,7 @@ import {
   Transition
 } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import Button from '../Button';
+import { Button } from '../Button';
 
 interface Props {
   title: string;
@@ -24,15 +24,9 @@ export default function Disclosure({ children, isOpen, title, icon }: Props) {
       {({ open }) => (
         <>
           <HeadlessDisclosure.Button
-            size="md"
-            variant="text"
-            icon={icon}
-            fullWidth
-            refName='disclosure-button'
             color="secondary"
             as={Button}
             className="justify-between"
-            selected={open}
           >
             <span>{title}</span>
             <ChevronUpIcon

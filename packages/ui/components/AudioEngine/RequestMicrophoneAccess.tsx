@@ -3,9 +3,9 @@
 import { useCallback, useEffect } from 'react';
 import { GuitarAmpSVG } from '../SVG';
 import { ButtonLink } from '../ButtonLink';
-import Button from '../Button';
+import { Button } from '../Button';
 import { useRouter } from 'next/navigation';
-import { cn } from '@utils';
+import { cn } from '../../utils';
 import { Article } from '../Typography';
 import Link from '../Link';
 import { useGlobalState } from '../../hooks/useGlobalState';
@@ -76,8 +76,6 @@ export const RequestMicrophoneAccess = ({ navigatedFrom }: Props) => {
           <>
             <h1>Thanks for plugging in!</h1>
             <Button
-              size="md"
-              variant="filled"
               color="secondary"
               onClick={handleContinue}
             >

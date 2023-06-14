@@ -1,5 +1,24 @@
 {
-  "extends": "../../apps/web/tsconfig.json",
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "extends": "tsconfig/nextjs.json",
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "strictNullChecks": true,
+    "paths": {
+      "@/components/ui/*": ["./components/*"],
+      "@server/*": [
+        "../../apps/web/src/server/*"
+      ],
+    },
+    "plugins": [{ "name": "next" }
+    ],
+    "strictNullChecks": true,
+  }
 }

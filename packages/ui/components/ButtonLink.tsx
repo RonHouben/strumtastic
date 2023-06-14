@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Color, Size, Variant } from '../types';
-import Button from './Button';
+import { Button } from './Button';
 
 interface Props {
   href: string;
@@ -33,13 +33,8 @@ export const ButtonLink = ({
     <div>
       {disabled && (
         <Button
-          fullWidth={fullWidth}
           className={className}
-          selected={selected}
           disabled={disabled}
-          icon={icon}
-          size={size}
-          variant={variant}
           color={color}
         >
           {children}
@@ -54,13 +49,8 @@ export const ButtonLink = ({
           tabIndex={-1}
         >
           <Button
-            fullWidth={fullWidth}
             className={className}
-            selected={selected}
             disabled={disabled}
-            icon={icon}
-            size={size}
-            variant={variant}
             color={color}
           >
             {children}

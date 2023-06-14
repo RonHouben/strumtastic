@@ -4,7 +4,7 @@ import React, { Fragment, useState, FocusEvent } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { SelectOption } from '../types';
-import { cn } from '@utils';
+import { cn } from '../utils';
 import { useFormikContext } from 'formik';
 
 interface Props<T extends SelectOption> {

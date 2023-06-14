@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { cn } from '@utils';
+import { cn } from '../utils';
 
 interface Props {
   href: string;

@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'react';
 import { useGlobalState } from '../../hooks/useGlobalState';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Hertz } from '../AudioEngine';
-import Button from '../Button';
+import { Button } from '../Button';
 import { Typography } from '../Typography';
 
 interface Props {
@@ -48,8 +48,6 @@ export default function GuitarTuner({ onStopTuner }: Props) {
       />
       {audioEngine.state.matches('idle') && (
         <Button
-          size="md"
-          variant="filled"
           color="green"
           onClick={handleStartTuner}
         >
@@ -58,8 +56,6 @@ export default function GuitarTuner({ onStopTuner }: Props) {
       )}
       {audioEngine.state.matches('listeningToMicrophone') && (
         <Button
-          size="md"
-          variant="filled"
           color="red"
           onClick={handleStopTuner}
         >

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
-import { cn } from '@utils';
+import { cn } from '../utils';
 import { useGlobalState } from '../hooks/useGlobalState';
 import { Card, CardMedia, CardContent } from './Card';
 import { GuitarTuner } from './GuitarTuner';

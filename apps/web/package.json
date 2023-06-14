@@ -46,13 +46,18 @@
     "ui": "*",
     "use-reducer-async": "^2.1.1",
     "zod": "^3.21.4",
-    "zod-formik-adapter": "^1.2.0"
+    "zod-formik-adapter": "^1.2.0",
+    "@radix-ui/react-alert-dialog": "^1.0.4",
+    "class-variance-authority": "^0.6.0",
+    "lucide-react": "^0.244.0",
+    "tailwind-merge": "^1.13.1",
+    "tailwindcss-animate": "^1.0.6"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.2.6",
     "@types/react": "18.2.12",
-    "@types/react-dom": "18.2.5",
+    "@types/react-dom": "18l.2.5",
     "autoprefixer": "^10.4.14",
     "eslint": "8.42.0",
     "eslint-config-next": "latest",

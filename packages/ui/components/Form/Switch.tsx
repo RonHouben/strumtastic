@@ -1,7 +1,7 @@
 'use client';
 
 import { Switch as HeadlessSwitch } from '@headlessui/react';
-import { cn } from '@utils';
+import { cn } from '../../utils';
 import { useFormikContext } from 'formik';
 
 interface Props {

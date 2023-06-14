@@ -1,4 +1,4 @@
-import Button from './Button';
+import { Button } from './Button';
 import { Navbar } from './Navbar';
 import PluginGuitarCard from './PluginGuitarCard';
 import TunerCard from './TunerCard';

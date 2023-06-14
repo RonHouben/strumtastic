@@ -1,4 +1,4 @@
-import { cn } from '@utils';
+import { cn } from '../../utils';
 import SVGWrapper from './SVGWrapper';
 import { SVGProps } from './types';
 

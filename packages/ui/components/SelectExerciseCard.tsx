@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { cn } from '@utils';
-import Button from './Button';
+import { cn } from '../utils';
+import { Button } from './Button';
 import { Card, CardContent, CardMedia } from './Card';
 import { GuitarPickSVG } from './SVG';
 import Select from './Select/Select';
@@ -54,8 +54,6 @@ export default function SelectExerciseCard({ exercises, disabled, onDone, myRef 
             onChange={setSelectedExercise}
           />
           <Button
-            size="md"
-            variant="filled"
             color="green"
             disabled={disabled || !selectedExercise}
             onClick={handleStartExercise}

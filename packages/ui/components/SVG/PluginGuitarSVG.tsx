@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@utils';
+import { cn } from '../../utils';
 import ErrorCicleSVG from './ErrorCircleSVG';
 import GuitarAmpSVG from './GuitarAmpSVG';
 import LoadingCircleSVG from './LoadingCircleSVG';

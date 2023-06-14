@@ -2,7 +2,7 @@
 
 import { Field, useFormikContext } from 'formik';
 import { FocusEvent, HTMLInputTypeAttribute } from 'react';
-import { cn } from '@utils';
+import { cn } from '../../utils';
 
 interface Props {
   name: string;

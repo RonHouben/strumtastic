@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect } from 'react';
 import { useGlobalState } from '../hooks/useGlobalState';
-import Button from './Button';
+import { Button } from './Button';
 import { Card, CardMedia, CardContent } from './Card';
 import Link from './Link';
 import PluginGuitarSVG from './SVG/PluginGuitarSVG';
@@ -94,8 +94,6 @@ export default function PluginGuitarCard({ disabled, onDone }: Props) {
 
         {!disabled && !audioEngine.state.matches('initializing') && (
           <Button
-            size='md'
-            variant='filled'
             color='secondary'
             className="!bg-secondary-500 hover:!bg-secondary-700"
             onClick={handlePluginGuitar}

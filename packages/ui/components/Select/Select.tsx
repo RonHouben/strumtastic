@@ -3,7 +3,7 @@
 import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { cn } from '@utils';
+import { cn } from '../../utils';
 import { SelectOption } from '../../types';
 
 interface Props<T extends SelectOption> {

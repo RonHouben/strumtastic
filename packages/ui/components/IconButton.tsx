@@ -1,6 +1,6 @@
-import { cn } from '@utils';
+import { cn } from '../utils';
 import { Color, Size, Variant } from '../types';
-import Button from './Button';
+import { Button } from './Button';
 import { MouseEvent } from 'react';
 
 interface Props {
@@ -15,10 +15,7 @@ interface Props {
 export default function IconButton({ children, size, variant, color, onClick, className }: Props) {
   return (
     <Button
-      size={size}
-      variant={variant}
       color={color}
-      icon={children}
       className={cn(
         'rounded-full',
         size === 'xs' ? 'h-5 w-5 !p-1' : '',
