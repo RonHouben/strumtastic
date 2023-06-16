@@ -10,6 +10,8 @@ import { Button } from '@ui/components/button';
 import { ScrollArea } from '@ui/components/scroll-area';
 import { Sheet, SheetContent, SheetTrigger } from '@ui/components/sheet';
 import { Icons } from '@ui/components/icons';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu';
+import { NavLink } from './nav-link';
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -36,18 +38,39 @@ export function MobileNav() {
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
-            {appConfig.mainNavItems?.map(
-              (item) =>
-                item.href && (
+            {appConfig.mainNavItems?.map((item) => (
+              <React.Fragment key={item.label}>
+                {!item.items && (
                   <MobileLink
                     key={item.href}
-                    href={item.href}
+                    href={item.href ?? '#'}
                     onOpenChange={setOpen}
                   >
                     {item.label}
                   </MobileLink>
-                )
-            )}
+                )}
+
+                {item.items?.length && (
+                  // TODO: Fix this
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <MobileLink href="#">{item.label}</MobileLink>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      {item.items.map((subItem) => (
+                        <DropdownMenuGroup key={subItem.label}>
+                          <DropdownMenuItem>
+                            <MobileLink href={subItem.href ?? '#'}>
+                              {subItem.label}
+                            </MobileLink>
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
+              </React.Fragment>
+            ))}
           </div>
           <div className="flex flex-col space-y-2">
             {appConfig.sidebarNavItems.map((item) => (

@@ -2,14 +2,18 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { appConfig } from '@config/app';
-import { cn } from '@ui/utils';
 import { Icons } from '@ui/components/icons';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@ui/components/dropdown-menu';
+import { NavLink } from '@ui/components/nav-link';
 
 export function MainNav() {
-  const pathname = usePathname();
-
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -20,16 +24,31 @@ export function MainNav() {
       </Link>
       <nav className="flex items-center space-x-6 text-sm font-medium">
         {appConfig.mainNavItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={cn(
-              'transition-colors hover:text-foreground/80',
-              pathname === item.href ? 'text-foreground' : 'text-foreground/60'
+          <React.Fragment key={item.label}>
+            {!item.items?.length && (
+              <NavLink key={item.label} href={item.href ?? '#'}>
+                {item.label}
+              </NavLink>
             )}
-          >
-            {item.label}
-          </Link>
+            {item.items?.length && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <NavLink href="#">{item.label}</NavLink>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {item.items.map((subItem) => (
+                    <DropdownMenuGroup key={subItem.label}>
+                      <DropdownMenuItem>
+                        <NavLink href={subItem.href ?? '#'}>
+                          {subItem.label}
+                        </NavLink>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </React.Fragment>
         ))}
       </nav>
     </div>

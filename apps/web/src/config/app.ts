@@ -2,13 +2,15 @@ import { Icons } from '@ui/components/icons';
 
 interface NavItem {
   label: string;
-  href: string;
+  href?: string;
   disabled?: boolean;
   external?: boolean;
   icon?: keyof typeof Icons;
 }
 
-interface MainNavItem extends NavItem {}
+interface MainNavItem extends NavItem {
+  items?: NavItem[];
+}
 
 interface SidebarNavItem extends NavItem {
   items?: NavItem[];
@@ -32,6 +34,7 @@ export const appConfig: AppConfig = {
       href: '/exercises',
     },
     { label: 'Tools', href: '/tools' },
+    { label: 'Admin', items: [{ label: 'Create exercise', href: '/admin/exercises/create' }]}
   ],
   sidebarNavItems: [],
   socialLinks: {
