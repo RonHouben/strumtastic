@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Color, Size, Variant } from '../types';
-import { Button } from './Button';
+import { Button } from './button';
 
 interface Props {
   href: string;

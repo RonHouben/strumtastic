@@ -3,8 +3,7 @@
 import { useCallback, useMemo } from 'react';
 import { useGlobalState } from '../../hooks/useGlobalState';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
-import { Hertz } from '../AudioEngine';
-import { Button } from '../Button';
+import { Button } from '../button';
 import { Typography } from '../Typography';
 
 interface Props {
@@ -42,10 +41,7 @@ export default function GuitarTuner({ onStopTuner }: Props) {
         {currentMusicNote?.pc || '-'}
       </Typography>
       <DistanceFromNote />
-      <Hertz
-        className="!text-secondary-500 dark:!text-primary-700"
-        hertz={audioEngine.state.context.audioEngine?.currentFrequency || -1}
-      />
+      <div>{audioEngine.state.context.audioEngine?.currentFrequency || -1}</div>
       {audioEngine.state.matches('idle') && (
         <Button
           color="green"

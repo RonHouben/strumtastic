@@ -1,16 +1,43 @@
-import SVGWrapper from './SVGWrapper';
-import { SVGProps } from './types';
+import {
+  Moon,
+  SunMedium,
+  type Icon as LucideIcon,
+  Laptop,
+  LucideProps
+} from 'lucide-react';
 
-interface Props extends SVGProps {}
+export type Icon = LucideIcon;
 
-export default function GuitarAmpSVG({ height, width, className }: Props) {
-  return (
-    <SVGWrapper
-      className={className || ''}
+export const Icons = {
+  sun: SunMedium,
+  moon: Moon,
+  laptop: Laptop,
+  logo: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.0"
+      width="1079.000000pt"
+      height="1280.000000pt"
+      viewBox="0 0 1079.000000 1280.000000"
+      preserveAspectRatio="xMidYMid meet"
+      {...props}
+    >
+      <g
+        transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
+        stroke="none"
+        className="dark:fill-slate-50"
+      >
+        <path d="M4830 12794 c-935 -43 -1710 -175 -2430 -414 -733 -243 -1301 -570 -1720 -990 -400 -400 -620 -857 -671 -1390 -15 -160 1 -536 32 -775 80 -608 384 -1553 856 -2660 909 -2132 2275 -4560 3245 -5774 436 -544 765 -812 970 -788 401 48 1423 1247 2635 3092 1645 2505 2917 5066 2998 6035 3 41 14 131 23 200 26 191 23 516 -7 683 -66 378 -206 687 -459 1017 -87 113 -350 374 -487 484 -137 109 -410 292 -575 384 -863 481 -1994 781 -3310 877 -200 15 -923 27 -1100 19z" />
+      </g>
+    </svg>
+  ),
+  guitarAmp: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.0"
       id="guitar-amp-svg"
       viewBox="0 0 193.757 193.757"
-      height={height}
-      width={width}
+      {...props}
     >
       <path
         d="M159.604,193.757h-21.885c-1.104,0-2-0.896-2-2v-8h-77.9v8c0,1.104-0.896,2-2,2H33.934c-1.104,0-2-0.896-2-2v-8H21.031
@@ -64,6 +91,69 @@ export default function GuitarAmpSVG({ height, width, className }: Props) {
 	 M132.199,27.655c-4.146,0-7.52-3.373-7.52-7.52s3.373-7.52,7.52-7.52s7.52,3.373,7.52,7.52S136.346,27.655,132.199,27.655z
 	 M132.199,16.616c-1.94,0-3.52,1.579-3.52,3.52s1.579,3.52,3.52,3.52s3.52-1.579,3.52-3.52S134.14,16.616,132.199,16.616z"
       />
-    </SVGWrapper>
-  );
-}
+    </svg>
+  ),
+  errorCircle: (props: LucideProps) => (
+    <svg id="error-circle-svg" viewBox="0 0 56 56" {...props}>
+      <path d="M 27.9999 51.9063 C 41.0546 51.9063 51.9063 41.0781 51.9063 28 C 51.9063 14.9453 41.0312 4.0937 27.9765 4.0937 C 14.8983 4.0937 4.0937 14.9453 4.0937 28 C 4.0937 41.0781 14.9218 51.9063 27.9999 51.9063 Z M 27.9999 47.9219 C 16.9374 47.9219 8.1014 39.0625 8.1014 28 C 8.1014 16.9609 16.9140 8.0781 27.9765 8.0781 C 39.0155 8.0781 47.8983 16.9609 47.9219 28 C 47.9454 39.0625 39.0390 47.9219 27.9999 47.9219 Z M 27.9765 32.2422 C 29.1014 32.2422 29.7343 31.6094 29.7577 30.3906 L 30.1093 18.0156 C 30.1327 16.8203 29.1952 15.9297 27.9530 15.9297 C 26.6874 15.9297 25.7968 16.7968 25.8202 17.9922 L 26.1249 30.3906 C 26.1483 31.5859 26.8046 32.2422 27.9765 32.2422 Z M 27.9765 39.8594 C 29.3124 39.8594 30.5077 38.7812 30.5077 37.4219 C 30.5077 36.0390 29.3358 34.9844 27.9765 34.9844 C 26.5936 34.9844 25.4452 36.0625 25.4452 37.4219 C 25.4452 38.7578 26.6171 39.8594 27.9765 39.8594 Z" />
+    </svg>
+  ),
+  loadingCircle: (props: LucideProps & { animationDuration?: string }) => (
+    <svg
+      id="loading-circle-svg"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMidYMid"
+      {...props}
+    >
+      <circle cx="10" cy="10" r="9">
+        <animate
+          attributeName="cy"
+          values="10;40;70;90;70;40;10"
+          keyTimes="0;0.15;0.30;0.45;0.60;0.75;1"
+          dur={props.animationDuration}
+          repeatCount="indefinite"
+        />
+      </circle>
+      <circle cx="30" cy="10" r="9">
+        <animate
+          attributeName="cy"
+          values="10;40;70;90;70;40;10"
+          keyTimes="0;0.15;0.30;0.45;0.60;0.75;1"
+          dur={props.animationDuration}
+          repeatCount="indefinite"
+          begin="0.2s"
+        />
+      </circle>
+      <circle cx="50" cy="10" r="9">
+        <animate
+          attributeName="cy"
+          values="10;40;70;90;70;40;10"
+          keyTimes="0;0.15;0.30;0.45;0.60;0.75;1"
+          dur={props.animationDuration}
+          repeatCount="indefinite"
+          begin="0.4s"
+        />
+      </circle>
+      <circle cx="70" cy="10" r="9">
+        <animate
+          attributeName="cy"
+          values="10;40;70;90;70;40;10"
+          keyTimes="0;0.15;0.30;0.45;0.60;0.75;1"
+          dur={props.animationDuration}
+          repeatCount="indefinite"
+          begin="0.6s"
+        />
+      </circle>
+      <circle cx="90" cy="10" r="9">
+        <animate
+          attributeName="cy"
+          values="10;40;70;90;70;40;10"
+          keyTimes="0;0.15;0.30;0.45;0.60;0.75;1"
+          dur={props.animationDuration}
+          repeatCount="indefinite"
+          begin="0.8s"
+        />
+      </circle>
+    </svg>
+  )
+};

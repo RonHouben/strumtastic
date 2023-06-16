@@ -5,7 +5,7 @@ import {
   Transition
 } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import { Button } from '../Button';
+import { Button } from '../button';
 
 interface Props {
   title: string;

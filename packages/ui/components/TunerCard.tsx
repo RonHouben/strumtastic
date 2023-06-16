@@ -1,12 +1,17 @@
 'use client';
 
 import { useCallback } from 'react';
-import { cn } from '../utils';
-import { useGlobalState } from '../hooks/useGlobalState';
-import { Card, CardMedia, CardContent } from './Card';
-import { GuitarTuner } from './GuitarTuner';
-import { TuningForkSVG } from './SVG';
-import { Article } from './Typography';
+import { cn } from '@ui/utils';
+import { useGlobalState } from '@ui/hooks/useGlobalState';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@ui/components/card';
+import { GuitarTuner } from '@ui/components/GuitarTuner';
+import { TuningForkSVG } from '@ui/components/SVG';
 
 interface Props {
   disabled?: boolean;
@@ -22,8 +27,12 @@ export default function TunerCard({ disabled, onDone, myRef }: Props) {
   }, [onDone]);
 
   return (
-    <Card myRef={myRef} className="h-[35rem] snap-center" disabled={disabled}>
-      <CardMedia>
+    <Card ref={myRef} className="h-[35rem] snap-center">
+      <CardHeader>
+        <CardTitle>Get in tune</CardTitle>
+        <CardDescription>Be sure to get your guitar in tune!</CardDescription>
+      </CardHeader>
+      <CardContent>
         {disabled && (
           <TuningForkSVG
             className={cn(
@@ -35,14 +44,6 @@ export default function TunerCard({ disabled, onDone, myRef }: Props) {
           />
         )}
         {!disabled && <GuitarTuner onStopTuner={handleStopTuner} />}
-      </CardMedia>
-      <CardContent>
-        <Article>
-          <h1 className="text-secondary-100">2. Get in tune</h1>
-          <p className="text-primary-100">
-            Be sure to have your guitar in tune!
-          </p>
-        </Article>
       </CardContent>
     </Card>
   );

@@ -1,6 +1,6 @@
 import { cn } from '../utils';
 import { Color, Size, Variant } from '../types';
-import { Button } from './Button';
+import { Button } from './button';
 import { MouseEvent } from 'react';
 
 interface Props {

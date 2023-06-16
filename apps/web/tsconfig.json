@@ -19,8 +19,11 @@
       "@server/*": [
         "src/server/*"
       ],
-      "@client/*": [
-        "src/client/*"
+      "@config/*": [
+        "src/config/*"
+      ],
+      "@ui/*": [
+        "../../packages/ui/*"
       ]
     },
     "plugins": [

@@ -1,7 +1,7 @@
 'use client';
 
 import { MusicNotes } from 'music-notes';
-import { Button } from '../Button';
+import { Button } from '../button';
 import { ButtonGroup } from '../ButtonGroup';
 import { useEffect } from 'react';
 import { useGlobalState } from '../../hooks/useGlobalState';

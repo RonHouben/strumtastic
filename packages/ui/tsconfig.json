@@ -4,18 +4,23 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "../../apps/web/src/**/*.ts",
   ],
   "exclude": [
     "node_modules"
   ],
   "compilerOptions": {
     "baseUrl": ".",
-    "strictNullChecks": true,
     "paths": {
-      "@/components/ui/*": ["./components/*"],
+      "@ui/*": [
+        "*"
+      ],
       "@server/*": [
         "../../apps/web/src/server/*"
       ],
+      "@config/*": [
+        "../../apps/web/src/config/*"
+      ]
     },
     "plugins": [{ "name": "next" }
     ],

@@ -1,4 +1,2 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
+export * from "./classNames";
+export * as fonts from "./fonts";

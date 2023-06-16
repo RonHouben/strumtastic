@@ -2,7 +2,7 @@ import { exercises } from '@server/actions';
 import { MusicKey } from 'music-notes';
 import { SelectOption } from '../../types';
 import AutoComplete from '../Autocomplete';
-import { Button } from '../Button';
+import { Button } from '../button';
 import { InputField, InputWrapper } from '../Form';
 import Switch from '../Form/Switch';
 
