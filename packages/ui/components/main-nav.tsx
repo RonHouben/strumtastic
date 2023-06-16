@@ -22,7 +22,7 @@ export function MainNav() {
           {appConfig.name}
         </span>
       </Link>
-      <nav className="flex items-center space-x-6 text-sm font-medium">
+      <nav className="flex items-center space-x-6 text-md font-medium">
         {appConfig.mainNavItems.map((item) => (
           <React.Fragment key={item.label}>
             {!item.items?.length && (

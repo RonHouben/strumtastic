@@ -7,7 +7,6 @@ import AutoComplete from './Autocomplete';
 import IconButton from './IconButton';
 import IconButtonLink from './IconButtonLink';
 import Skeleton from './Skeleton';
-import NavMenuButtons from './NavMenuButtons';
 
 export * from './ButtonGroup';
 export * from './GuitarFretboard';
@@ -29,5 +28,4 @@ export {
   IconButton,
   IconButtonLink,
   Skeleton,
-  NavMenuButtons
 };

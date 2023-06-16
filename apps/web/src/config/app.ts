@@ -1,4 +1,5 @@
 import { Icons } from '@ui/components/icons';
+import { Metadata } from 'next';
 
 interface NavItem {
   label: string;
@@ -22,6 +23,9 @@ type AppConfig = {
   mainNavItems: MainNavItem[];
   sidebarNavItems: SidebarNavItem[];
   socialLinks: { [k: string]: { href: string; username: string } };
+  metadata: {
+    [k: string]: Metadata;
+  };
 };
 
 export const appConfig: AppConfig = {
@@ -34,7 +38,10 @@ export const appConfig: AppConfig = {
       href: '/exercises',
     },
     { label: 'Tools', href: '/tools' },
-    { label: 'Admin', items: [{ label: 'Create exercise', href: '/admin/exercises/create' }]}
+    {
+      label: 'Admin',
+      items: [{ label: 'Create exercise', href: '/admin/exercises/create' }],
+    },
   ],
   sidebarNavItems: [],
   socialLinks: {
@@ -42,5 +49,15 @@ export const appConfig: AppConfig = {
       href: 'https://github.com/ronhouben',
       username: 'RonHouben',
     },
+  },
+  metadata: {
+    admin: {
+      title: 'Admin',
+      description: 'Do your admin stuff here.'
+    },
+    adminCreateExercise: {
+      title: 'Create exercise',
+      description: 'Create a new exercise.'
+    }
   },
 };
