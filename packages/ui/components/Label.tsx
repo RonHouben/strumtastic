@@ -1,14 +1,28 @@
-import * as RadixLabel from '@radix-ui/react-label';
+"use client"
 
-interface Props {
-  children: string;
-  htmlFor: string;
-}
+import * as React from "react"
+import * as LabelPrimitive from "@radix-ui/react-label"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@ui/utils"
 
-export default function Label({ children, htmlFor }: Props) {
-  return (
-    <RadixLabel.Root className="text-primary-50 select-none" htmlFor={htmlFor}>
-      {children}
-    </RadixLabel.Root>
-  );
-}
+const labelVariants = cva(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+)
+
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+    VariantProps<typeof labelVariants> & { required?: boolean }
+>(({ className, required, ...props }, ref) => (
+  <>
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(labelVariants(), className)}
+    {...props}
+  />
+  {required && (<span className='text-sm text-red-500'>*</span>)}
+  </>
+))
+Label.displayName = LabelPrimitive.Root.displayName
+
+export { Label }

@@ -4,7 +4,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "../../apps/web/src/**/*.ts",
+    "../../apps/web/src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

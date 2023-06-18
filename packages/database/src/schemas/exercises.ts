@@ -26,21 +26,27 @@ const musicKeys = [
   'G major',
   'G minor',
   'G# major',
-  'G# minor',
+  'G# minor'
 ];
 
 export const table = pgTable('exercises', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
-  key: text('key', { enum: ['' , ...musicKeys ] }).notNull(),
+  key: text('key', { enum: ['', ...musicKeys] }).notNull(),
   musicXml: text('musicXml').notNull(),
   isEnabled: boolean('isEnabled').notNull(),
-  createdAt: date('createdAt').defaultNow().notNull(),
+  createdAt: date('createdAt').defaultNow(),
   updatedAt: date('updatedAt')
 });
 
-export const create = createInsertSchema(table, {
-  id: (schema) => schema.id.positive()
+export const create = createInsertSchema(table);
+export const update = createInsertSchema(table).pick({
+  isEnabled: true,
+  title: true,
+  key: true,
+  musicXml: true,
 });
 
 export type IExercise = InferModel<typeof table>;
+export type ICreateExercise = Zod.TypeOf<typeof create>;
+export type IUpdateExercise = Zod.TypeOf<typeof update>;

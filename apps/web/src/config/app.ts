@@ -10,22 +10,20 @@ interface NavItem {
 }
 
 interface MainNavItem extends NavItem {
-  items?: NavItem[];
+  items?: readonly NavItem[];
 }
 
 interface SidebarNavItem extends NavItem {
-  items?: NavItem[];
+  items?: readonly NavItem[];
 }
 
 type AppConfig = {
   name: string;
   description: string;
-  mainNavItems: MainNavItem[];
-  sidebarNavItems: SidebarNavItem[];
-  socialLinks: { [k: string]: { href: string; username: string } };
-  metadata: {
-    [k: string]: Metadata;
-  };
+  mainNavItems: readonly MainNavItem[];
+  sidebarNavItems: readonly SidebarNavItem[];
+  socialLinks: { readonly [k: string]: { href: string; username: string } };
+  metadata: Record<string, Metadata>;
 };
 
 export const appConfig: AppConfig = {
@@ -40,7 +38,7 @@ export const appConfig: AppConfig = {
     { label: 'Tools', href: '/tools' },
     {
       label: 'Admin',
-      items: [{ label: 'Create exercise', href: '/admin/exercises/create' }],
+      href: '/admin',
     },
   ],
   sidebarNavItems: [],
@@ -53,11 +51,19 @@ export const appConfig: AppConfig = {
   metadata: {
     admin: {
       title: 'Admin',
-      description: 'Do your admin stuff here.'
+      description: 'Do your admin stuff here.',
+    },
+    adminExercises: {
+      title: 'Manage Exercises',
+      description: 'Manage all exercises.',
     },
     adminCreateExercise: {
       title: 'Create exercise',
-      description: 'Create a new exercise.'
-    }
+      description: 'Create a new exercise.',
+    },
+    adminEditExercise: {
+      title: 'Edit exercise',
+      description: 'Edit an existing exercise.',
+    },
   },
-};
+} as const;

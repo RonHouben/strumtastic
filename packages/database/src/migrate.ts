@@ -1,4 +1,4 @@
-import { db } from './index.ts';
+import { db } from './database.ts';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 
 console.log('starting database migrations');

@@ -1,4 +1,3 @@
-import { Button } from './button';
 import PluginGuitarCard from './PluginGuitarCard';
 import TunerCard from './TunerCard';
 import SelectExerciseCard from './SelectExerciseCard';
@@ -13,14 +12,11 @@ export * from './GuitarFretboard';
 export * from './Typography';
 export * from './SVG';
 export * from './GuitarTuner';
-export * from './Checkbox';
-export * from './Form/InputLabel';
+export * from './checkbox';
 export * from './Link';
-export * from './Form';
 
 export {
   AutoComplete,
-  Button,
   PluginGuitarCard,
   TunerCard,
   SelectExerciseCard,

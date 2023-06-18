@@ -1,14 +1,25 @@
+import { appConfig } from '@config/app';
 import { exercises } from '@server/actions';
-import { Typography } from 'ui/components';
-import ExercisesList from 'ui/components/Admin/ExercisesList';
+import { Container } from '@ui/components/container';
+import { Metadata } from 'next';
+import { DataTable } from '@ui/components/data-table';
+import { columns } from './columns';
+import { Button } from '@ui/components/button';
+import Link from 'next/link';
+
+export const metadata: Metadata = appConfig.metadata.adminExercises;
 
 export default async function AdminExercisesPage() {
   const allExercises = await exercises.getAll();
 
   return (
-    <>
-      <Typography variant="h1">Admin Exercises Page </Typography>
-      <ExercisesList exercises={allExercises} />
-    </>
+    <Container title={metadata.title} description={metadata.description}>
+      <div className='flex py-4 justify-end'>
+        <Button variant='outline'>
+          <Link href="/admin/exercises/create">Create Exercise</Link>
+        </Button>
+      </div>
+      <DataTable columns={columns} data={allExercises} />
+    </Container>
   );
 }

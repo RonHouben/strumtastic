@@ -1,4 +1,5 @@
-import { db, schema } from '../index.ts';
+import * as schema from '../schemas/index.ts';
+import { db } from '../database.ts';
 import { eq } from 'drizzle-orm';
 import { getMusicXml } from './music-xml/index.ts';
 
