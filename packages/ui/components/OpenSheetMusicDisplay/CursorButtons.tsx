@@ -1,16 +1,14 @@
 'use client';
 
-import useOpenSheetMusicDisplay from '../hooks/useOpenSheetMusicDisplay';
+import { useStateMachines } from '@ui/hooks/useStateMachines';
 
 export function CursorButtons() {
-  const { osmdMachine} = useOpenSheetMusicDisplay();
+  const { osmdMachine } = useStateMachines();
 
   return (
     <>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <button onClick={() => osmdMachine.send('cursor.prev')}>
-          Previous
-        </button>
+        <button onClick={() => osmdMachine.send('cursor.prev')}>Previous</button>
         <button onClick={() => osmdMachine.send('cursor.next')}>Next</button>
         <button
           onClick={() =>
@@ -22,9 +20,7 @@ export function CursorButtons() {
         >
           Go To Measure 2
         </button>
-        <button onClick={() => osmdMachine.send('cursor.data')}>
-          Current cursor data
-        </button>
+        <button onClick={() => osmdMachine.send('cursor.data')}>Current cursor data</button>
       </div>
     </>
   );

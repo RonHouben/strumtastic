@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useStateMachines } from '../../hooks/useStateMachines';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { Button } from '../button';
 import { Typography } from '../Typography';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function GuitarTuner({ onStopTuner }: Props) {
-  const { audioEngine } = useGlobalState();
+  const { audioEngine } = useStateMachines();
   const { getMusicNoteFromFrequency } = useMusicNotes();
 
   const currentMusicNote = useMemo(() => {
@@ -63,7 +63,7 @@ export default function GuitarTuner({ onStopTuner }: Props) {
 }
 
 function DistanceFromNote() {
-  const { audioEngine } = useGlobalState();
+  const { audioEngine } = useStateMachines();
   const { getMusicNoteFromFrequency } = useMusicNotes();
 
   const currentMusicNote = useMemo(() => {

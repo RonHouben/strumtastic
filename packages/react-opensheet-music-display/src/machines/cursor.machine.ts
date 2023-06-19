@@ -68,7 +68,7 @@ export const cursorMachine = createMachine(
                 'incrementCurrentRepeat',
                 'moveToMeasure',
                 'show',
-                'setNotesUnderCursor'
+                'setNotesUnderCursor',
               ]
             },
             {
@@ -76,7 +76,7 @@ export const cursorMachine = createMachine(
             }
           ],
           moveToPrevious: {
-            actions: ['moveToPrevious', 'setNotesUnderCursor']
+            actions: ['moveToPrevious', 'setNotesUnderCursor', 'styleCursorElement']
           },
           moveToMeasure: {
             actions: ['moveToMeasure', 'show', 'setNotesUnderCursor']

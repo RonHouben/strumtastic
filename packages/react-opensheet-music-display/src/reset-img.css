@@ -1,6 +1,0 @@
-/* This is used as a workaround  because TailwindCSS sets the height of all images to auto.
-	This causes the cursors to dissapear
-*/
-img[id^="cursorImg"] {
-	height: var(--cursor-height) !important;
-}

@@ -8,10 +8,8 @@ import { Button } from '@ui/components/button';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { useRouter } from 'next/navigation';
 import { Input } from '@ui/components/input';
-import { Switch } from '@ui/components/switch';
 import { Form } from '@ui/components/form';
 import { FormItem } from '@ui/components/form-item';
-import { Checkbox } from '@ui/components/checkbox';
 
 interface Props {
   exercise?: exercises.IExercise;

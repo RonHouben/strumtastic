@@ -4,7 +4,7 @@ import { IMusicNote } from 'music-notes';
 import { useCallback, useMemo, useState } from 'react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
 import { cn } from '../../utils';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useStateMachines } from '../../hooks/useStateMachines';
 import { GuitarFretboardViewType } from './types';
 
 interface Props {
@@ -25,7 +25,7 @@ export const FretboardNote = ({
   exerciseNoteNumber
 }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
-  const { exerciseEngine, audioEngine } = useGlobalState();
+  const { exerciseEngine, audioEngine } = useStateMachines();
   const { getMusicNoteFromFrequency } = useMusicNotes();
 
   const currentMusicNote = useMemo(() => {

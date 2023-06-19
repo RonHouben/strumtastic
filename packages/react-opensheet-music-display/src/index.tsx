@@ -1,9 +1,3 @@
-import { CursorButtons } from './components/CursorButtons';
-import { OpenSheetMusicDisplayProvider } from './providers/OpenSheetMusicDisplayProvider';
-import useOpenSheetMusicDisplay from './hooks/useOpenSheetMusicDisplay';
+import { openSheetMusicDisplayMachine } from './machines/opensheet-music-display.machine';
 
-export {
-	OpenSheetMusicDisplayProvider,
-	useOpenSheetMusicDisplay,
-	CursorButtons
-}
+export { openSheetMusicDisplayMachine };

@@ -24,7 +24,7 @@
 "moveToPrevious": "moveToPrevious";
 "setNotesUnderCursor": "hide" | "moveToMeasure" | "moveToNext" | "moveToPrevious" | "show" | "toggle" | "xstate.init";
 "show": "moveToMeasure" | "moveToNext" | "show" | "xstate.init";
-"styleCursorElement": "hide" | "show" | "toggle" | "xstate.init";
+"styleCursorElement": "hide" | "moveToPrevious" | "show" | "toggle" | "xstate.init";
 "toggle": "toggle";
         };
         eventsCausingDelays: {

@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 import { cn } from '@ui/utils';
-import { useGlobalState } from '@ui/hooks/useGlobalState';
+import { useStateMachines } from '@ui/hooks/useStateMachines';
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function TunerCard({ disabled, onDone, myRef }: Props) {
-  const { onboardUser } = useGlobalState();
+  const { onboardUser } = useStateMachines();
 
   const handleStopTuner = useCallback(() => {
     onDone();

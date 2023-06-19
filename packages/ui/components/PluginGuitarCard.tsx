@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
-import { useGlobalState } from '@ui/hooks/useGlobalState';
+import { useStateMachines } from '@ui/hooks/useStateMachines';
 import { Button } from '@ui/components/button';
 import {
   Card,
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function PluginGuitarCard({ disabled, onDone }: Props) {
-  const { audioEngine, onboardUser } = useGlobalState();
+  const { audioEngine, onboardUser } = useStateMachines();
 
   const handlePluginGuitar = useCallback(() => {
     audioEngine.send('INITIALIZE');

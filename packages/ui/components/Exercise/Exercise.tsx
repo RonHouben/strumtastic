@@ -3,45 +3,61 @@
 import { MusicNotes } from 'music-notes';
 import { Button } from '../button';
 import { ButtonGroup } from '../ButtonGroup';
-import { useEffect } from 'react';
-import { useGlobalState } from '../../hooks/useGlobalState';
-import {
-  useOpenSheetMusicDisplay,
-  CursorButtons
-} from 'react-opensheet-music-display';
+import { MutableRefObject, useEffect, useRef } from 'react';
+import { useStateMachines } from '../../hooks/useStateMachines';
 import { exercises } from '@server/actions';
+import { useTheme } from 'next-themes';
+import { CursorButtons } from '../OpenSheetMusicDisplay/CursorButtons';
 
 interface Props {
   exercise: exercises.IExercise;
 }
 
 export function Exercise({ exercise }: Props) {
-  const { audioEngine } = useGlobalState();
-  const { osmdMachine } = useOpenSheetMusicDisplay();
+  const { audioEngine, osmdMachine } = useStateMachines();
+  const { theme } = useTheme();
 
-  useEffect(() => {
-    console.log(osmdMachine.state.context.cursorRef.state?.context.cursor.cursorElement);
-  }, [osmdMachine]);
+  const osmdContainerRef = useRef<HTMLDivElement>(null);
 
   const handleStartListening = () => {
     audioEngine.send('START_LISTENING_TO_MICROPHONE');
   };
 
   useEffect(() => {
-    if (osmdMachine.state.matches('uninitialized')) {
-      // hacky workaround so OSMD doesn't get double spawned
+    if (
+      osmdContainerRef.current &&
+      osmdMachine.state.matches('uninitialized')
+    ) {
+      // setTimeout is a hacky workaround so OSMD doesn't get double spawned
       setTimeout(() => {
         osmdMachine.send({
           type: 'initialize',
-          payload: { musicXml: exercise.musicXml }
+          payload: {
+            containerRef: osmdContainerRef as MutableRefObject<HTMLDivElement>,
+            options: {
+              drawTitle: false,
+              autoResize: true,
+              darkMode: theme === 'dark',
+              cursorsOptions: [
+                {
+                  type: 0,
+                  color: 'blue',
+                  alpha: 0.5,
+                  follow: true
+                }
+              ]
+            },
+            // due to a bug with the cursor of the OSMD library we need to use an API endpoint to get the musicXML.
+            // instead of using the musicXML directly from the exercise
+            musicXml: `http://localhost:3000/api/v1/music-xml/${exercise.id}`
+          }
         });
       }, 100);
     }
-  }, [osmdMachine.state]);
+  }, [osmdContainerRef, osmdMachine.state]);
 
   // go to next note if the note was correctly played
   useEffect(() => {
-    // console.log({ state: osmdMachine.state.value, noteToPlay: osmdMachine.state.context.cursorRef.state.context.notesUnderCursor[0]?.pc })
     if (osmdMachine.state.matches('idle')) {
       const playedNote = MusicNotes.getMusicNoteFromFrequency(
         audioEngine.state.context.audioEngine?.currentFrequency || 0
@@ -68,10 +84,7 @@ export function Exercise({ exercise }: Props) {
         >
           Init
         </Button>
-        <Button
-          color="primary"
-          onClick={handleStartListening}
-        >
+        <Button color="primary" onClick={handleStartListening}>
           Start listening
         </Button>
       </ButtonGroup>
@@ -99,6 +112,7 @@ export function Exercise({ exercise }: Props) {
           ?.name || ''}
       </div>
       <CursorButtons />
+      <div ref={osmdContainerRef} />
     </>
   );
 }

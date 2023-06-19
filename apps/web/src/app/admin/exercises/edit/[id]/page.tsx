@@ -11,7 +11,7 @@ interface Props {
 export const metadata: Metadata = appConfig.metadata.adminEditExercise;
 
 export default async function UpdateExercisePage({ params }: Props) {
-  const exercise = await exercises.getById(params.id);
+  const exercise = await exercises.getById<exercises.IExercise>(params.id);
 
   return (
     <Container title={metadata.title} description={metadata.description}>

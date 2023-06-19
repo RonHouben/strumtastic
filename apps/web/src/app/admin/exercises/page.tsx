@@ -2,8 +2,7 @@ import { appConfig } from '@config/app';
 import { exercises } from '@server/actions';
 import { Container } from '@ui/components/container';
 import { Metadata } from 'next';
-import { DataTable } from '@ui/components/data-table';
-import { columns } from './columns';
+import { AdminExercisesDataTable } from './data-table';
 import { Button } from '@ui/components/button';
 import Link from 'next/link';
 
@@ -19,7 +18,7 @@ export default async function AdminExercisesPage() {
           <Link href="/admin/exercises/create">Create Exercise</Link>
         </Button>
       </div>
-      <DataTable columns={columns} data={allExercises} />
+      <AdminExercisesDataTable exercises={allExercises} />
     </Container>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { GlobalStateProvider } from 'ui/providers/GlobalStateProvider';
-import { ThemeProvider } from 'next-themes';
+import { ReactNode, useEffect } from 'react';
+import { StateMachinesProvider } from 'ui/providers/StateMachinesProvider';
+import { ThemeProvider, useTheme } from 'next-themes';
 import { Analytics } from '@vercel/analytics/react';
 
 interface Props {
@@ -10,13 +10,19 @@ interface Props {
 }
 
 export function Providers({ children }: Props) {
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    console.log(theme);
+  }, [theme]);
+
   return (
     <>
-      <GlobalStateProvider>
+      <StateMachinesProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+            {children}
         </ThemeProvider>
-      </GlobalStateProvider>
+      </StateMachinesProvider>
       <Analytics />
     </>
   );

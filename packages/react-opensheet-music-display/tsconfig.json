@@ -1,5 +1,5 @@
 {
   "extends": "../tsconfig/nextjs.json",
-  "include": ["."],
+  "include": [".", "../ui/components/OpenSheetMusicDisplay/CursorButtons.tsx"],
   "exclude": ["dist", "node_modules"],
 }

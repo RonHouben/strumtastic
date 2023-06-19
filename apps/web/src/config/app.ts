@@ -65,5 +65,9 @@ export const appConfig: AppConfig = {
       title: 'Edit exercise',
       description: 'Edit an existing exercise.',
     },
+    exercises: {
+      title: 'Exercises',
+      description: 'Learn chords, scales, and songs.',
+    }
   },
 } as const;

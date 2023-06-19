@@ -10,9 +10,17 @@ import {
   DropdownMenuTrigger
 } from '@ui/components/dropdown-menu';
 import { Icons } from '@ui/components/icons';
+import { useStateMachines } from '@ui/hooks/useStateMachines';
 
 export function DarkModeToggle() {
+  const { osmdMachine } = useStateMachines();
   const { setTheme } = useTheme();
+
+  const handleSetTheme = (theme: 'light' | 'dark' | 'system') => {
+    osmdMachine.send({ type: 'set.theme', payload: { theme } });
+
+    setTheme(theme);
+  };
 
   return (
     <DropdownMenu>
@@ -24,15 +32,15 @@ export function DarkModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')}>
+        <DropdownMenuItem onClick={() => handleSetTheme('light')}>
           <Icons.sun className="mr-2 h-4 w-4" />
           <span>Light</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
+        <DropdownMenuItem onClick={() => handleSetTheme('dark')}>
           <Icons.moon className="mr-2 h-4 w-4" />
           <span>Dark</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
+        <DropdownMenuItem onClick={() => handleSetTheme('system')}>
           <Icons.laptop className="mr-2 h-4 w-4" />
           <span>System</span>
         </DropdownMenuItem>

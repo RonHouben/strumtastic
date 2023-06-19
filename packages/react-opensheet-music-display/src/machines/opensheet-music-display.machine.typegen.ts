@@ -17,7 +17,8 @@
           services: never;
         };
         eventsCausingActions: {
-          "setInitialContext": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
+          "setDarkmode": "set.theme";
+"setInitialContext": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
 "spawnCursorMachine": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
         };
         eventsCausingDelays: {

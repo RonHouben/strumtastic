@@ -7,12 +7,15 @@ import { revalidatePath } from 'next/cache';
 export type IExercise = schema.exercises.IExercise;
 
 export async function create(data: schema.exercises.ICreateExercise) {
-  await repository.exercises.create(data)
+  await repository.exercises.create(data);
 
   revalidatePath('/admin/exercises');
 }
 
-export async function update(id: schema.exercises.IExercise['id'], data: schema.exercises.IUpdateExercise) {
+export async function update(
+  id: schema.exercises.IExercise['id'],
+  data: schema.exercises.IUpdateExercise,
+) {
   await repository.exercises.update(id, data);
 
   revalidatePath('/admin/exercises');
@@ -24,10 +27,13 @@ export async function deleteById(id: schema.exercises.IExercise['id']) {
   revalidatePath('/admin/exercises');
 }
 
-export async function getById(id: schema.exercises.IExercise['id']) {
-  return repository.exercises.getById(id)
+export async function getById<T extends Partial<schema.exercises.IExercise>>(
+  id: schema.exercises.IExercise['id'],
+  columns?: repository.exercises.ExercisesColumns,
+) {
+  return repository.exercises.getById<T>(id, columns);
 }
 
 export async function getAll() {
-  return repository.exercises.getAll()
+  return repository.exercises.getAll();
 }
