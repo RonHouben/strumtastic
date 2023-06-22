@@ -11,7 +11,7 @@ import {
   CardTitle
 } from '@ui/components/card';
 import { GuitarTuner } from '@ui/components/GuitarTuner';
-import { TuningForkSVG } from '@ui/components/SVG';
+import { Icons } from '@ui/components/icons';
 
 interface Props {
   disabled?: boolean;
@@ -34,7 +34,7 @@ export default function TunerCard({ disabled, onDone, myRef }: Props) {
       </CardHeader>
       <CardContent>
         {disabled && (
-          <TuningForkSVG
+          <Icons.tuningFork
             className={cn(
               'stroke-primary-500 fill-primary-500 dark:stroke-secondary-500 dark:fill-secondary-500 h-full',
               onboardUser.state.context.isTuned

@@ -11,7 +11,7 @@ import {
   CardDescription,
   CardFooter
 } from '@ui/components/card';
-import Link from '@ui/components/Link';
+import Link from 'next/link';
 import { PluginGuitarIcons } from './icons-plugin-guitar';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
   onDone: () => void;
 }
 
-export default function PluginGuitarCard({ disabled, onDone }: Props) {
+export function PluginGuitarCard({ disabled, onDone }: Props) {
   const { audioEngine, onboardUser } = useStateMachines();
 
   const handlePluginGuitar = useCallback(() => {

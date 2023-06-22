@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
 } from '@ui/components/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
-import Link from '@ui/components/Link';
+import Link from 'next/link';
 
 export const columns: ColumnDef<exercises.IExercise>[] = [
   {

@@ -12,7 +12,7 @@ export const FretboardRow = ({ id, children, className }: Props) => {
       id={id}
       className={cn(
         'flex w-fit items-center justify-evenly text-center',
-        className || ''
+        className ?? ''
       )}
     >
       {children}

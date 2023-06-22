@@ -22,7 +22,7 @@ export function PluginGuitarIcons({ isLoading, isDone, isError }: Props) {
       )}
 
       {isLoading && (
-        <Icons.loadingCircle animationDuration="1.5s" className="h-full dark:fill-orange-500" />
+        <Icons.loadingCircle animationduration="1.5s" className="h-full dark:fill-orange-500" />
       )}
 
       {isError && (

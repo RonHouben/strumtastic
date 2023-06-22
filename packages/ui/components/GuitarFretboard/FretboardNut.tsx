@@ -1,4 +1,4 @@
-import { ExerciseMusicNote, FlatsOrSharps, IMusicNote } from 'music-notes';
+import { IMusicNote } from 'music-notes';
 import { Fret } from './Fret';
 import { FretboardNote } from './FretboardNote';
 import { GuitarFretboardViewType } from './types';
