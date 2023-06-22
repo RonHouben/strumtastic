@@ -14,10 +14,15 @@ import { useStateMachines } from '@ui/hooks/useStateMachines';
 
 export function DarkModeToggle() {
   const { osmdMachine } = useStateMachines();
-  const { setTheme } = useTheme();
+  const { setTheme, systemTheme } = useTheme();
 
   const handleSetTheme = (theme: 'light' | 'dark' | 'system') => {
-    osmdMachine.send({ type: 'set.theme', payload: { theme } });
+    osmdMachine.send({
+      type: 'set.theme',
+      payload: {
+        theme: theme === 'system' ? (systemTheme as 'light' | 'dark') : theme
+      }
+    });
 
     setTheme(theme);
   };

@@ -18,14 +18,14 @@ export function Container({
   ...props
 }: Props) {
   return (
-    <div className={cn('container relative pt-4', className)} {...props}>
+    <div className={cn('container relative pt-4')} {...props}>
       <div className="space-y-4 pb-4">
         <Breadcrumbs />
         {(title || description) && (
           <PageHeader description={description} title={title} />
         )}
       </div>
-      <div>{children}</div>
+      <div className={className}>{children}</div>
     </div>
   );
 }

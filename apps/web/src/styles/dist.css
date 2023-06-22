@@ -483,7 +483,7 @@ body {
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
-.rotate-0, .rotate-180, .rotate-45, .rotate-90, .scale-0, .scale-100, .scale-150, .scale-95, .transform, [data-state=checked], [data-state=unchecked], .group-data-\[state\=open\]\:rotate-180, :is(.dark .dark\:rotate-0), :is(.dark .dark\:scale-0), :is(.dark .dark\:scale-100) {
+.rotate-0, .rotate-180, .rotate-45, .rotate-90, .scale-0, .scale-100, .scale-150, .scale-95, .transform, [data-state=checked], [data-state=unchecked], .group-data-\[state\=open\]\:rotate-180, :is(.dark .dark\:rotate-0), :is(.dark .dark\:scale-0), :is(.dark .dark\:scale-100), div {
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -1158,6 +1158,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -1200,10 +1204,6 @@ body {
 
 .block {
   display: block;
-}
-
-.inline-block {
-  display: inline-block;
 }
 
 .inline {
@@ -1372,10 +1372,6 @@ body {
 
 .w-1\/4 {
   width: 25%;
-}
-
-.w-10\/12 {
-  width: 83.333333%;
 }
 
 .w-12 {
@@ -1588,6 +1584,10 @@ body {
   flex-direction: column-reverse;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-start {
   align-items: flex-start;
 }
@@ -1761,6 +1761,10 @@ body {
 .\!border-red-500 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(239 68 68 / var(--tw-border-opacity)) !important;
+}
+
+.border-destructive\/50 {
+  border-color: hsl(var(--destructive) / 0.5);
 }
 
 .border-input {
@@ -2110,6 +2114,10 @@ body {
 
 .text-current {
   color: currentColor;
+}
+
+.text-destructive {
+  color: hsl(var(--destructive));
 }
 
 .text-destructive-foreground {
@@ -2843,6 +2851,10 @@ body {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+:is(.dark .dark\:border-destructive) {
+  border-color: hsl(var(--destructive));
+}
+
 :is(.dark .dark\:bg-slate-600) {
   --tw-bg-opacity: 1;
   background-color: rgb(71 85 105 / var(--tw-bg-opacity));
@@ -2965,6 +2977,39 @@ body {
 
 .\[\&\:has\(\[role\=checkbox\]\)\]\:pr-0:has([role=checkbox]) {
   padding-right: 0px;
+}
+
+.\[\&\:has\(svg\)\]\:pl-11:has(svg) {
+  padding-left: 2.75rem;
+}
+
+.\[\&\>svg\+div\]\:translate-y-\[-3px\]>svg+div {
+  --tw-translate-y: -3px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.\[\&\>svg\]\:absolute>svg {
+  position: absolute;
+}
+
+.\[\&\>svg\]\:left-4>svg {
+  left: 1rem;
+}
+
+.\[\&\>svg\]\:top-4>svg {
+  top: 1rem;
+}
+
+.\[\&\>svg\]\:text-destructive>svg {
+  color: hsl(var(--destructive));
+}
+
+.\[\&\>svg\]\:text-foreground>svg {
+  color: hsl(var(--foreground));
+}
+
+.\[\&_p\]\:leading-relaxed p {
+  line-height: 1.625;
 }
 
 .\[\&_tr\:last-child\]\:border-0 tr:last-child {

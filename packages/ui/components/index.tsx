@@ -5,7 +5,6 @@ import { Select } from './Select';
 import AutoComplete from './Autocomplete';
 import IconButton from './IconButton';
 import IconButtonLink from './IconButtonLink';
-import Skeleton from './Skeleton';
 
 export * from './ButtonGroup';
 export * from './GuitarFretboard';
@@ -23,5 +22,4 @@ export {
   Select,
   IconButton,
   IconButtonLink,
-  Skeleton,
 };

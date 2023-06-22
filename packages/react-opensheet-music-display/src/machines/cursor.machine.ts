@@ -79,7 +79,7 @@ export const cursorMachine = createMachine(
             actions: ['moveToPrevious', 'setNotesUnderCursor', 'styleCursorElement']
           },
           moveToMeasure: {
-            actions: ['moveToMeasure', 'show', 'setNotesUnderCursor']
+            actions: ['moveToMeasure', 'show', 'setNotesUnderCursor', 'resetRepeat']
           },
           logData: {
             actions: ['logData']
@@ -94,9 +94,7 @@ export const cursorMachine = createMachine(
         // This is a work-around because TailwindCSS sets the height of all img elements to auto
         const height = ctx.cursor.cursorElement.getAttribute('height');
 
-        document.documentElement.style.setProperty('--cursor-height', `${height}px`);
-
-        ctx.cursor.cursorElement.style.height = `${height}px`;
+        ctx.cursor.cursorElement.style.setProperty('height', `${height}px`)
       },
       show: (ctx) => {
         ctx.cursor.show();
@@ -203,7 +201,14 @@ export const cursorMachine = createMachine(
           ...ctx.repetition,
           currentRepeat: ctx.repetition.currentRepeat + 1
         })
-      })
+      }),
+      resetRepeat: assign({
+        repetition: {
+          currentRepeat: 0,
+          maxRepeats: 1,
+          startRepeatSignIndex: -1,
+        }
+      }) 
     },
     guards: {
       hasToRepeat: (ctx) => {

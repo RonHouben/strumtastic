@@ -1,17 +1,19 @@
-import { OpenSheetMusicDisplay, IOSMDOptions } from 'opensheetmusicdisplay';
+import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
 import { ActorRefFrom, assign, createMachine, spawn } from 'xstate';
 import { cursorMachine } from './cursor.machine';
-import { MutableRefObject } from 'react';
+import type { IOSMDOptions } from 'opensheetmusicdisplay';
 
 type Context = {
   osmd: OpenSheetMusicDisplay;
-  cursorRef: ActorRefFrom<typeof cursorMachine>;
+  cursorMachine: ActorRefFrom<typeof cursorMachine>;
   error?: Error;
   musicXml: string | Document;
 };
 
 type Services = {
-  initialize: { data: OpenSheetMusicDisplay };
+  initialize: {
+    data: { osmd: Context['osmd']; musicXml: Context['musicXml'] };
+  };
 };
 
 type Events =
@@ -19,11 +21,12 @@ type Events =
       type: 'initialize';
       payload: {
         options: IOSMDOptions;
-        containerRef: MutableRefObject<HTMLDivElement>;
+        containerRef: HTMLDivElement;
         musicXml: Context['musicXml'];
       };
     }
-  | { type: 'set.theme'; payload: { theme: 'light' | 'dark' | 'system' } }
+  | { type: 'reset' }
+  | { type: 'set.theme'; payload: { theme: 'light' | 'dark' } }
   | { type: 'cursor.show' }
   | { type: 'cursor.hide' }
   | { type: 'cursor.next' }
@@ -44,12 +47,18 @@ export const openSheetMusicDisplayMachine = createMachine(
       events: {} as Events
     },
     context: {
-      osmd: {} as unknown as Context['osmd'],
-      cursorRef: {} as Context['cursorRef'],
+      osmd: {} as Context['osmd'],
+      cursorMachine: {} as Context['cursorMachine'],
       error: undefined,
       musicXml: ''
     },
     initial: 'uninitialized',
+    on: {
+      reset: {
+        target: 'uninitialized',
+        actions: 'resetContext'
+      }
+    },
     states: {
       uninitialized: {
         on: {
@@ -64,7 +73,6 @@ export const openSheetMusicDisplayMachine = createMachine(
             target: 'idle'
           },
           onError: {
-            actions: assign((_ctx, event) => ({ error: event.data })),
             target: 'error'
           }
         }
@@ -72,40 +80,42 @@ export const openSheetMusicDisplayMachine = createMachine(
       idle: {
         on: {
           'cursor.show': {
-            actions: (ctx) => ctx.cursorRef.send('show')
+            actions: (ctx) => ctx.cursorMachine.send('show')
           },
           'cursor.hide': {
-            actions: (ctx) => ctx.cursorRef.send('hide')
+            actions: (ctx) => ctx.cursorMachine.send('hide')
           },
           'cursor.next': {
-            actions: (ctx) => ctx.cursorRef.send('moveToNext')
+            actions: (ctx) => ctx.cursorMachine.send('moveToNext')
           },
           'cursor.prev': {
-            actions: (ctx) => ctx.cursorRef.send('moveToPrevious')
+            actions: (ctx) => ctx.cursorMachine.send('moveToPrevious')
           },
           'cursor.moveToMeasure': {
             actions: (ctx, event) =>
-              ctx.cursorRef.send({
+              ctx.cursorMachine.send({
                 type: 'moveToMeasure',
                 payload: event.payload
               })
           },
           'cursor.data': {
-            actions: (ctx) => ctx.cursorRef.send('logData')
+            actions: (ctx) => ctx.cursorMachine.send('logData')
           },
           'set.theme': {
             actions: ['setDarkmode']
           }
         }
       },
-      error: {}
+      error: {
+        entry: ['setError'],
+      }
     }
   },
   {
     services: {
       initialize: async (_ctx, event) => {
         const osmd = new OpenSheetMusicDisplay(
-          event.payload.containerRef.current,
+          event.payload.containerRef,
           event.payload.options
         );
 
@@ -113,18 +123,20 @@ export const openSheetMusicDisplayMachine = createMachine(
 
         osmd.render();
 
-        return osmd;
+        return { osmd, musicXml: event.payload.musicXml };
       }
     },
     actions: {
-      setInitialContext: assign((_ctx, event) => ({ osmd: event.data })),
+      setInitialContext: assign((_ctx, event) => ({
+        osmd: event.data.osmd,
+        musicXml: event.data.musicXml
+      })),
       setDarkmode: (ctx, event) => {
         ctx.osmd.setOptions({ darkMode: event.payload.theme === 'dark' });
-        // ctx.osmd.updateGraphic()
-        // ctx.osmd.render();
+        ctx.osmd.render();
       },
       spawnCursorMachine: assign((ctx) => ({
-        cursorRef: spawn(
+        cursorMachine: spawn(
           cursorMachine.withContext({
             cursor: ctx.osmd.cursor,
             notesUnderCursor: [],
@@ -138,7 +150,18 @@ export const openSheetMusicDisplayMachine = createMachine(
             name: 'cursorMachine'
           }
         )
-      }))
+      })),
+      resetContext: assign((ctx) => ({
+        osmd: {} as Context['osmd'],
+        cursorMachine: {} as Context['cursorMachine'],
+        musicXml: '',
+        error: undefined,
+      })),
+      setError: assign({
+        error: (_ctx, event) => {
+          return event.data as Error;
+        }
+      })
     }
   }
 );

@@ -1,17 +1,15 @@
-interface Props {
-  lines: number;
-}
+import { cn } from '@ui/utils';
 
-export default function Skeleton({ lines }: Props) {
+function Skeleton({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <>
-      {[
-        ...new Array(lines)
-          .fill(1)
-          .map((_, i) => (
-            <span key={i} className="inline-block h-5 w-10/12 animate-pulse rounded-md bg-secondary-900" />
-          ))
-      ]}
-    </>
+    <div
+      className={cn('animate-pulse rounded-md bg-muted', className)}
+      {...props}
+    />
   );
 }
+
+export { Skeleton };

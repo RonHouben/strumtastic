@@ -2,6 +2,7 @@ import { Exercise } from 'ui/components/Exercise';
 import { exercises } from '@server/actions';
 import { Container } from '@ui/components/container';
 import { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: { id: exercises.IExercise['id'] };
@@ -10,16 +11,19 @@ interface Props {
 
 export async function generateMetadata(
   { params }: Props,
-  parent?: ResolvingMetadata,
+  _parent?: ResolvingMetadata,
 ): Promise<Metadata> {
-  const exerciseId = params.id;
   const exercise = await exercises.getById<
     Pick<exercises.IExercise, 'id' | 'title' | 'key'>
-  >(exerciseId, {
+  >(params.id, {
     id: true,
     title: true,
     key: true,
   });
+
+  if (!exercise) {
+    notFound();
+  }
 
   return {
     title: `Exercise - ${exercise.title}`,
@@ -31,7 +35,7 @@ export default async function ExercisePage({ params }: Props) {
   const exercise = await exercises.getById<exercises.IExercise>(params.id);
 
   if (!exercise) {
-    return <div>Exercise not found</div>;
+    notFound();
   }
 
   return (

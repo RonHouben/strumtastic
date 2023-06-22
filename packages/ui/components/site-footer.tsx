@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function SiteFooter() {
   return (
-    <footer className="border-t py-2">
+    <footer className="border-t mt-4 py-2">
       <div className="container flex flex-row items-center gap-1">
         <Icons.logo className="h-6 w-6" />
         <span className="font-bold">{appConfig.name}</span>
