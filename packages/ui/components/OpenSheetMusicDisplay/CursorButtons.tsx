@@ -3,7 +3,7 @@
 import { useStateMachines } from '@ui/hooks/useStateMachines';
 import { ButtonGroup } from '@ui/components/ButtonGroup';
 import { Button } from '@ui/components/button';
-import { Input } from '../input';
+import { Input } from '@ui/components/input';
 import { useMemo, useState } from 'react';
 
 export function CursorButtons() {

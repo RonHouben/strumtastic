@@ -1,7 +1,7 @@
 import { Exercise } from 'ui/components/Exercise';
 import { exercises } from '@server/actions';
 import { Container } from '@ui/components/container';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 interface Props {
@@ -9,10 +9,7 @@ interface Props {
   searchParams: Record<string, string | string[] | undefined>;
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  _parent?: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const exercise = await exercises.getById<
     Pick<exercises.IExercise, 'id' | 'title' | 'key'>
   >(params.id, {
