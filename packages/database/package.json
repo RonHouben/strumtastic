@@ -12,12 +12,12 @@
     "seed": "dotenv --e ../../.env -- ts-node --esm src/seeds/index.ts"
   },
   "dependencies": {
-    "drizzle-orm": "^0.26.5",
+    "drizzle-orm": "^0.27.0",
     "drizzle-zod": "^0.4.3",
     "postgres": "^3.3.5"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.18.1",
+    "drizzle-kit": "^0.19.1",
     "eslint-config-custom": "*",
     "ts-node": "^10.9.1",
     "tsconfig": "*"
