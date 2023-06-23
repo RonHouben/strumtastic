@@ -41,7 +41,7 @@ export function ExerciseFormAddEdit({ exercise }: Props) {
   return (
     <Formik<z.infer<typeof createExerciseSchema>>
       initialValues={{
-        title: exercise?.title ?? 'foo',
+        title: exercise?.title ?? '',
         isEnabled:
           exercise?.isEnabled !== undefined ? exercise.isEnabled : true,
         key: exercise?.key ?? '',
