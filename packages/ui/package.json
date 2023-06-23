@@ -14,7 +14,6 @@
     "add": "npx shadcn-ui add"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.3.1",
     "@types/react": "^18.2.10",
     "@types/react-dom": "^18.2.4",
@@ -41,6 +40,7 @@
     "exercise-engine": "*",
     "formik": "^2.4.2",
     "postcss": "^8.4.24",
-    "react-opensheet-music-display": "*"
+    "react-opensheet-music-display": "*",
+    "@tailwindcss/typography": "^0.5.9"
   }
 }
