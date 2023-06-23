@@ -5,11 +5,11 @@ import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { appConfig } from '@config/app';
-import { cn } from '@ui/utils';
-import { Button } from '@ui/components/button';
-import { ScrollArea } from '@ui/components/scroll-area';
-import { Sheet, SheetContent, SheetTrigger } from '@ui/components/sheet';
-import { Icons } from '@ui/components/icons';
+import { cn } from 'ui/utils';
+import { Button } from 'ui/components/button';
+import { ScrollArea } from 'ui/components/scroll-area';
+import { Sheet, SheetContent, SheetTrigger } from 'ui/components/sheet';
+import { Icons } from 'ui/components/icons';
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);

@@ -14,7 +14,7 @@
       "@styles/*": ["src/styles/*"],
       "@server/*": ["src/server/*"],
       "@config/*": ["src/config/*"],
-      "@ui/*": ["../../packages/ui/*"]
+      // "@ui/*": ["../../packages/ui/*"]
     },
     "plugins": [
       {

@@ -1,12 +1,12 @@
 'use client';
 
 import { MusicNotes } from 'music-notes';
-import { Button } from '@ui/components/button';
-import { ButtonGroup } from '@ui/components/ButtonGroup';
+import { Button } from 'ui/components/button';
+import { ButtonGroup } from 'ui/components/ButtonGroup';
 import { useEffect } from 'react';
-import { useStateMachines } from '@ui/hooks/useStateMachines';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
 import { exercises } from '@server/schemas';
-import { OpenSheetMusicDisplay } from '@ui/components/OpenSheetMusicDisplay/OpenSheetMusicDisplay';
+import { OpenSheetMusicDisplay } from 'ui/components/OpenSheetMusicDisplay/OpenSheetMusicDisplay';
 
 interface Props {
   exercise: exercises.IExercise;

@@ -1,7 +1,7 @@
 'use client';
 
 import { exercises } from '@server/actions';
-import { DataTable } from '@ui/components/data-table';
+import { DataTable } from 'ui/components/data-table';
 import { columns } from './columns';
 import { useRouter, usePathname } from 'next/navigation';
 

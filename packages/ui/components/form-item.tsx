@@ -1,4 +1,4 @@
-import { Label } from '@ui/components/label';
+import { Label } from 'ui/components/label';
 import { Field, ErrorMessage } from 'formik';
 import { HTMLInputTypeAttribute, useMemo } from 'react';
 

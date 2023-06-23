@@ -1,10 +1,10 @@
 'use client';
 
 import { useCallback, useRef} from 'react';
-import { PluginGuitarCard } from '@ui/components/PluginGuitarCard';
-import { useStateMachines } from '@ui/hooks/useStateMachines';
-import { useScrollIntoView } from '@ui/hooks/useScrollIntoView';
-import { Container } from '@ui/components/container';
+import { PluginGuitarCard } from 'ui/components/PluginGuitarCard';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
+import { useScrollIntoView } from 'ui/hooks/useScrollIntoView';
+import { Container } from 'ui/components/container';
 
 export default function Page() {
   const { onboardUser } = useStateMachines();

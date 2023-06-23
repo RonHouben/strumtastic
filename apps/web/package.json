@@ -34,7 +34,6 @@
     "drizzle-zod": "^0.4.3",
     "exercise-engine": "*",
     "formik": "^2.4.2",
-    "install": "^0.13.0",
     "lucide-react": "^0.244.0",
     "music-notes": "*",
     "next": "latest",

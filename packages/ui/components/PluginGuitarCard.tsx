@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
-import { useStateMachines } from '@ui/hooks/useStateMachines';
-import { Button } from '@ui/components/button';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
+import { Button } from 'ui/components/button';
 import {
   Card,
   CardTitle,
@@ -10,9 +10,9 @@ import {
   CardHeader,
   CardDescription,
   CardFooter
-} from '@ui/components/card';
+} from 'ui/components/card';
 import Link from 'next/link';
-import { PluginGuitarIcons } from './icons-plugin-guitar';
+import { PluginGuitarIcons } from 'ui/components/icons-plugin-guitar';
 
 interface Props {
   disabled?: boolean;

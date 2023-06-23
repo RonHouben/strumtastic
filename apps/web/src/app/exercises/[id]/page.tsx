@@ -1,6 +1,6 @@
 import { Exercise } from 'ui/components/Exercise';
 import { exercises } from '@server/actions';
-import { Container } from '@ui/components/container';
+import { Container } from 'ui/components/container';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 

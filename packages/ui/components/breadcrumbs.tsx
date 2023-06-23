@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { Icons } from '@ui/components/icons';
+import { Icons } from 'ui/components/icons';
 import Link from 'next/link';
 
 export function Breadcrumbs() {

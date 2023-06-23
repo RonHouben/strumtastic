@@ -4,15 +4,15 @@ import { Formik, FormikHelpers } from 'formik';
 import { exercises } from '@server/actions';
 import { createExerciseSchema } from '@server/schemas/exercises';
 import z from 'zod';
-import { Button } from '@ui/components/button';
+import { Button } from 'ui/components/button';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { useRouter } from 'next/navigation';
-import { Input } from '@ui/components/input';
-import { Form } from '@ui/components/form';
-import { FormItem } from '@ui/components/form-item';
-import { useFile } from '@ui/hooks/useFile';
+import { Input } from 'ui/components/input';
+import { Form } from 'ui/components/form';
+import { FormItem } from 'ui/components/form-item';
+import { useFile } from 'ui/hooks/useFile';
 import * as schemas from '@server/schemas';
-import { OpenSheetMusicDisplay } from '../OpenSheetMusicDisplay/OpenSheetMusicDisplay';
+import { OpenSheetMusicDisplay } from 'ui/components/OpenSheetMusicDisplay/OpenSheetMusicDisplay';
 
 interface Props {
   exercise?: schemas.exercises.IExercise;

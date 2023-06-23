@@ -1,11 +1,11 @@
-import { useStateMachines } from '@ui/hooks/useStateMachines';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
 import { useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
 import { exercises } from '@server/schemas';
-import { CursorButtons } from '@ui/components/OpenSheetMusicDisplay/CursorButtons';
+import { CursorButtons } from 'ui/components/OpenSheetMusicDisplay/CursorButtons';
 import { Card, CardContent, CardHeader } from '../card';
-import { Skeleton } from '@ui/components/skeleton';
-import { AlertError } from '../AlertError';
+import { Skeleton } from 'ui/components/skeleton';
+import { AlertError } from 'ui/components/AlertError';
 
 interface Props {
   exerciseId?: exercises.IExercise['id'];

@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '../utils';
-import { Icons } from '@ui/components/icons';
+import { cn } from 'ui/utils';
+import { Icons } from 'ui/components/icons';
 
 interface Props {
   isLoading?: boolean;

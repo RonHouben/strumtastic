@@ -1,7 +1,7 @@
 import { appConfig } from '@config/app';
 import { exercises } from '@server/actions';
-import { Container } from '@ui/components/container';
-import { ExerciseFormAddEdit } from '@ui/components/forms/exercise-form-add-edit';
+import { Container } from 'ui/components/container';
+import { ExerciseFormAddEdit } from 'ui/components/forms/exercise-form-add-edit';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation'
 

@@ -1,4 +1,4 @@
-import { Icons } from '@ui/components/icons';
+import { Icons } from 'ui/components/icons';
 import { Metadata } from 'next';
 
 interface NavItem {

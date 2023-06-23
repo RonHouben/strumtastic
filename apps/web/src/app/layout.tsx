@@ -5,8 +5,8 @@ import { Metadata } from 'next';
 import { cn } from 'ui/utils';
 import { fonts } from 'ui/utils';
 import { appConfig } from '@config/app';
-import { SiteHeader } from '@ui/components/site-header';
-import { SiteFooter } from '@ui/components/site-footer';
+import { SiteHeader } from 'ui/components/site-header';
+import { SiteFooter } from 'ui/components/site-footer';
 
 export const metadata: Metadata = {
   title: appConfig.name,

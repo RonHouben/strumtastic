@@ -1,5 +1,5 @@
 import { appConfig } from '@config/app';
-import { Container } from '@ui/components/container';
+import { Container } from 'ui/components/container';
 import { Metadata } from 'next';
 import { exercises } from '@server/actions';
 import { ExercisesDataTable } from './data-table';

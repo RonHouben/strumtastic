@@ -1,5 +1,5 @@
 import { appConfig } from '@config/app';
-import { Icons } from '@ui/components/icons';
+import { Icons } from 'ui/components/icons';
 import Link from 'next/link';
 
 export function SiteFooter() {

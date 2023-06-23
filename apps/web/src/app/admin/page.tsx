@@ -5,8 +5,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@ui/components/card';
-import { Container } from '@ui/components/container';
+} from 'ui/components/card';
+import { Container } from 'ui/components/container';
 import { Metadata } from 'next';
 import Link from 'next/link';
 

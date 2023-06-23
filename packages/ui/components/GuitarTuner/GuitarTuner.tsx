@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { useStateMachines } from '@ui/hooks/useStateMachines';
-import { useMusicNotes } from '@ui/hooks/useMusicNotes';
-import { Button } from '@ui/components/button';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
+import { useMusicNotes } from 'ui/hooks/useMusicNotes';
+import { Button } from 'ui/components/button';
 
 interface Props {
   onStopTuner: () => void;

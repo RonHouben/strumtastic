@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { appConfig } from '@config/app';
-import { Icons } from '@ui/components/icons';
-import { NavLink } from '@ui/components/nav-link';
+import { Icons } from 'ui/components/icons';
+import { NavLink } from 'ui/components/nav-link';
 
 export function MainNav() {
   return (

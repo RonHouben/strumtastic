@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@ui/utils';
+import { cn } from 'ui/utils';
 import Link, { LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';

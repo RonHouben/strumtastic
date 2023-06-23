@@ -1,6 +1,6 @@
-import { DarkModeToggle } from '@ui/components/dark-mode-toggle';
-import { MainNav } from '@ui/components/main-nav';
-import { MobileNav } from '@ui/components/mobile-nav';
+import { DarkModeToggle } from 'ui/components/dark-mode-toggle';
+import { MainNav } from 'ui/components/main-nav';
+import { MobileNav } from 'ui/components/mobile-nav';
 
 export function SiteHeader() {
   return (

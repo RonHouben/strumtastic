@@ -2,15 +2,15 @@
 
 import * as React from 'react';
 import { useTheme } from 'next-themes';
-import { Button } from '@ui/components/button';
+import { Button } from 'ui/components/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from '@ui/components/dropdown-menu';
-import { Icons } from '@ui/components/icons';
-import { useStateMachines } from '@ui/hooks/useStateMachines';
+} from 'ui/components/dropdown-menu';
+import { Icons } from 'ui/components/icons';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
 
 export function DarkModeToggle() {
   const { osmdMachine } = useStateMachines();

@@ -1,9 +1,9 @@
 import { appConfig } from '@config/app';
 import { exercises } from '@server/actions';
-import { Container } from '@ui/components/container';
+import { Container } from 'ui/components/container';
 import { Metadata } from 'next';
 import { AdminExercisesDataTable } from './data-table';
-import { Button } from '@ui/components/button';
+import { Button } from 'ui/components/button';
 import Link from 'next/link';
 
 export const metadata: Metadata = appConfig.metadata.adminExercises;

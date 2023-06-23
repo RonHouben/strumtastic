@@ -1,6 +1,6 @@
-import { cn } from '@ui/utils';
-import { Breadcrumbs } from '@ui/components/breadcrumbs';
-import { PageHeader } from '@ui/components/page-header';
+import { cn } from 'ui/utils';
+import { Breadcrumbs } from 'ui/components/breadcrumbs';
+import { PageHeader } from 'ui/components/page-header';
 import { Metadata } from 'next';
 
 interface Props
