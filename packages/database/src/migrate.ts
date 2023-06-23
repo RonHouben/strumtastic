@@ -7,7 +7,7 @@ import { db } from './database.ts';
 console.log('starting database migrations');
 
 if (process.env.NODE_ENV === 'production') {
-  await migrateVercel(db as VercelPgDatabase, { migrationsFolder: './migrations' });
+  await migrateVercel(db as VercelPgDatabase, { migrationsFolder: 'src/migrations' });
 } else {
   await migrateLocal(db as unknown as PostgresJsDatabase, { migrationsFolder: 'src/migrations' });
 }
