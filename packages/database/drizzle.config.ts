@@ -5,5 +5,6 @@ export default {
   out: './drizzle',
   dbCredentials: {
     connectionString: process.env.POSTGRES_URL + "?sslmode=require",
+    ssl: true
   }
 } satisfies Config;
