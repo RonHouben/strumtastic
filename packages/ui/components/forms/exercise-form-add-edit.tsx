@@ -41,7 +41,7 @@ export function ExerciseFormAddEdit({ exercise }: Props) {
   return (
     <Formik<z.infer<typeof createExerciseSchema>>
       initialValues={{
-        title: exercise?.title ?? '',
+        title: exercise?.title ?? 'foo',
         isEnabled:
           exercise?.isEnabled !== undefined ? exercise.isEnabled : true,
         key: exercise?.key ?? '',
@@ -61,27 +61,37 @@ export function ExerciseFormAddEdit({ exercise }: Props) {
       {({ isSubmitting, values, setFieldValue }) => (
         <Form>
           <FormItem
+            id="title"
             name="title"
             label="Title"
             type="text"
             as={Input}
             required
           />
-          <FormItem name="key" label="Key" type="text" as={Input} required />
           <FormItem
+            id="key"
+            name="key"
+            label="Key"
+            type="text"
+            as={Input}
+            required
+          />
+          <FormItem
+            id="isEnabled"
             name="isEnabled"
             label="Enabled"
             type="checkbox"
             className="flex items-center gap-2"
           />
           <FormItem
-            name='foo'
-            label='Music XML'
+            id="musicXml"
+            name="foo"
+            label="Music XML"
             type="file"
-            as={Input}
             onChange={async (event) =>
               await handleUploadMusicXml(event, setFieldValue)
             }
+            as={Input}
             required
           />
           {values.musicXml && (

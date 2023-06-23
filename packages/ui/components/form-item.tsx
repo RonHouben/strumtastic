@@ -4,7 +4,8 @@ import { HTMLInputTypeAttribute, useMemo } from 'react';
 
 interface Props {
   as?: string | React.ComponentType | React.ForwardRefExoticComponent<any>;
-  name: string;
+  id?: string;
+  name?: string;
   label?: string;
   placeholder?: string;
   className?: string;
@@ -16,24 +17,18 @@ interface Props {
 
 export function FormItem(props: Props) {
   const inputProps = useMemo(() => {
-    const { value, ...rest } = props;
-    return value ? { ...rest, value } : rest;
+    const { onChange, ...rest } = props;
+
+    return onChange ? { ...rest, onChange } : rest;
   }, [props]);
 
-
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (inputProps.onChange) {
-      inputProps.onChange(event);
-    }
-  };
-
   return (
-    <div className={props.className}>
-      <Label htmlFor={props.name} required={props.required}>
-        {props.label}
+    <div className={inputProps.className}>
+      <Label htmlFor={inputProps.name} required={inputProps.required}>
+        {inputProps.label}
       </Label>
-      <Field {...inputProps} onChange={handleOnChange} />
-      <ErrorMessage name={props.name}>
+      <Field {...inputProps} />
+      <ErrorMessage name={inputProps.name}>
         {(errorMessage: string) => (
           <div className="text-sm text-red-500">{errorMessage}</div>
         )}
