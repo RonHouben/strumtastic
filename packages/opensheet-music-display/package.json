@@ -1,5 +1,5 @@
 {
-  "name": "react-opensheet-music-display",
+  "name": "opensheet-music-display",
   "version": "0.0.0",
   "main": "src/index.tsx",
   "types": "src/index.tsx",
