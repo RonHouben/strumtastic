@@ -6,6 +6,7 @@ import { CursorButtons } from 'ui/components/OpenSheetMusicDisplay/CursorButtons
 import { Card, CardContent, CardHeader } from '../card';
 import { Skeleton } from 'ui/components/skeleton';
 import { AlertError } from 'ui/components/AlertError';
+import { appConfig } from '@config/app';
 
 interface Props {
   exerciseId?: exercises.IExercise['id'];
@@ -57,7 +58,7 @@ export function OpenSheetMusicDisplay({
             // due to a bug with the cursor of the OSMD library we need to use an API endpoint to get the musicXML.
             // instead of using the musicXML directly from the exercise
             musicXml: exerciseId
-              ? `http://localhost:3000/api/v1/music-xml/${exerciseId}`
+              ? `${appConfig.baseUrl}/api/v1/music-xml/${exerciseId}`
               : musicXml ?? ''
           }
         });

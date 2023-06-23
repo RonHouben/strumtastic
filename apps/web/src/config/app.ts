@@ -20,6 +20,7 @@ interface SidebarNavItem extends NavItem {
 type AppConfig = {
   name: string;
   description: string;
+  baseUrl: string;
   mainNavItems: readonly MainNavItem[];
   sidebarNavItems: readonly SidebarNavItem[];
   socialLinks: { readonly [k: string]: { href: string; username: string } };
@@ -30,6 +31,8 @@ export const appConfig: AppConfig = {
   name: 'Strumtastic',
   description:
     'Interactive guitar learning app for beginners. Learn chords, scales, and songs.',
+  baseUrl:
+    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` ?? 'http://localhost:3000',
   mainNavItems: [
     {
       label: 'Exercises',
@@ -68,6 +71,6 @@ export const appConfig: AppConfig = {
     exercises: {
       title: 'Exercises',
       description: 'Learn chords, scales, and songs.',
-    }
+    },
   },
 } as const;
