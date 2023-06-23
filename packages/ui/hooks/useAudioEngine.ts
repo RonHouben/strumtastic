@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { GlobalStateContext } from '../providers/GlobalStateProvider';
+import {  StateMachinesContext } from '../providers/StateMachinesProvider';
 import { useActor } from '@xstate/react';
 
 export function useAudioEngine() {
-  const { audioEngineService } = useContext(GlobalStateContext);
+  const { audioEngineService } = useContext(StateMachinesContext);
 
   const [state, send] = useActor(audioEngineService);
 

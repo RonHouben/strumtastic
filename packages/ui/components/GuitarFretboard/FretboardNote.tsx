@@ -3,8 +3,8 @@
 import { IMusicNote } from 'music-notes';
 import { useCallback, useMemo, useState } from 'react';
 import { useMusicNotes } from '../../hooks/useMusicNotes';
-import { useClassNames } from '../../hooks/useClassNames';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { cn } from '../../utils';
+import { useStateMachines } from '../../hooks/useStateMachines';
 import { GuitarFretboardViewType } from './types';
 
 interface Props {
@@ -25,9 +25,8 @@ export const FretboardNote = ({
   exerciseNoteNumber
 }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
-  const { exerciseEngine, audioEngine } = useGlobalState();
+  const { exerciseEngine, audioEngine } = useStateMachines();
   const { getMusicNoteFromFrequency } = useMusicNotes();
-  const { classNames } = useClassNames();
 
   const currentMusicNote = useMemo(() => {
     if (audioEngine.state.context.audioEngine?.currentFrequency) {
@@ -58,7 +57,7 @@ export const FretboardNote = ({
 
   return (
     <div
-      className={classNames(
+      className={cn(
         'h-6 w-6 cursor-default rounded-full bg-secondary-100 text-slate-400 transition duration-200 ease-in-out dark:bg-slate-900 dark:text-slate-600',
         isCurrentlyPlaying
           ? 'scale-150 !bg-secondary-500 dark:!text-black'

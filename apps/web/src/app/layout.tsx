@@ -1,8 +1,17 @@
 import '@styles/dist.css';
 import React from 'react';
-import { Sidebar } from 'ui/components';
-import { Navbar } from 'ui/components/Navbar';
 import { Providers } from './providers';
+import { Metadata } from 'next';
+import { cn } from 'ui/utils';
+import { fonts } from 'ui/utils';
+import { appConfig } from '@config/app';
+import { SiteHeader } from 'ui/components/site-header';
+import { SiteFooter } from 'ui/components/site-footer';
+
+export const metadata: Metadata = {
+  title: appConfig.name,
+  description: appConfig.description,
+};
 
 interface Props {
   children: React.ReactNode;
@@ -10,18 +19,21 @@ interface Props {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html>
-      <head>
-        <title>Strumtastic</title>
-      </head>
-      <body className="bg-secondary-100 text-base dark:bg-black dark:text-primary-50">
-        <div className="grid grid-cols-12 gap-4">
-          <Navbar />
-          <Sidebar />
-          <div className="container col-span-10 col-start-3 mx-auto max-sm:col-span-12 max-sm:col-start-1">
-            <Providers>{children}</Providers>
+    <html lang="en">
+      <head />
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          fonts.sans.variable,
+        )}
+      >
+        <Providers>
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            <div className="flex-1">{children}</div>
+            <SiteFooter />
           </div>
-        </div>
+        </Providers>
       </body>
     </html>
   );

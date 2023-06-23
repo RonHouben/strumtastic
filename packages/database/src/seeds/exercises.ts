@@ -1,5 +1,7 @@
-import { db, schema } from '../index.ts';
+import * as schema from '../schemas/index.ts';
+import { db } from '../database.ts';
 import { eq } from 'drizzle-orm';
+import { getMusicXml } from './music-xml/index.ts';
 
 export async function seedExercises() {
   console.log('Seeding Exercises');
@@ -9,7 +11,7 @@ export async function seedExercises() {
       isEnabled: true,
       title: 'C Major Triads',
       key: 'C major',
-      musicXml: '' // TODO: add musicXml
+      musicXml: getMusicXml('c-major')
     }),
     schema.exercises.create.parse({
       isEnabled: false,

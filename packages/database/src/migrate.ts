@@ -1,9 +1,16 @@
-import { db } from './index.ts';
-import { migrate } from 'drizzle-orm/postgres-js/migrator';
+import { migrate as migrateVercel } from 'drizzle-orm/vercel-postgres/migrator';
+import { migrate as migrateLocal } from 'drizzle-orm/postgres-js/migrator';
+import { VercelPgDatabase } from 'drizzle-orm/vercel-postgres';
+import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import { db } from './database.ts';
 
 console.log('starting database migrations');
 
-await migrate(db, { migrationsFolder: 'drizzle' });
+if (process.env.NODE_ENV === 'production') {
+  await migrateVercel(db as VercelPgDatabase, { migrationsFolder: 'src/migrations' });
+} else {
+  await migrateLocal(db as unknown as PostgresJsDatabase, { migrationsFolder: 'src/migrations' });
+}
 
 console.log('database migrations complete');
 

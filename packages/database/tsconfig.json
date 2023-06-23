@@ -11,7 +11,7 @@
     "baseUrl": ".",
     "paths": {
       "@models/*": ["src/models/*"]
-    }
+    },
   },
   "include": ["**/*.d.ts", "src/**/*.ts"],
   "exclude": ["dist", "node_modules"],

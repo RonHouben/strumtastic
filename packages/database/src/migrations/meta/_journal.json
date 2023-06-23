@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1687524335760,
+      "tag": "0000_aromatic_colonel_america",
+      "breakpoints": true
+    }
+  ]
+}

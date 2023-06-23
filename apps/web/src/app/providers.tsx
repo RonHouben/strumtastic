@@ -1,5 +1,8 @@
+'use client';
+
 import { ReactNode } from 'react';
-import { GlobalStateProvider } from 'ui/providers/GlobalStateProvider';
+import { StateMachinesProvider } from 'ui/providers/StateMachinesProvider';
+import { ThemeProvider } from 'next-themes';
 import { Analytics } from '@vercel/analytics/react';
 
 interface Props {
@@ -9,7 +12,11 @@ interface Props {
 export function Providers({ children }: Props) {
   return (
     <>
-      <GlobalStateProvider>{children}</GlobalStateProvider>
+      <StateMachinesProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+        </ThemeProvider>
+      </StateMachinesProvider>
       <Analytics />
     </>
   );

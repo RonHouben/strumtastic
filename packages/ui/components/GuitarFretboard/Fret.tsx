@@ -1,4 +1,4 @@
-import { useClassNames } from '../../hooks/useClassNames';
+import { cn} from '../../utils';
 
 interface Props {
   className?: string;
@@ -6,11 +6,9 @@ interface Props {
 }
 
 export const Fret = ({ className, children }: Props) => {
-  const { classNames } = useClassNames();
-
   return (
     <div
-      className={classNames('my-1 flex w-12 justify-center', className || '')}
+      className={cn('my-1 flex w-12 justify-center', className ?? '')}
     >
       {children}
     </div>

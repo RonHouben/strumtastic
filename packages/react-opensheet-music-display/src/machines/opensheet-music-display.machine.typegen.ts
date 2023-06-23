@@ -5,6 +5,7 @@
         '@@xstate/typegen': true;
         internalEvents: {
           "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]": { type: "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]"; data: unknown; __tip: "See the XState TS docs to learn how to strongly type this." };
+"error.platform.opensheetMusicDisplayMachine.initializing:invocation[0]": { type: "error.platform.opensheetMusicDisplayMachine.initializing:invocation[0]"; data: unknown };
 "xstate.init": { type: "xstate.init" };
         };
         invokeSrcNameMap: {
@@ -17,7 +18,10 @@
           services: never;
         };
         eventsCausingActions: {
-          "setInitialContext": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
+          "resetContext": "reset";
+"setDarkmode": "set.theme";
+"setError": "error.platform.opensheetMusicDisplayMachine.initializing:invocation[0]";
+"setInitialContext": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
 "spawnCursorMachine": "done.invoke.opensheetMusicDisplayMachine.initializing:invocation[0]";
         };
         eventsCausingDelays: {

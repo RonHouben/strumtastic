@@ -1,11 +1,12 @@
 interface Props {
   children: React.ReactNode;
+  disabled?: boolean;
 }
 
-export const ButtonGroup = ({ children }: Props) => {
+export const ButtonGroup = ({ children, disabled }: Props) => {
   return (
-    <div className="flex gap-2" role="group">
+    <fieldset className="flex flex-wrap gap-2" role="group" disabled={disabled}>
       {children}
-    </div>
+    </fieldset>
   );
 };

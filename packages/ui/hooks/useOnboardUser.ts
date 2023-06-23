@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { GlobalStateContext } from '../providers/GlobalStateProvider';
+import { StateMachinesContext } from '../providers/StateMachinesProvider';
 import { useActor } from '@xstate/react';
 
 export function useOnboardUser() {
-  const { onboardUserService } = useContext(GlobalStateContext);
+  const { onboardUserService } = useContext(StateMachinesContext);
 
   const [state, send] = useActor(onboardUserService);
 

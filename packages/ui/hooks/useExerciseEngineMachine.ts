@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { GlobalStateContext } from '../providers/GlobalStateProvider';
+import { StateMachinesContext } from '../providers/StateMachinesProvider';
 import { useActor, useSelector, useMachine } from '@xstate/react';
 import { exerciseEngineMachine } from 'exercise-engine';
 
@@ -24,7 +24,7 @@ interface UseExerciseEngineResult {
 }
 
 export function useExerciseEngineMachine(): UseExerciseEngineResult {
-  const { exerciseEngineService } = useContext(GlobalStateContext);
+  const { exerciseEngineService } = useContext(StateMachinesContext);
   const isExercising = useSelector(exerciseEngineService, isExercisingSelector);
 
   const [state, send] = useActor(exerciseEngineService);

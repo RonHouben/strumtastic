@@ -1,18 +1,16 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { useGlobalState } from '../../hooks/useGlobalState';
-import { useMusicNotes } from '../../hooks/useMusicNotes';
-import { Hertz } from '../AudioEngine';
-import Button from '../Button';
-import { Typography } from '../Typography';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
+import { useMusicNotes } from 'ui/hooks/useMusicNotes';
+import { Button } from 'ui/components/button';
 
 interface Props {
   onStopTuner: () => void;
 }
 
 export default function GuitarTuner({ onStopTuner }: Props) {
-  const { audioEngine } = useGlobalState();
+  const { audioEngine } = useStateMachines();
   const { getMusicNoteFromFrequency } = useMusicNotes();
 
   const currentMusicNote = useMemo(() => {
@@ -34,35 +32,17 @@ export default function GuitarTuner({ onStopTuner }: Props) {
   }, [audioEngine, onStopTuner]);
 
   return (
-    <div className="m-2 flex w-60 flex-col items-center justify-center gap-2 rounded-md bg-primary-500 p-2 shadow-lg dark:bg-secondary-700">
-      <Typography
-        variant="h1"
-        className="!text-secondary-500 dark:!text-primary-700"
-      >
-        {currentMusicNote?.pc || '-'}
-      </Typography>
+    <div className="bg-primary-500 dark:bg-secondary-700 m-2 flex w-60 flex-col items-center justify-center gap-2 rounded-md p-2 shadow-lg">
+      {currentMusicNote?.pc ?? '-'}
       <DistanceFromNote />
-      <Hertz
-        className="!text-secondary-500 dark:!text-primary-700"
-        hertz={audioEngine.state.context.audioEngine?.currentFrequency || -1}
-      />
+      <div>{audioEngine.state.context.audioEngine?.currentFrequency ?? -1}</div>
       {audioEngine.state.matches('idle') && (
-        <Button
-          size="md"
-          variant="filled"
-          color="green"
-          onClick={handleStartTuner}
-        >
+        <Button color="green" onClick={handleStartTuner}>
           Start Tuning
         </Button>
       )}
       {audioEngine.state.matches('listeningToMicrophone') && (
-        <Button
-          size="md"
-          variant="filled"
-          color="red"
-          onClick={handleStopTuner}
-        >
+        <Button color="red" onClick={handleStopTuner}>
           Done
         </Button>
       )}
@@ -71,7 +51,7 @@ export default function GuitarTuner({ onStopTuner }: Props) {
 }
 
 function DistanceFromNote() {
-  const { audioEngine } = useGlobalState();
+  const { audioEngine } = useStateMachines();
   const { getMusicNoteFromFrequency } = useMusicNotes();
 
   const currentMusicNote = useMemo(() => {
@@ -138,21 +118,9 @@ function DistanceFromNote() {
 
   return (
     <div className="h-10">
-      {isLower && (
-        <Typography variant="strong" className="!text-warning-500">
-          Low
-        </Typography>
-      )}
-      {isHigher && (
-        <Typography variant="strong" className="!text-warning-700">
-          High
-        </Typography>
-      )}
-      {isPerfect && (
-        <Typography variant="strong" className="!text-green-500">
-          Perfect
-        </Typography>
-      )}
+      {isLower && <>Low</>}
+      {isHigher && <>High</>}
+      {isPerfect && <>Perfect</>}
     </div>
   );
 }

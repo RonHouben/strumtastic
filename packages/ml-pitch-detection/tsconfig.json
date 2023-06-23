@@ -5,9 +5,7 @@
     "moduleResolution": "nodenext",
     "lib": ["esnext", "DOM"],
     "target": "esnext",
-    "types": [
-      "@types/audioworklet"
-    ],
+    "types": [],
     "outDir": "dist",
     "rootDir": "src",
     "declaration": true,

@@ -1,55 +1,35 @@
 'use client';
 
 import { MusicNotes } from 'music-notes';
-import Button from '../Button';
-import { ButtonGroup } from '../ButtonGroup';
+import { Button } from 'ui/components/button';
+import { ButtonGroup } from 'ui/components/ButtonGroup';
 import { useEffect } from 'react';
-import { useGlobalState } from '../../hooks/useGlobalState';
-import {
-  useOpenSheetMusicDisplay,
-  CursorButtons
-} from 'react-opensheet-music-display';
-import { exercises } from '@server/actions';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
+import { exercises } from '@server/schemas';
+import { OpenSheetMusicDisplay } from 'ui/components/OpenSheetMusicDisplay/OpenSheetMusicDisplay';
 
 interface Props {
   exercise: exercises.IExercise;
 }
 
 export function Exercise({ exercise }: Props) {
-  const { audioEngine } = useGlobalState();
-  const { osmdMachine } = useOpenSheetMusicDisplay();
-
-  useEffect(() => {
-    console.log(osmdMachine.state.context.cursorRef.state?.context.cursor.cursorElement);
-  }, [osmdMachine]);
+  const { audioEngine, osmdMachine } = useStateMachines();
 
   const handleStartListening = () => {
     audioEngine.send('START_LISTENING_TO_MICROPHONE');
   };
 
-  useEffect(() => {
-    if (osmdMachine.state.matches('uninitialized')) {
-      // hacky workaround so OSMD doesn't get double spawned
-      setTimeout(() => {
-        osmdMachine.send({
-          type: 'initialize',
-          payload: { musicXml: exercise.musicXml }
-        });
-      }, 100);
-    }
-  }, [osmdMachine.state]);
 
   // go to next note if the note was correctly played
   useEffect(() => {
-    // console.log({ state: osmdMachine.state.value, noteToPlay: osmdMachine.state.context.cursorRef.state.context.notesUnderCursor[0]?.pc })
     if (osmdMachine.state.matches('idle')) {
       const playedNote = MusicNotes.getMusicNoteFromFrequency(
-        audioEngine.state.context.audioEngine?.currentFrequency || 0
+        audioEngine.state.context.audioEngine?.currentFrequency ?? 0
       );
 
       if (
         playedNote?.name ===
-        osmdMachine.state.context.cursorRef.state.context.notesUnderCursor[1]
+        osmdMachine.state.context.cursorMachine.state.context.notesUnderCursor[1]
           ?.name
       ) {
         osmdMachine.send('cursor.next');
@@ -61,8 +41,6 @@ export function Exercise({ exercise }: Props) {
     <>
       <ButtonGroup>
         <Button
-          size="md"
-          variant="filled"
           color="primary"
           onClick={() => {
             audioEngine.send('INITIALIZE');
@@ -70,12 +48,7 @@ export function Exercise({ exercise }: Props) {
         >
           Init
         </Button>
-        <Button
-          size="md"
-          variant="filled"
-          color="primary"
-          onClick={handleStartListening}
-        >
+        <Button color="primary" onClick={handleStartListening}>
           Start listening
         </Button>
       </ButtonGroup>
@@ -86,23 +59,23 @@ export function Exercise({ exercise }: Props) {
         Curr note:
         {
           MusicNotes.getMusicNoteFromFrequency(
-            audioEngine.state.context.audioEngine?.currentFrequency || 0
+            audioEngine.state.context.audioEngine?.currentFrequency ?? 0
           ).name
         }
       </div>
       <div>
         Freq to play:
         {
-          osmdMachine.state.context.cursorRef.state?.context
+          osmdMachine.state.context.cursorMachine.state?.context
             ?.notesUnderCursor[1]?.freq
         }
       </div>
       <div>
         Note to play:
-        {osmdMachine.state.context.cursorRef.state?.context?.notesUnderCursor[1]
+        {osmdMachine.state.context.cursorMachine.state?.context?.notesUnderCursor[1]
           ?.name || ''}
       </div>
-      <CursorButtons />
+      <OpenSheetMusicDisplay exerciseId={exercise.id} showCursorButtons />
     </>
   );
 }

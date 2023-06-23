@@ -4,33 +4,22 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
   ],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
     "allowImportingTsExtensions": true,
     "paths": {
-      "@styles/*": [
-        "src/styles/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@server/*": [
-        "src/server/*"
-      ],
-      "@client/*": [
-        "src/client/*"
-      ]
+      "@styles/*": ["src/styles/*"],
+      "@server/*": ["src/server/*"],
+      "@config/*": ["src/config/*"],
     },
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "strictNullChecks": true,
+    "strictNullChecks": true
   }
 }

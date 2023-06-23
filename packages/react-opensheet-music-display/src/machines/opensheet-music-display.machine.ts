@@ -1,22 +1,32 @@
-import { OpenSheetMusicDisplay, IOSMDOptions } from 'opensheetmusicdisplay';
+import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
 import { ActorRefFrom, assign, createMachine, spawn } from 'xstate';
 import { cursorMachine } from './cursor.machine';
+import type { IOSMDOptions } from 'opensheetmusicdisplay';
 
 type Context = {
   osmd: OpenSheetMusicDisplay;
-  options: IOSMDOptions;
-  cursorRef: ActorRefFrom<typeof cursorMachine>;
+  cursorMachine: ActorRefFrom<typeof cursorMachine>;
   error?: Error;
   musicXml: string | Document;
-  containerId: string;
 };
 
 type Services = {
-  initialize: { data: OpenSheetMusicDisplay };
+  initialize: {
+    data: { osmd: Context['osmd']; musicXml: Context['musicXml'] };
+  };
 };
 
 type Events =
-  | { type: 'initialize'; payload: { musicXml: Context['musicXml'] } }
+  | {
+      type: 'initialize';
+      payload: {
+        options: IOSMDOptions;
+        containerRef: HTMLDivElement;
+        musicXml: Context['musicXml'];
+      };
+    }
+  | { type: 'reset' }
+  | { type: 'set.theme'; payload: { theme: 'light' | 'dark' } }
   | { type: 'cursor.show' }
   | { type: 'cursor.hide' }
   | { type: 'cursor.next' }
@@ -24,7 +34,7 @@ type Events =
   | { type: 'cursor.moveToMeasure'; payload: { measureIndex: number } }
   | { type: 'cursor.data' };
 
-export const opensheetMusicDisplayMachine = createMachine(
+export const openSheetMusicDisplayMachine = createMachine(
   {
     /** @xstate-layout N4IgpgJg5mDOIC5gF8A0IB2B7CdGiwAcwNYALMMAFwFkBXWASwGMARR2QgGwEMBPGj2ZlGGMPhCEsTKoywYJAD0QBGAEzo+qtcl3IgA */
     id: 'opensheetMusicDisplayMachine',
@@ -37,14 +47,18 @@ export const opensheetMusicDisplayMachine = createMachine(
       events: {} as Events
     },
     context: {
-      osmd: {} as unknown as Context['osmd'],
-      options: {} as Context['options'],
-      cursorRef: {} as Context['cursorRef'],
+      osmd: {} as Context['osmd'],
+      cursorMachine: {} as Context['cursorMachine'],
       error: undefined,
-      containerId: '',
       musicXml: ''
     },
     initial: 'uninitialized',
+    on: {
+      reset: {
+        target: 'uninitialized',
+        actions: 'resetContext'
+      }
+    },
     states: {
       uninitialized: {
         on: {
@@ -59,7 +73,6 @@ export const opensheetMusicDisplayMachine = createMachine(
             target: 'idle'
           },
           onError: {
-            actions: assign((_ctx, event) => ({ error: event.data })),
             target: 'error'
           }
         }
@@ -67,50 +80,63 @@ export const opensheetMusicDisplayMachine = createMachine(
       idle: {
         on: {
           'cursor.show': {
-            actions: (ctx) => ctx.cursorRef.send('show')
+            actions: (ctx) => ctx.cursorMachine.send('show')
           },
           'cursor.hide': {
-            actions: (ctx) => ctx.cursorRef.send('hide')
+            actions: (ctx) => ctx.cursorMachine.send('hide')
           },
           'cursor.next': {
-            actions: (ctx) => ctx.cursorRef.send('moveToNext')
+            actions: (ctx) => ctx.cursorMachine.send('moveToNext')
           },
           'cursor.prev': {
-            actions: (ctx) => ctx.cursorRef.send('moveToPrevious')
+            actions: (ctx) => ctx.cursorMachine.send('moveToPrevious')
           },
           'cursor.moveToMeasure': {
             actions: (ctx, event) =>
-              ctx.cursorRef.send({
+              ctx.cursorMachine.send({
                 type: 'moveToMeasure',
                 payload: event.payload
               })
           },
           'cursor.data': {
-            actions: (ctx) => ctx.cursorRef.send('logData')
+            actions: (ctx) => ctx.cursorMachine.send('logData')
+          },
+          'set.theme': {
+            actions: ['setDarkmode']
           }
         }
       },
-      error: {}
+      error: {
+        entry: ['setError'],
+      }
     }
   },
   {
     services: {
-      initialize: async (ctx, event) => {
-        const osmd = new OpenSheetMusicDisplay(ctx.containerId, ctx.options);
+      initialize: async (_ctx, event) => {
+        const osmd = new OpenSheetMusicDisplay(
+          event.payload.containerRef,
+          event.payload.options
+        );
+
         await osmd.load(event.payload.musicXml);
 
         osmd.render();
 
-        // This is a work-around because TailwindCSS sets the height of all img elements to auto
-        const height = osmd.cursor.cursorElement.getAttribute('height');
-        osmd.cursor.cursorElement.style.height = `${height}px`;
-        return osmd;
+        return { osmd, musicXml: event.payload.musicXml };
       }
     },
     actions: {
-      setInitialContext: assign((_ctx, event) => ({ osmd: event.data })),
+      setInitialContext: assign((_ctx, event) => ({
+        osmd: event.data.osmd,
+        musicXml: event.data.musicXml
+      })),
+      setDarkmode: (ctx, event) => {
+        ctx.osmd.setOptions({ darkMode: event.payload.theme === 'dark' });
+        ctx.osmd.render();
+      },
       spawnCursorMachine: assign((ctx) => ({
-        cursorRef: spawn(
+        cursorMachine: spawn(
           cursorMachine.withContext({
             cursor: ctx.osmd.cursor,
             notesUnderCursor: [],
@@ -124,7 +150,18 @@ export const opensheetMusicDisplayMachine = createMachine(
             name: 'cursorMachine'
           }
         )
-      }))
+      })),
+      resetContext: assign((ctx) => ({
+        osmd: {} as Context['osmd'],
+        cursorMachine: {} as Context['cursorMachine'],
+        musicXml: '',
+        error: undefined,
+      })),
+      setError: assign({
+        error: (_ctx, event) => {
+          return event.data as Error;
+        }
+      })
     }
   }
 );
