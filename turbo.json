@@ -2,7 +2,9 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["database#migrate:push"],
+      "dependsOn": [
+        "database#migrate:push"
+      ],
       "outputs": [
         "dist/**"
       ]
@@ -29,9 +31,7 @@
       ]
     },
     "database#migrate:push": {
-      "dependsOn": [
-        "database#start"
-      ]
+      "dependsOn": []
     },
     "database#start": {},
     "web:build": {
@@ -51,6 +51,7 @@
       "cache": false,
       "persistent": true,
       "dependsOn": [
+        "database#start",
         "database#seed"
       ]
     }
