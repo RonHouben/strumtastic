@@ -2,32 +2,4 @@
   "extends": "../../apps/web/tsconfig.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
-  // "strictNullChecks": true,
-  // "extends": "tsconfig/nextjs.json",
-  // "include": [
-  //   "next-env.d.ts",
-  //   "**/*.ts",
-  //   "**/*.tsx",
-  //   "../../apps/web/src/**/*.ts"
-  // ],
-  // "exclude": [
-  //   "node_modules"
-  // ],
-  // "compilerOptions": {
-  //   "baseUrl": ".",
-  //   "paths": {
-  //     "@ui/*": [
-  //       "*"
-  //     ],
-  //     "@server/*": [
-  //       "../../apps/web/src/server/*"
-  //     ],
-  //     "@config/*": [
-  //       "../../apps/web/src/config/*"
-  //     ]
-  //   },
-  //   "plugins": [{ "name": "next" }
-  //   ],
-  //   "strictNullChecks": true,
-  // }
 }

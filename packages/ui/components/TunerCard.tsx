@@ -1,17 +1,17 @@
 'use client';
 
 import { useCallback } from 'react';
-import { cn } from '@ui/utils';
-import { useStateMachines } from '@ui/hooks/useStateMachines';
+import { cn } from 'ui/utils';
+import { useStateMachines } from 'ui/hooks/useStateMachines';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle
-} from '@ui/components/card';
-import { GuitarTuner } from '@ui/components/GuitarTuner';
-import { Icons } from '@ui/components/icons';
+} from 'ui/components/card';
+import { GuitarTuner } from 'ui/components/GuitarTuner';
+import { Icons } from 'ui/components/icons';
 
 interface Props {
   disabled?: boolean;
