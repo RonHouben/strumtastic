@@ -6,7 +6,7 @@ import type { InterpreterFrom } from 'xstate';
 import { audioEngineMachine } from 'audio-engine';
 import { onboardUserMachine } from '../machines';
 import { exerciseEngineMachine } from 'exercise-engine';
-import { openSheetMusicDisplayMachine } from 'react-opensheet-music-display';
+import { openSheetMusicDisplayMachine } from 'opensheet-music-display';
 
 export interface IStateMachinesContext {
   audioEngineService: InterpreterFrom<typeof audioEngineMachine>;
