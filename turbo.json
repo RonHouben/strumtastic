@@ -26,6 +26,7 @@
       ]
     },
     "database#seed": {
+      "cache": false,
       "dependsOn": [
         "database#migrate:push"
       ]

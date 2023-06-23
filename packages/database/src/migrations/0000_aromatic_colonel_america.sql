@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS "exercises" (
 	"key" text NOT NULL,
 	"musicXml" text NOT NULL,
 	"isEnabled" boolean NOT NULL,
-	"createdAt" date DEFAULT now() NOT NULL,
+	"createdAt" date DEFAULT now(),
 	"updatedAt" date
 );

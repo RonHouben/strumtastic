@@ -12,6 +12,7 @@
     "seed": "dotenv --e ../../.env -- ts-node --esm src/seeds/index.ts"
   },
   "dependencies": {
+    "@vercel/postgres": "^0.4.0",
     "drizzle-orm": "^0.27.0",
     "drizzle-zod": "^0.4.3",
     "postgres": "^3.3.5"

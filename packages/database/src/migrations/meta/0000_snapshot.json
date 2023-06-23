@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "b915b156-611d-4d36-a2df-bd899c601bf3",
+  "id": "d9172d69-cdb8-4b6d-9446-fbbe5e4c1a4a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "exercises": {
@@ -20,18 +20,23 @@
           "primaryKey": false,
           "notNull": true
         },
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "musicXml": {
           "name": "musicXml",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "isEnabled": {
           "name": "isEnabled",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false,
-          "default": false
+          "notNull": true
         },
         "createdAt": {
           "name": "createdAt",

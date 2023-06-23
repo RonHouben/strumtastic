@@ -1,8 +1,12 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
+import { drizzle as drizzleVercel } from 'drizzle-orm/vercel-postgres';
+import { drizzle as drizzleLocal } from 'drizzle-orm/postgres-js';
+import { sql } from '@vercel/postgres';
 import postgres from 'postgres';
-import "dotenv/config";
+import 'dotenv/config';
 
-const client = postgres(process.env.POSTGRES_URL as string);
-const db = drizzle(client);
+const db =
+  process.env.NODE_ENV === 'production'
+    ? drizzleVercel(sql)
+    : drizzleLocal(postgres(process.env.POSTGRES_URL!));
 
 export { db };
