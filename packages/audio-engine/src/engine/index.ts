@@ -228,7 +228,11 @@ export class AudioEngine {
     // on initial load of the app
     const { default: MLPitchDetector } = await import('ml-pitch-detection');
 
-    this.pitchDetector = new MLPitchDetector(this.audioContext, this.mediaStream, mlModelPath);
+    this.pitchDetector = new MLPitchDetector(
+      this.audioContext,
+      this.mediaStream,
+      mlModelPath
+    );
 
     await this.pitchDetector.loadModel();
 
@@ -236,6 +240,6 @@ export class AudioEngine {
   }
 
   public setUseAIPitchDetection(useAI: boolean): void {
-    this._useAIPitchDetection = useAI; 
+    this._useAIPitchDetection = useAI;
   }
 }

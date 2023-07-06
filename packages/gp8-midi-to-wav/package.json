@@ -1,0 +1,16 @@
+{
+  "name": "chord-extractor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "gen:meta": "ts-node src/generate-metadata.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "danfojs-node": "^1.1.2",
+    "ts-node": "^10.9.1"
+  }
+}

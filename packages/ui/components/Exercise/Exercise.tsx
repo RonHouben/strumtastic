@@ -15,11 +15,6 @@ interface Props {
 export function Exercise({ exercise }: Props) {
   const { audioEngine, osmdMachine } = useStateMachines();
 
-  const handleStartListening = () => {
-    audioEngine.send('START_LISTENING_TO_MICROPHONE');
-  };
-
-
   // go to next note if the note was correctly played
   useEffect(() => {
     if (osmdMachine.state.matches('idle')) {
@@ -48,8 +43,11 @@ export function Exercise({ exercise }: Props) {
         >
           Init
         </Button>
-        <Button color="primary" onClick={handleStartListening}>
+        <Button color="primary" onClick={() => audioEngine.send('START_LISTENING_TO_MICROPHONE')}>
           Start listening
+        </Button>
+        <Button color="primary" onClick={() => audioEngine.send('STOP_LISTENING_TO_MICROPHONE')}>
+          Stop listening
         </Button>
       </ButtonGroup>
       <div>
@@ -62,6 +60,10 @@ export function Exercise({ exercise }: Props) {
             audioEngine.state.context.audioEngine?.currentFrequency ?? 0
           ).name
         }
+      </div>
+      <div>
+        Curr chord:
+        {/* <span>{audioEngine.state.context.audioEngine?.chord?.rootNote}</span> */}
       </div>
       <div>
         Freq to play:
