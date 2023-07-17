@@ -28,7 +28,7 @@
     "@vercel/analytics": "^1.0.1",
     "audio-engine": "*",
     "class-variance-authority": "^0.6.0",
-    "clsx": "1.2.1",
+    "clsx": "2.0.0",
     "concurrently": "8.2.0",
     "database": "*",
     "drizzle-zod": "^0.4.3",
