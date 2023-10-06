@@ -39,7 +39,7 @@
     "database": "*",
     "exercise-engine": "*",
     "formik": "^2.4.2",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.31",
     "opensheet-music-display": "*",
     "@tailwindcss/typography": "^0.5.9"
   }
